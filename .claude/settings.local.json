@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm audit:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(node:*)",
+      "Bash(npx next build:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm why:*)",
+      "Bash(pgrep:*)",
+      "Bash(git log:*)",
+      "Bash(curl:*)",
+      "Bash(kill:*)",
+      "Bash(lsof:*)",
+      "WebFetch(domain:community.vercel.com)",
+      "Bash(python3:*)",
+      "mcp__Sanity__add_cors_origin",
+      "Bash(npx swc:*)",
+      "Bash(GIT_TRACE=1 git status:*)",
+      "Bash(git config:*)",
+      "Bash(pkill:*)",
+      "Bash(git -C /Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio status)",
+      "Bash(timeout 5 git:*)",
+      "Bash(timeout 10 git:*)",
+      "Bash(timeout 30 git update-index:*)",
+      "Bash(echo:*)",
+      "Bash(timeout 60 git:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

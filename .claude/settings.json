@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "additionalDirectories": [
+      "/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio/.next"
+    ],
+    "allow": [
+      "Bash(npx tsc:*)"
+    ]
+  }
+}

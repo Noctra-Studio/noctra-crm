@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="light_logo" data-name="light logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1500 1500">
+  <defs>
+    <radialGradient id="radial-gradient" cx="750" cy="750" fx="750" fy="750" r="559.95" gradientTransform="translate(41.56 41.56) scale(.94)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4e576a"/>
+      <stop offset=".5" stop-color="#212631"/>
+      <stop offset="1" stop-color="#101417"/>
+    </radialGradient>
+  </defs>
+  <path d="M1055.13,375H444.87c-38.59,0-69.87,31.28-69.87,69.87v610.25c0,38.59,31.28,69.87,69.87,69.87h610.25c38.59,0,69.87-31.28,69.87-69.87V444.87c0-38.59-31.28-69.87-69.87-69.87ZM584.37,849.42c-78.11-120.74-43.56-281.95,77.18-360.06l282.88,437.24c-120.74,78.11-281.95,43.56-360.06-77.18Z" fill="url(#radial-gradient)"/>
+</svg>

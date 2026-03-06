@@ -1,0 +1,329 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-satoshi), var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-neutral-500: #888888;
+  --color-gray-500: #888888;
+  --color-neutral-600: #a3a3a3;
+  --color-gray-600: #a3a3a3;
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #0a0a0a; /* Deep Obsidian */
+  --foreground: #ededed; /* Soft White */
+  --card: #171717;
+  --card-foreground: #ffffff;
+  --popover: #171717;
+  --popover-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #0a0a0a;
+  --secondary: #262626;
+  --secondary-foreground: #ffffff;
+  --muted: #262626;
+  --muted-foreground: #888888; /* Increased from #666666 for AA compliance on dark bg */
+  --accent: #262626;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #262626;
+  --input: #262626;
+  --ring: #ffffff;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: #0a0a0a;
+  --sidebar-foreground: #ededed;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: #262626;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #262626;
+  --sidebar-ring: #ffffff;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    height: 100%;
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground select-none;
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Ocultar scrollbar nativo en el dashboard manteniendo funcionalidad */
+  .forge-scroll::-webkit-scrollbar,
+  .forge-scroll *::-webkit-scrollbar {
+    display: none;
+  }
+  .forge-scroll,
+  .forge-scroll * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Re-enable selection for content */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply select-text tracking-wide;
+  }
+
+  p,
+  article,
+  blockquote,
+  input,
+  textarea {
+    @apply select-text;
+  }
+  /* Custom Scrollbar - "Noctra Glass" */
+  ::-webkit-scrollbar {
+    width: 6px; /* Slim width */
+    height: 6px; /* Slim height for horizontal */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent; /* Totally transparent track */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2); /* Glassy White */
+    border-radius: 99px;
+    backdrop-filter: blur(4px);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4); /* Brighter on hover */
+  }
+
+  /* Firefox Support */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+
+  /* Custom Animations */
+  @keyframes pulse-slow {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-4px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(4px);
+    }
+  }
+
+  .animate-shake {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  /* React Phone Number Input Custom Styles */
+  .phone-input-container {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #262626;
+    background: transparent;
+    transition: all 0.5s ease;
+    width: 100%;
+  }
+
+  .phone-input-container:focus-within {
+    border-color: #10b981; /* emerald-500 */
+    padding-left: 1rem;
+  }
+
+  .phone-input-container.valid {
+    border-color: #10b981;
+  }
+
+  .phone-input-container.invalid {
+    border-color: #ef4444; /* red-500 */
+  }
+
+  .PhoneInputCountry {
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  .PhoneInputCountrySelect {
+    background: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+  }
+
+  /* Style the actual dropdown options if possible, though native select is limited */
+  .PhoneInputCountrySelect option {
+    background: #171717; /* card background */
+    color: white;
+  }
+
+  .PhoneInputInput {
+    background: transparent;
+    color: white;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 1.25rem; /* text-xl */
+    line-height: 1.75rem;
+    padding: 1rem 0; /* py-4 */
+    font-family: var(--font-geist-mono);
+  }
+
+  .PhoneInputInput::placeholder {
+    color: #404040; /* neutral-700 */
+  }
+
+  .PhoneInputCountryIcon {
+    width: 24px;
+    height: 18px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+}
+
+/* Fix 4.3: Support users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Forge Page Transitions */
+@keyframes forge-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+    filter: blur(4px);
+  }
+}
+
+@keyframes forge-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+.forge-page-enter {
+  animation: forge-enter 220ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forge-page-enter {
+    animation: none;
+  }
+}
+
+/* Apply to all scroll containers in /forge */
+.forge-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+/* Forge Optimized Scroll */
+.forge-main {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+}
+
+/* Ensure no global overflow-hidden blocks scroll */
+body {
+  overflow-x: hidden;
+}

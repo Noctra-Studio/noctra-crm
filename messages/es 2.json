@@ -1,0 +1,4151 @@
+{
+  "WhyLocal": {
+    "title": "¿Por qué empresas en México y el mundo eligen Noctra?",
+    "items": [
+      {
+        "title": "Acceso directo al fundador",
+        "description": "Sin ejecutivos de cuenta ni burocracia. Hablas directo con quien construye tu sitio. Decisiones en horas, no semanas."
+      },
+      {
+        "title": "Código moderno sin mantenimiento",
+        "description": "No usamos WordPress. Construimos con Next.js para que tu sitio sea ultra rápido y no necesite pagos de mantenimiento costosos."
+      },
+      {
+        "title": "Garantía de resultados reales",
+        "description": "Si no cumplimos con los indicadores de rendimiento acordados, te reembolsamos una parte proporcional. Riesgo compartido."
+      },
+      {
+        "title": "Tu tiempo es tu activo más valioso",
+        "description": "No estudiaste años para convertirte en marketero o administrador de servidores. Una llamada mensual de 30 minutos para revisar métricas y mejoras continuas. El resto lo hacemos nosotros."
+      }
+    ]
+  },
+  "HomePage": {
+    "hero": {
+      "title": "Sitios web que generan clientes reales, no solo visitas",
+      "subtitle": "Desarrollo web estratégico para negocios en México e internacionales que necesitan resultados medibles, no solo diseño bonito",
+      "trust_badge": {
+        "price": "Desde $20,000 MXN + IVA",
+        "guarantee": "Garantía de resultados",
+        "founder": "Fundador accesible"
+      }
+    },
+    "credibility": "Liderado por talento de ingeniería con más de 7 años enviando sistemas de producción para marcas de gran escala.",
+    "intro_text": "No solo construimos sitios web. Arquitectamos sistemas digitales estratégicos que empoderan a empresas visionarias para crecer con resultados medibles.",
+    "manifesto": {
+      "text": "Somos un [estudio de desarrollo web estratégico] dedicado a entregar [resultados medibles]. Con experiencia senior en ingeniería, construimos [sistemas de alto rendimiento] que empoderan a [negocios en crecimiento] para escalar sin fricción."
+    },
+    "services_section": {
+      "label": "// LO QUE CONSTRUIMOS",
+      "title": "Soluciones que generan resultados reales",
+      "subtitle": "Cada servicio está diseñado para generar ROI medible para tu negocio."
+    },
+    "cta_start": "Agendar consulta gratuita",
+    "cta_services": "Explorar Servicios",
+    "cta_work": "Ver proceso de trabajo"
+  },
+  "AIAutomationShowcase": {
+    "pre_title": "DIFERENCIADOR CLAVE",
+    "title": "Automatización web que recupera tu tiempo",
+    "subtitle": "No solo construimos sitios bonitos. Construimos sistemas que trabajan para ti 24/7.",
+    "intro": "Mientras otras agencias te venden 'presencia digital,' nosotros automatizamos las tareas que te roban tiempo de tu negocio principal.",
+    "problem_label": "El reto típico",
+    "solution_label": "Nuestra solución",
+    "result_label": "Resultado esperado",
+    "use_cases": [
+      {
+        "industry": "Consultorios Médicos y Clínicas",
+        "icon": "medical",
+        "problem": "Alta tasa de inasistencias por citas olvidadas",
+        "solution": "Sistema automatizado de confirmaciones vía WhatsApp + SMS",
+        "result": "Reducción significativa en no-shows. Disponible para consultorios médicos y dentales."
+      },
+      {
+        "industry": "Despachos Legales",
+        "icon": "legal",
+        "problem": "Tiempo perdido en consultas que no califican como clientes ideales",
+        "solution": "Intake automatizado 24/7 con cuestionario de precalificación",
+        "result": "Solo hablas con prospectos que cumplen tu perfil ideal. Disponible para despachos especializados."
+      },
+      {
+        "industry": "Tiendas en Línea",
+        "icon": "ecommerce",
+        "problem": "75% de carritos abandonados = ventas perdidas",
+        "solution": "Secuencias automatizadas de recuperación + recordatorios personalizados",
+        "result": "Recuperación de carritos sin intervención manual. Disponible para tiendas en línea."
+      },
+      {
+        "industry": "Despachos Contables",
+        "icon": "finance",
+        "problem": "Clientes envían documentación incompleta repetidamente",
+        "solution": "Portal de clientes con checklist inteligente + recordatorios automáticos",
+        "result": "Menos tiempo en admin = más capacidad para clientes nuevos. Disponible para despachos contables."
+      }
+    ],
+    "cta_question": "¿Qué podemos automatizar en tu negocio?",
+    "cta": "Hablemos en una consulta gratuita",
+    "see_more": "Ver más ejemplos de automatización",
+    "see_less": "Ver menos ejemplos",
+    "closing_statement": "Automatización disponible desde $4,000 USD. No vendemos sitios. Vendemos enfoque en lo que importa."
+  },
+  "Metadata": {
+    "home": {
+      "title": "Desarrollo Web Estratégico en Querétaro | Noctra Studio",
+      "description": "Sitios web que generan ROI medible para clientes en México, EE. UU. y el mundo. Desde $30k MXN + IVA. Garantía de resultados. Habla directo con el fundador.",
+      "keywords": "desarrollo web querétaro, sitio web profesional, ecommerce, estrategia digital, resultados medibles, SEO",
+      "og_title": "Noctra Studio - Sitios web que se pagan solos",
+      "og_description": "Desarrollo web estratégico para negocios que necesitan resultados medibles. Desde $30k MXN + IVA.",
+      "og_image_alt": "Noctra Studio - Desarrollo Web Estratégico",
+      "twitter_title": "Noctra Studio - Desarrollo Web Estratégico en Querétaro",
+      "twitter_description": "Sitios web que generan resultados reales para negocios en Querétaro."
+    },
+    "about": {
+      "title": "Sobre Nosotros | Noctra Studio",
+      "description": "Conoce al equipo detrás de Noctra Studio. Construimos sitios web y sistemas digitales que ayudan a negocios a crecer con resultados medibles.",
+      "keywords": "sobre noctra studio, equipo desarrollo web, estudio digital querétaro, sitios web para negocios",
+      "og_title": "Sobre Noctra Studio — Quiénes Somos",
+      "og_description": "Un estudio pequeño que entrega grandes resultados a través de desarrollo web de nivel senior.",
+      "og_image_alt": "Equipo y Filosofía de Noctra Studio",
+      "twitter_title": "Sobre Noctra Studio",
+      "twitter_description": "Desarrollo web de nivel senior. Resultados reales."
+    },
+    "services": {
+      "title": "Nuestros Servicios | Noctra Studio",
+      "description": "Sitios web profesionales, e-commerce, sistemas a la medida y SEO diseñados para hacer crecer tu negocio. Del concepto al lanzamiento.",
+      "keywords": "servicios desarrollo web, desarrollo ecommerce, aplicaciones web personalizadas, optimización SEO, soluciones digitales querétaro",
+      "og_title": "Servicios de Noctra Studio — Soluciones Que Hacen Crecer Tu Negocio",
+      "og_description": "Sitios web, e-commerce, sistemas a la medida y SEO. Del concepto al lanzamiento.",
+      "og_image_alt": "Descripción de Servicios de Noctra Studio",
+      "twitter_title": "Nuestros Servicios — Noctra Studio",
+      "twitter_description": "Sitios web, e-commerce, sistemas a la medida y SEO."
+    },
+    "contact": {
+      "title": "Contáctanos | Noctra Studio",
+      "description": "¿Listo para empezar tu proyecto? Ponte en contacto con Noctra Studio para una consulta gratuita. Respondemos en menos de 24 horas.",
+      "keywords": "contactar noctra studio, cotización desarrollo web, consulta gratuita, consulta proyecto",
+      "og_title": "Contacta a Noctra Studio — Hablemos de Tu Proyecto",
+      "og_description": "Consulta gratuita. Respondemos en 24 horas. Construyamos algo increíble.",
+      "og_image_alt": "Contacta a Noctra Studio",
+      "twitter_title": "Contacta a Noctra Studio",
+      "twitter_description": "Consulta gratuita. Respuesta en 24 horas. Construyamos algo increíble."
+    },
+    "blog": {
+      "title": "Blog | Noctra Studio",
+      "description": "Tips e información práctica sobre desarrollo web, SEO y crecimiento digital para negocios.",
+      "keywords": "blog desarrollo web, tips SEO, consejos sitio web negocio, crecimiento digital",
+      "og_title": "Blog de Noctra Studio",
+      "og_description": "Información práctica sobre desarrollo web y crecimiento digital.",
+      "og_image_alt": "Blog de Noctra Studio",
+      "twitter_title": "Blog de Noctra Studio",
+      "twitter_description": "Tips de desarrollo web e insights de crecimiento digital."
+    },
+    "careers": {
+      "title": "Únete a Nuestra Red | Noctra Studio",
+      "description": "Únete a la red curada de especialistas freelance de Noctra Studio. Colaboración por proyecto, compensación justa, clientes de calidad.",
+      "keywords": "red de talentos, diseñador de marca, copywriter, diseñador ui ux, colaboración por proyecto",
+      "og_title": "Únete a la Red de Talentos de Noctra Studio",
+      "og_description": "Trabaja en proyectos web de alta calidad con compensación justa y términos claros.",
+      "og_image_alt": "Únete a Nuestra Red de Freelancers",
+      "twitter_title": "Únete a Nuestra Red — Noctra Studio",
+      "twitter_description": "Colaboración por proyecto para freelancers senior."
+    },
+    "work": {
+      "title": "Nuestro Trabajo | Noctra Studio",
+      "description": "Mira proyectos reales y casos de estudio de Noctra Studio. Desarrollo web estratégico con resultados medibles.",
+      "keywords": "portafolio desarrollo web, casos de estudio, trabajo noctra studio, proyectos web",
+      "og_title": "Nuestro Trabajo — Noctra Studio",
+      "og_description": "Proyectos reales con resultados medibles para negocios en México y el extranjero.",
+      "og_image_alt": "Portafolio de Noctra Studio",
+      "twitter_title": "Nuestro Trabajo — Noctra Studio",
+      "twitter_description": "Casos de estudio y resultados de proyectos de Noctra Studio."
+    },
+    "guarantee": {
+      "title": "Nuestra Garantía | Noctra Studio",
+      "description": "Garantía de resultados: si no cumplimos los KPIs acordados, te reembolsamos proporcionalmente. Riesgo compartido.",
+      "keywords": "garantía de resultados, garantía desarrollo web, rendimiento garantizado, noctra studio",
+      "og_title": "Garantía de Resultados — Noctra Studio",
+      "og_description": "Si no cumplimos tus KPIs, reembolso proporcional. Riesgo compartido.",
+      "og_image_alt": "Garantía de Resultados de Noctra Studio",
+      "twitter_title": "Nuestra Garantía — Noctra Studio",
+      "twitter_description": "Riesgo compartido: reembolso proporcional si no cumplimos KPIs."
+    },
+    "technology": {
+      "title": "Nuestra Tecnología | Noctra Studio",
+      "description": "Por qué usamos Next.js en vez de WordPress. Tecnología moderna explicada en lenguaje simple para dueños de negocios.",
+      "keywords": "nextjs vs wordpress, tecnología web moderna, desarrollo web tecnología, sitios web rápidos",
+      "og_title": "Tecnología Explicada — Noctra Studio",
+      "og_description": "Tecnología moderna explicada simplemente. Por qué Next.js significa más rápido, más económico, mejor.",
+      "og_image_alt": "Stack Tecnológico de Noctra Studio",
+      "twitter_title": "Nuestra Tecnología — Noctra Studio",
+      "twitter_description": "Por qué tecnología moderna significa mejores resultados para tu negocio."
+    },
+    "custom-pricing": {
+      "title": "Precios Personalizados | Noctra Studio",
+      "description": "Obtén una cotización personalizada para tu proyecto web. Precios transparentes según tus necesidades.",
+      "keywords": "precios desarrollo web, cotización sitio web, presupuesto proyecto, precios noctra studio",
+      "og_title": "Precios Personalizados — Noctra Studio",
+      "og_description": "Precios transparentes para tu proyecto. Sin costos ocultos.",
+      "og_image_alt": "Precios Personalizados de Noctra Studio",
+      "twitter_title": "Precios Personalizados — Noctra Studio",
+      "twitter_description": "Cotización transparente para tu proyecto web."
+    },
+    "first-clients": {
+      "title": "Oferta Primeros Clientes | Noctra Studio",
+      "description": "Precios especiales para nuestros primeros clientes. Desarrollo web premium a tarifas de fundación.",
+      "keywords": "oferta desarrollo web, cliente fundador, precio especial, tarifa de lanzamiento",
+      "og_title": "Oferta Primeros Clientes — Noctra Studio",
+      "og_description": "Desarrollo web premium a tarifas de fundación. Disponibilidad limitada.",
+      "og_image_alt": "Oferta Primeros Clientes de Noctra Studio",
+      "twitter_title": "Oferta Primeros Clientes — Noctra Studio",
+      "twitter_description": "Tarifas especiales de fundación para desarrollo web premium."
+    },
+    "services-professional-websites": {
+      "title": "Sitios Web Profesionales | Noctra Studio",
+      "description": "Sitios web profesionales de alto rendimiento que convierten visitantes en clientes. Construidos con Next.js.",
+      "keywords": "sitio web profesional, página web empresarial, desarrollo web, sitio web rápido",
+      "og_title": "Sitios Web Profesionales — Noctra Studio",
+      "og_description": "Sitios que convierten visitantes en clientes. Rápidos, optimizados para SEO.",
+      "og_image_alt": "Sitios Web Profesionales de Noctra Studio",
+      "twitter_title": "Sitios Web Profesionales — Noctra Studio",
+      "twitter_description": "Sitios de alto rendimiento que convierten visitantes en clientes."
+    },
+    "services-ecommerce": {
+      "title": "Desarrollo E-commerce | Noctra Studio",
+      "description": "Tiendas en línea que convierten visitas en ventas. Del catálogo al checkout, optimizado para conversión.",
+      "keywords": "desarrollo ecommerce, tienda en línea, sitio web ecommerce, carrito de compras",
+      "og_title": "Desarrollo E-commerce — Noctra Studio",
+      "og_description": "De visita a venta en 3 clics. E-commerce construido para conversión.",
+      "og_image_alt": "Desarrollo E-commerce de Noctra Studio",
+      "twitter_title": "Desarrollo E-commerce — Noctra Studio",
+      "twitter_description": "Tiendas en línea optimizadas para conversión y ventas."
+    },
+    "services-custom-systems": {
+      "title": "Sistemas Web a la Medida | Noctra Studio",
+      "description": "Aplicaciones web personalizadas, CRM y automatización de procesos. Recupera 15+ horas semanales.",
+      "keywords": "aplicación web personalizada, desarrollo CRM, automatización de procesos, sistemas empresariales",
+      "og_title": "Sistemas a la Medida — Noctra Studio",
+      "og_description": "Automatiza lo que te roba tiempo. Sistemas que recuperan 15+ horas semanales.",
+      "og_image_alt": "Sistemas a la Medida de Noctra Studio",
+      "twitter_title": "Sistemas a la Medida — Noctra Studio",
+      "twitter_description": "Aplicaciones y automatización para eficiencia empresarial."
+    },
+    "services-optimization": {
+      "title": "Optimización y SEO | Noctra Studio",
+      "description": "Optimización de velocidad, SEO técnico y monitoreo de rendimiento. Haz tu sitio más rápido y visible.",
+      "keywords": "optimización web, servicios SEO, optimización de velocidad, SEO técnico",
+      "og_title": "Optimización y SEO — Noctra Studio",
+      "og_description": "Haz tu sitio más rápido y visible. SEO técnico y optimización de rendimiento.",
+      "og_image_alt": "Servicios de Optimización de Noctra Studio",
+      "twitter_title": "Optimización y SEO — Noctra Studio",
+      "twitter_description": "Optimización de velocidad y SEO para mejor visibilidad."
+    },
+    "services-landing-page": {
+      "title": "Desarrollo de Landing Pages | Noctra Studio",
+      "description": "Landing pages de alta conversión diseñadas para capturar leads. Optimizadas y probadas para resultados.",
+      "keywords": "desarrollo landing page, página de captura, optimización de conversión, diseño landing page",
+      "og_title": "Landing Pages — Noctra Studio",
+      "og_description": "Landing pages de alta conversión que capturan leads y generan acción.",
+      "og_image_alt": "Landing Pages de Noctra Studio",
+      "twitter_title": "Landing Pages — Noctra Studio",
+      "twitter_description": "Landing pages diseñadas para máxima conversión."
+    },
+    "privacy": {
+      "title": "Política de Privacidad | Noctra Studio",
+      "description": "Política de privacidad de Noctra Studio. Conoce cómo recopilamos, usamos y protegemos tu información.",
+      "keywords": "política de privacidad, protección de datos, privacidad noctra studio",
+      "og_title": "Política de Privacidad — Noctra Studio",
+      "og_description": "Cómo protegemos tu información personal.",
+      "og_image_alt": "Política de Privacidad de Noctra Studio",
+      "twitter_title": "Política de Privacidad — Noctra Studio",
+      "twitter_description": "Nuestro compromiso con la protección de tus datos."
+    },
+    "terms": {
+      "title": "Términos y Condiciones | Noctra Studio",
+      "description": "Términos y condiciones de los servicios de Noctra Studio. Términos claros para relaciones transparentes.",
+      "keywords": "términos y condiciones, acuerdo de servicio, términos noctra studio",
+      "og_title": "Términos y Condiciones — Noctra Studio",
+      "og_description": "Términos claros para relaciones de negocio transparentes.",
+      "og_image_alt": "Términos y Condiciones de Noctra Studio",
+      "twitter_title": "Términos y Condiciones — Noctra Studio",
+      "twitter_description": "Términos de servicio para clientes de Noctra Studio."
+    }
+  },
+  "Navigation": {
+    "index": "Inicio",
+    "studio": "Nosotros",
+    "capabilities": "Servicios",
+    "deployments": "Nuestro Trabajo",
+    "initiate": "Contacto",
+    "system_capabilities": "Nuestros Servicios",
+    "all_systems_operational": "Todos los Sistemas Operativos",
+    "menu_open": "Menú",
+    "menu_close": "Cerrar",
+    "book_strategy_call": "Consulta Gratuita",
+    "careers": "Únete a la Red",
+    "location": "Querétaro, MX",
+    "tags": {
+      "cloud": "Hosting Cloud",
+      "ai": "IA y Automatización",
+      "devops": "Seguridad y Rendimiento",
+      "headless": "Tecnología Moderna"
+    }
+  },
+  "AboutPage": {
+    "hero": {
+      "title": "Por qué Noctra Studio es diferente",
+      "subtitle": "Brutal honestidad en un mundo de agencias que prometen demasiado y entregan poco."
+    },
+    "history": {
+      "title": "La historia real",
+      "intro": "Soy Manu, fundador de Noctra Studio. Arranqué esta agencia porque vi demasiados negocios locales pagando $80k-$150k por sitios WordPress que terminan lentos, desactualizados, y con dependencia total de la agencia que los construyó.",
+      "approach_title": "Mi enfoque es diferente:",
+      "items": [
+        {
+          "title": "Código moderno que es tuyo desde día 1",
+          "desc": "No uso WordPress. Uso Next.js porque carga 4x más rápido, no depende de plugins que se rompen, y no te deja atrapado con costos de mantenimiento anuales.",
+          "icon": "code"
+        },
+        {
+          "title": "Acceso directo sin intermediarios",
+          "desc": "Hablas conmigo, quien escribe el código. No con un 'account manager' que tiene que consultar con el equipo técnico. Decisiones en horas, no semanas.",
+          "icon": "phone"
+        },
+        {
+          "title": "Precio transparente que conoces antes de empezar",
+          "desc": "Aquí sabes el precio exacto en la propuesta. Cero costos ocultos ni facturas con sorpresas.",
+          "icon": "dollar"
+        },
+        {
+          "title": "Garantía de resultados medibles",
+          "desc": "Establecemos KPIs claros antes de empezar. Si no los cumplimos en 60 días, hay reembolso proporcional. Esto está en el contrato.",
+          "icon": "chart"
+        }
+      ]
+    },
+    "team": {
+      "title": "Cómo trabajo",
+      "intro": "Trabajo con un equipo curado de especialistas freelance que traigo según tu proyecto necesite:",
+      "items": [
+        {
+          "title": "Diseño UI/UX",
+          "desc": "Para proyectos que requieren un diseño custom y único."
+        },
+        {
+          "title": "Copywriting estratégico",
+          "desc": "Para sitios que necesitan vender con las palabras correctas."
+        },
+        {
+          "title": "Fotografía profesional",
+          "desc": "Para negocios que necesitan destacar visualmente."
+        },
+        {
+          "title": "Branding",
+          "desc": "Para empresas que necesitan identidad desde cero."
+        }
+      ],
+      "footer": "Tú pagas por el trabajo específico que tu proyecto necesita. No pagas por mantener un equipo de 15 personas en nómina."
+    },
+    "tech": {
+      "title": "La tecnología que uso (y por qué debería importarte)",
+      "items": [
+        {
+          "label": "Next.js + TypeScript",
+          "reason": "Carga en <2 segundos vs 5-8 segundos de WordPress. Google prioriza sitios rápidos."
+        },
+        {
+          "label": "Vercel + Cloudflare",
+          "reason": "Tu sitio está en la red más rápida del mundo. No se cae, no se pone lento."
+        },
+        {
+          "label": "Plausible + Search Console",
+          "reason": "Entiendes de dónde vienen tus visitas y qué convierte. 100% privado."
+        },
+        {
+          "label": "Supabase + PostgreSQL",
+          "reason": "Base de datos profesional para sistemas custom y seguridad total de datos."
+        }
+      ],
+      "summary_labels": [
+        "Es moderna (va a durar años, no meses)",
+        "Es rápida (Google la prioriza)",
+        "Es tuya (no dependes de mí para moverla)"
+      ]
+    },
+    "trust": {
+      "title": "Por qué confiar en una agencia nueva",
+      "subtitle": "Esta es la pregunta que todos tienen pero nadie hace. La respondo directamente:",
+      "highlight": "Sí, Noctra Studio es nueva. Aquí está por qué eso es ventaja para ti:",
+      "items": [
+        {
+          "title": "Acceso al fundador, no a staff junior",
+          "desc": "En agencias establecidas, tu proyecto lo ejecuta un junior mientras hablas con un account manager. Aquí, hablas con quien tiene 10+ años de experiencia técnica directamente."
+        },
+        {
+          "title": "Tecnología de punta, no legacy systems",
+          "desc": "Agencias grandes tienen clientes en plataformas viejas que deben mantener. Nosotros construimos todo en stack moderno desde cero: Next.js, no WordPress."
+        },
+        {
+          "title": "Pricing competitivo mientras construyo portfolio",
+          "desc": "Soy transparente: estoy construyendo casos de estudio. Tú obtienes mejor precio que agencias establecidas, yo obtengo un caso real para mostrar. Ambos ganamos."
+        },
+        {
+          "title": "Garantía de resultados por escrito",
+          "desc": "Porque estoy construyendo reputación, ofrezco garantía de KPIs medibles o reembolso proporcional. Agencias establecidas no hacen esto — no lo necesitan."
+        },
+        {
+          "title": "Sin vendor lock-in",
+          "desc": "Tu código es tuyo desde día 1. Puedes llevarlo a donde quieras. Documentación completa incluida. Las agencias grandes te amarran con dependencias."
+        }
+      ],
+      "cta_button": "¿Listo para un proyecto sin intermediarios?",
+      "cta_footer": "Respuesta en <24 horas · Sin compromiso · Hablas directo con Manu"
+    },
+    "cta": {
+      "title": "¿Listo para un proyecto sin intermediarios ni sorpresas?",
+      "button": "Agendar mi consulta gratuita",
+      "footer": "Respuesta en <24 horas · Sin compromiso · Hablas directo con Manu"
+    }
+  },
+  "Footer": {
+    "cta": {
+      "title": "¿Listo para empezar tu proyecto?",
+      "subtitle": "Agenda una consulta gratuita. Sin compromiso, sin ventas agresivas.",
+      "button_primary": "Consulta Gratuita",
+      "button_secondary": "Ver Nuestro Trabajo"
+    },
+    "studio_label": "Noctra Studio",
+    "brand_tagline": "Desarrollo Web y Soluciones Digitales",
+    "sections": {
+      "company": "Empresa",
+      "services": "Servicios",
+      "resources": "Recursos",
+      "legal": "Legal",
+      "contact": "Contacto"
+    },
+    "links": {
+      "home": "Inicio",
+      "blog": "Blog",
+      "about": "Nosotros",
+      "work": "Nuestro Trabajo",
+      "network": "Únete a la Red",
+      "contact": "Contacto",
+      "websites": "Sitios Web Profesionales",
+      "ecommerce": "E-commerce",
+      "systems": "Sistemas a la Medida",
+      "branding": "Identidad Visual y Diseño",
+      "seo": "SEO y Crecimiento",
+      "guarantee": "Nuestra Garantía",
+      "technology": "Nuestra Tecnología",
+      "consultation": "Consulta Gratuita",
+      "roi_calculator": "Calculadora de ROI"
+    },
+    "copyright": "© {year} Noctra Studio · Todos los derechos reservados",
+    "status": {
+      "label": "Sistemas operativos",
+      "uptime": "99.9% uptime"
+    },
+    "location": "Querétaro, México · Sirviendo clientes en todo México",
+    "made_with": "Hecho con ☕ en Querétaro, México",
+    "terms_of_service": "Términos de Servicio",
+    "privacy_policy": "Política de Privacidad",
+    "cookie_policy": "Política de Cookies",
+    "social": {
+      "instagram": "Instagram",
+      "twitter": "X (Twitter)",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    }
+  },
+  "WhyDifferent": {
+    "title": "Por qué somos diferentes",
+    "subtitle": "Lo que nos hace únicos en un mercado lleno de agencias.",
+    "items": [
+      {
+        "title": "Fundador de ingeniería accesible",
+        "benefit": "No hablas con project managers junior. Resuelves directamente con el arquitecto de tu sistema.",
+        "proof": "Línea directa con CEO y Lead Engineer"
+      },
+      {
+        "title": "Transparencia en alta escala",
+        "benefit": "Usamos el mismo stack tecnológico que Airbnb y Netflix. El rendimiento no es opción, es nuestro estándar.",
+        "proof": "Next.js 15, Vercel y Tailwind 4"
+      },
+      {
+        "title": "Resultados medibles o te devolvemos tu dinero",
+        "benefit": "Si no alcanzamos los KPIs acordados, te reembolsamos. Compartimos el riesgo para asegurar tu crecimiento.",
+        "proof": "Garantía de rendimiento por contrato"
+      },
+      {
+        "title": "Código limpio, cero legado",
+        "benefit": "Sin builders ni plugins pesados. Código puro escrito a mano que se mantiene rápido por años.",
+        "proof": "100/100 Lighthouse Performance"
+      }
+    ],
+    "guarantee_link": "Consulta nuestra política de garantía →"
+  },
+  "FAQ": {
+    "title": "Preguntas que nos hacen (y deberías hacer)",
+    "subtitle": "¿No encuentras tu pregunta? Agenda una llamada. No mordemos.",
+    "filter_all": "Todo",
+    "search": {
+      "placeholder": "Buscar preguntas (ej. 'WordPress', 'tiempos', 'reembolso')",
+      "no_results": "No se encontraron resultados - Agenda una llamada para preguntarnos directamente"
+    },
+    "featured": {
+      "question": "¿Cuál es la diferencia real entre un sitio de $5k y uno de $35k?",
+      "answer": "No es solo el diseño; es la arquitectura. Un sitio de $5k suele ser una plantilla estática. Una inversión de $35k en Noctra cubre: **Posicionamiento estratégico**, **sistemas a la medida** (CRM, APIs), **ingeniería de alto rendimiento**, y **optimización de conversión** que convierte visitantes en ingresos. Uno es un gasto; el otro es un activo que genera dinero.",
+      "label": "La pregunta que más nos hacen",
+      "see_all": "Ver todas las preguntas frecuentes"
+    },
+    "categories": {
+      "pricing": "Pricing & Inversión",
+      "guarantees": "Garantías & ROI",
+      "technical": "Técnico (pero entendible)",
+      "post_launch": "Post-Lanzamiento",
+      "operations": "Operaciones & Proceso"
+    },
+    "items": [
+      {
+        "question": "¿Cuál es la diferencia real entre un sitio de $5k y uno de $35k?",
+        "category": "pricing",
+        "answer": "Excelente pregunta. La diferencia no es \"más bonito\". Es:\n\n**CONVERSIÓN:**\n• Sitio $5k: Template genérico, convierte ~1-2% de visitantes\n• Sitio $35k: Diseño estratégico, convierte ~3-5% (40% más clientes con mismo tráfico)\n\n**VELOCIDAD:**\n• $5k: WordPress + 20 plugins = 4-6 segundos carga (Google penaliza, usuarios abandonan)\n• $35k: Arquitectura moderna = <1 segundo carga (mejor SEO, mejor experiencia)\n\n**PROPIEDAD:**\n• $5k: Atado a plataforma propietaria, migrarlo cuesta otro proyecto\n• $35k: Código completo es tuyo, GitHub ownership, portabilidad total\n\n**INTEGRACIÓN:**\n• $5k: Formulario básico que va a tu email\n• $35k: Integrado con tu CRM, WhatsApp, calendarios, analytics avanzado\n\n**SOPORTE:**\n• $5k: \"Soporte por 30 días\" luego pagas $200/hora por cambios\n• $35k: 60 días de optimización incluidos, cambios basados en data real\n\nResultado: Sitio $35k se paga en 6-8 meses con mejor conversión. Sitio $5k es gasto, no inversión."
+      },
+      {
+        "question": "¿Cómo garantizan el ROI de 6 meses que mencionan?",
+        "category": "guarantees",
+        "answer": "No lo \"garantizamos\" contractualmente (eso sería irresponsable - tu éxito depende de múltiples factores fuera de nuestro control como tu oferta, precio, servicio).\n\nLo que SÍ hacemos:\n\n**TRACKING REAL:**\n• Configuramos analytics desde día 1\n• Dashboard mensual con: tráfico, conversiones, fuentes, comportamiento\n• Mides resultados reales, no promesas\n\n**OPTIMIZACIÓN BASADA EN DATA:**\n• Primeros 60 días monitoreamos performance\n• Si conversión < 3%, hacemos ajustes: CTAs, copy, flujos\n• Iteramos hasta alcanzar benchmarks de industria\n\n**EXPECTATIVAS CLARAS:**\n• Te decimos upfront qué esperar (basado en tu industria + tráfico estimado)\n• Si proyectamos 10 leads/mes y solo llegas a 3, investigamos por qué\n• Separamos \"problema de sitio\" vs \"problema de tráfico/oferta\"\n\n**CLÁUSULA DE SATISFACCIÓN:**\n• Si después de 60 días + optimizaciones el sitio objetivamente no convierte mejor que tu situación anterior, negociamos un reembolso proporcional o trabajo adicional sin costo.\n• Esto está en el contrato. No es marketing.\n\n¿Riesgo cero? No. ¿Riesgo mitigado con proceso serio? Sí."
+      },
+      {
+        "question": "¿Por qué no usar Wix, WordPress o una agencia?",
+        "category": "technical",
+        "answer": "Todas son opciones válidas. Aquí un desglose honesto para que decidas:\n\n**WIX / SQUARESPACE:**\n• Más rápido de lanzar — ideal para sitios informativos simples\n• 5–10 hrs/semana para aprender y mantenerlo tú mismo\n• 2 años de costo: $15k–40k MXN + IVA (suscripciones + apps + tu tiempo)\n• Techo: personalización limitada, sin integraciones reales, SEO medio\n\n**WEBFLOW:**\n• Mejor control de diseño que Wix, buen SEO\n• Curva de aprendizaje alta: 8–15 hrs/semana\n• 2 años de costo: $20k–50k MXN + IVA (plan + plugins + tiempo de aprendizaje)\n• Techo: requiere conocimiento técnico, lógica server-side limitada\n\n**AGENCIA TRADICIONAL (WordPress):**\n• Alta personalización, amplio ecosistema de plugins\n• WordPress = 40% de todos los sitios web = target #1 de hackers\n• Velocidad de carga: promedio 3–8 segundos con plugins (Google penaliza, usuarios abandonan)\n• 2 años de costo: $80k–200k MXN + IVA (proyecto + mantenimiento + hosting + plugins)\n\n**NOCTRA:**\n• Ingeniería Next.js a medida — <1 segundo carga, sin plugins, sin vulnerabilidades\n• No gestionas nada: 1 llamada mensual de 30 min es todo lo que pedimos\n• 2 años de costo: desde $20k MXN + IVA proyecto + soporte opcional\n• El código es tuyo (GitHub), sin vendor lock-in\n\n**Cuándo SÍ recomendamos WordPress:** Múltiples editores que necesitan un CMS completo, requerimientos específicos de plugins, o presupuestos muy ajustados donde el tiempo de lanzamiento importa más que el rendimiento.\n\nPara negocios en crecimiento que quieren un sitio que funcione como activo de conversión — no como carga de mantenimiento — construimos a medida."
+      },
+      {
+        "question": "¿Qué pasa si mi sitio necesita cambios después de lanzar?",
+        "category": "post_launch",
+        "answer": "Depende del tipo de cambio y cuándo lo pides:\n\n**PRIMEROS 60 DÍAS (POST-LANZAMIENTO):**\n• Hasta 2 rondas de ajustes INCLUIDAS\n• Esto cubre: CTAs que no convierten, copy que necesita mejora, secciones que confunden usuarios\n• No cubre: features nuevos fuera del scope original, cambio completo de diseño\n\n**DESPUÉS DE 60 DÍAS:**\n• Cambios menores (texto, imágenes, ajustes de estilo): $500-1500 + IVA por paquete\n• Features nuevos (formulario adicional, página nueva, integración): $3k-8k + IVA según complejidad\n• Rediseño parcial (home page nueva): $8k-15k + IVA\n• Rediseño completo: esencialmente un proyecto nuevo\n\n**PERO AQUÍ EL SECRETO:**\nTe entregamos todo el código en GitHub con ownership completo. Si después de 60 días prefieres que otro developer haga cambios, puedes. No hay vendor lock-in.\n\nLa mayoría de clientes regresan con nosotros porque:\n1. Conocemos el proyecto por dentro\n2. Nuestro rate es competitivo ($1500-2000 + IVA/día vs $2500-3500 + IVA de otras agencias)\n3. Mantenemos arquitectura limpia (otros developers pueden trabajar con nuestro código)\n\n**ALTERNATIVA: RETAINER MENSUAL**\nSi proyectas necesitar cambios frecuentes: $5k + IVA/mes = 3 días de trabajo mensuales. No usados, acumulan hasta 2 meses."
+      },
+      {
+        "question": "¿Trabajan con empresas fuera de Querétaro/México?",
+        "category": "operations",
+        "answer": "Sí, pero con consideraciones:\n\n**MÉXICO (CUALQUIER ESTADO):**\n• Sin problema. Todo es remoto.\n• Preferimos clientes en zona horaria similar (facilita comunicación)\n• Facturamos normalmente con RFC mexicano\n\n**INTERNACIONAL (USA, LATAM, EUROPA):**\n• Técnicamente podemos, pero:\n• Zona horaria: Si eres USA East Coast, podemos. Si eres Australia, complicado.\n• Pagos: Preferimos transferencia internacional o Wise (no PayPal)\n• Facturación: Podemos facturar en USD pero entidad mexicana\n• Legal: Contrato bajo ley mexicana (si esto es problema, probablemente no somos fit)\n\n**¿POR QUÉ SOMOS SELECTIVOS CON INTERNACIONAL?**\nNoctra es un estudio boutique, no una agencia masiva. Clientes internacionales a veces:\n• Tienen expectativas de servicio 24/7 (no somos eso)\n• Necesitan llamadas a medianoche por zona horaria (no sostenible)\n• Quieren contratos más complejos (no es nuestra fortaleza)\n\nPreferimos 10 clientes locales felices que 50 clientes internacionales mediocres.\n\nDicho esto: Si eres empresa mexicana con operaciones en USA, perfecto. Si eres startup latina con equipo distribuido, podemos funcionar. Agenda llamada para ver fit."
+      },
+      {
+        "question": "Vi que usan Next.js y TypeScript. ¿Necesito saber de eso?",
+        "category": "technical",
+        "answer": "No. Cero. Nada.\n\nEso es como preguntar \"Vi que usan soldadura TIG para mi portón. ¿Necesito saber soldar?\"\n\nTú interactúas con:\n• Un sitio web que funciona (rápido, seguro, moderno)\n• Un panel de administración intuitivo (si necesitas editar contenido)\n• Google Analytics dashboard (si quieres ver métricas)\n\nNosotros nos encargamos de:\n• Código (TypeScript, Next.js, React, lo que sea necesario)\n• Infraestructura (Vercel, hosting, CDN, DNS)\n• Seguridad (HTTPS, headers, rate limiting)\n• Performance (optimización de assets, caching)\n\n**¿ENTONCES POR QUÉ LO MENCIONAMOS?**\nTransparencia. Hay clientes técnicos (CTOs, founders con background tech) que SÍ quieren saber qué stack usamos. Para ellos es importante saber que no usamos tecnología legacy.\n\nPara clientes no-técnicos: ignora el tech stack. Enfócate en resultados.\n\n**¿PUEDO VER EL CÓDIGO?**\nSí. El repositorio es tuyo. Si tienes un CTO o developer in-house, pueden auditarlo.\n\n**¿QUÉ PASA SI QUIERO MIGRAR A OTRO DEVELOPER?**\nPuedes. El código es portable. No es un sistema propietario. Cualquier developer competente de Next.js puede continuar el trabajo (aunque obviamente preferimos que regreses con nosotros)."
+      }
+    ],
+    "cta_title": "¿Aún tienes dudas?",
+    "cta_text": "Agenda una llamada de 15 min. Sin compromiso, sin pitch agresivo.",
+    "cta_button": "Hablemos"
+  },
+  "SocialProof": {
+    "badge": "Oferta limitada",
+    "spots_remaining": "Aceptando proyectos desde marzo 2026",
+    "title": "Construyamos nuestro historial, ahorra en tu sitio",
+    "subtitle": "Buscamos 5 socios visionarios para demostrar nuestras capacidades. Obtienes la misma ingeniería de alto nivel a un precio accesible.",
+    "benefits": [
+      "25% descuento en proyecto inicial",
+      "Prioridad de soporte durante 12 meses",
+      "Comunicación directa con ingenieros fundadores"
+    ],
+    "partnership": {
+      "title": "Qué incluye la alianza",
+      "items": [
+        "25% de descuento sobre precio estándar",
+        "Soporte prioritario por 12 meses",
+        "Tu proyecto será un caso de estudio público",
+        "Línea directa con Manu durante todo el proyecto"
+      ]
+    },
+    "transparency": "¿Por qué? Estamos construyendo nuestro historial. Tú obtienes mejor precio, yo obtengo un caso de éxito. Ambos ganamos.",
+    "cta": "Aplica para precio de socio fundador →"
+  },
+  "Services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Cada servicio está diseñado para generar ROI medible para tu negocio.",
+    "learn_more": "Ver qué incluye",
+    "web_dev_title": "Tu sitio web trabajando 24/7",
+    "web_dev_desc": "Convierte visitantes en clientes mientras duermes. Formularios que generan contactos calificados, velocidad que mantiene a visitantes (+40% conversión), SEO técnico y sistema de analytics que muestra ROI real.",
+    "branding_title": "Vende en línea sin complicaciones",
+    "branding_desc": "De la visita a la venta en 3 clics. Catálogo orientado a conversión, proceso de compra sin fricción, integración con tu inventario actual y panel de ventas en tiempo real.",
+    "seo_title": "Tu sitio mejorando mes con mes",
+    "seo_desc": "Cada mes más rápido, más visible, más conversiones. Análisis mensual de métricas, mejoras continuas basadas en comportamiento real de usuarios, soporte prioritario y estrategias de contenido.",
+    "ai_title": "Automatiza lo que te quita tiempo",
+    "ai_desc": "Cada hora que pasas aprendiendo herramientas, arreglando tu sitio o preguntándote por qué el SEO no funciona, es una hora que no estás con tus clientes. Nosotros manejamos todo lo digital. Tú te enfocas en tu profesión.",
+    "ongoing_title": "Tu socio digital de largo plazo",
+    "ongoing_desc": "Hosting, dominio, actualizaciones, soporte técnico y mejoras continuas. Tú te enfocas en tu negocio. Una vez al mes revisamos métricas y definimos las mejoras del siguiente período.",
+    "explore_capabilities": "Ver todos los servicios",
+    "lets_talk": "Hablemos"
+  },
+  "ServicesPage": {
+    "title": "Lo Que Construimos",
+    "subtitle": "Cada servicio está diseñado para generar resultados reales para tu negocio.",
+    "hero_cta_consult": "Agendar consulta gratuita →",
+    "hero_cta_pricing": "Ver precios ↓",
+    "how_we_work": {
+      "title": "Cómo Trabajamos",
+      "steps": [
+        "Hitos Claros",
+        "Actualizaciones Semanales",
+        "Diseño Primero",
+        "Comunicación Directa"
+      ]
+    },
+    "metrics": {
+      "lighthouse": "100/100 Lighthouse",
+      "latency": "<100ms Latencia",
+      "uptime": "99.9% Uptime"
+    },
+    "web_dev": {
+      "title": "Sitios Web Profesionales",
+      "focus": "Tu sitio web es tu mejor vendedor. Nos aseguramos de que se vea profesional, cargue instantáneamente y guíe a los visitantes a contactarte o comprar.",
+      "why": "Un sitio rápido y profesional genera confianza y evita que los visitantes se vayan.",
+      "image_label": "Máquina de Conversión 24/7",
+      "pricing_label": "Desde $20k MXN + IVA",
+      "problem": "Tu sitio web actual es lento, anticuado o simplemente no está trayendo clientes.",
+      "solution": "Construimos sitios rápidos y modernos diseñados para convertir visitantes en clientes.",
+      "process": [
+        "Análisis directo de tu sitio actual y competidores",
+        "Diseñamos la estructura y apariencia de tu nuevo sitio",
+        "Construimos y probamos cada página y funcionalidad",
+        "Lanzamos mundialmente con hosting rápido"
+      ],
+      "deliverables": [
+        "Tu sitio en vivo y alojado globalmente",
+        "Propiedad total del código",
+        "Optimizado para Google"
+      ],
+      "deliverables_subtext": [
+        "Tu sitio carga instantáneamente para visitantes en cualquier parte del mundo.",
+        "Cambia de proveedor cuando quieras, cero dependencia.",
+        "Más tráfico orgánico = menos inversión en publicidad pagada."
+      ],
+      "cta": "Hablemos de tu sitio web"
+    },
+    "ecommerce": {
+      "title": "Tiendas En Línea",
+      "image_label": "Experiencia de Compra Sin Fricción",
+      "pricing_label": "Desde $35k MXN",
+      "focus": "Tu ventana al mercado global. Creamos experiencias de compra que eliminan la fricción y convierten visitas en ingresos recurrentes.",
+      "why": "Un e-commerce optimizado es la diferencia entre tener un catálogo y tener un negocio escalable.",
+      "problem": "Intentas vender por Instagram o con un sitio que no genera confianza ni facilita el pago.",
+      "solution": "Plataformas robustas con pagos integrados, gestión de inventario y diseño orientado a la venta.",
+      "process": [
+        "Analizamos tus productos y logística",
+        "Diseñamos el flujo de compra ideal",
+        "Configuramos pagos y envíos",
+        "Lanzamos y monitoreamos conversiones"
+      ],
+      "deliverables": [
+        "Tienda completa con pasarela de pagos",
+        "Panel de gestión de productos",
+        "Configuración de analítica de ventas"
+      ],
+      "deliverables_subtext": [
+        "Lista para recibir pagos con tarjeta y SPEI.",
+        "Actualiza precios y stock tú mismo en segundos.",
+        "Entiende exactamente de dónde vienen tus ventas."
+      ],
+      "cta": "Explorar detalles de E-commerce"
+    },
+    "ai": {
+      "title": "Sistemas Personalizados",
+      "image_label": "Procesos de Negocio Automatizados",
+      "pricing_label": "Cotización a medida según alcance",
+      "focus": "Herramientas hechas a la medida de tu negocio que automatizan lo repetitivo y te dan información para tomar mejores decisiones.",
+      "why": "Automatizar procesos manuales libera tiempo y reduce errores.",
+      "problem": "Pierdes horas en tareas repetitivas que podrían automatizarse.",
+      "solution": "Construimos sistemas personalizados que automatizan tus procesos y te dan dashboards con métricas claras.",
+      "process": [
+        "Mapeamos tus procesos actuales",
+        "Diseñamos la solución ideal",
+        "Construimos e integramos con tus herramientas",
+        "Capacitamos a tu equipo"
+      ],
+      "deliverables": [
+        "Sistema personalizado funcionando",
+        "Dashboard de inteligencia de negocio",
+        "Documentación operativa"
+      ],
+      "deliverables_subtext": [
+        "CRM, gestión o automatización a tu medida.",
+        "Visualiza métricas clave para decidir mejor.",
+        "Tu equipo será totalmente independiente."
+      ],
+      "cta": "Describir mi necesidad"
+    },
+    "seo": {
+      "image_label": "Crecimiento Orgánico",
+      "pricing_label": "Desde $8,000 MXN/mes",
+      "title": "SEO y Crecimiento",
+      "focus": "Estrategias para que tu sitio aparezca en Google, atraiga tráfico calificado y convierta más visitantes en clientes.",
+      "why": "Si no apareces en Google, no existes para tus clientes potenciales.",
+      "problem": "Tu sitio no aparece en búsquedas relevantes y estás perdiendo clientes frente a la competencia.",
+      "solution": "Optimizamos tu sitio para posicionar en Google y convertir el tráfico en resultados medibles.",
+      "process": [
+        "Auditoría SEO de tu sitio actual",
+        "Estrategia de palabras clave y contenido",
+        "Implementación técnica y on-page",
+        "Monitoreo mensual y ajustes"
+      ],
+      "deliverables": [
+        "SEO técnico implementado",
+        "Estrategia de contenido",
+        "Reportes mensuales de rendimiento"
+      ],
+      "deliverables_subtext": [
+        "Velocidad, estructura y datos estructurados optimizados.",
+        "Plan de contenido basado en búsquedas reales de tus clientes.",
+        "Sabes exactamente cómo avanza tu posicionamiento."
+      ],
+      "cta": "Hablemos de tu crecimiento"
+    },
+    "ongoing": {
+      "title": "Gestión Digital Continua",
+      "image_label": "Crecimiento Sin Límites",
+      "pricing_label": "Planes desde $2,500 MXN/mes",
+      "focus": "Tu negocio no se detiene, tu tecnología tampoco. Planes de acompañamiento estratégico para que nunca dejes de crecer.",
+      "why": "No vendemos mantenimiento. Vendemos tranquilidad y evolución constante para tu activo digital más valioso.",
+      "problem": "Tu sitio se queda atrás, los plugins fallan o simplemente no tienes tiempo para gestionar la parte técnica.",
+      "solution": "Nosotros manejamos el hosting, seguridad y mejoras. Tú recibes métricas y una estrategia de evolución mensual.",
+      "process": [
+        "Transferencia de hosting y dominio a Noctra",
+        "Auditoría técnica inicial y limpieza",
+        "Configuración de monitoreo y seguridad",
+        "Inicio de ciclo de mejoras mensuales"
+      ],
+      "deliverables": [
+        "Servidor ultra-rápido configurado",
+        "Uptime garantizado 99.9%",
+        "Reportes de rendimiento mensuales"
+      ],
+      "deliverables_subtext": [
+        "Tu sitio alojado en infraestructura de nivel mundial.",
+        "Si tu sitio cae, lo sabemos antes que tú y lo arreglamos.",
+        "Transparencia total sobre qué estamos mejorando."
+      ],
+      "cta": "Ver planes de gestión"
+    },
+    "pricing_callout_link": "Ver desglose de precios",
+    "best_for": {
+      "label": "IDEAL PARA",
+      "web_dev": [
+        { "icon": "👨‍⚕️", "text": "Doctores y clínicas médicas" },
+        { "icon": "⚖️", "text": "Abogados y consultores" },
+        { "icon": "💼", "text": "Servicios profesionales" },
+        { "icon": "🏢", "text": "Negocios locales" },
+        { "icon": "🎓", "text": "Instituciones educativas" }
+      ],
+      "ecommerce": [
+        { "icon": "🛍️", "text": "Tiendas minoristas locales" },
+        { "icon": "👕", "text": "Moda y accesorios" },
+        { "icon": "🍽️", "text": "Alimentos y bebidas" },
+        { "icon": "🎨", "text": "Productos artesanales" },
+        { "icon": "💄", "text": "Belleza y cosméticos" }
+      ],
+      "ai": [
+        { "icon": "⚙️", "text": "Operaciones de manufactura" },
+        { "icon": "📊", "text": "Plataformas de servicios B2B" },
+        { "icon": "🏗️", "text": "Gestión de construcción" },
+        { "icon": "🏥", "text": "Clínicas con múltiples sedes" },
+        { "icon": "🖥️", "text": "Dashboards corporativos" }
+      ],
+      "seo": [
+        { "icon": "🦷", "text": "Dentistas y especialistas" },
+        { "icon": "🏡", "text": "Inmobiliarias" },
+        { "icon": "⚖️", "text": "Despachos legales" },
+        { "icon": "🔧", "text": "Servicios locales" },
+        { "icon": "🏥", "text": "Turismo médico" }
+      ]
+    },
+    "journey": {
+      "label": "TRAYECTO",
+      "phases": {
+        "web_dev": "01 Presencia Web",
+        "ecommerce": "02 E-Commerce",
+        "ai": "03 Sistemas a Medida",
+        "seo": "04 Optimización",
+        "ongoing": "05 Gestión Continua"
+      }
+    },
+    "system_label": "SISTEMA",
+    "problem_label": "El Problema",
+    "solution_label": "La Solución",
+    "cta_labels": {
+      "scoping_call": "Agendar llamada de scoping",
+      "site_audit": "Iniciar auditoría gratuita",
+      "default": "Hablemos de tu proyecto"
+    },
+    "scoping_call_box": {
+      "title": "En esta llamada vamos a:",
+      "footer": "Sin compromiso de compra",
+      "items": [
+        "Entender tu proceso actual",
+        "Identificar mejoras con automatización",
+        "Darte un presupuesto estimado",
+        "Discutir tiempos y enfoque"
+      ]
+    },
+    "comparison": {
+      "title": "COMPARA NUESTROS SERVICIOS",
+      "subtitle": "Elige la solución adecuada para tu negocio",
+      "labels": ["Profesional", "E-Commerce", "Sistemas a medida"],
+      "features": [
+        { "name": "Inversión", "values": ["Desde $20,000 MXN", "Desde $35,000 MXN", "Cotización a medida"] },
+        { "name": "Tiempos", "values": ["3-6 semanas", "6-8 semanas", "8-16 semanas"] },
+        { "name": "Páginas", "values": ["5-10 páginas estratégicas", "10-20 páginas", "Ilimitadas"] },
+        { "name": "E-commerce", "values": ["-", "✓", "✓"] },
+        { "name": "CRM a medida", "values": ["-", "-", "✓"] },
+        { "name": "Integraciones", "values": ["Básicas", "Avanzadas", "Completas"] },
+        { "name": "Desarrollo de API", "values": ["-", "-", "✓"] },
+        { "name": "Soporte", "values": ["60 días", "90 días", "A medida"] }
+      ],
+      "footer_text": "¿No estás seguro de cuál es el adecuado?",
+      "cta_quiz": "Tomar quiz de 2 minutos",
+      "cta_consult": "Agendar consulta"
+    },
+    "faq": {
+      "title": "PREGUNTAS FRECUENTES",
+      "items": [
+        {
+          "question": "¿Qué incluye el precio?",
+          "answer": "Todo. Configuración, desarrollo, pruebas, lanzamiento, documentación, capacitación y 60-90 días de soporte. Sin cargos ocultos."
+        },
+        {
+          "question": "¿Puedo escalar de Profesional a E-Commerce después?",
+          "answer": "Sí. Construimos pensando en la escalabilidad. Escalar típicamente cuesta la diferencia entre niveles más el trabajo de integración."
+        },
+        {
+          "question": "¿Trabajan con negocios fuera de México?",
+          "answer": "Sí. Hemos trabajado con clientes en EE. UU., Canadá y Europa. Toda la comunicación en inglés o español."
+        },
+        {
+          "question": "¿Qué pasa después del periodo de soporte?",
+          "answer": "Eres dueño del código y puedes gestionarlo tú mismo, contratarnos para soporte continuo o trabajar con cualquier desarrollador."
+        },
+        {
+          "question": "¿Cómo funcionan los pagos?",
+          "answer": "50% de anticipo para iniciar, 50% al lanzamiento. Aceptamos transferencia bancaria o tarjeta de crédito. Planes de pago disponibles para Sistemas a Medida."
+        }
+      ]
+    },
+    "real_examples": {
+      "title": "EJEMPLOS REALES",
+      "view_more": "Mira lo que estamos construyendo →",
+      "coming": "Proyectos en desarrollo - mira la página de Portafolio",
+      "items": {
+        "web_dev": [
+          { "name": "Woodax Design", "desc": "Portfolio de carpintería premium con calificación de leads" },
+          { "name": "Próximamente", "desc": "Clínica médica con automatización de citas" }
+        ],
+        "ecommerce": [
+          { "name": "Próximamente", "desc": "Retail local con integración de inventario" }
+        ],
+        "ai": [
+          { "name": "Dyma Group", "desc": "Sitio corporativo con gestión multi-entidad" },
+          { "name": "Próximamente", "desc": "CRM para startup de fintech" }
+        ],
+        "seo": [
+          { "name": "Dr. Example", "desc": "Posicionamiento local para clínica dental" },
+          { "name": "Legal Firm", "desc": "Estrategia de contenidos para abogados" }
+        ],
+        "ongoing": [
+          { "name": "Woodax", "desc": "Gestión total de sitio corporativo y SEO" },
+          { "name": "Dyma Group", "desc": "Mantenimiento evolutivo de sistemas internos" }
+        ]
+      }
+    },
+    "smart_cta": [
+      "¿Listo para empezar?",
+      "Construyamos tu proyecto juntos.",
+      "Inversión:",
+      "Tiempo Est.:",
+      "ROI Est.:",
+      "Agendar videollamada",
+      "Calcular ROI"
+    ],
+    "pricing_breakdown": {
+      "labels": {
+        "show": "Ver desglose detallado de precios",
+        "hide": "Ocultar desglose de precios",
+        "included": "QUÉ INCLUYE",
+        "timeline": "TIEMPO ESTIMADO",
+        "deliverables": "ENTREGABLES CLAVE",
+        "investment": "DESGLOSE DE INVERSIÓN",
+        "total": "Inversión Total"
+      },
+      "web_dev": {
+        "included": [
+          "Diseño y desarrollo personalizado",
+          "Optimización móvil (Responsive)",
+          "SEO técnico (Estructura base)",
+          "Formularios y automatización",
+          "Configuración Analytics (GA4)",
+          "Optimización de velocidad (<1.5s)",
+          "Seguridad y certificado SSL",
+          "60 días de soporte post-lanzamiento",
+          "Documentación completa",
+          "Sesión de capacitación incluida"
+        ],
+        "timeline": [
+          "Semana 1: Descubrimiento y estrategia",
+          "Semanas 2-3: Diseño y prototipado",
+          "Semanas 3-5: Desarrollo y pruebas",
+          "Semana 6: Lanzamiento y entrega",
+          "Total: 6 semanas desde el inicio"
+        ],
+        "deliverables": [
+          "📄 Documento estratégico y sitemap",
+          "🎨 Sistema de diseño en Figma",
+          "💻 Web en vivo (Código propio)",
+          "📊 Dashboard de analíticas",
+          "📚 Documentación técnica",
+          "🎓 Sesión de capacitación de 1 hora"
+        ],
+        "investment": [
+          { "label": "Diseño y Estrategia", "value": "$6,000 MXN" },
+          { "label": "Desarrollo", "value": "$10,000 MXN" },
+          { "label": "Optimización y Pruebas", "value": "$2,500 MXN" },
+          { "label": "Lanzamiento y Soporte", "value": "$1,500 MXN" },
+          { "total": "$20,000 MXN" }
+        ],
+        "note": "Pago único, sin mensualidades, el código es tuyo para siempre"
+      },
+      "ecommerce": {
+        "included": [
+          "Todo en Sitios Profesionales, más:",
+          "Sistema de catálogo de productos",
+          "Carrito de compras y checkout",
+          "Pasarela de pago (Stripe/MercadoPago)",
+          "Gestión de inventario",
+          "Panel de administración de pedidos",
+          "Reportes de ventas avanzados",
+          "Cálculo de envíos integrado"
+        ],
+        "timeline": [
+          "Semana 1: Estrategia comercial",
+          "Semanas 2-3: Optimización UX/UI",
+          "Semanas 4-7: Desarrollo e integración",
+          "Semanas 8-9: Pruebas transaccionales",
+          "Total: 9 semanas desde el inicio"
+        ],
+        "deliverables": [
+          "📦 Catálogo de productos admin",
+          "🛒 Flujo de compra completo",
+          "💳 Pasarela de pago configurada",
+          "📊 Panel de administración",
+          "📈 Dashboard de ventas",
+          "🎓 Capacitación admin 2 horas"
+        ],
+        "investment": [
+          { "label": "Diseño y Estrategia", "value": "$8,000 MXN" },
+          { "label": "Desarrollo E-commerce", "value": "$20,000 MXN" },
+          { "label": "Integración y Pasarelas", "value": "$5,000 MXN" },
+          { "label": "Lanzamiento y Soporte", "value": "$2,000 MXN" },
+          { "total": "$35,000 MXN" }
+        ],
+        "note": "Sin comisiones por venta de nuestra parte."
+      },
+      "ai": {
+        "included": [
+          "Flujos de automatización a medida",
+          "Optimización de procesos internos",
+          "Integración API (CRM, herramientas)",
+          "Paneles de control y reportes",
+          "Gestión de roles y permisos",
+          "Migración de datos e importación",
+          "Documentación operativa",
+          "Capacitación de equipos"
+        ],
+        "timeline": [
+          "Simple: 4-6 semanas",
+          "Medio: 8-12 semanas",
+          "Complejo: 12-20 semanas",
+          "Definiremos el tiempo en la llamada"
+        ],
+        "deliverables": [
+          "🤖 Sistema de automatización custom",
+          "📊 Dashboard de Business Intelligence",
+          "🔗 Integraciones API configuradas",
+          "👥 Gestión de usuarios y roles",
+          "📚 Documentación operativa",
+          "💾 Migración de datos (si aplica)"
+        ],
+        "investment_notes": [
+          "Complejidad: Simple → Medio → Complejo",
+          "Rango típico: $35,000 - $150,000 MXN",
+          "Cotización fija tras llamada de scoping"
+        ],
+        "context_box": {
+          "title": "En esta llamada vamos a:",
+          "items": [
+            "Entender tu proceso actual",
+            "Identificar mejoras con automatización",
+            "Darte un presupuesto estimado",
+            "Discutir tiempos y enfoque"
+          ],
+          "footer": "Sin compromiso de compra"
+        }
+      },
+      "seo": {
+        "included": [
+          "Auditoría mensual de performance",
+          "SEO técnico y de contenido",
+          "Estrategia de conversión (CRO)",
+          "Implementación de tests A/B",
+          "Monitoreo de competencia",
+          "Llamada mensual de estrategia",
+          "Monitoreo de uptime 24/7"
+        ],
+        "timeline": [
+          "Mes 1: Auditoría y estrategia",
+          "Meses 2-3: Implementación y ajustes",
+          "Meses 4+: Optimización y crecimiento",
+          "Compromiso mín: 3 meses"
+        ],
+        "deliverables": [
+          "📊 Reporte mensual de resultados",
+          "📈 Dashboard de rankings Google",
+          "🎯 Recomendaciones de conversión",
+          "📝 Roadmap de contenidos",
+          "🧪 Resultados de tests A/B",
+          "📞 Llamada estratégica mensual"
+        ],
+        "investment": [
+          { "label": "Servicio Base", "value": "$8,000 MXN/mes" },
+          { "label": "Contenido (Opcional)", "value": "+$5,000/mes" },
+          { "label": "Tests A/B (Opcional)", "value": "+$3,000/mes" },
+          { "label": "Optimización CRO (Opcional)", "value": "+$4,000/mes" }
+        ],
+        "note": "Cancela en cualquier momento tras 3 meses"
+      },
+      "ongoing": {
+        "included": [
+          "Hosting gestionado profesional",
+          "Dominio incluido (anual)",
+          "Monitoreo de uptime 24/7",
+          "Actualizaciones de seguridad",
+          "Soporte ante incidencias",
+          "Reporte mensual de métricas",
+          "Mejoras continuas de contenido/UX (según plan)"
+        ],
+        "timeline": [
+          "Día 1: Migración y auditoría",
+          "Mes 1+: Gestión activa",
+          "Contrato: Mensual o Anual"
+        ],
+        "deliverables": [
+          "🚀 Alojamiento optimizado",
+          "🔒 Seguridad proactiva",
+          "📊 Reportes estratégicos",
+          "🛠️ Mejoras incrementales",
+          "📞 Canal de soporte directo",
+          "💡 Asesoría técnica constante"
+        ],
+        "investment": [
+          { "label": "Plan Esencial", "value": "$2,500 MXN/mes" },
+          { "label": "Plan Crecimiento", "value": "$5,500 MXN/mes" },
+          { "label": "Socio Estratégico", "value": "$12,000 MXN/mes" }
+        ],
+        "note": "Ahorra 15% en contratación anual"
+      }
+    },
+    "start_project": "Iniciar Proyecto"
+  },
+  "Pricing": {
+    "title": "Precios transparentes",
+    "subtitle": "Sabes exactamente qué estás pagando. Sin sorpresas.",
+    "most_common": "Más Común",
+    "tier1": {
+      "name": "Sitio Web Profesional",
+      "price": "Desde $20,000 MXN + IVA",
+      "description": "Tu sitio web trabajando 24/7 convirtiendo visitantes en clientes.",
+      "features": [
+        "5 páginas estratégicas",
+        "SEO técnico completo",
+        "Formularios de contacto",
+        "Analytics configurado"
+      ],
+      "roi_indicator": "Retorno típico: 2-3 meses mediante mejora en conversión"
+    },
+    "tier2": {
+      "name": "E-commerce",
+      "price": "Desde $35,000 MXN + IVA",
+      "description": "Vende en línea sin complicaciones — de visita a venta en 3 clics.",
+      "features": [
+        "Catálogo orientado a conversión",
+        "Proceso de compra sin fricción",
+        "Integración con inventario",
+        "Panel de ventas en tiempo real"
+      ],
+      "roi_indicator": "Clientes promedian 3.2x más ventas online en 6 meses"
+    },
+    "tier3": {
+      "name": "Sistemas a la Medida",
+      "price": "Según alcance",
+      "description": "Automatiza lo que te quita tiempo — Cada hora que pasas aprendiendo herramientas, arreglando tu sitio o preguntándote por qué el SEO no funciona, es una hora que no estás con tus clientes. Nosotros manejamos todo lo digital. Tú te enfocas en tu profesión.",
+      "features": [
+        "CRM o aplicación web personalizada",
+        "Automatización de procesos e integraciones",
+        "Dashboards con métricas que importan",
+        "Soporte prioritario (< 4 horas)"
+      ],
+      "roi_indicator": "El ROI varía: calcularemos tu ROI específico en la llamada"
+    },
+    "optional_modules_title": "Módulos opcionales",
+    "optional_modules": [
+      {
+        "name": "Blog dinámico",
+        "price": "+$12,000 MXN + IVA"
+      },
+      {
+        "name": "Multi-idioma",
+        "price": "+$18,000 MXN + IVA"
+      },
+      {
+        "name": "Portal de clientes",
+        "price": "+$25,000 MXN + IVA"
+      }
+    ],
+    "additional_text": [
+      "Precios no incluyen IVA (16%)",
+      "50% al inicio, 50% al lanzar",
+      "Garantía de 60 días post-lanzamiento"
+    ],
+    "cta": "Comenzar mi proyecto",
+    "compare_all_features": "Comparar todas las funciones →",
+    "back_to_pricing": "← Volver a precios",
+    "feature_comparison": {
+      "mobile_title": "¿Cómo se comparan?",
+      "mobile_subtitle": "Desliza para comparar opciones",
+      "mobile_cta": "Agendar consulta gratuita →",
+      "recommended_badge": "Recomendado ★",
+      "columns": [
+        { "id": "wix", "name": "Wix / Squarespace", "subtitle": "No-code básico" },
+        { "id": "webflow", "name": "Webflow", "subtitle": "No-code avanzado" },
+        { "id": "agency", "name": "Agencia Tradicional", "subtitle": "WordPress / outsourcing" },
+        { "id": "noctra", "name": "Noctra ★", "subtitle": "Ingeniería a medida", "highlighted": true }
+      ],
+      "rows": [
+        {
+          "criteria": "Velocidad de carga",
+          "values": [
+            "Media (3–6 seg)",
+            "Buena (1–3 seg)",
+            "Variable (3–8 seg, WordPress)",
+            "✓ Óptima (<1 seg, Next.js)"
+          ]
+        },
+        {
+          "criteria": "SEO técnico real",
+          "values": [
+            "Básico (limitado)",
+            "Bueno",
+            "Depende del developer",
+            "✓ Completo (Core Web Vitals optimizados)"
+          ]
+        },
+        {
+          "criteria": "Personalización",
+          "values": [
+            "Limitada (templates)",
+            "Alta (curva de aprendizaje)",
+            "Alta (costosa de cambiar)",
+            "✓ Total (código a medida)"
+          ]
+        },
+        {
+          "criteria": "Tiempo requerido de tu parte",
+          "values": [
+            "5–10 hrs/semana (aprender, mantener, actualizar)",
+            "8–15 hrs/semana (curva alta)",
+            "Reuniones semanales + revisiones largas",
+            "✓ 1 llamada mensual de 30 min"
+          ]
+        },
+        {
+          "criteria": "Costo real a 2 años",
+          "values": [
+            "$15k–40k MXN + tu tiempo (5–10 hrs/semana × 2 años)",
+            "$20k–50k MXN + curva de aprendizaje de 2–3 meses",
+            "$80k–200k MXN (proyecto + mantenimiento WordPress)",
+            "✓ Desde $20k MXN + IVA proyecto + soporte opcional"
+          ]
+        },
+        {
+          "criteria": "Soporte post-lanzamiento",
+          "values": [
+            "Soporte genérico, sin conocer tu negocio",
+            "Comunidad + documentación",
+            "Costo adicional por hora",
+            "✓ Fundador directo, conoce tu proyecto completo"
+          ]
+        },
+        {
+          "criteria": "Escalabilidad",
+          "values": [
+            "Limitada (techo bajo)",
+            "Alta (requiere conocimiento técnico)",
+            "Requiere rehacer el sitio",
+            "✓ Código propio, crece contigo"
+          ]
+        },
+        {
+          "criteria": "",
+          "values": [
+            "—",
+            "—",
+            "—",
+            "CTA_AGENDAR"
+          ],
+          "isCtaRow": true
+        }
+      ]
+    },
+    "comparison_table": {
+      "cta": "Ver comparativa detallada lado a lado",
+      "title": "COMPARATIVA DETALLADA",
+      "headers": [
+        "Característica",
+        "WP+Agencia",
+        "Freelancer",
+        "DIY",
+        "Noctra"
+      ],
+      "rows": [
+        [
+          "Costo a 2 años",
+          "$85-125k",
+          "$40-85k",
+          "$48-90k",
+          "$20k"
+        ],
+        [
+          "Tiempo Setup",
+          "6-12 sem",
+          "4-16 sem",
+          "4-8 sem",
+          "3-6 sem"
+        ],
+        [
+          "Propiedad Código",
+          "❌ No",
+          "⚠️ Quizás",
+          "❌ No",
+          "✅ Sí"
+        ],
+        [
+          "Mantenimiento",
+          "Requerido",
+          "DIY/Pago",
+          "DIY",
+          "60d gratis"
+        ],
+        [
+          "Escalabilidad",
+          "Limitada",
+          "Varía",
+          "Pobre",
+          "Excelente"
+        ],
+        [
+          "Velocidad (<2s)",
+          "⚠️ Raro",
+          "⚠️ Varía",
+          "❌ No",
+          "✅ Siempre"
+        ],
+        [
+          "Calidad SEO",
+          "⚠️ Plugins",
+          "Varía",
+          "⚠️ Básica",
+          "✅ Integrada"
+        ],
+        [
+          "Garantías",
+          "⚠️ Algunas",
+          "❌ Ninguna",
+          "❌ Ninguna",
+          "✅ 60-días"
+        ]
+      ]
+    },
+    "methodology": {
+      "title": "¿Cómo calculamos estos números?",
+      "summary": "Estas estimaciones representan el costo total de propiedad a 2 años para un sitio web profesional de 5-10 páginas en el mercado mexicano (Querétaro, CDMX, Guadalajara, Monterrey) a febrero de 2025.",
+      "sections": [
+        {
+          "title": "FUENTES DE DATOS",
+          "items": [
+            "30+ propuestas de agencias recolectadas (2024-2025)",
+            "Plan Wix Business: $27 USD/mes",
+            "Plan Squarespace Business: $23 USD/mes",
+            "Tarifas Freelance: Datos de Workana, Upwork México",
+            "Reportes de industria: Clutch.co, GoodFirms 2024-2025",
+            "Investigación directa: 15+ llamadas de análisis de competencia"
+          ]
+        },
+        {
+          "title": "SUPUESTOS",
+          "items": [
+            "Alcance: 5-10 páginas, SEO básico, responsivo móvil",
+            "Hosting: Grado profesional (no compartido básico)",
+            "Mantenimiento: Bugs, seguridad, cambios menores",
+            "Excluye: Rediseños mayores, +50 productos, integraciones custom"
+          ]
+        },
+        {
+          "title": "DIVISA",
+          "content": "Precios en Pesos Mexicanos (MXN). Tipo de cambio usado: $18 MXN por USD (promedio Feb 2025)."
+        },
+        {
+          "title": "TUS COSTOS PUEDEN VARIAR",
+          "items": [
+            "Requerimientos específicos de funciones",
+            "Volumen y complejidad de contenido",
+            "Necesidades de integración (CRM, pagos, etc.)",
+            "Nivel de soporte esperado",
+            "Experiencia y ubicación del proveedor"
+          ]
+        }
+      ]
+    },
+    "disclaimers": {
+      "title": "⚠️ ESTIMACIONES Y DESLINDES",
+      "items": [
+        "<strong>Estimaciones de precio:</strong> Representan promedios de mercado basados en investigación de inicios de 2025 para México.",
+        "<strong>Valuación del tiempo:</strong> Los costos DIY incluyen el costo de oportunidad de tu tiempo. Asumimos que valoras tu tiempo a tu tarifa efectiva por hora.",
+        "<strong>Costo Total de Propiedad:</strong> Incluye configuración, mantenimiento, hosting y costos ocultos típicos por 24 meses.",
+        "<strong>No es asesoría financiera:</strong> Estas comparaciones son educativas. Consulta con tu contador para decisiones de inversión.",
+        "<strong>Análisis Competitivo:</strong> Hemos hecho todo el esfuerzo por presentar comparaciones justas. Si crees que algo es incorrecto, contáctanos."
+      ],
+      "last_updated": "Última actualización: 15 de febrero, 2025"
+    },
+    "calculator_cta": {
+      "text": "Calcular ROI de tu proyecto",
+      "description": "Calculadora interactiva: ingresa tus ingresos mensuales y te mostramos el periodo de recuperación"
+    },
+    "real_roi": {
+      "title": "Calculadora de ROI Real",
+      "subtitle": "Mira tu incremento real de utilidades tras costos operativos — sin números inflados",
+      "steps": {
+        "profile": "Selección",
+        "inputs": "Estado Actual",
+        "projections": "Proyecciones",
+        "output": "Resultado ROI"
+      },
+      "business_types": {
+        "professional": {
+          "label": "Servicios Profesionales",
+          "sub": "Médicos, Abogados, Contadores",
+          "client_label": "paciente/cliente"
+        },
+        "retail": {
+          "label": "Retail Local",
+          "sub": "Tiendas físicas, E-commerce local",
+          "client_label": "venta"
+        },
+        "manufacturing": {
+          "label": "Manufactura / Custom",
+          "sub": "Talleres, Producción B2B",
+          "client_label": "proyecto"
+        },
+        "b2b": {
+          "label": "Servicios B2B",
+          "sub": "Agencias, Servicios Corporativos",
+          "client_label": "cliente"
+        },
+        "saas": {
+          "label": "Digital / SaaS",
+          "sub": "Apps, Plataformas, Productos Digitales",
+          "client_label": "usuario"
+        }
+      },
+      "universal_inputs": {
+        "revenue": "Ingreso mensual (MXN)",
+        "avg_value": "Valor promedio de transacción (MXN)",
+        "conversion": "Tasa de conversión actual (%)"
+      },
+      "labels": {
+        "fixed_monthly": "Costos Fijos Mensuales",
+        "variable_per": "Costos Variables por {label}",
+        "pre_sale": "Costos de Pre-venta y Cierre",
+        "calculated_metrics": "Utilidad Neta Actual (est.)",
+        "impact_projections": "Impacto Proyectado del Sitio Web",
+        "roi_dashboard": "Panel de Resultados ROI Real",
+        "current_state": "Estado Actual",
+        "projected_state": "Con Sitio Web Profesional",
+        "monthly_net": "Utilidad Neta Mensual",
+        "profit_margin": "Margen de Utilidad",
+        "owner_time": "Tiempo del Dueño en Admin",
+        "cac": "Costo de Adquisición (CAC)",
+        "additional_profit": "Utilidad Mensual Adicional",
+        "payback_period": "Periodo de Recuperación",
+        "months": "meses",
+        "annual_roi": "ROI a 12 Meses",
+        "recovered_time": "Tiempo Recuperado",
+        "hours_month": "hrs/mes",
+        "download_report": "Descargar Reporte Completo (PDF)",
+        "audit_cta": "Obtener Auditoría Gratis",
+        "discovery_cta": "Agendar Llamada de Descubrimiento",
+        "disclaimer_text": "Estas proyecciones son estimaciones basadas en promedios de la industria. Los resultados varían por mercado.",
+        "market_note": "Supuestos de costos basados en tasas de mercado de Querétaro/México al 2025.",
+        "privacy_note": "Tus datos no se guardan. Los cálculos ocurren en tu navegador.",
+        "per_month": "al mes"
+      },
+      "fields": {
+        "reception": "Recepción / Secretaría",
+        "rent": "Renta de Oficina / Consultorio",
+        "utilities": "Servicios (Internet, luz, tel)",
+        "platforms": "Suscripciones (Doctoralia, etc)",
+        "insurance": "Seguro Profesional",
+        "marketing": "Inversión en Marketing Actual",
+        "materials": "Insumos / Materiales",
+        "admin_hours": "Tiempo admin por cliente (hrs)",
+        "retail_rent": "Renta de Local",
+        "salaries": "Sueldos + Prestaciones (IMSS)",
+        "pos": "Sistemas de Cobro / POS",
+        "security": "Seguridad / Seguros",
+        "cogs": "Costo de Ventas (COGS %)",
+        "fees": "Comisiones Bancarias (%)",
+        "cash_card": "Split Efectivo vs Tarjeta (%)",
+        "shipping": "Empaque / Envío",
+        "shrinkage": "Merma / Pérdida (%)",
+        "workshop": "Renta de Taller / Nave",
+        "maintenance": "Mantenimiento de Equipo",
+        "raw_materials": "Materia Prima (% materiales)",
+        "labor_hours": "Horas labor por proyecto",
+        "labor_rate": "Costo hora labor",
+        "waste": "Desperdicio / Scrap (%)",
+        "logistics": "Entrega / Logística",
+        "quote_time": "Tiempo de cotización (hrs)",
+        "quote_conv": "Tasa de cierre de cotización (%)",
+        "software": "Suscripciones de Software",
+        "dev": "Desarrollo Profesional",
+        "freelance": "Costos de Freelance (% del proj)",
+        "duration": "Duración promedio proyecto (sems)",
+        "utilization": "Tasa de utilización del equipo (%)",
+        "hosting": "Hosting e Infraestructura",
+        "support_tools": "Herramientas de Soporte",
+        "mrr": "Ingreso Mensual Recurrente (MRR)",
+        "lifetime": "Vida del cliente (meses)",
+        "churn": "Tasa de Cancelación (Churn %)"
+      },
+      "vat_note": "* Precios no incluyen IVA"
+    },
+    "infrastructure_comparison": {
+      "title": "Inversión transparente",
+      "subtitle": "Configura tu infraestructura actual y mira lo que realmente estás pagando frente a Noctra Studio.",
+      "industry_labels": {
+        "select": "PASO 1: SELECCIONA TU INDUSTRIA",
+        "medical": {
+          "label": "Profesional Médico",
+          "sub": "Clínicas, consultorios y especialistas",
+          "icon": "Stethoscope"
+        },
+        "legal": {
+          "label": "Servicios Legales",
+          "sub": "Despachos de abogados y notarios",
+          "icon": "Briefcase"
+        },
+        "retail": {
+          "label": "Comercio / Retail",
+          "sub": "Tiendas físicas y e-commerce",
+          "icon": "ShoppingBag"
+        },
+        "manufacturing": {
+          "label": "Manufactura / Pyme",
+          "sub": "Talleres, fábricas y logística",
+          "icon": "Hammer"
+        },
+        "b2b": {
+          "label": "Servicios B2B",
+          "sub": "Agencias, consultoras y software",
+          "icon": "Building2"
+        },
+        "hospitality": {
+          "label": "Hospitalidad / Real Estate",
+          "sub": "Hoteles, airbnb y rentas",
+          "icon": "Hotel"
+        },
+        "education": {
+          "label": "Educación y Escuelas",
+          "sub": "Escuelas privadas, Tutorías, Cursos",
+          "icon": "GraduationCap"
+        },
+        "realEstate": {
+          "label": "Bienes Raíces",
+          "sub": "Inmobiliarias, Desarrolladoras, Brokers",
+          "icon": "Home"
+        },
+        "other": {
+          "label": "Otra Industria",
+          "sub": "Proyectos personalizados",
+          "icon": "LayoutGrid"
+        },
+        "select_button": "Seleccionar",
+        "selected_badge": "Industria Seleccionada",
+        "change_button": "Cambiar Industria",
+        "clear_button": "Limpiar Todo"
+      },
+      "categories": {
+        "medical": [
+          {
+            "id": "med_web",
+            "label": "🌐 Web y Presencia",
+            "options": [
+              {
+                "id": "med_agency",
+                "label": "Sitio WordPress con agencia",
+                "min": 85000,
+                "max": 125000,
+                "info": "Setup $15k + Mantenimiento $35k/año × 2"
+              },
+              {
+                "id": "med_template",
+                "label": "Template (Wix/Square)",
+                "min": 12000,
+                "max": 24000,
+                "info": "$500 - $1,000 MXN mensuales"
+              }
+            ]
+          },
+          {
+            "id": "med_booking",
+            "label": "📅 Agendamiento y CRM",
+            "options": [
+              {
+                "id": "doctoralia",
+                "label": "Doctoralia (Premium)",
+                "min": 35000,
+                "max": 65000,
+                "info": "Suscripción + Comisiones por paciente"
+              },
+              {
+                "id": "calendly",
+                "label": "Calendly + CRM Simple",
+                "min": 8000,
+                "max": 15000,
+                "info": "Suscripciones anuales"
+              }
+            ]
+          }
+        ],
+        "legal": [
+          {
+            "id": "leg_web",
+            "label": "🌐 Web y Reputación",
+            "options": [
+              {
+                "id": "leg_agency",
+                "label": "Web Corporativa con Agencia",
+                "min": 120000,
+                "max": 180000,
+                "info": "Branding + SEO Semestral"
+              },
+              {
+                "id": "leg_wp",
+                "label": "WordPress básico",
+                "min": 15000,
+                "max": 35000,
+                "info": "Hosting + Licencia Elementor"
+              }
+            ]
+          },
+          {
+            "id": "leg_crm",
+            "label": "📁 Gestión de Casos",
+            "options": [
+              {
+                "id": "clio",
+                "label": "Clio / Software Legal",
+                "min": 45000,
+                "max": 80000,
+                "info": "Costo por usuario/año"
+              },
+              {
+                "id": "drive_manual",
+                "label": "Google Drive (Manual)",
+                "min": 5000,
+                "max": 10000,
+                "info": "Google Workspace + Tiempo manual"
+              }
+            ]
+          }
+        ],
+        "retail": [
+          {
+            "id": "ret_ecommerce",
+            "label": "🛒 E-commerce",
+            "options": [
+              {
+                "id": "shopify",
+                "label": "Shopify + Apps",
+                "min": 45000,
+                "max": 95000,
+                "info": "Suscripción + Comisiones + Apps"
+              },
+              {
+                "id": "woo",
+                "label": "WooCommerce",
+                "min": 35000,
+                "max": 75000,
+                "info": "Mantenimiento técnico recurrente"
+              }
+            ]
+          }
+        ],
+        "manufacturing": [
+          {
+            "id": "man_ops",
+            "label": "⚙️ Operaciones",
+            "options": [
+              {
+                "id": "erp_basic",
+                "label": "ERP Básico / Inventarios",
+                "min": 95000,
+                "max": 250000,
+                "info": "Implementación + Licencias"
+              },
+              {
+                "id": "excel_manual",
+                "label": "Hojas de Cálculo / Manual",
+                "min": 25000,
+                "max": 65000,
+                "info": "Costo de errores y tiempo perdido"
+              }
+            ]
+          }
+        ],
+        "b2b": [
+          {
+            "id": "b2b_marketing",
+            "label": "🚀 Marketing Digital",
+            "options": [
+              {
+                "id": "b2b_agency",
+                "label": "Agencia de Marketing / SEO",
+                "min": 240000,
+                "max": 600000,
+                "info": "$10k - $25k mensuales x 24 meses"
+              },
+              {
+                "id": "hubspot",
+                "label": "HubSpot (Marketing Hub)",
+                "min": 120000,
+                "max": 350000,
+                "info": "Tier Pro / Enterprise"
+              }
+            ]
+          }
+        ],
+        "hospitality": [
+          {
+            "id": "hosp_distribution",
+            "label": "🏨 Distribución",
+            "options": [
+              {
+                "id": "hosp_booking",
+                "label": "Booking.com (Comisiones)",
+                "min": 150000,
+                "max": 500000,
+                "info": "15-20% de cada reserva"
+              },
+              {
+                "id": "hosp_airbnb",
+                "label": "Airbnb (Comisiones)",
+                "min": 80000,
+                "max": 300000,
+                "info": "Comisión variable por gestión"
+              }
+            ]
+          }
+        ],
+        "education": [
+          {
+            "id": "edu_web",
+            "label": "🎓 Sitio Web e Inscripciones",
+            "options": [
+              {
+                "id": "edu_agency",
+                "label": "Sitio escolar con agencia",
+                "min": 75000,
+                "max": 130000,
+                "info": "Setup + CMS + mantenimiento 2 años"
+              },
+              {
+                "id": "edu_template",
+                "label": "Template (Wix/Squarespace)",
+                "min": 20000,
+                "max": 48000,
+                "info": "Suscripción + tiempo gestionando contenido"
+              },
+              {
+                "id": "edu_lms",
+                "label": "Plataforma LMS (Teachable/Moodle)",
+                "min": 36000,
+                "max": 96000,
+                "info": "Licencia + costos de integración 2 años"
+              }
+            ]
+          }
+        ],
+        "realEstate": [
+          {
+            "id": "re_web",
+            "label": "🏠 Sitio Web y Propiedades",
+            "options": [
+              {
+                "id": "re_agency",
+                "label": "Sitio inmobiliario con agencia",
+                "min": 80000,
+                "max": 150000,
+                "info": "Integración MLS + portal 2 años"
+              },
+              {
+                "id": "re_portals",
+                "label": "Portales (Lamudi/MercadoLibre)",
+                "min": 36000,
+                "max": 96000,
+                "info": "Suscripciones mensuales + listings premium"
+              },
+              {
+                "id": "re_crm",
+                "label": "CRM Inmobiliario (Zoho/Salesforce)",
+                "min": 48000,
+                "max": 120000,
+                "info": "Licencia + onboarding 2 años"
+              }
+            ]
+          }
+        ],
+        "other": [
+          {
+            "id": "other_stack",
+            "label": "🛠️ Stack General",
+            "options": [
+              {
+                "id": "various_saas",
+                "label": "Varios SaaS Fragmentados",
+                "min": 45000,
+                "max": 120000,
+                "info": "Suma de múltiples suscripciones"
+              }
+            ]
+          }
+        ],
+        "universal": [
+          {
+            "id": "uni_marketing",
+            "label": "📣 Marketing y CRM",
+            "options": [
+              {
+                "id": "email_mkt_agency",
+                "label": "Mailing + CRM administrado",
+                "min": 35000,
+                "max": 75000,
+                "info": "Mailchimp Pro + Fee mensual"
+              },
+              {
+                "id": "fb_ads_admin",
+                "label": "Gestión de Pautas (Fee)",
+                "min": 60000,
+                "max": 150000,
+                "info": "Administración de campañas (no incluye adspend)"
+              }
+            ]
+          },
+          {
+            "id": "uni_hosting",
+            "label": "☁️ Cloud y Soporte",
+            "options": [
+              {
+                "id": "secure_hosting",
+                "label": "Hosting Premium + SSL",
+                "min": 15000,
+                "max": 35000,
+                "info": "WPEngine / AWS Administrado"
+              },
+              {
+                "id": "support_hourly",
+                "label": "Soporte Técnico x Hora",
+                "min": 12000,
+                "max": 30000,
+                "info": "Bolsa de horas para ajustes"
+              }
+            ]
+          }
+        ]
+      },
+      "columns": {
+        "current": {
+          "title": "Tu configuración actual",
+          "empty_state": "Selecciona lo que usas actualmente para comparar costos.",
+          "total_label": "Costo Total Estimado (2 años)",
+          "hidden_costs_title": "Costos Ocultos y Riesgos",
+          "hidden_costs_items": [
+            "Tiempo perdido gestionando proveedores",
+            "Riesgos de seguridad y hacks en WordPress",
+            "Incompatibilidad entre plugins",
+            "Falta de soporte proactivo",
+            "Crecimiento limitado por infraestructura"
+          ]
+        },
+        "noctra": {
+          "title": "Con Noctra Studio",
+          "badge": "RECOMENDADO",
+          "total_label": "Inversión Única (2 años)",
+          "included_items": [
+            "Sitio Web Ultra-Rápido (Next.js)",
+            "Infraestructura Cloud Hosting",
+            "CRM y Automatización Integrada",
+            "Soporte Concierge 24/7",
+            "Actualizaciones de Seguridad",
+            "Licencia Enterprise",
+            "Consultoría en Crecimiento",
+            "SEO Técnico Nativo"
+          ],
+          "zero_hidden_title": "Beneficios Exclusivos Noctra",
+          "zero_hidden_items": [
+            "Costo fijo sin sorpresas",
+            "Escalabilidad infinita",
+            "Propiedad total de tus activos",
+            "Un solo punto de contacto",
+            "Diseño premium de clase mundial"
+          ]
+        }
+      },
+      "savings_card": {
+        "title": "TUS AHORROS POTENCIALES",
+        "roi_label": "ROI ESTIMADO",
+        "enough_to_items": [
+          "Equivale a una nueva oficina física",
+          "Suficiente para renovar todo tu equipo",
+          "Equivale a 12 meses de tu nómina admin",
+          "Suficiente para tu expansión nacional",
+          "Un viaje de incentivo para todo tu equipo"
+        ]
+      },
+      "breakdown": {
+        "cta_open": "Ver desglose detallado ▼",
+        "cta_close": "Cerrar desglose ▲",
+        "title": "DESGLOSE FINANCIERO ESTIMADO (2 AÑOS)",
+        "year_1": "Año 1 (Setup + Mant.)",
+        "year_2": "Año 2 (Continuidad)",
+        "grand_total": "TOTAL ACUMULADO",
+        "extra_considerations": "Consideraciones Extras",
+        "extra_items": [
+          "Inflación estimada del 5% anual",
+          "Costos de oportunidad no calculados",
+          "Fees de implementación inicial"
+        ]
+      },
+      "methodology": {
+        "title": "Metodología del Cálculo",
+        "summary": "Nuestros cálculos se basan en datos de mercado promedio recolectados de agencias, freelancers y proveedores de software SaaS en México (2024-2025).",
+        "sections": [
+          {
+            "title": "FUENTES DE DATOS",
+            "items": [
+              "Promedios de cotizaciones de agencias boutique en CDMX/MTY/GDL.",
+              "Precios públicos de plataformas SaaS (Shopify, Doctoralia, Hubspot, etc).",
+              "Entrevistas con tomadores de decisiones en más de 50 empresas medianas."
+            ]
+          },
+          {
+            "title": "SUPUESTOS CLAVE",
+            "items": [
+              "Los costos de Noctra incluyen el setup y mantenimiento preventivo por 24 meses.",
+              "Las opciones de 'Agencia' incluyen un fee mensual de gestión moderado.",
+              "No se incluyen costos de anuncios (AdSpend), solo de gestión."
+            ]
+          }
+        ],
+        "currency": "Todos los valores están expresados en MXN para facilitar la comparación en el mercado local.",
+        "variations": "Los costos pueden variar significativamente dependiendo de la complejidad específica del proyecto.",
+        "commitment": "Noctra se compromete a la transparencia; si tienes una cotización formal que contradiga estos datos, contáctanos.",
+        "last_updated": "Última actualización: Febrero 2025"
+      },
+      "warnings": {
+        "high_spend": "⚠️ Estás gastando más de 5 veces lo necesario. Considera consolidar con una solución todo-en-uno.",
+        "doctoralia": "⚠️ Las comisiones de Doctoralia pueden comerse hasta el 20% de tu margen. Un motor de reservas propio es vital.",
+        "hospitality_ota": "⚠️ Depender 100% de OTAs (Booking/Airbnb) es ceder tu rentabilidad. El canal directo con Noctra ahorra miles."
+      },
+      "option_warnings": {
+        "missing_patients": "⚠️ Pierdes el 65% de pacientes potenciales que buscan en línea primero",
+        "staff_time_med": "⚠️ Cuesta 10-15 horas/semana de personal ($48k-$72k valor)",
+        "staff_time_comm": "⚠️ Tiempo de personal: 15 horas/semana @ $100/hora",
+        "low_credibility": "⚠️ Baja credibilidad, sin control de marca",
+        "time_lost_legal": "⚠️ Tu tiempo: 20 horas/mes @ $100-200/hora",
+        "time_lost_followup": "⚠️ Tu tiempo en seguimientos",
+        "billable_hours_lost": "⚠️ 15 horas/semana de tiempo facturable perdido",
+        "error_prone_inv": "⚠️ Propenso a errores, sin rastreo de stock en tiempo real",
+        "staff_time_retail": "⚠️ Tiempo de personal: 20 horas/mes",
+        "staff_time_logistics": "⚠️ Tiempo de personal gestionando envíos",
+        "owner_time_wa": "⚠️ Tu tiempo respondiendo preguntas",
+        "missing_b2b": "⚠️ Pierdes clientes B2B que necesitan presentación profesional",
+        "unprofessional_mfg": "⚠️ Poco profesional para proyectos de alto valor",
+        "owner_time_quotes": "⚠️ 30 horas/mes @ $100-200/hora",
+        "error_prone_quotes": "⚠️ Consume tiempo, propenso a errores",
+        "gas_time_mfg": "⚠️ Gasolina + tiempo por cada cliente potencial",
+        "disorganized_mfg": "⚠️ Desorganizado, difícil de rastrear",
+        "time_lost_wa_mfg": "⚠️ Tiempo enviando fotos, actualizaciones",
+        "tedious_tracking": "⚠️ Rastreo tedioso, sin automatización",
+        "time_spreadsheets": "⚠️ Tiempo perdido en hojas de cálculo",
+        "design_time_props": "⚠️ Tiempo de diseño por propuesta",
+        "time_coordinating": "⚠️ Tiempo coordinando actualizaciones",
+        "double_booking_risk": "⚠️ Alto riesgo de doble reserva, ingresos perdidos",
+        "staff_time_reviews": "⚠️ Tiempo de personal respondiendo reseñas",
+        "flying_blind": "⚠️ A ciegas - sin saber qué está funcionando",
+        "high_security_risk": "⚠️ Alto riesgo de caídas y ataques"
+      }
+    }
+  },
+  "roi_calculator": {
+    "title": "¿En cuánto tiempo se paga tu sitio?",
+    "inputs": {
+      "current_clients": {
+        "label": "¿Cuántos clientes nuevos obtienes por mes actualmente?",
+        "placeholder": "ej: 5",
+        "helper": "Promedio de los últimos 6 meses"
+      },
+      "avg_ticket": {
+        "label": "¿Cuál es tu ticket promedio por cliente?",
+        "placeholder": "$8,000",
+        "helper": "Valor promedio de una venta/servicio (MXN)"
+      },
+      "investment_tier": {
+        "label": "¿Qué inversión estás considerando?",
+        "options": {
+          "20000": "Sitio Profesional - $20k",
+          "35000": "E-commerce - $35k",
+          "80000": "Sistema Custom - $80k"
+        }
+      }
+    },
+    "outputs": {
+      "payback_period": {
+        "label": "Se paga en:",
+        "unit": "meses"
+      },
+      "monthly_new_revenue": {
+        "label": "Ingresos adicionales mensuales:",
+        "description": "Basado en 40% mejora en conversión"
+      },
+      "annual_roi": {
+        "label": "ROI a 12 meses:",
+        "description": "Retorno sobre inversión primer año"
+      },
+      "three_year_revenue": {
+        "label": "Ingresos adicionales a 3 años:",
+        "description": "Asumiendo conversión constante"
+      }
+    },
+    "cta": "Agenda consulta para validar estos números",
+    "disclaimer": "* Cálculos estimados basados en benchmarks de industria. Resultados reales varían por negocio."
+  },
+  "Process": {
+    "title": "Nuestro proceso",
+    "subtitle": "Pasos claros para que siempre sepas qué está pasando con tu proyecto.",
+    "steps": {
+      "0": {
+        "number": "01",
+        "title": "Diagnóstico y Descubrimiento",
+        "subtitle": "Entregable: Hoja de Ruta del Proyecto",
+        "description": "No empezamos a diseñar hasta entender tu negocio. Esta fase produce un documento estratégico que guía todo el proyecto.",
+        "deliverables": [
+          "Análisis de competencia (3-5 competidores directos)",
+          "Definición de audiencia objetivo y user personas",
+          "Mapa de sitio y arquitectura de información",
+          "Lista priorizada de features (must-have vs nice-to-have)",
+          "Cronograma detallado con milestones"
+        ],
+        "timeline": "3-5 días",
+        "your_involvement": "2 llamadas (kickoff + revisión), 1h feedback escrito",
+        "icon": "🗺️"
+      },
+      "1": {
+        "number": "02",
+        "title": "Diseño y Prototipado",
+        "subtitle": "Entregable: Vista Previa Interactiva en Figma",
+        "description": "Antes de escribir código, diseñamos la experiencia completa. Verás exactamente cómo se verá y funcionará tu sitio.",
+        "deliverables": [
+          "Wireframes de todas las páginas principales",
+          "Diseño visual de alta fidelidad (desktop + mobile)",
+          "Prototipo interactivo clickeable en Figma",
+          "Sistema de diseño (colores, tipografía, componentes)",
+          "Copy sugerido para secciones clave"
+        ],
+        "timeline": "7-10 días",
+        "your_involvement": "Revisión semanal (30 min), hasta 2 rondas de cambios incluidas",
+        "icon": "🎨"
+      },
+      "2": {
+        "number": "03",
+        "title": "Desarrollo y Construcción",
+        "subtitle": "Entregable: Sitio de Vista Previa en Vivo",
+        "description": "Convertimos el diseño en código. Acceso día 1 a tu sitio en staging para que veas progreso en tiempo real.",
+        "deliverables": [
+          "URL de staging con acceso privado (actualizaciones diarias)",
+          "Implementación mobile-first responsive",
+          "Integración de CMS (si aplica) para que edites contenido",
+          "Optimización de velocidad (Core Web Vitals)",
+          "Configuración de analytics y tracking"
+        ],
+        "timeline": "10-15 días",
+        "your_involvement": "Revisión semanal de staging, feedback incremental",
+        "icon": "⚙️"
+      },
+      "3": {
+        "number": "04",
+        "title": "Lanzamiento y Entrega",
+        "subtitle": "Entregable: Sitio Live + Código Completo",
+        "description": "No solo lanzamos tu sitio. Te entregamos todo: código, documentación, accesos. Es 100% tuyo.",
+        "deliverables": [
+          "Sitio publicado en tu dominio",
+          "Repositorio completo en GitHub (ownership transferido a ti)",
+          "Documentación técnica (cómo actualizar, dónde está qué)",
+          "Guía de contenido (cómo agregar páginas, editar textos)",
+          "Accesos completos (hosting, dominio, analytics, todo)"
+        ],
+        "timeline": "2-3 días",
+        "your_involvement": "Aprobación final, validación de accesos",
+        "icon": "🚀"
+      },
+      "4": {
+        "number": "05",
+        "title": "Optimización Continua (60 días)",
+        "subtitle": "Entregable: Reporte de Optimización Mensual",
+        "description": "Tú te enfocas en tu profesión. Nosotros nos enfocamos en tu crecimiento digital. Una llamada de 30 minutos al mes es todo lo que necesitamos de ti — el resto corre por nuestra cuenta.",
+        "deliverables": [
+          "Monitoreo semanal de métricas (tráfico, conversiones, velocidad)",
+          "Hasta 2 rondas de ajustes basados en data real",
+          "A/B testing de CTAs o secciones clave (si el tráfico lo permite)",
+          "Reporte mensual con insights accionables",
+          "Recomendaciones para siguiente fase (si aplica)"
+        ],
+        "timeline": "60 días post-lanzamiento",
+        "your_involvement": "Llamada mensual de revisión (30 min)",
+        "icon": "📊"
+      }
+    },
+    "labels": {
+      "timeline": "Tiempos:",
+      "involvement": "Tu participación:",
+      "cta": "¿Preguntas sobre el proceso?"
+    }
+  },
+  "WorkPage": {
+    "badge": "Portfolio en construcción",
+    "title": "Cómo trabajamos con nuestros clientes",
+    "subtitle": "Un proceso claro, transparente y orientado a resultados. Sin sorpresas, sin intermediarios, sin promesas vacías.",
+    "sections": {
+      "in_progress": {
+        "title": "Proyectos en construcción",
+        "description": "Estamos construyendo nuestro portafolio con clientes reales. Aquí está lo que estamos desarrollando ahora:",
+        "expected_results_label": "Resultados Esperados (basado en proyectos similares)",
+        "disclaimer": "Las proyecciones son estimaciones. Los resultados reales dependen de las condiciones del mercado y la ejecución.",
+        "before_after_label": "Ver Antes vs Después",
+        "before_after_placeholder": "📊 Métricas de rendimiento y comparación antes/después disponibles post-lanzamiento",
+        "before_after_coming_soon": "Lanzamiento en {date} — Comparación antes/después próximamente",
+        "timeline_phases": {
+          "discovery": "Discovery",
+          "design": "Diseño",
+          "development": "Desarrollo",
+          "launch": "Lanzamiento",
+          "completed": "Completado"
+        },
+        "projects": {
+          "woodax": {
+            "name": "Woodax Design",
+            "type": "Carpintería premium customizada · Querétaro",
+            "alt_text": "Proyecto Woodax Design — carpintería premium en Querétaro",
+            "challenge": "Woodax crea muebles a medida de alta gama, pero su presencia digital no reflejaba la calidad de su craftsmanship. Necesitaban un sitio que mostrara su trabajo sin depender de Instagram.",
+            "solution": "Portfolio visual enfocado en conversión, sistema de cotizaciones que califica proyectos antes de contacto, y optimización para 'carpintería custom Querétaro'.",
+            "deliverables": [
+              "Galería de proyectos con filtros (cocinas, closets, muebles)",
+              "Formulario de cotización inteligente",
+              "Sitio optimizado para móvil (80% de tráfico)",
+              "Velocidad <1.5 segundos"
+            ],
+            "timeline_data": {
+              "current_phase": 3,
+              "phases": [
+                "Discovery",
+                "Diseño",
+                "Desarrollo",
+                "Lanzamiento"
+              ],
+              "status_text": "Actualmente en Desarrollo • Lanzamiento: Marzo 2025"
+            },
+            "objective": "Meta: 15+ cotizaciones calificadas mensuales (proyectos >$50k MXN)",
+            "status": "Lanzamiento del proyecto en Marzo 2025",
+            "next_milestone": "Auditoría final de rendimiento",
+            "timeline": "Lanzamiento Marzo 2025",
+            "stack": "Next.js + Sanity CMS + Vercel",
+            "mockup_badge": "En Desarrollo",
+            "before_after": {
+              "is_placeholder": true,
+              "launch_date": "Marzo 2025",
+              "before": {
+                "title": "Antes de Noctra",
+                "items": [
+                  "Tiempos de carga lentos (8+ segundos)",
+                  "No apto para móviles",
+                  "Calificación de leads manual",
+                  "Dependencia de agencia para cambios"
+                ]
+              },
+              "after": {
+                "title": "Después de Noctra",
+                "items": [
+                  "Carga en <1.5 segundos",
+                  "Diseño mobile-first",
+                  "Sistema de calificación automatizado",
+                  "Actualizaciones autónomas por el cliente"
+                ]
+              },
+              "metrics": "Tráfico: +45% | Leads: +120% | Conversión: +38% | Tiempo ahorrado: 15hrs/semana"
+            },
+            "expected_results": {
+              "title": "Impacto Proyectado (horizonte 6 meses)",
+              "metrics": [
+                "Calidad de prospectos: 15+ cotizaciones calificadas/mes (proyectos >$50k MXN)",
+                "Tiempo ahorrado: 12 horas/semana (sin más calificación por Instagram DM)",
+                "Tasa de conversión: 30-40% de leads calificados → contratos firmados",
+                "Aumento en LTV del cliente: 25% (negocio recurrente/referido)"
+              ],
+              "benchmark_note": "Basado en promedios de proveedores de servicios premium con sistemas de calificación automatizados"
+            }
+          },
+          "dyma": {
+            "name": "Dyma Group",
+            "type": "Grupo empresarial industrial · El Marqués",
+            "alt_text": "Proyecto Dyma Group — grupo empresarial multi-industria en Querétaro",
+            "challenge": "Presencia corporativa que refleje su solidez como grupo consolidado. Necesitaban centralizar información de sus empresas sin perder identidad individual.",
+            "solution": "Sitio corporativo con arquitectura escalable, portal de clientes para seguimiento de proyectos, y sistema que pueden actualizar sin depender de nosotros.",
+            "deliverables": [
+              "Sitio corporativo con secciones por empresa",
+              "CMS para actualizaciones autónomas",
+              "Portal privado con acceso segmentado",
+              "Dashboard de ventas real-time"
+            ],
+            "timeline_data": {
+              "current_phase": 2,
+              "phases": [
+                "Discovery",
+                "Diseño",
+                "Desarrollo",
+                "Lanzamiento"
+              ],
+              "status_text": "Actualmente en fase de Diseño • Lanzamiento: Abril 2025"
+            },
+            "objective": "Meta: Presencia robusta y gestión autónoma",
+            "status": "Fase 2 de 4 completada",
+            "next_milestone": "Integración del portal de clientes",
+            "timeline": "Lanzamiento Abril 2025",
+            "stack": "Next.js + Supabase + Autenticación",
+            "mockup_badge": "En Desarrollo",
+            "before_after": {
+              "is_placeholder": true,
+              "launch_date": "Abril 2025",
+              "before": {
+                "title": "Antes de Noctra",
+                "items": [
+                  "Arquitectura obsoleta",
+                  "Identidad de marca fragmentada",
+                  "Sin gestión centralizada",
+                  "Ciclos de actualización lentos"
+                ]
+              },
+              "after": {
+                "title": "Después de Noctra",
+                "items": [
+                  "Stack moderno en edge-runtime",
+                  "Diseño corporativo unificado",
+                  "Centro de control centralizado",
+                  "Actualizaciones autónomas instantáneas"
+                ]
+              },
+              "metrics": "Consistencia: 100% | Eficiencia: +40% | Tiempo ahorrado: 8hrs/semana"
+            },
+            "expected_results": {
+              "title": "Impacto Proyectado (horizonte 6 meses)",
+              "metrics": [
+                "Tiempo de gestión ahorrado: 8 horas/semana (actualizaciones autónomas)",
+                "Consistencia de marca: 100% en todas las entidades",
+                "Atribución de leads: Rastreo de qué entidad genera consultas",
+                "Productividad del equipo: reducción del 40% en tickets relacionados con la web"
+              ],
+              "benchmark_note": "Basado en promedios de grupos corporativos multi-entidad con sistemas centralizados"
+            }
+          },
+          "valtru": {
+            "name": "Valtru Interiorismo",
+            "type": "Estudio de diseño y arquitectura · Zibatá",
+            "alt_text": "Proyecto Valtru Interiorismo — estudio de diseño de interiores",
+            "challenge": "Un estudio que busca institucionalizar su presencia digital y atraer proyectos residenciales premium a través de una experiencia visual inmersiva.",
+            "solution": "Portafolio visual de alto impacto, motor de storytelling de proyectos, y generación de leads enfocado en despachos de arquitectura.",
+            "deliverables": [
+              "Vistas de proyectos inmersivas",
+              "CMS enfocado en storytelling",
+              "Integración de marca premium",
+              "Optimización de rendimiento"
+            ],
+            "timeline_data": {
+              "current_phase": 0,
+              "phases": [
+                "Discovery",
+                "Diseño",
+                "Desarrollo",
+                "Lanzamiento"
+              ],
+              "status_text": "Firma de contrato en Marzo • El proyecto inicia en Q2 2025"
+            },
+            "objective": "Meta: Leads residenciales de alta gama",
+            "status": "Iniciando pronto",
+            "next_milestone": "Reunión de kickoff",
+            "timeline": "Iniciando Q2 2025",
+            "stack": "Next.js + Sanity CMS",
+            "mockup_badge": "Iniciando Pronto",
+            "is_future": true
+          }
+        }
+      },
+      "industries": {
+        "title": "Industrias para las que construimos",
+        "subtitle": "Desde manufactura artesanal hasta grupos corporativos, creamos sistemas que impulsan tu negocio",
+        "items": [
+          {
+            "name": "Manufactura a Medida & Artesanos",
+            "benefit": "Portafolios que califican leads, no solo muestran fotos",
+            "example": "Como Woodax Design",
+            "status": "Proyecto Activo",
+            "status_type": "active",
+            "icon": "hammer"
+          },
+          {
+            "name": "Grupos Corporativos & Holdings",
+            "benefit": "Presencia web centralizada sin perder la identidad de cada marca",
+            "example": "Como Dyma Group",
+            "status": "Proyecto Activo",
+            "status_type": "active",
+            "icon": "building_2"
+          },
+          {
+            "name": "Servicios Profesionales",
+            "benefit": "Sistemas automatizados de captación y calificación de clientes",
+            "example": "Despachos legales, consultoras, contadores",
+            "status": "Aceptando Clientes",
+            "status_type": "accepting",
+            "icon": "briefcase"
+          },
+          {
+            "name": "Retail Local & Comercio",
+            "benefit": "E-commerce que convierte visitantes en clientes recurrentes",
+            "status": "Aceptando Clientes",
+            "status_type": "accepting",
+            "icon": "shopping_bag"
+          },
+          {
+            "name": "Salud & Clínicas Médicas",
+            "benefit": "Sistemas de citas que reducen el ausentismo en un 60%",
+            "status": "Aceptando Clientes",
+            "status_type": "accepting",
+            "icon": "stethoscope"
+          },
+          {
+            "name": "Hospitalidad & Turismo",
+            "benefit": "Sistemas de reserva integrados con tus operaciones",
+            "status": "Aceptando Clientes",
+            "status_type": "accepting",
+            "icon": "map_pin"
+          }
+        ]
+      },
+      "conversion_cta": {
+        "title": "¿Listo para ser nuestra próxima historia de éxito?",
+        "subtitle": "Estamos aceptando 3 nuevos proyectos este mes. Lugares limitados para asegurar calidad.",
+        "availability": "2 de 3 lugares disponibles este mes",
+        "trust_badge": "Sin compromiso • Sin ventas agresivas • Sin sorpresas",
+        "left_title": "Por qué actuar ahora",
+        "right_title": "Qué pasa después",
+        "left_items": [
+          "25% de descuento early adopter (primeros 5 clientes)",
+          "Soporte prioritario por 12 meses",
+          "Destacado en nuestro portafolio (opcional)",
+          "Acceso directo al fundador durante todo el proyecto"
+        ],
+        "right_items": [
+          "Llamada de descubrimiento gratuita de 30 min (estrategia, no pitch)",
+          "Propuesta personalizada en 48 horas",
+          "Acceso a staging en vivo desde el día 1",
+          "Lanzamiento en 3-5 semanas"
+        ],
+        "primary_button": "Agendar Llamada de Descubrimiento Gratuita",
+        "secondary_button": "Ver Nuestro Proceso Primero →"
+      },
+      "comparison": {
+        "title": "Lo que se incluye en CADA proyecto (vs lo que otros cobran extra)",
+        "description": "No creemos en cobrar por lo esencial. Nuestros proyectos se entregan completos, optimizados y listos para escalar.",
+        "left_title": "Lo que Incluimos (Sin Costo Extra)",
+        "right_title": "Lo que Otros Cobran Extra",
+        "left_items": [
+          "Código propio que te pertenece (no WordPress)",
+          "Optimización técnica de SEO incluida",
+          "60 días de soporte post-lanzamiento",
+          "Optimización de velocidad (<1.5 segundos)",
+          "Diseño responsive mobile-first",
+          "Analytics y rastreo configurados",
+          "Mejores prácticas de seguridad integradas",
+          "Documentación completa + walkthrough en video"
+        ],
+        "right_items": [
+          "Mantenimiento de WordPress: $2k-5k/año",
+          "Retenedor de SEO: $500-1500/mes",
+          "El soporte termina al entregar",
+          "\"Optimizamos si pagas más\"",
+          "Diseño responsive es \"función premium\"",
+          "Configuración de Analytics: $300-800",
+          "Refuerzo de seguridad: $500-1200",
+          "Documentación: No proporcionada"
+        ]
+      },
+      "included": {
+        "title": "Lo que incluye CADA proyecto",
+        "description": "Independientemente del tamaño, esto es lo que siempre entregas trabajando con Noctra:",
+        "items": [
+          {
+            "title": "Código propio que te pertenece (no WordPress)",
+            "icon": "code",
+            "details": "Qué recibes al final:",
+            "deliverables": [
+              "Repositorio completo en GitHub (ownership transferido)",
+              "Documentación técnica de cómo está construido",
+              "Guía para hacer cambios básicos",
+              "Cero dependencia de Noctra"
+            ],
+            "why_it_matters": "Muchas agencias usan WordPress con plugins pagados anuales. Quedas atrapado. Aquí, el código es tuyo desde día 1."
+          },
+          {
+            "title": "Optimización técnica SEO incluida",
+            "icon": "search",
+            "details": "Qué configuramos:",
+            "deliverables": [
+              "Google Search Console",
+              "Meta tags y estructura semántica",
+              "Sitemap XML y robots.txt",
+              "Schema markup para rich snippets",
+              "URLs limpias y descriptivas"
+            ],
+            "why_it_matters": "Un sitio bonito que nadie encuentra en Google no sirve de nada."
+          },
+          {
+            "title": "Garantía de velocidad <2 segundos",
+            "icon": "zap",
+            "details": "Cómo lo garantizamos:",
+            "deliverables": [
+              "Lighthouse CI en cada deploy",
+              "Core Web Vitals monitoreados",
+              "Optimización automática de imágenes",
+              "Caché configurado correctamente"
+            ],
+            "why_it_matters": "Cada segundo extra = 7% menos conversiones. Google penaliza sitios lentos."
+          },
+          {
+            "title": "🛡️ 60 días de soporte post-lanzamiento",
+            "icon": "life-buoy",
+            "details": "Qué incluye:",
+            "deliverables": [
+              "Monitoreo semanal de métricas",
+              "Hasta 2 rondas de ajustes basados en datos reales",
+              "Soporte WhatsApp <4 horas (horario laboral)",
+              "Reporte mensual con insights"
+            ],
+            "why_it_matters": "Los primeros 60 días descubres qué funciona. Necesitas soporte ágil."
+          },
+          {
+            "title": "💬 Acceso directo al fundador vía WhatsApp",
+            "icon": "message-square",
+            "details": "Esto significa:",
+            "deliverables": [
+              "Hablas con Manu, quien escribe el código",
+              "Decisiones en horas, no semanas",
+              "Sin account managers intermediarios",
+              "Cambios urgentes el mismo día"
+            ],
+            "why_it_matters": "Tu tiempo vale. Las agencias grandes tienen procesos lentos."
+          }
+        ]
+      },
+      "process": {
+        "title": "Nuestro proceso (5 fases)",
+        "timeline": [
+          {
+            "step": "1",
+            "label": "Descubrimiento & Diagnóstico",
+            "weeks": "Semana 1",
+            "duration": "3-5 días",
+            "description": "Análisis de competencia, definición de audiencia, roadmap del proyecto.",
+            "deliverables_label": "Entregas: Documento estratégico + sitemap + timeline",
+            "user_time": "Tu tiempo: 2 calls + 1 hora de feedback"
+          },
+          {
+            "step": "2",
+            "label": "Diseño & Prototipado",
+            "weeks": "Semanas 2-3",
+            "duration": "7-10 días",
+            "description": "Wireframes, diseño visual, prototipo interactivo en Figma.",
+            "deliverables_label": "Entregas: Link a Figma + sistema de diseño",
+            "user_time": "Tu tiempo: Review semanal 30 min + hasta 2 rondas de cambios"
+          },
+          {
+            "step": "3",
+            "label": "Desarrollo & Construcción",
+            "weeks": "Semanas 3-5",
+            "duration": "10-15 días",
+            "description": "Implementación del código, acceso a staging desde día 1.",
+            "deliverables_label": "Entregas: URL de staging (actualizado diariamente) + repo GitHub",
+            "user_time": "Tu tiempo: Review semanal + feedback incremental"
+          },
+          {
+            "step": "4",
+            "label": "Lanzamiento & Entrega",
+            "weeks": "Semana 6",
+            "duration": "2-3 días",
+            "description": "Publicación, transferencia de ownership, training.",
+            "deliverables_label": "Entregas: Sitio live + documentación + accesos completos",
+            "user_time": "Tu tiempo: Validación final + 30 min de training"
+          },
+          {
+            "step": "5",
+            "label": "Optimización Continua",
+            "weeks": "Meses 2-3",
+            "duration": "60 días",
+            "description": "Monitoreo, A/B testing, ajustes basados en datos.",
+            "deliverables_label": "Entregas: Reportes mensuales + hasta 2 rondas de optimizaciones",
+            "user_time": "Tu tiempo: Call mensual de 30 min"
+          }
+        ]
+      },
+      "faq": {
+        "title": "Preguntas Frecuentes",
+        "items": [
+          {
+            "category": "Inversión",
+            "icon": "dollar",
+            "question": "¿Cuánto cuesta un proyecto?",
+            "answer": "Desde $20,000 MXN para sitios básicos hasta $120,000+ MXN para sistemas custom. El 70% de clientes está en rango $35k-$65k. En la consulta te damos presupuesto exacto."
+          },
+          {
+            "category": "Timeline",
+            "icon": "clock",
+            "question": "¿Cuánto tarda?",
+            "answer": "4-6 semanas para sitios estándar. Sistemas custom 8-12 semanas. Timeline exacto en la propuesta."
+          },
+          {
+            "category": "Preparación",
+            "icon": "checklist",
+            "question": "¿Qué necesito tener listo?",
+            "answer": "Mínimo: Claridad en el objetivo de negocio, activos de marca (si los tienes) y disponibilidad de 1-2 horas por semana para feedback. Nosotros nos encargamos del resto."
+          },
+          {
+            "category": "Garantía",
+            "icon": "shield_check",
+            "question": "¿Qué pasa si no estoy satisfecho?",
+            "answer": "Garantía de resultados medibles. Si no cumplimos los KPIs en 60 días, reembolso proporcional. <link>Ver garantía completa</link>"
+          },
+          {
+            "category": "Logística",
+            "icon": "globe",
+            "question": "¿Trabajan fuera de Querétaro?",
+            "answer": "Sí. 100% remoto. Videollamadas, staging online, comunicación vía WhatsApp."
+          },
+          {
+            "category": "Portafolio",
+            "icon": "rotate",
+            "question": "¿Puedo ver ejemplos de su trabajo?",
+            "answer": "Absolutamente. Tenemos 2 proyectos actualmente en desarrollo (Woodax Design y Dyma Group, mostrados arriba). Los casos de estudio completos con métricas estarán disponibles cuando estos proyectos lancen en el Q1 de 2025. ¿Quieres ser el siguiente? Agenda una llamada para ver previas detalladas."
+          }
+        ]
+      }
+    },
+    "cta": {
+      "title": "¿Listo para empezar tu proyecto?",
+      "subtitle": "No vendemos sitios web. Vendemos sistemas que trabajan para tu negocio 24/7.",
+      "button": "Agendar mi consulta gratuita",
+      "after_title": "Qué pasa después:",
+      "after_items": [
+        "Respuesta en <24 horas",
+        "Consulta gratuita 20-30 minutos",
+        "Propuesta clara en 48 horas",
+        "Sin compromiso, sin letra chica"
+      ]
+    }
+  },
+  "TrustedBy": {
+    "title": "Nuestro Arsenal de Ingeniería"
+  },
+  "BlogPage": {
+    "badge": "Últimos Insights",
+    "title": "Insights e Ingeniería",
+    "description": "Explora guías prácticas y perspectivas técnicas sobre desarrollo web, SEO y estrategia digital para escalar tu negocio."
+  },
+  "Contact": {
+    "title": "¿Listo para empezar?",
+    "subtitle": "Hablemos de cómo podemos elevar tu marca. Contáctanos para una consulta.",
+    "name_placeholder": "Tu Nombre",
+    "email_placeholder": "Tu Email",
+    "message_placeholder": "Cuéntanos sobre tu proyecto...",
+    "submit_button": "Enviar Mensaje"
+  },
+  "ContactPage": {
+    "hero": {
+      "title": "Platiquemos de tu proyecto",
+      "subtitle": "Brutal honestidad en un mundo de agencias que prometen demasiado y entregan poco.",
+      "trust_badges": {
+        "0": "CONSULTA GRATUITA",
+        "1": "RESPUESTA < 24H",
+        "2": "ACCESO DIRECTO A FUNDADOR"
+      }
+    },
+    "steps": {
+      "step_1": {
+        "title": "Identidad",
+        "label": "Paso 1 de 3"
+      },
+      "step_2": {
+        "title": "Detalles del proyecto",
+        "label": "Paso 2 de 3"
+      },
+      "step_3": {
+        "title": "Contexto",
+        "label": "Paso 3 de 3"
+      },
+      "next": "Siguiente paso",
+      "back": "Regresar"
+    },
+    "validation": {
+      "email_valid": "Correo válido",
+      "required": "Este campo es obligatorio",
+      "invalid_email": "Introduce un correo válido",
+      "phone_format": "Solo números, por favor"
+    },
+    "budget_scopes": {
+      "20-35k": "Landing o sitio estratégico simple",
+      "35-50k": "Sitio profesional completo + arquitectura de contenido",
+      "50-80k": "E-commerce o sistemas avanzados",
+      "80-120k": "Infraestructura personalizada / Web App",
+      "120k+": "Plataforma de transformación completa",
+      "monthly": "Crecimiento continuo y mantenimiento",
+      "discuss": "Alcance personalizado enfocado en resultados"
+    },
+    "expectations": {
+      "title": "Lo que recibirás en menos de 24 horas:",
+      "items": [
+        "Correo de confirmación con los siguientes pasos",
+        "Link de Calendly para agendar tu llamada de descubrimiento gratuita (30 min)",
+        "Guía PDF de inicio rápido con checklist de proyecto"
+      ]
+    },
+    "testimonials": [
+      {
+        "quote": "Envías el brief hoy. Recibes una propuesta detallada con alcance, cronograma y precio exacto en menos de 72 horas. No es una cotización genérica — es un documento específico para tu negocio.",
+        "author": "NUESTRO COMPROMISO, POR ESCRITO",
+        "icon": "zap"
+      },
+      {
+        "quote": "Sin sorpresas por hora. Sin el 'eso no estaba incluido'. Apruebas el precio exacto antes de que escribamos una sola línea de código. Los cambios tras la aprobación pasan por una orden de cambio formal.",
+        "author": "CLÁUSULA CONTRACTUAL, CADA PROYECTO",
+        "icon": "file-text"
+      },
+      {
+        "quote": "Definimos KPIs contigo antes de empezar. Si no los alcanzamos en 60 días tras el lanzamiento, recibes un reembolso proporcional. Esto no es una línea de marketing — está en el contrato.",
+        "author": "GARANTÍA DE RENDIMIENTO, FIRMADO",
+        "icon": "target"
+      }
+    ],
+    "testimonials_title": "NUESTROS COMPROMISOS CONTIGO",
+    "form": {
+      "name_label": "¿Cuál es tu nombre?",
+      "name_placeholder": "Tu nombre completo",
+      "email_label": "Tu correo",
+      "email_placeholder": "tu@empresa.com",
+      "phone_label": "Teléfono (para seguimiento rápido)",
+      "phone_placeholder": "+52 (___) ___-____",
+      "service_label": "¿Qué tipo de proyecto necesitas?",
+      "service_placeholder": "Selecciona una opción...",
+      "service_options": {
+        "website": "Sitio web profesional (consultorios, despachos, empresas)",
+        "ecommerce": "Tienda en línea (venta de productos/servicios)",
+        "custom_system": "Sistema a medida (CRM, automatización, portales)",
+        "optimization": "Optimización de sitio existente (mejorar velocidad/conversión)",
+        "not_sure": "No estoy seguro - necesito asesoría"
+      },
+      "budget_label": "¿Cuál es tu presupuesto aproximado?",
+      "currency_label": "Moneda",
+      "budget_options": {
+        "mxn": {
+          "20-35k": "$20k - $35k",
+          "35-50k": "$35k - $50k",
+          "50-80k": "$50k - $80k",
+          "80-120k": "$80k - $120k",
+          "120k+": "+$120k",
+          "monthly": "Mantenimiento mensual",
+          "discuss": "No estoy seguro · Platiquemos"
+        },
+        "usd": {
+          "20-35k": "$1k - $1.8k",
+          "35-50k": "$1.8k - $2.5k",
+          "50-80k": "$2.5k - $4k",
+          "80-120k": "$4k - $6k",
+          "120k+": "+$6k",
+          "monthly": "Retenedor mensual",
+          "discuss": "Aún no estoy seguro · Platiquemos"
+        }
+      },
+      "source_label": "¿Cómo nos conociste?",
+      "source_placeholder": "Selecciona una opción...",
+      "source_options": {
+        "google": "Búsqueda en Google",
+        "referral": "Recomendación de [nombre]",
+        "linkedin": "LinkedIn",
+        "social": "Facebook/Instagram",
+        "other": "Otro"
+      },
+      "timeline_label": "¿Cuándo necesitas tenerlo listo?",
+      "timeline_placeholder": "Selecciona un plazo...",
+      "timeline_options": {
+        "asap": "Lo antes posible (1-2 meses)",
+        "3_months": "En los próximos 3 meses",
+        "6_months": "3-6 meses",
+        "future": "Es un proyecto a futuro"
+      },
+      "details_label": "Contexto adicional (opcional)",
+      "details_placeholder": "Cuéntanos un poco sobre tus objetivos...",
+      "submit": "Enviar detalles del proyecto",
+      "sending": "Enviando..."
+    },
+    "details": {
+      "email_label": "Correo",
+      "whatsapp_label": "WHATSAPP",
+      "whatsapp_number": "+52 44 6373 1451",
+      "whatsapp_availability": "Lun-Vie 9AM-6PM CST",
+      "whatsapp_cta": "Mensaje directo →",
+      "whatsapp_note": "Preferimos WhatsApp para primeras consultas rápidas (respuesta típica en 2-3 horas). Para proyectos detallados, usa el formulario abajo.",
+      "location_label": "Ubicación",
+      "location_value": "Querétaro, MX",
+      "time_label": "Hora Local"
+    },
+    "success": {
+      "title": "Mensaje Enviado",
+      "message": "¡Gracias! Hemos recibido los detalles de tu proyecto y te responderemos en menos de 24 horas.",
+      "action": "Enviar otro mensaje",
+      "ticket": {
+        "title": "SOLICITUD RECIBIDA",
+        "id_label": "ID de Ticket",
+        "status_label": "Estado",
+        "status_value": "Recibido · Responderemos en menos de 24 horas",
+        "response_label": "Tiempo de Respuesta",
+        "response_value": "Menos de 24 Horas",
+        "confirmation": "Hemos enviado una confirmación a tu correo."
+      }
+    },
+    "budget": {
+      "identity": "Sitio Web / Landing Page",
+      "growth": "E-commerce / Sitio Corporativo",
+      "system": "Software Personalizado / Web App",
+      "retainer": "Mantenimiento Continuo",
+      "unsure": "No estoy seguro · Hablémoslo"
+    },
+    "loading": "Cargando..."
+  },
+  "TermsPage": {
+    "title": "Términos de Servicio",
+    "last_updated": "Última Actualización: {date}",
+    "sections": {
+      "acceptance": {
+        "title": "1. Aceptación de los Términos",
+        "content": "Al acceder y utilizar el sitio web de Noctra Studio (\"nosotros\", \"nos\" o \"nuestro\"), aceptas cumplir y estar sujeto a estos Términos de Servicio. Si no estás de acuerdo con estos términos, por favor no utilices nuestro sitio web o servicios. Estos términos aplican a todos los visitantes, usuarios y otras personas que accedan o utilicen el Servicio."
+      },
+      "services": {
+        "title": "2. Descripción de los Servicios",
+        "content": "Noctra Studio proporciona servicios de diseño digital, desarrollo y consultoría estratégica. Nos reservamos el derecho de modificar, suspender o discontinuar cualquier aspecto de nuestros servicios en cualquier momento sin previo aviso. No somos responsables ante ti ni ante terceros por cualquier modificación, suspensión o interrupción del servicio."
+      },
+      "ip": {
+        "title": "3. Propiedad Intelectual",
+        "content": "El contenido, las características y la funcionalidad de este sitio web, incluidos, entre otros, texto, gráficos, logotipos y software, son propiedad exclusiva de Noctra Studio y están protegidos por leyes internacionales de derechos de autor, marcas registradas, patentes, secretos comerciales y otras leyes de propiedad intelectual o derechos de propiedad."
+      },
+      "obligations": {
+        "title": "4. Obligaciones del Usuario",
+        "content": "Aceptas no utilizar el sitio web para ningún propósito ilegal o de cualquier manera que pueda dañar, deshabilitar, sobrecargar o deteriorar el sitio. Además, aceptas no intentar obtener acceso no autorizado a ninguna parte del sitio web, otras cuentas, sistemas informáticos o redes conectadas al sitio web."
+      },
+      "liability": {
+        "title": "5. Limitación de Responsabilidad",
+        "content": "En ningún caso Noctra Studio, sus directores, empleados, socios, agentes, proveedores o afiliados, serán responsables de daños indirectos, incidentales, especiales, consecuentes o punitivos, incluidos, entre otros, pérdida de beneficios, datos, uso, buena voluntad u otras pérdidas intangibles, resultantes de tu acceso o uso o incapacidad para acceder o usar el Servicio."
+      },
+      "governing": {
+        "title": "6. Ley Aplicable y Jurisdicción",
+        "content": "Estos Términos se regirán e interpretarán de acuerdo con las leyes de México, sin tener en cuenta sus disposiciones sobre conflictos de leyes. Cualquier disputa que surja de estos Términos estará sujeta a la jurisdicción exclusiva de los tribunales ubicados en la Ciudad de México, México."
+      },
+      "contact": {
+        "title": "7. Contáctanos",
+        "content": "Si tienes alguna pregunta sobre estos Términos, contáctanos en:"
+      }
+    }
+  },
+  "PrivacyPage": {
+    "title": "Política de Privacidad",
+    "last_updated": "Última Actualización: {date}",
+    "sections": {
+      "intro": {
+        "title": "1. Introducción",
+        "content": "Noctra Studio (\"nosotros\", \"nos\" o \"nuestro\") respeta tu privacidad y se compromete a proteger tus datos personales. Esta Política de Privacidad explica cómo recopilamos, usamos, divulgamos y protegemos tu información cuando visitas nuestro sitio web, en cumplimiento con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) en México y estándares internacionales."
+      },
+      "collection": {
+        "title": "2. Información que Recopilamos",
+        "content": "Podemos recopilar información personal que nos proporcionas voluntariamente cuando nos contactas o utilizas nuestros servicios. Esto incluye:",
+        "list": {
+          "identity": "Datos de Identidad: Nombre, nombre de la empresa.",
+          "contact": "Datos de Contacto: Dirección de correo electrónico, número de teléfono.",
+          "project": "Datos del Proyecto: Detalles sobre las necesidades de tu proyecto, presupuesto y cronograma.",
+          "technical": "Datos Técnicos: Dirección IP, tipo de navegador y datos de uso recopilados a través de cookies."
+        }
+      },
+      "purpose": {
+        "title": "3. Propósito del Procesamiento",
+        "content": "Utilizamos tus datos personales para los siguientes propósitos:",
+        "list": {
+          "service": "Para proporcionar y mantener nuestros servicios.",
+          "communication": "Para comunicarnos contigo con respecto a tus consultas.",
+          "improvement": "Para mejorar nuestro sitio web y la experiencia del usuario.",
+          "legal": "Para cumplir con obligaciones legales."
+        }
+      },
+      "rights": {
+        "title": "4. Derechos de Protección de Datos (Derechos ARCO)",
+        "content": "De acuerdo con la LFPDPPP, tienes derecho a Acceder, Rectificar, Cancelar u Oponerte (ARCO) al procesamiento de tus datos personales.",
+        "list": {
+          "access": "Acceso: Tienes derecho a saber qué datos personales tenemos sobre ti.",
+          "rectification": "Rectificación: Tienes derecho a solicitar la corrección de datos inexactos o incompletos.",
+          "cancellation": "Cancelación: Tienes derecho a solicitar la eliminación de tus datos cuando ya no sean necesarios.",
+          "opposition": "Oposición: Tienes derecho a oponerte al procesamiento de tus datos para fines específicos."
+        },
+        "contact_text": "Para ejercer estos derechos, por favor contáctanos en"
+      },
+      "cookies": {
+        "title": "5. Cookies y Tecnologías de Rastreo",
+        "content": "Utilizamos cookies y tecnologías de rastreo similares para rastrear la actividad en nuestro servicio y mantener cierta información. Puedes indicar a tu navegador que rechace todas las cookies o que indique cuándo se envía una cookie."
+      },
+      "changes": {
+        "title": "6. Cambios a esta Política de Privacidad",
+        "content": "Podemos actualizar nuestra Política de Privacidad de vez en cuando. Te notificaremos de cualquier cambio publicando la nueva Política de Privacidad en esta página y actualizando la fecha de \"Última Actualización\"."
+      },
+      "contact": {
+        "title": "7. Contáctanos",
+        "content": "Si tienes alguna pregunta sobre esta Política de Privacidad, contáctanos en:"
+      }
+    }
+  },
+  "LegalLayout": {
+    "toc_title": "Tabla de Contenidos",
+    "breadcrumb_home": "Inicio",
+    "last_updated": "Última actualización: {date}",
+    "footer": {
+      "title": "¿Preguntas sobre esta política?",
+      "subtitle": "Estamos aquí para ayudarte a aclarar cualquier duda sobre tus datos o nuestros términos.",
+      "cta": "Contáctanos"
+    }
+  },
+  "CookieConsent": {
+    "banner": {
+      "title": "Usamos cookies",
+      "description": "Esenciales para funcionar + analíticas opcionales.",
+      "policy_link": "Política de Cookies",
+      "essential_only": "Solo Esenciales",
+      "configure": "Configurar",
+      "accept_all": "Aceptar Todas"
+    },
+    "modal": {
+      "title": "Configuración de Cookies",
+      "description": "Gestiona tus preferencias de cookies. Puedes cambiar estas opciones en cualquier momento. Conoce más en nuestra",
+      "policy_link": "Política de Cookies",
+      "essential": {
+        "title": "Cookies Esenciales",
+        "badge": "Siempre Activas",
+        "description": "Necesarias para que el sitio funcione correctamente. No pueden ser desactivadas.",
+        "items": [
+          "Gestión de sesión y autenticación",
+          "Funciones de seguridad (protección CSRF)",
+          "Preferencias de idioma",
+          "Consentimiento de cookies"
+        ]
+      },
+      "analytics": {
+        "title": "Cookies Analíticas",
+        "description": "Nos ayudan a entender cómo los visitantes interactúan con nuestro sitio para mejorar tu experiencia.",
+        "items": [
+          "Google Analytics (IP anonimizada)",
+          "Plausible Analytics (respetuoso con la privacidad)",
+          "Vercel Analytics (monitoreo de rendimiento)"
+        ]
+      },
+      "marketing": {
+        "title": "Cookies de Marketing",
+        "description": "Utilizadas para rastrear a los visitantes a través de sitios web y mostrar anuncios relevantes.",
+        "items": [
+          "Facebook Pixel",
+          "Seguimiento de conversiones de Google Ads",
+          "LinkedIn Insight Tag"
+        ]
+      },
+      "reject_all": "Rechazar Todas",
+      "save": "Guardar Preferencias"
+    },
+    "floating_button": "Gestionar cookies"
+  },
+  "JoinNetwork": {
+    "title": "Únete a la Red",
+    "subtitle": "Un colectivo curado de arquitectos, diseñadores y estrategas independientes.",
+    "manifesto": {
+      "title": "El Estándar Noctra",
+      "items": [
+        {
+          "title": "Ejecución Autónoma",
+          "desc": "No microgestionamos. Eres un experto. Defines el camino y ejecutas con precisión."
+        },
+        {
+          "title": "Inteligencia Colectiva",
+          "desc": "El aislamiento no es el objetivo. Confiamos en la red para auditar código, desafiar decisiones de diseño y elevar el resultado final."
+        },
+        {
+          "title": "Maestría Requerida",
+          "desc": "Entregamos calidad de primer nivel. Este no es un entorno de aprendizaje; es un entorno de rendimiento."
+        }
+      ]
+    },
+    "roles": {
+      "frontend": "Ingeniero Frontend",
+      "design": "Diseñador de Producto",
+      "growth": "Estratega de Crecimiento",
+      "apply": "Solicitar Acceso"
+    },
+    "cta": {
+      "button": "Iniciar Proceso de Evaluación",
+      "disclaimer": "Revisión de portafolio y auditoría de código requeridos para el ingreso."
+    }
+  },
+  "OperationalDirectives": {
+    "title": "Protocolos de Compromiso [SOLO LECTURA]",
+    "protocols": {
+      "ip_transfer": {
+        "title": "TRANSFERENCIA DE PI",
+        "desc": "Todos los activos creados son propiedad exclusiva de Noctra Studio. Los derechos se transfieren con el pago."
+      },
+      "exclusivity": {
+        "title": "EXCLUSIVIDAD",
+        "desc": "La caza furtiva de clientes o la elusión resulta en lista negra inmediata y acciones legales."
+      },
+      "output_first": {
+        "title": "PRIMERO EL RESULTADO",
+        "desc": "La compensación está vinculada a entregables aprobados, no a horas registradas."
+      },
+      "silence": {
+        "title": "SILENCIO",
+        "desc": "Cumplimiento estricto de NDA. Los detalles del proyecto permanecen confidenciales."
+      }
+    },
+    "disclaimer": "Documentación legal completa proporcionada tras una evaluación exitosa."
+  },
+  "Studio": {
+    "title": "CENTRO_DE_COMANDO_NOCTRA",
+    "subtitle": "v2.0.0 | SISTEMA_EN_LÍNEA",
+    "ai_model": "GEMINI_1.5_FLASH_ACTIVO",
+    "logout": "CERRAR SESIÓN",
+    "tabs": {
+      "social": {
+        "label": "Arquitecto Social",
+        "system": "Eres el Editor Principal de Noctra. Tono: Preciso, Arquitectónico. Salida: Hilo de X y Caption de IG."
+      },
+      "lead": {
+        "label": "Analizador de Leads",
+        "system": "Eres el Director de Ventas. Analiza este correo para presupuesto/ajuste y redacta una respuesta de alto estatus."
+      },
+      "scope": {
+        "label": "Generador de Alcance",
+        "system": "Eres el Arquitecto de Soluciones. Crea un alcance de proyecto y recomendación de stack tecnológico basado en esta solicitud."
+      }
+    },
+    "input_stream": "Flujo de Entrada",
+    "system_output": "Salida del Sistema",
+    "streaming_data": "● TRANSMITIENDO_DATOS",
+    "execute_agent": "Ejecutar Agente",
+    "processing": "Procesando...",
+    "placeholders": {
+      "social": "Ingresa pensamientos o tema...",
+      "lead": "Pega correo o consulta del cliente...",
+      "scope": "Describe los requisitos del proyecto..."
+    }
+  },
+  "Admin": {
+    "title": "Centro de Comando Noctra",
+    "subtitle": "Desplegar Infraestructura de Cliente",
+    "form": {
+      "client_email": "Correo del Cliente",
+      "client_name": "Nombre del Cliente",
+      "company_name": "Nombre de la Empresa",
+      "project_name": "Nombre del Proyecto",
+      "total_budget": "Presupuesto Total ($)",
+      "deploy_button": "Desplegar Entorno "
+    },
+    "placeholders": {
+      "client_email": "cliente@empresa.com",
+      "client_name": "Juan CEO",
+      "company_name": "Capital Puente",
+      "project_name": "Rediseño Web V2",
+      "total_budget": "15000"
+    }
+  },
+  "CaseStudies": {
+    "hero": {
+      "title": "Estudios de Caso — Resolución Real de Problemas a través de Diseño y Código",
+      "subtitle": "Incluso sin proyectos de clientes aún, estos ejemplos muestran cómo abordamos desafíos comerciales reales con desarrollo web moderno, UI/UX y pensamiento estratégico."
+    },
+    "disclaimer": "Estos estudios de caso son exploraciones conceptuales diseñadas para demostrar la metodología, resolución de problemas y enfoque de transformación digital de Noctra Studio.",
+    "projects": {
+      "cafe_aurora": {
+        "name": "Café Aurora",
+        "concept": "Rediseño Web para Cafetería Local",
+        "challenge": "Poca visibilidad en línea y un diseño web obsoleto que no reflejaba el posicionamiento premium de la marca.",
+        "solution": "Revisión completa en Next.js con animaciones GSAP, diseño mobile-first y un sistema de menú interactivo que aumentó el compromiso en un 300%.",
+        "tech_stack": [
+          "Next.js",
+          "Tailwind CSS",
+          "GSAP",
+          "Vercel"
+        ],
+        "results": [
+          {
+            "metric": "300%",
+            "label": "Compromiso",
+            "context": "Interacción con Menú",
+            "action": "Objetivo"
+          },
+          {
+            "metric": "100",
+            "label": "Rendimiento",
+            "context": "Puntaje Lighthouse",
+            "action": "Logrado"
+          },
+          {
+            "metric": "<1s",
+            "label": "Tiempo de Carga",
+            "context": "First Contentful Paint",
+            "action": "Optimizado"
+          }
+        ],
+        "process": [
+          {
+            "step": "Descubrimiento",
+            "description": "Análisis de competidores locales y comportamiento de usuarios."
+          },
+          {
+            "step": "Estrategia",
+            "description": "Enfoque mobile-first para clientes en movimiento."
+          },
+          {
+            "step": "Construcción",
+            "description": "Implementación de Next.js para velocidad y SEO."
+          }
+        ]
+      },
+      "strongfit": {
+        "name": "StrongFit",
+        "concept": "Landing Page de Alta Conversión para Coach Fitness",
+        "challenge": "Bajas tasas de conversión y falta de señales de confianza en la landing page existente.",
+        "solution": "Diseño estratégico en Figma convertido a componentes React con estrategia de CTA enfocada, pruebas A/B e integración de prueba social.",
+        "tech_stack": [
+          "Figma",
+          "React",
+          "Optimización de Conversión",
+          "Analítica"
+        ],
+        "results": [
+          {
+            "metric": "0.00",
+            "label": "CLS",
+            "context": "Cero Cambio de Diseño",
+            "action": "Logrado"
+          },
+          {
+            "metric": "+40%",
+            "label": "Conversión",
+            "context": "Formulario de Leads",
+            "action": "Proyectado"
+          },
+          {
+            "metric": "A",
+            "label": "Accesibilidad",
+            "context": "WCAG 2.1",
+            "action": "Cumplido"
+          }
+        ],
+        "process": [
+          {
+            "step": "Auditoría",
+            "description": "Identificación de puntos de fricción en el viaje del usuario."
+          },
+          {
+            "step": "Diseño",
+            "description": "Prototipos de alta fidelidad en Figma."
+          },
+          {
+            "step": "Desarrollo",
+            "description": "Implementación pixel-perfect en React."
+          }
+        ]
+      },
+      "fintrack": {
+        "name": "FinTrack",
+        "concept": "Dashboard UI/UX de Analítica Financiera",
+        "challenge": "Necesidades complejas de visualización de datos e interfaz abrumadora para profesionales financieros.",
+        "solution": "UI de dashboard limpia con integración de Chart.js, soporte para modo oscuro y arquitectura de componentes escalable para futura expansión.",
+        "tech_stack": [
+          "Arquitectura SaaS",
+          "Visualización de Datos",
+          "Librería de Componentes",
+          "TypeScript"
+        ],
+        "results": [
+          {
+            "metric": "Tiempo Real",
+            "label": "Sincronización",
+            "context": "Datos WebSocket",
+            "action": "Habilitado"
+          },
+          {
+            "metric": "60fps",
+            "label": "Renderizado",
+            "context": "Gráficos Complejos",
+            "action": "Optimizado"
+          },
+          {
+            "metric": "100%",
+            "label": "Seguridad de Tipos",
+            "context": "Cobertura TypeScript",
+            "action": "Forzado"
+          }
+        ],
+        "process": [
+          {
+            "step": "Arquitectura",
+            "description": "Definición de modelos de datos e interfaces API."
+          },
+          {
+            "step": "Diseño UI",
+            "description": "Diseño dark-mode first para densidad de datos."
+          },
+          {
+            "step": "Ingeniería",
+            "description": "Construcción de componentes de visualización reutilizables."
+          }
+        ]
+      },
+      "vaultra": {
+        "name": "Vaultra",
+        "concept": "Interfaz de Ciberseguridad",
+        "challenge": "Visualizar amenazas de seguridad complejas sin abrumar al usuario.",
+        "solution": "Una interfaz minimalista y de alto contraste que prioriza alertas críticas e inteligencia accionable.",
+        "tech_stack": [
+          "Next.js",
+          "Vercel",
+          "Auth0"
+        ],
+        "results": [
+          {
+            "metric": "A+",
+            "label": "Seguridad",
+            "context": "Encabezados de Seguridad",
+            "action": "Endurecido"
+          },
+          {
+            "metric": "0ms",
+            "label": "Fugas",
+            "context": "Exposición de Datos",
+            "action": "Prevenido"
+          },
+          {
+            "metric": "2FA",
+            "label": "Auth",
+            "context": "Multi-Factor",
+            "action": "Integrado"
+          }
+        ],
+        "process": [
+          {
+            "step": "Modelo de Amenaza",
+            "description": "Análisis de vectores de ataque potenciales."
+          },
+          {
+            "step": "Estrategia UX",
+            "description": "Priorización de visibilidad de alertas y tiempo de respuesta."
+          },
+          {
+            "step": "Implementación",
+            "description": "Prácticas de código seguro y encabezados."
+          }
+        ]
+      }
+    },
+    "labels": {
+      "challenge": "El Desafío",
+      "solution": "La Solución",
+      "tech_stack": "Stack Tecnológico"
+    },
+    "cta": {
+      "headline": "¿No estás seguro de dónde está fallando tu infraestructura digital actual?",
+      "subtext": "Ofrecemos una auditoría técnica de alto nivel complementaria para marcas calificadas. Mira exactamente cómo abordaríamos tu proyecto.",
+      "button": "Solicitar Auditoría de Arquitectura"
+    }
+  },
+  "EngagementModels": {
+    "label": "// Nuestros Planes",
+    "title_line1": "Precios Transparentes.",
+    "title_line2": "Sin Sorpresas.",
+    "subtitle": "Sabes exactamente qué estás pagando en cada etapa.",
+    "currency_toggle": "Moneda",
+    "tiers": {
+      "foundation": {
+        "name": "Starter",
+        "price_mxn": 34900,
+        "price_usd": 1750,
+        "price_prefix": "Desde",
+        "description": "Landing Page e Identidad de Marca",
+        "features": [
+          "Sitio web profesional de una página",
+          "Diseño de logo, colores y tipografía",
+          "Optimizado para móvil con animaciones fluidas",
+          "30 días de soporte post-lanzamiento"
+        ]
+      },
+      "architecture": {
+        "name": "Crecimiento",
+        "price_mxn": 89900,
+        "price_usd": 4500,
+        "price_prefix": "Desde",
+        "description": "Sitio Multi-Página o E-commerce",
+        "popular_badge": "Más Popular",
+        "features": [
+          "Hasta 5 páginas con ingeniería personalizada",
+          "Integración CMS (Gestiona tu contenido)",
+          "Configuración avanzada de SEO y analítica",
+          "Elementos interactivos y animaciones"
+        ]
+      },
+      "intelligence": {
+        "name": "Plataforma",
+        "price_mxn": "A la medida",
+        "price_usd": "A la medida",
+        "price_prefix": "Comienza en",
+        "price_prefix_mxn": "Generalmente desde $39,900 MXN",
+        "price_prefix_usd": "Generalmente desde $2,000 USD",
+        "description": "Sistemas Personalizados y Automatización",
+        "features": [
+          "Aplicación web o CRM personalizado",
+          "Automatización de procesos e integraciones",
+          "Dashboard con métricas que importan"
+        ]
+      }
+    },
+    "cta": "Iniciar Mi Proyecto",
+    "footer_note": "Todos los proyectos incluyen: Propiedad del código, soporte de despliegue y soporte post-lanzamiento de 30 días.",
+    "recurring_revenue": {
+      "headline": "Más allá del Lanzamiento.",
+      "body": "Los productos digitales nunca terminan. Ofrecemos planes de <bold>Mantenimiento y Crecimiento Continuo</bold> para asegurar que tu infraestructura escale, se asegure y evolucione con tus objetivos de negocio.",
+      "badge": "Soporte Prioritario Disponible"
+    }
+  },
+  "Auth": {
+    "title": "Error de Autenticación",
+    "description": "Hubo un problema al verificar tu enlace de inicio de sesión. Es posible que haya expirado o ya se haya utilizado.",
+    "button": "Intentar de Nuevo"
+  },
+  "GuaranteePage": {
+    "title": "Nuestra Garantía de Resultados",
+    "subtitle": "Respaldamos nuestras palabras con hechos. Si no cumplimos, no pagas.",
+    "how_title": "Cómo funciona",
+    "how_steps": [
+      {
+        "title": "Establecemos KPIs juntos",
+        "description": "Antes de empezar, acordamos metas específicas y medibles. Ejemplos: sitio carga en <2 segundos, 3% tasa de conversión, 40 leads/mes."
+      },
+      {
+        "title": "Tracking mensual de progreso",
+        "description": "Recibes reportes mensuales mostrando avance en cada KPI. Sin adivinanzas, sin actualizaciones vagas — números reales."
+      },
+      {
+        "title": "Período de evaluación de 60 días",
+        "description": "Después del lanzamiento, monitoreamos y optimizamos activamente durante 60 días. Dos rondas de optimización incluidas sin costo extra."
+      },
+      {
+        "title": "Reembolso proporcional si fallamos",
+        "description": "Si no cumplimos los KPIs acordados dentro de 60 días, recibes un reembolso proporcional. Esto va por escrito en el contrato."
+      }
+    ],
+    "examples_title": "KPIs típicos por tipo de proyecto",
+    "examples": [
+      {
+        "type": "Sitio Web Profesional",
+        "kpis": [
+          "Carga de página < 2 segundos",
+          "3%+ tasa de conversión",
+          "30-40 leads calificados/mes",
+          "Aparecer en búsquedas locales de Google (Google Business Profile optimizado + keywords principales)"
+        ]
+      },
+      {
+        "type": "E-commerce",
+        "kpis": [
+          "Abandono de carrito < 30%",
+          "Aumento de valor promedio de orden 15%",
+          "Tasa de conversión móvil > 2%",
+          "Carga de página < 1.5 segundos"
+        ]
+      },
+      {
+        "type": "Sistemas a la Medida",
+        "kpis": [
+          "15+ horas/semana ahorradas",
+          "99.9% uptime del sistema",
+          "Tasa de adopción de usuarios > 80%",
+          "Tiempo de procesamiento reducido 50%"
+        ]
+      }
+    ],
+    "example_real": {
+      "title": "Ejemplo: Consultorio médico en Querétaro (proyectado)",
+      "kpis": [
+        "✅ Sitio carga en <2 segundos",
+        "✅ 30+ solicitudes de cita mensuales vía formulario web",
+        "✅ Conversión visitante→paciente >3%",
+        "📊 ROI proyectado: Recuperación de inversión en 4-6 meses"
+      ],
+      "result": "Benchmark: Estos resultados son proyectados basados en casos de industria para el sector salud.",
+      "status": "Basado en benchmarks de industria"
+    },
+    "fine_print_title": "La letra pequeña",
+    "fine_print": [
+      "Los KPIs deben acordarse antes de iniciar el proyecto",
+      "Factores externos (tiempo de respuesta de tu equipo, retrasos en contenido) pueden extender plazos",
+      "El reembolso es proporcional a los KPIs no cumplidos, no al costo total del proyecto",
+      "La garantía aplica a entregables dentro de nuestro control",
+      "Esta garantía aplica a proyectos desde $20,000 MXN.",
+      "Proyectos $20k-$35k: garantía de 30 días",
+      "Proyectos $35k+: garantía de 60 días"
+    ],
+    "cta": "Agendar consulta gratuita",
+    "cta_subtitle": "Discutiremos tus metas específicas y qué KPIs tienen sentido para tu negocio."
+  },
+  "LandingPage": {
+    "title": "Landing Page Estratégica",
+    "subtitle": "Tu primer paso digital. Enfocado, rápido, efectivo.",
+    "price": "$20,000 MXN",
+    "for_who_title": "¿Es esto para ti?",
+    "for_who": [
+      "Necesitas presencia digital YA pero tienes presupuesto ajustado",
+      "Ofreces un servicio/producto específico y quieres generar leads",
+      "Quieres validar demanda antes de invertir en sitio completo",
+      "Necesitas página de destino para campañas de Facebook/Google Ads"
+    ],
+    "deliverables_title": "Qué obtienes exactamente",
+    "deliverables": [
+      {
+        "title": "1-3 páginas ultra-enfocadas",
+        "description": "No divagamos. Cada palabra tiene propósito: comunicar tu oferta y capturar el lead."
+      },
+      {
+        "title": "Diseño móvil-primero",
+        "description": "70% de tu tráfico será móvil. Diseñamos para eso primero, desktop después."
+      },
+      {
+        "title": "Carga en <1.5 segundos",
+        "description": "Landing pages rápidas convierten 2x mejor. Garantizamos velocidad desde día 1."
+      },
+      {
+        "title": "Formulario optimizado para conversión",
+        "description": "No solo \"nombre y email\". Campos inteligentes que califican antes de contactarte."
+      },
+      {
+        "title": "Analytics básico configurado",
+        "description": "Google Analytics + Facebook Pixel (si corres ads). Sabes qué funciona desde día 1."
+      },
+      {
+        "title": "SEO on-page básico",
+        "description": "Meta tags, estructura semántica, sitemap. No posicionamiento avanzado, pero las bases sólidas."
+      },
+      {
+        "title": "Hosting + dominio incluido",
+        "description": "Sin costos ocultos. Tu landing live en tu dominio, SSL incluido (1er año)."
+      }
+    ],
+    "investment_title": "Inversión",
+    "investment_price": "$20,000 MXN (IVA incluido)",
+    "includes_title": "Incluye",
+    "includes": [
+      "1-3 páginas enfocadas",
+      "Diseño custom responsive",
+      "Formulario de captura",
+      "Hosting + dominio 1er año",
+      "SEO básico",
+      "30 días de soporte"
+    ],
+    "not_includes_title": "NO incluye (pero puedes agregar)",
+    "not_includes": [
+      {
+        "name": "Blog dinámico",
+        "price": "+$12,000 MXN"
+      },
+      {
+        "name": "A/B testing",
+        "price": "+$8,000 MXN"
+      },
+      {
+        "name": "Integración CRM (HubSpot/Salesforce)",
+        "price": "+$10,000 MXN"
+      },
+      {
+        "name": "Copy profesional (si necesitas que escribamos)",
+        "price": "+$6,000 MXN"
+      }
+    ],
+    "payment_title": "Formas de pago",
+    "payment_terms": "50% para arrancar, 50% al lanzar",
+    "timeline_title": "Timeline",
+    "timeline": "2-3 semanas desde kickoff hasta launch",
+    "use_cases_title": "Casos de uso ideales",
+    "use_cases": [
+      "Consultorio médico que ofrece tratamiento específico",
+      "Abogado especializado en divorcios/migratorio/fiscal",
+      "Taller mecánico que quiere generar citas online",
+      "Coach/consultor lanzando curso o masterclass",
+      "Evento único que necesita página de registro"
+    ],
+    "upgrade_title": "Upgrade path",
+    "upgrade_path": "Muchos clientes empiezan con landing de $20k para validar demanda. Cuando está probada, hacemos upgrade a sitio completo de 5 páginas ($35k) reutilizando el trabajo inicial. No pagas doble."
+  },
+  "ServiceDetails": {
+    "professional_websites": {
+      "title": "Sitios Web Profesionales",
+      "subtitle": "Tu mejor vendedor trabajando 24/7 para atraer y cerrar clientes.",
+      "price": "Desde $35,000 MXN",
+      "landing_page_note": "¿Buscas algo más simple y económico? Revisa nuestra <link>Landing Page Estratégica</link> desde $20,000 MXN",
+      "for_who": [
+        "Consultorios médicos que necesitan agendar citas 24/7",
+        "Despachos contables o legales que buscan leads calificados",
+        "Empresas de servicios B2B que requieren una presencia premium",
+        "Escuelas o instituciones que necesitan comunicar su valor claramente"
+      ],
+      "what_includes": [
+        "5 páginas estratégicas diseñadas para convertir",
+        "SEO técnico optimizado para búsquedas locales",
+        "Formularios inteligentes integrados a tu CRM o correo",
+        "Panel de analítica simple para medir tus resultados",
+        "60 días de soporte técnico total post-lanzamiento"
+      ],
+      "investment": {
+        "title": "Inversión Transparente",
+        "price": "Desde $35,000 MXN",
+        "includes": "Sitio completo, optimización, soporte y ownership del código.",
+        "not_includes": "Costo de hosting (Vercel) o dominios de terceros.",
+        "modules": [
+          {
+            "name": "Blog / Sección de noticias",
+            "price": "+$10,000 MXN"
+          },
+          {
+            "name": "Sistema multi-idioma",
+            "price": "+$15,000 MXN"
+          }
+        ]
+      }
+    },
+    "ecommerce": {
+      "title": "Tiendas En Línea",
+      "subtitle": "Convierte visitas en ventas con una experiencia de compra sin fricción.",
+      "price": "Desde $50,000 MXN",
+      "for_who": [
+        "Negocios que venden productos físicos y quieren escalar",
+        "Talleres que necesitan un sistema de ventas automatizado",
+        "Marcas locales que buscan alcance nacional",
+        "Emprendedores que necesitan una plataforma robusta y escalable"
+      ],
+      "what_includes": [
+        "Catálogo de productos optimizado y fácil de gestionar",
+        "Proceso de carrito y pago en 3 clics",
+        "Integración con las principales pasarelas de pago",
+        "Gestión de inventario y notificaciones automáticas",
+        "Dashboard de ventas para ver tus métricas en tiempo real"
+      ],
+      "investment": {
+        "title": "Inversión Transparente",
+        "price": "Desde $50,000 MXN",
+        "includes": "Plataforma de ventas, pagos configurados y capacitación.",
+        "not_includes": "Comisiones por transacción de pasarelas de pago.",
+        "modules": [
+          {
+            "name": "Integración con sistema contable",
+            "price": "+$12,000 MXN"
+          },
+          {
+            "name": "Cupones y marketing automatizado",
+            "price": "+$8,000 MXN"
+          }
+        ]
+      }
+    },
+    "custom_systems": {
+      "title": "Sistemas a Medida & Automatización",
+      "subtitle": "Libera tu tiempo automatizando los procesos manuales que te frenan.",
+      "price": "Según alcance - desde $80,000 MXN",
+      "for_who": [
+        "Negocios con procesos manuales repetitivos en Excel",
+        "Empresas que usan CRMs genéricos que no se adaptan a ellos",
+        "Equipos que necesitan dashboards con datos en tiempo real",
+        "Operaciones que buscan reducir errores humanos mediante software"
+      ],
+      "what_includes": [
+        "Arquitectura de software diseñada para tu flujo de trabajo",
+        "Automatización de tareas repetitivas y correos",
+        "Integración con las herramientas que ya usas",
+        "Dashboards personalizados con KPIs de negocio",
+        "Escalabilidad total según crezca tu operación"
+      ],
+      "investment": {
+        "title": "Inversión Transparente",
+        "price": "Desde $80,000 MXN",
+        "includes": "Análisis de procesos, desarrollo a medida y despliegue.",
+        "not_includes": "Licencias de terceros si fueran necesarias.",
+        "modules": [
+          {
+            "name": "App móvil nativa",
+            "price": "Cotización extra"
+          },
+          {
+            "name": "Módulo de IA para análisis de datos",
+            "price": "Cotización extra"
+          }
+        ]
+      }
+    },
+    "optimization": {
+      "title": "Optimización de Sitio Existente",
+      "subtitle": "No tires tu sitio actual, haz que funcione como debería.",
+      "price": "Desde $15,000 MXN",
+      "for_who": [
+        "Sitios web que cargan lento y ahuyentan clientes",
+        "Negocios que tienen tráfico pero no generan suficientes leads",
+        "Empresas con sitios que se ven mal en dispositivos móviles",
+        "Marcas que quieren mejorar su posicionamiento en Google"
+      ],
+      "what_includes": [
+        "Auditoría técnica profunda de rendimiento y conversión",
+        "Optimización de velocidad (W3C y Core Web Vitals)",
+        "Mejoras de UX para aumentar la tasa de contacto",
+        "SEO On-Page y optimización para búsquedas locales",
+        "Limpieza de código y eliminación de dependencias lentas"
+      ],
+      "investment": {
+        "title": "Inversión Transparente",
+        "price": "Desde $15,000 MXN",
+        "includes": "Auditoría, ejecución de mejoras y reporte de resultados.",
+        "not_includes": "Rediseño completo de secciones (si no es necesario).",
+        "modules": [
+          {
+            "name": "Estrategia de contenido mensual",
+            "price": "+$12,000 MXN/mes"
+          },
+          {
+            "name": "A/B testing avanzado",
+            "price": "+$8,000 MXN"
+          }
+        ]
+      }
+    },
+    "common": {
+      "process": "Nuestro Proceso",
+      "guarantee_title": "Garantía de 60 días",
+      "guarantee_desc": "Si no cumplimos los KPIs acordados en los primeros 60 días post-lanzamiento, recibes un reembolso proporcional.",
+      "guarantee_link": "Ver detalles de la garantía",
+      "cta_title": "¿Listo para empezar tu proyecto?",
+      "cta_button": "Solicitar propuesta"
+    }
+  },
+  "TechnologyPage": {
+    "title": "Por Qué Next.js (Explicado Sin Tecnicismos)",
+    "subtitle": "Elegimos la mejor tecnología para los resultados de tu negocio. Aquí te explicamos por qué, en lenguaje simple.",
+    "analogy_title": "Piénsalo así",
+    "analogy": "WordPress es como rentar un departamento amueblado — funciona, pero no puedes cambiar las paredes, y el dueño puede subir la renta. Next.js es como construir tu propia casa — eres dueño de todo, personalizas lo que quieras, y aumenta de valor con el tiempo.",
+    "comparison_title": "WordPress vs Next.js: Lo que importa para tu negocio",
+    "comparison": [
+      {
+        "category": "Velocidad",
+        "wordpress": "5-8 segundos de carga (típico)",
+        "nextjs": "< 1 segundo de carga",
+        "business_impact": "Cada segundo de retraso te cuesta 7% en conversiones"
+      },
+      {
+        "category": "Mantenimiento",
+        "wordpress": "Actualizaciones constantes de plugins, parches de seguridad, problemas de compatibilidad",
+        "nextjs": "Todo integrado, nada que actualizar manualmente",
+        "business_impact": "Ahorra $10k+/año en costos de mantenimiento"
+      },
+      {
+        "category": "SEO",
+        "wordpress": "Sitios lentos son penalizados por Google",
+        "nextjs": "Optimización SEO integrada, Google ama sitios rápidos",
+        "business_impact": "Mejores rankings = más tráfico orgánico = más clientes"
+      },
+      {
+        "category": "Seguridad",
+        "wordpress": "30,000+ vulnerabilidades conocidas en plugins",
+        "nextjs": "Sin plugins que hackear, prácticas de seguridad modernas",
+        "business_impact": "Protege tu negocio y datos de clientes"
+      },
+      {
+        "category": "Propiedad",
+        "wordpress": "Atado a hosting específico y ecosistema de plugins",
+        "nextjs": "Eres dueño del 100% del código, llévalo donde quieras",
+        "business_impact": "Sin amarres de proveedor, nunca"
+      }
+    ],
+    "cost_title": "Comparación real de costos (vista a 5 años)",
+    "cost_wordpress": {
+      "label": "WordPress",
+      "year1": "$15,000 MXN (setup) + $8,000/año (hosting + plugins + mantenimiento)",
+      "total_5yr": "~$47,000 MXN total"
+    },
+    "cost_nextjs": {
+      "label": "Next.js (Noctra)",
+      "year1": "$30,000 MXN (setup) + $2,000/año (hosting)",
+      "total_5yr": "~$38,000 MXN total"
+    },
+    "cost_note": "Next.js cuesta más al inicio pero ahorra dinero a largo plazo — y rinde significativamente mejor.",
+    "cta": "Ver si Next.js es ideal para tu negocio",
+    "cta_subtitle": "Consulta gratuita de 45 minutos. Sin compromiso."
+  },
+  "CustomPricingPage": {
+    "title": "Obtén Tu Cotización Personalizada",
+    "subtitle": "Responde algunas preguntas y obtén un rango estimado en menos de 2 minutos.",
+    "step1_title": "¿Qué necesitas?",
+    "step1_options": [
+      {
+        "label": "Sitio web profesional",
+        "value": "website"
+      },
+      {
+        "label": "Tienda en línea (e-commerce)",
+        "value": "ecommerce"
+      },
+      {
+        "label": "Sistema o app web personalizada",
+        "value": "custom"
+      },
+      {
+        "label": "Aún no estoy seguro",
+        "value": "unsure"
+      }
+    ],
+    "step2_title": "¿Cuántas páginas/secciones?",
+    "step2_options": [
+      {
+        "label": "1-5 páginas (estándar)",
+        "value": "small"
+      },
+      {
+        "label": "6-15 páginas (medio)",
+        "value": "medium"
+      },
+      {
+        "label": "15+ páginas (grande)",
+        "value": "large"
+      }
+    ],
+    "step3_title": "¿Necesitas alguno de estos?",
+    "step3_options": [
+      {
+        "label": "Blog dinámico",
+        "price": "+$12,000 MXN"
+      },
+      {
+        "label": "Soporte multi-idioma",
+        "price": "+$18,000 MXN"
+      },
+      {
+        "label": "Portal de clientes / área de login",
+        "price": "+$25,000 MXN"
+      },
+      {
+        "label": "Procesamiento de pagos",
+        "price": "+$15,000 MXN"
+      }
+    ],
+    "step4_title": "¿Para cuándo lo necesitas?",
+    "step4_options": [
+      {
+        "label": "Lo antes posible (próximas 2 semanas)",
+        "value": "urgent"
+      },
+      {
+        "label": "Próximo mes",
+        "value": "soon"
+      },
+      {
+        "label": "Próximos 2-3 meses",
+        "value": "flexible"
+      },
+      {
+        "label": "Solo explorando opciones",
+        "value": "exploring"
+      }
+    ],
+    "result_title": "Tu rango estimado",
+    "result_note": "Esta es una estimación aproximada. Tu precio real depende de los requerimientos específicos discutidos durante tu consulta gratuita.",
+    "cta": "Agendar consulta gratuita para cotización exacta",
+    "cta_subtitle": "Llamada de 45 minutos. Definiremos alcance exacto, cronograma y garantías."
+  },
+  "FirstClientsPage": {
+    "title": "Programa Primeros Clientes",
+    "subtitle": "Estamos construyendo nuestro track record. Tú obtienes valor excepcional. Nosotros un caso de estudio. Ambos ganamos.",
+    "badge": "Solo 5 lugares disponibles",
+    "offer_title": "Lo que recibes",
+    "benefits": [
+      {
+        "title": "25% de descuento en tu proyecto",
+        "detail": "Un sitio web de $20,000 MXN se convierte en $15,000 MXN. Un e-commerce de $35,000 MXN se convierte en $26,250 MXN."
+      },
+      {
+        "title": "12 meses de soporte prioritario",
+        "detail": "Tiempo de respuesta menor a 4 horas. Corrección de errores en 24 horas. Saltas la fila."
+      },
+      {
+        "title": "Aparición en portfolio (opcional)",
+        "detail": "Tu proyecto se convierte en un caso de estudio en nuestro sitio. Genial para tu credibilidad también."
+      },
+      {
+        "title": "Acceso gratuito a nuevas funcionalidades",
+        "detail": "Cualquier herramienta o integración nueva que desarrollemos en el próximo año — tú las recibes primero, gratis."
+      }
+    ],
+    "why_title": "¿Por qué hacemos esto?",
+    "why_text": "Toda gran agencia empezó con cero clientes. Ofrecemos valor excepcional a cambio de la oportunidad de demostrarnos. Tú obtienes desarrollo de nivel senior a una fracción del costo. Nosotros obtenemos proyectos reales para mostrar.",
+    "process_title": "Cómo aplicar",
+    "process_steps": [
+      "Agenda una consulta gratuita (45 min)",
+      "Discutimos tu proyecto y confirmamos que sea buen fit",
+      "Recibes una propuesta detallada con el 25% de descuento aplicado",
+      "Si te gusta, empezamos en 2 semanas"
+    ],
+    "spots_remaining": "lugares disponibles",
+    "cta": "Aplicar para precio de early adopter",
+    "cta_subtitle": "Sin compromiso. Solo hablemos de tu proyecto."
+  },
+  "TalentPage": {
+    "recommended_title": "Únete a Nuestra Red",
+    "hero": {
+      "headline": "Construye grandes proyectos sin el compromiso de tiempo completo",
+      "subheadline": "40% del proyecto para ti + Clientes pre-calificados + Pago garantizado en 3 días",
+      "micro_copy": "Sin prospección. Sin cobro. Sin fees de plataforma.",
+      "cta_primary": "Aplicar para unirte a la red",
+      "cta_secondary": "Ver cómo funciona el pricing ↓"
+    },
+    "how_it_works": {
+      "title": "Cómo funciona la colaboración",
+      "intro": "Esto NO es empleo. Es colaboración por proyecto con términos claros y compensación justa.",
+      "steps": [
+        {
+          "title": "Aplicas con tu portfolio",
+          "description": "Muéstranos tu mejor trabajo. Buscamos calidad sobre cantidad, especialización sobre generalización."
+        },
+        {
+          "title": "Evaluamos el fit",
+          "description": "Conversación de 30 minutos para entender tu expertise, disponibilidad y estilo de trabajo. Buscamos profesionales que valoren la claridad y cumplan deadlines."
+        },
+        {
+          "title": "Te unes a la red",
+          "description": "Te agregamos a nuestra lista curada. No se requiere exclusividad - puedes trabajar con otros clientes. Te contactamos cuando un proyecto coincide con tus habilidades."
+        },
+        {
+          "title": "Oportunidad de proyecto",
+          "description": "Enviamos brief de proyecto con alcance, cronograma y compensación. Tú decides si lo quieres tomar. Sin obligación."
+        },
+        {
+          "title": "Comienza la colaboración",
+          "description": "Brief claro, entregables definidos, cronograma acordado. Nosotros manejamos comunicación con cliente, tú te enfocas en ejecución. Pago al completar milestones."
+        }
+      ]
+    },
+    "compensation": {
+      "title": "Tu Compensación"
+    },
+    "roles": {
+      "title": "Especializaciones con las que colaboramos",
+      "intro": "No necesitamos generalistas. Necesitamos especialistas que sean los mejores en lo que hacen.",
+      "badge_freelance": "Freelance",
+      "badge_high_demand": "Alta Demanda 🔥",
+      "items": [
+        {
+          "role_name": "Diseñador de Marca",
+          "what_you_do": [
+            "Crear identidades de marca para clientes de Noctra Studio",
+            "Diseño de logos, paletas de color, sistemas tipográficos",
+            "Documentación de guías de marca"
+          ],
+          "compensation_range": "$6,000 - $16,000 MXN por proyecto (40% del total)",
+          "typical_example": "Proyecto típico: Cliente paga $15,000 → Tú recibes $6,000",
+          "complex_example": "Proyecto complejo: Cliente paga $40,000 → Tú recibes $16,000",
+          "demand": "Demanda actual: 2-3 proyectos/mes",
+          "high_demand": true
+        },
+        {
+          "role_name": "Copywriter",
+          "what_you_do": [
+            "Escribir copy de sitio web enfocado en conversión",
+            "Transformar features técnicas en beneficios de negocio",
+            "Crear descripciones de servicios y CTAs convincentes"
+          ],
+          "compensation_range": "$3,200 - $10,000 MXN por proyecto (40% del total)",
+          "typical_example": "Proyecto típico: Cliente paga $8,000 → Tú recibes $3,200",
+          "complex_example": "Proyecto complejo: Cliente paga $25,000 → Tú recibes $10,000",
+          "demand": "Demanda actual: 3-4 proyectos/mes",
+          "high_demand": true
+        },
+        {
+          "role_name": "Fotógrafo/Videógrafo",
+          "what_you_do": [
+            "Fotografía de producto para sitios e-commerce",
+            "Fotos de equipo y oficina para sitios corporativos",
+            "Video de formato corto para hero sections"
+          ],
+          "compensation_range": "$2,000 - $8,000 MXN por proyecto (40% del total)",
+          "typical_example": "Proyecto típico: Cliente paga $5,000 → Tú recibes $2,000",
+          "complex_example": "Proyecto complejo: Cliente paga $20,000 → Tú recibes $8,000",
+          "demand": "Demanda actual: 1-2 proyectos/mes",
+          "high_demand": false
+        },
+        {
+          "role_name": "Diseñador UI/UX",
+          "what_you_do": [
+            "Crear mockups y prototipos de alta fidelidad",
+            "Creación de design system (componentes, espaciado)",
+            "Optimización de flujos de usuario para conversión"
+          ],
+          "compensation_range": "$4,800 - $14,000 MXN por proyecto (40% del total)",
+          "typical_example": "Proyecto típico: Cliente paga $12,000 → Tú recibes $4,800",
+          "complex_example": "Proyecto complejo: Cliente paga $35,000 → Tú recibes $14,000",
+          "demand": "Demanda actual: 2-3 proyectos/mes",
+          "high_demand": true
+        },
+        {
+          "role_name": "Ilustrador/Diseñador de Iconos",
+          "what_you_do": [
+            "Ilustraciones personalizadas para hero sections",
+            "Sets de iconos para páginas de servicios",
+            "Infografías y visualización de datos"
+          ],
+          "compensation_range": "$2,400 - $7,200 MXN por proyecto (40% del total)",
+          "typical_example": "Proyecto típico: Cliente paga $6,000 → Tú recibes $2,400",
+          "complex_example": "Proyecto complejo: Cliente paga $18,000 → Tú recibes $7,200",
+          "demand": "Demanda actual: 1 proyecto/mes",
+          "high_demand": false
+        },
+        {
+          "role_name": "Especialista en SEO",
+          "what_you_do": [
+            "Investigación de keywords y estrategia de contenido",
+            "Auditorías técnicas de SEO y recomendaciones",
+            "Optimización de SEO local (GMB, mapas)"
+          ],
+          "compensation_range": "$4,000 - $12,000 MXN por proyecto (40% del total)",
+          "typical_example": "Proyecto típico: Cliente paga $10,000 → Tú recibes $4,000",
+          "complex_example": "Proyecto complejo: Cliente paga $30,000 → Tú recibes $12,000",
+          "demand": "Demanda actual: 1-2 proyectos/mes",
+          "high_demand": false
+        }
+      ],
+      "current_needs": {
+        "title": "Dónde necesitamos más ayuda ahora",
+        "intro": "En este momento, nuestras mayores necesidades son:",
+        "high_priority_list": [
+          "Copywriters que conviertan features en beneficios",
+          "Diseñadores UI/UX con experiencia en Figma + prototipos",
+          "Especialistas en SEO local (Querétaro/México)",
+          "Fotógrafos para e-commerce y sitios corporativos"
+        ],
+        "closing_note": "¿Tu especialidad no está aquí? Aplica de todas formas. Mantenemos todas las aplicaciones en archivo para consideración futura."
+      }
+    },
+    "benefits": {
+      "title": "Qué obtienes como miembro de la red",
+      "items": [
+        {
+          "title": "Precios justos y transparentes",
+          "description": "Compartimos rangos de compensación por adelantado. Sin sorpresas, sin negociaciones en cada proyecto. Sabes lo que ganarás antes de aceptar."
+        },
+        {
+          "title": "Clientes de calidad, no cantidad",
+          "description": "Pre-calificamos todos los clientes. Tienen presupuesto, objetivos claros y respeto por trabajo profesional. Sin curiosos ni revisiones infinitas."
+        },
+        {
+          "title": "Briefs claros, alcance definido",
+          "description": "Cada proyecto viene con brief detallado, ejemplos, especificaciones de entregables y cronograma. Sin solicitudes vagas de 'hazlo más wow'."
+        },
+        {
+          "title": "Nosotros manejamos la gestión del cliente",
+          "description": "No lidias con scope creep, cobro de pagos o mensajes infinitos. Somos el buffer entre tú y el cliente."
+        },
+        {
+          "title": "Pago contra entrega",
+          "description": "Entregas el milestone acordado, te pagan en 3 días hábiles. Transferencia bancaria, sin fees de plataformas de pago deducidos de tu tarifa."
+        },
+        {
+          "title": "Proyectos dignos de portfolio",
+          "description": "Trabajamos en proyectos de los que estamos orgullosos, con clientes que valoran calidad. Cada proyecto puede ir en tu portfolio (con permiso del cliente)."
+        },
+        {
+          "title": "Sin exclusividad requerida",
+          "description": "Trabaja con otras agencias, toma tus propios clientes, colabora en otros lugares. Solo pedimos que cumplas deadlines para proyectos que aceptes de nosotros."
+        },
+        {
+          "title": "Derecho a declinar",
+          "description": "Cada proyecto es opcional. ¿Ocupado? ¿No te interesa? Solo di que no. No afecta oportunidades futuras."
+        }
+      ]
+    },
+    "expectations": {
+      "title": "Qué esperamos de ti",
+      "intro": "Esta es una colaboración profesional. Somos claros sobre las expectativas desde el inicio.",
+      "items": [
+        {
+          "title": "Cumple deadlines o comunica con anticipación",
+          "description": "La vida pasa, entendemos. Pero si no puedes cumplir un deadline, dinos CUANTO ANTES para que podamos ajustar. Sorpresas de último minuto dañan la confianza del cliente."
+        },
+        {
+          "title": "Calidad sobre velocidad",
+          "description": "Preferimos que tomes un día extra y entregues trabajo excelente que apresurar trabajo mediocre. Construimos nuestra reputación en calidad."
+        },
+        {
+          "title": "Dos rondas de revisiones incluidas",
+          "description": "El precio asume dos rondas de revisión. Si el cliente solicita más (raro, porque manejamos el scope), renegociamos compensación."
+        },
+        {
+          "title": "Comunicación profesional",
+          "description": "Responde mensajes en 24 horas en días hábiles. Usa lenguaje claro. Haz preguntas cuando el brief no es claro. Valoramos sobre-comunicación."
+        },
+        {
+          "title": "Archivos de trabajo incluidos",
+          "description": "Entrega archivos finales más archivos fuente (Figma, AI, PSD, etc.). Cliente es dueño de todo lo que pagó. Esto es no negociable."
+        }
+      ]
+    },
+    "pricing_model": {
+      "title": "Cómo funciona el pricing",
+      "intro": "Creemos en compensación transparente y predecible. Así es como estructuramos la colaboración:",
+      "diagram": {
+        "step_1": {
+          "label": "Cliente paga a Noctra Studio",
+          "amount": "100%"
+        },
+        "step_2": {
+          "label": "Noctra retiene",
+          "amount": "60%",
+          "breakdown": "Adquisición, coordinación, QA, gestión del cliente"
+        },
+        "step_3": {
+          "label": "Tú recibes",
+          "amount": "40%",
+          "breakdown": "Ejecución del componente especializado"
+        }
+      },
+      "headline_2": "Tu compensación: 40% del proyecto",
+      "subtext": "Sin comisiones ocultas. Sin negociaciones proyecto por proyecto. El pricing se define al inicio y no cambia.",
+      "example": {
+        "title": "Ejemplo real de un proyecto",
+        "label_client_pays": "Cliente Paga",
+        "label_your_gain": "Tu Ganancia",
+        "label_noctra_share": "Retenido por Noctra",
+        "client_pays": "$30,000 MXN",
+        "your_share": {
+          "amount": "$12,000 MXN (40%)",
+          "for": "Diseño de logo, paleta, tipografía, guía de marca"
+        },
+        "noctra_share": {
+          "amount": "$18,000 MXN (60%)",
+          "for": "Prospección del cliente, propuesta comercial, coordinación de proyecto, revisión de calidad, gestión de cambios, cobro y facturación"
+        }
+      },
+      "comparison": {
+        "button_text": "¿Por qué solo 40%? Ver comparación ↓",
+        "title": "Comparativa con alternativas",
+        "intro": "Tu compensación depende del contexto. Aquí está el panorama real:",
+        "table": {
+          "headers": [
+            "Plataforma",
+            "Tu ganancia neta",
+            "Tiempo invertido"
+          ],
+          "rows": [
+            {
+              "platform": "Fiverr",
+              "earnings": "20-30%*",
+              "time": "20h ejecución + 15h propuestas perdidas",
+              "footnote": "*Después de 20% fee + carreras a la baja"
+            },
+            {
+              "platform": "Upwork",
+              "earnings": "10-20%*",
+              "time": "20h ejecución + 10h proposals + competencia global $5/hora",
+              "footnote": "*Después de 20% fee"
+            },
+            {
+              "platform": "Freelance Directo",
+              "earnings": "100%",
+              "time": "20h ejecución + 10h prospección + 5h propuestas + 3h negociación + 2h cobro = 40h total",
+              "footnote": "Tu rate efectivo baja 50%"
+            },
+            {
+              "platform": "Agencia Tradicional",
+              "earnings": "20-30%",
+              "time": "Horario fijo + overhead + burocracia",
+              "footnote": ""
+            },
+            {
+              "platform": "Noctra Studio",
+              "earnings": "40%",
+              "time": "20h ejecución + 0h todo lo demás",
+              "footnote": "Flujo consistente + pago garantizado"
+            }
+          ]
+        },
+        "effective_rate": {
+          "title": "Rate efectivo - Lo que realmente importa",
+          "scenario_title": "Proyecto de $30,000 MXN:",
+          "scenarios": [
+            {
+              "type": "Freelance directo",
+              "earnings": "$30,000 (100%)",
+              "time": "40 horas totales (20h ejecución + 20h admin)",
+              "rate": "$750/hora"
+            },
+            {
+              "type": "Noctra Studio (1 proyecto)",
+              "earnings": "$12,000 (40%)",
+              "time": "20 horas (solo ejecución)",
+              "rate": "$600/hora"
+            },
+            {
+              "type": "Noctra Studio (2 proyectos en 40h)",
+              "earnings": "$24,000",
+              "time": "40 horas",
+              "rate": "$600/hora con flujo constante",
+              "benefits": [
+                "Flujo predecible",
+                "Pago garantizado",
+                "Más tiempo ejecutando"
+              ]
+            }
+          ]
+        },
+        "closing_note": "💡 El mejor modelo depende de tu situación. Si ya tienes flujo constante de clientes propios que pagan bien y rápido, mantén esa situación. Noctra es para complementar o reemplazar Upwork/Fiverr, no para reemplazar tus mejores clientes directos."
+      },
+      "terms": {
+        "title": "Términos de pago",
+        "list": [
+          "Entregas el milestone acordado → Revisamos (24-48 horas) → Pagamos (en 3 días hábiles)",
+          "Transferencia bancaria (SPEI), sin fees de plataforma",
+          "Facturas como freelancer (si tienes RFC) o podemos usar recibo de honorarios"
+        ]
+      }
+    },
+    "application": {
+      "title": "Aplicar para unirte a la red",
+      "intro": "Revisamos aplicaciones de forma continua. Aunque no tengamos proyectos inmediatos en tu especialidad, mantenemos portfolios fuertes en archivo.",
+      "fields": {
+        "name": "Nombre completo",
+        "email": "Email",
+        "phone": "Teléfono (WhatsApp preferido)",
+        "location": "Ubicación (ciudad, estado)",
+        "location_note": "Trabajo remoto está bien, pero preferimos talento en México por alineación de zona horaria",
+        "specialization": "Especialización principal",
+        "specialization_options": [
+          "Diseñador de Marca",
+          "Copywriter",
+          "Fotógrafo/Videógrafo",
+          "Diseñador UI/UX",
+          "Ilustrador/Diseñador de Iconos",
+          "Especialista en SEO",
+          "Otro (especificar)"
+        ],
+        "portfolio_url": "URL de portfolio",
+        "portfolio_note": "Behance, personal sitio, Dribbble, o PDF - lo que muestre tu mejor trabajo",
+        "best_work": "Link a tu mejor proyecto individual (con contexto)",
+        "best_work_placeholder": "Pega link y explica brevemente: ¿Cuál era el reto? ¿Qué creaste? ¿Cuál fue el resultado?",
+        "availability": "Disponibilidad actual",
+        "availability_options": [
+          "Disponible ahora",
+          "Disponible en 2-4 semanas",
+          "Solo explorando, no disponible aún"
+        ],
+        "rate_expectation": "Expectativa de tarifa para proyecto típico en tu especialidad",
+        "rate_note": "Sé realista. Discutiremos específicos si hay fit, pero necesitamos saber si las expectativas se alinean.",
+        "why_interested": "¿Por qué te interesa unirte a esta red?",
+        "why_placeholder": "¿Qué te atrae de la colaboración por proyecto vs empleo tradicional o freelancing solo?"
+      },
+      "submit": "Enviar aplicación",
+      "success": {
+        "title": "Gracias por aplicar",
+        "section_1": {
+          "title": "QUÉ SIGUE:",
+          "steps": [
+            "1. Revisaremos tu portfolio en 3-5 días hábiles",
+            "2. Si hay fit, te contactaremos para llamada de 30 minutos",
+            "3. En esa llamada discutiremos:",
+            "   → Tus especializaciones y estilo de trabajo",
+            "   → Proyectos actuales en pipeline",
+            "   → Estructura de compensación (40% transparente)",
+            "   → Disponibilidad y preferencias"
+          ]
+        },
+        "section_2": {
+          "content": "Si no te contactamos en 5 días, significa que no tenemos proyectos inmediatos en tu área, pero mantenemos tu aplicación en archivo para consideración futura (típicamente 3-6 meses)."
+        },
+        "section_3": {
+          "title": "MIENTRAS TANTO:",
+          "actions": [
+            {
+              "text": "→ Síguenos en X/Twitter para ver proyectos y oportunidades:",
+              "link": "https://x.com/NoctraStudio",
+              "link_text": "@noctra_studio"
+            },
+            {
+              "text": "→ Únete a nuestra lista de espera prioritaria:",
+              "link": "#",
+              "link_text": "Registrarme en lista de espera"
+            }
+          ]
+        },
+        "closing": {
+          "content": "NO ES UN RECHAZO PERMANENTE. Nuestras necesidades cambian cada trimestre."
+        }
+      }
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "items": [
+        {
+          "q": "¿Esto es empleo o freelance?",
+          "a": "Relación freelance/contratista. Permaneces independiente, facturas por proyecto, puedes trabajar con otros clientes. Esto NO es empleo - sin prestaciones, sin exclusividad, sin horario fijo."
+        },
+        {
+          "q": "¿Con qué frecuencia tendré proyectos?",
+          "a": "Depende de tu especialidad y nuestro pipeline de clientes. Podría ser 1 proyecto al mes, podría ser 1 cada 3 meses. No podemos garantizar volumen - trata esto como ingreso suplementario, no tu única fuente."
+        },
+        {
+          "q": "¿Qué pasa si no estoy de acuerdo con el feedback del cliente?",
+          "a": "Lo discutimos juntos. Si el feedback no es razonable o está fuera de alcance, nosotros abogamos por ti. Si es una solicitud legítima dentro del alcance, esperamos que la atiendas. Somos el buffer entre tú y el cliente."
+        },
+        {
+          "q": "¿Puedo usar los proyectos en mi portafolio?",
+          "a": "Sí, con permiso del cliente (que usualmente obtenemos). Incluimos derechos de portafolio en nuestros contratos específicamente para que puedas mostrar tu trabajo."
+        },
+        {
+          "q": "¿Qué pasa si pierdo un plazo de entrega?",
+          "a": "Primera vez con razón válida: Lo resolvemos. Problemas repetidos o incumplimientos: Dejamos de enviar proyectos. Nuestra reputación con los clientes depende de la confiabilidad, así que necesitamos eso de nuestros colaboradores."
+        },
+        {
+          "q": "¿Necesito estar en Querétaro?",
+          "a": "No. La colaboración remota funciona bien. Preferimos talento basado en México (zona horaria + entendimiento local), pero la ubicación no es un factor determinante si el portafolio es sólido."
+        },
+        {
+          "q": "¿Qué pasa si quiero dejar de colaborar?",
+          "a": "Solo avísanos. Sin contratos forzosos ni penalizaciones. Termina cualquier proyecto activo al que te hayas comprometido y listo. Agradeceríamos tu honestidad sobre los motivos, pero no es obligatorio."
+        }
+      ],
+      "compensation_title": "Preguntas sobre el modelo de compensación",
+      "compensation_items": [
+        {
+          "q": "¿Por qué solo 40% si yo hago el trabajo?",
+          "a": "Nosotros hacemos trabajo también, solo que diferente:\n\n→ Antes del proyecto: Prospectamos, hacemos propuestas comerciales, cerramos ventas (10-15 horas por proyecto cerrado)\n→ Durante el proyecto: Coordinamos comunicación con cliente, manejamos cambios de alcance, hacemos QA\n→ Después del proyecto: Cobramos, facturamos, manejamos garantías\n\nEl 60% que retenemos cubre todo eso + el riesgo (garantizamos reembolso al cliente si no queda satisfecho, incluso si ya te pagamos a ti).\n\nPiénsalo así: ¿Prefieres ganar $30k invirtiendo 40 horas (20h ejecución + 20h admin), o ganar $12k invirtiendo solo 20 horas y usar las otras 20h en otro proyecto?"
+        },
+        {
+          "q": "¿Cómo me comparo con Fiverr o Upwork?",
+          "a": "FIVERR:\n→ Cliente paga $1,000 USD\n→ Fiverr toma 20% = $200\n→ Tú recibes $800\n→ Pero... invertiste 15h en proposals que no ganaste\n→ Rate efectivo real: mucho menos\n\nUPWORK:\n→ Similar a Fiverr\n→ Plus: competencia con freelancers de $5/hora\n→ Carreras a la baja en precio\n\nNOCTRA STUDIO:\n→ Cliente paga $30,000 MXN\n→ Noctra toma 60% = $18,000 (pero te trae al cliente pre-calificado)\n→ Tú recibes 40% = $12,000\n→ Inviertes 0h en prospección\n→ Pago garantizado en 3 días"
+        },
+        {
+          "q": "¿Puedo negociar un porcentaje más alto?",
+          "a": "En proyectos excepcionales donde tu involucramiento es 80%+ del trabajo (ej: un dashboard SaaS complejo donde el diseñador hace casi todo), podemos discutir splits personalizados.\n\nPara proyectos estándar, mantenemos 40/60 por simplicidad y transparencia."
+        },
+        {
+          "q": "¿Qué pasa si traigo mi propio cliente a Noctra?",
+          "a": "Si tú traes el cliente y solo necesitas apoyo de coordinación/QA de Noctra, podemos discutir un split diferente (ej: 70/30 para ti).\n\nAgenda una llamada para discutir estos casos."
+        },
+        {
+          "q": "¿Cómo me pagan?",
+          "a": "Transferencia bancaria (SPEI), sin fees de plataforma deducidos de tu tarifa. Facturas como freelancer (si tienes RFC) o podemos usar recibo de honorarios.\n\nEntregas milestone → Revisamos en 24-48h → Te pagamos en 3 días hábiles."
+        },
+        {
+          "q": "¿Qué pasa si el cliente cancela el proyecto a mitad?",
+          "a": "Si ya completaste trabajo antes de la cancelación, te pagamos proporcionalmente por milestones entregados. Esto está en nuestros contratos con clientes.\n\nEjemplo: Proyecto de $30k cancelado después de entregar 50% → Te pagamos $6k (50% de tu $12k total)."
+        }
+      ]
+    },
+    "legal": {
+      "contractor_status": "Todos los colaboradores trabajan como contratistas independientes. Noctra Studio no retiene impuestos, no provee prestaciones ni establece relaciones obrero-patronales. Eres responsable de tus propias obligaciones fiscales.",
+      "ip_ownership": "Todo el trabajo creado bajo los proyectos de Noctra Studio pasa a ser propiedad del cliente. Retienes el derecho de mostrar el trabajo en tu portafolio (con permiso del cliente), pero no puedes revender o reutilizar el trabajo del cliente."
+    }
+  },
+  "OngoingManagement": {
+    "title": "Gestión Digital Continua",
+    "subtitle": "Tu negocio no se detiene, tu tecnología tampoco. Planes de acompañamiento estratégico para que nunca dejes de crecer.",
+    "tier1": {
+      "name": "Esencial",
+      "price": "Desde $2,500 MXN/mes + IVA",
+      "features": [
+        "Hosting y dominio gestionados",
+        "Monitoreo de uptime 24/7",
+        "Actualizaciones de seguridad",
+        "Soporte ante incidencias (respuesta < 4hrs hábiles)",
+        "Reporte mensual de métricas básicas"
+      ]
+    },
+    "tier2": {
+      "name": "Crecimiento",
+      "price": "Desde $5,500 MXN/mes + IVA",
+      "popular": true,
+      "features": [
+        "Todo lo incluido en Esencial",
+        "Reunión mensual de estrategia (30 min)",
+        "2-3 mejoras de contenido o UX por mes",
+        "Optimización SEO continua",
+        "Soporte prioritario (respuesta < 2hrs)",
+        "Integraciones menores"
+      ]
+    },
+    "tier3": {
+      "name": "Socio Estratégico",
+      "price": "Desde $12,000 MXN/mes + IVA",
+      "features": [
+        "Todo lo incluido en Crecimiento",
+        "Asesoría para nuevas tecnologías e IA",
+        "Actualizaciones mayores del código base",
+        "Acceso directo a Manu vía WhatsApp",
+        "Respuesta garantizada en 1 hora",
+        "Informes ejecutivos quincenales"
+      ]
+    },
+    "footer": "Disponible para clientes con proyecto completado por Noctra. Precios no incluyen IVA. Contratos mensuales o anuales (descuento 15% en plan anual).",
+    "cta": "Activar gestión continua"
+  }
+}
