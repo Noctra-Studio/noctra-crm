@@ -9,7 +9,7 @@ export const WhatsAppFloatingButton = () => {
 
   // Don't show on forge routes or contact page
   const isForgePage =
-    pathname?.startsWith("/forge") || pathname?.includes("/forge");
+    pathname?.startsWith("/") || pathname?.includes("/");
   const isContactPage = pathname?.endsWith("/contact");
 
   if (isForgePage || isContactPage) return null;

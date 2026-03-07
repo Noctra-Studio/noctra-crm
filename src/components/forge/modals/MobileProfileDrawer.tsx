@@ -35,7 +35,7 @@ export function MobileProfileDrawer({
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    window.location.href = "/forge/login";
+    window.location.href = "/login";
   };
 
   return (
@@ -77,42 +77,42 @@ export function MobileProfileDrawer({
           {/* CRM Links */}
           <div className="space-y-1 mb-6 pb-6 border-b border-white/5 shrink-0">
             <Link
-              href="/forge/pipeline"
+              href="/pipeline"
               onClick={onClose}
               className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors text-white">
               <Kanban className="w-5 h-5 text-neutral-400" />
               <span className="font-medium text-sm">Pipeline</span>
             </Link>
             <Link
-              href="/forge/proposals"
+              href="/proposals"
               onClick={onClose}
               className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors text-white">
               <StickyNote className="w-5 h-5 text-neutral-400" />
               <span className="font-medium text-sm">Propuestas</span>
             </Link>
             <Link
-              href="/forge/contracts"
+              href="/contracts"
               onClick={onClose}
               className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors text-white">
               <Send className="w-5 h-5 text-neutral-400" />
               <span className="font-medium text-sm">Contratos</span>
             </Link>
             <Link
-              href="/forge/documents"
+              href="/documents"
               onClick={onClose}
               className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors text-white">
               <FileSignature className="w-5 h-5 text-neutral-400" />
               <span className="font-medium text-sm">Documentos</span>
             </Link>
             <Link
-              href="/forge/clients"
+              href="/clients"
               onClick={onClose}
               className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors text-white">
               <UserCheck className="w-5 h-5 text-neutral-400" />
               <span className="font-medium text-sm">Clientes</span>
             </Link>
             <Link
-              href="/forge/leads"
+              href="/leads"
               onClick={onClose}
               className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors text-white">
               <Users className="w-5 h-5 text-neutral-400" />
@@ -123,7 +123,7 @@ export function MobileProfileDrawer({
           {/* Links */}
           <div className="space-y-1 mb-8 shrink-0">
             <Link
-              href="/forge/settings/security"
+              href="/settings/security"
               onClick={onClose}
               className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors text-white">
               <Settings className="w-5 h-5 text-neutral-400" />
@@ -131,7 +131,7 @@ export function MobileProfileDrawer({
             </Link>
 
             <Link
-              href="/forge/settings/billing"
+              href="/settings/billing"
               onClick={onClose}
               className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors text-white">
               <CreditCard className="w-5 h-5 text-neutral-400" />
@@ -139,7 +139,7 @@ export function MobileProfileDrawer({
             </Link>
 
             <Link
-              href="/forge/support"
+              href="/support"
               onClick={onClose}
               className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors text-white">
               <LifeBuoy className="w-5 h-5 text-neutral-400" />

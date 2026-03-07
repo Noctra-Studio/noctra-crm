@@ -32,7 +32,7 @@ export function BackgroundManager() {
     if (pathname.includes("/case-studies")) {
       return <CaseStudiesBackground key="terrain" />;
     }
-    if (pathname.includes("/contact") || pathname.includes("/forge")) {
+    if (pathname.includes("/contact") || pathname.includes("/")) {
       return null;
     }
     if (pathname.includes("/blog")) {

@@ -39,7 +39,7 @@ export default function LoginPage() {
       );
       setIsLoading(false);
     } else {
-      router.push("/forge"); // Default redirect for login
+      router.push("/"); // Default redirect for login
       router.refresh();
     }
   };

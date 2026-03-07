@@ -25,7 +25,7 @@ export default function ConfigurationDoc() {
       <H2>Manejo de Sesiones (Session Management)</H2>
       <P>
         Bajo los lineamientos de Enterprise Compliance, tu sesión en{" "}
-        <InlineCode>/forge/*</InlineCode>
+        <InlineCode>/*</InlineCode>
         posee un sistema estricto de expiración para evitar ventanas perdidas:
       </P>
       <List>

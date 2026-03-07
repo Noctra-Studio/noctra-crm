@@ -42,8 +42,8 @@ export async function createContractFromProposalAction(proposalId: string) {
 
   if (contractError) throw contractError;
 
-  revalidatePath("/forge/contracts");
-  revalidatePath("/forge/proposals");
+  revalidatePath("/contracts");
+  revalidatePath("/proposals");
   
   return { id: contract.id };
 }

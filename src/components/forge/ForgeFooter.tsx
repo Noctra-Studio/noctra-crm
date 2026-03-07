@@ -15,7 +15,7 @@ export function ForgeFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
           {/* LOGO + TAGLINE */}
           <div className="lg:col-span-4 space-y-6">
-            <Link href="/forge" className="inline-block group">
+            <Link href="/" className="inline-block group">
               <div className="flex items-center gap-3">
                 <NextImage
                   src="/favicon-light.svg"
@@ -58,7 +58,7 @@ export function ForgeFooter() {
                 </li>
                 <li>
                   <Link
-                    href="/forge/login"
+                    href="/login"
                     className="text-sm text-neutral-300 hover:text-white transition-colors">
                     Iniciar sesión
                   </Link>
@@ -66,7 +66,7 @@ export function ForgeFooter() {
                 <li>
                   <Link
                     href={{
-                      pathname: "/forge/login",
+                      pathname: "/login",
                       query: { mode: "signup", plan: "starter" },
                     }}
                     className="text-sm text-neutral-300 hover:text-white transition-colors">

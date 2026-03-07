@@ -90,7 +90,7 @@ export const PricingWithROI = () => {
 
             <Link
               href={{
-                pathname: "/forge/login",
+                pathname: "/login",
                 query: { mode: "signup", plan: "starter" },
               }}
               className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all active:scale-[0.98]">
@@ -165,7 +165,7 @@ export const PricingWithROI = () => {
             <div className="relative z-10">
               <Link
                 href={{
-                  pathname: "/forge/login",
+                  pathname: "/login",
                   query: { mode: "signup", plan: "pro", trial: "true" },
                 }}
                 className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-white text-black font-black hover:bg-neutral-200 transition-all active:scale-[0.98]">

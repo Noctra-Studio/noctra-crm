@@ -9,7 +9,7 @@ export async function recalculateLeadScoreAction(leadId: string) {
   const supabase = await createClient();
 
   const ctx = await getWorkspace();
-  if (!ctx) redirect("/forge/login");
+  if (!ctx) redirect("/login");
 
   const { data: lead, error: fetchError } = await supabase
     .from("contact_submissions")
@@ -50,7 +50,7 @@ export async function recalculateLeadScoreAction(leadId: string) {
 export async function updateLeadStatusWithScoring(leadId: string, status: string, lostReasonText?: string) {
   const supabase = await createClient();
   const ctx = await getWorkspace();
-  if (!ctx) redirect("/forge/login");
+  if (!ctx) redirect("/login");
 
   try {
     const updates: any = { 

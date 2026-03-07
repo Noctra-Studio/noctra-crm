@@ -91,7 +91,7 @@ export function UpgradeLimitModal({
         {/* Footer */}
         <div className="p-6 pt-2 relative z-10 mt-2">
           <Link
-            href="/forge/settings/billing"
+            href="/settings/billing"
             className="w-full flex items-center justify-center gap-2 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.2)] active:scale-95"
             onClick={onClose}>
             Actualizar Suscripción <ArrowRight className="w-4 h-4" />

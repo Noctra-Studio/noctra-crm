@@ -49,7 +49,7 @@ export function NotificationsDropdown({
         type: "red",
         title: "Acción Vencida",
         desc: `La acción para ${l.name} está atrasada.`,
-        link: "/forge/pipeline",
+        link: "/pipeline",
       });
     }
   });
@@ -62,7 +62,7 @@ export function NotificationsDropdown({
         type: "yellow",
         title: "Borrador sin Fecha",
         desc: `Propuesta ${p.title || p.proposal_number || "sin nombre"} no tiene vencimiento.`,
-        link: "/forge/proposals",
+        link: "/proposals",
       });
     }
   });
@@ -82,7 +82,7 @@ export function NotificationsDropdown({
           type: "green",
           title: "Lead sin contactar",
           desc: `${l.name} lleva ${daysOld} días en Nuevo.`,
-          link: "/forge/leads",
+          link: "/leads",
         });
       }
     }

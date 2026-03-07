@@ -62,8 +62,8 @@ export async function POST(req: Request) {
           quantity: quantity,
         },
       ],
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/forge/settings/billing?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/forge/settings/billing?canceled=true`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/settings/billing?success=true`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/settings/billing?canceled=true`,
       metadata: {
         workspace_id: workspaceId,
         user_id: session.user.id,

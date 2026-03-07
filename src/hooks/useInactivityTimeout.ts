@@ -22,7 +22,7 @@ export function useInactivityTimeout() {
   const logout = async (reason: 'inactivity' | 'expired') => {
     await supabase.auth.signOut()
     sessionStorage.removeItem('session_start')
-    router.push(`/forge/login?reason=${reason}`)
+    router.push(`/login?reason=${reason}`)
     router.refresh()
   }
 

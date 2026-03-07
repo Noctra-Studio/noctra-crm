@@ -80,30 +80,30 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
     {
       group: "Main",
       items: [
-        { label: t("inicio"), href: "/forge", icon: Home },
+        { label: t("inicio"), href: "/", icon: Home },
         {
           label: t("projects"),
-          href: "/forge/projects",
+          href: "/projects",
           icon: LayoutDashboard,
         },
-        { label: t("pipeline"), href: "/forge/pipeline", icon: Kanban },
+        { label: t("pipeline"), href: "/pipeline", icon: Kanban },
       ],
     },
     {
       group: "CRM",
       items: [
-        { label: t("propuestas"), href: "/forge/proposals", icon: StickyNote },
-        { label: t("contratos"), href: "/forge/contracts", icon: Send },
-        { label: "Documentos", href: "/forge/documents", icon: FileSignature },
-        { label: t("clientes"), href: "/forge/clients", icon: UserCheck },
-        { label: t("leads"), href: "/forge/leads", icon: Users },
+        { label: t("propuestas"), href: "/proposals", icon: StickyNote },
+        { label: t("contratos"), href: "/contracts", icon: Send },
+        { label: "Documentos", href: "/documents", icon: FileSignature },
+        { label: t("clientes"), href: "/clients", icon: UserCheck },
+        { label: t("leads"), href: "/leads", icon: Users },
       ],
     },
     {
       group: "Tools",
       items: [
-        { label: "Migración", href: "/forge/migration", icon: Shuffle },
-        { label: t("metricas"), href: "/forge/metrics", icon: BarChart3 },
+        { label: "Migración", href: "/migration", icon: Shuffle },
+        { label: t("metricas"), href: "/metrics", icon: BarChart3 },
       ],
     },
     {
@@ -111,7 +111,7 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
       items: [
         {
           label: "Marketing",
-          href: "/forge/settings/marketing",
+          href: "/settings/marketing",
           icon: Megaphone,
         },
       ],
@@ -201,8 +201,8 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
 
                 {group.items.map((item) => {
                   const isActive =
-                    item.href === "/forge"
-                      ? pathname === "/forge"
+                    item.href === "/"
+                      ? pathname === "/"
                       : pathname.includes(item.href);
 
                   return (
@@ -262,17 +262,17 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
         <div
           className={`p-4 border-t border-white/5 ${isCollapsed ? "flex justify-center" : ""}`}>
           <Link
-            href="/forge/docs"
+            href="/docs"
             title={isCollapsed ? t("documentacion") : undefined}
             className={`flex items-center ${isCollapsed ? "justify-center p-2" : "gap-3 px-3 py-2.5"} rounded-md transition-all duration-150 text-sm font-medium group relative ${
-              pathname.includes("/forge/docs")
+              pathname.includes("/docs")
                 ? isCollapsed
                   ? "text-emerald-500 border-l-2 border-emerald-500 bg-white/[0.05]"
                   : "bg-white/[0.05] text-white"
                 : "text-neutral-400 hover:text-white hover:bg-white/[0.02]"
             }`}>
             <BookOpen
-              className={`w-4 h-4 flex-none ${pathname.includes("/forge/docs") ? "text-emerald-400" : ""}`}
+              className={`w-4 h-4 flex-none ${pathname.includes("/docs") ? "text-emerald-400" : ""}`}
               strokeWidth={1.5}
             />
             {!isCollapsed && (

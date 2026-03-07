@@ -27,7 +27,7 @@ export async function generateReportAction(projectId: string, config: ReportConf
 
   if (error) throw error;
 
-  revalidatePath("/forge/projects");
+  revalidatePath("/projects");
   return { 
     token: project.report_token,
     url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://noctra.studio'}/client/report/${project.report_token}`

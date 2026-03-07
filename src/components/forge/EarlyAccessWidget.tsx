@@ -15,11 +15,11 @@ export function EarlyAccessWidget() {
   useEffect(() => {
     // We fetch the count from a new or existing api endpoint.
     // For simplicity, let's create a quick API route or Server Action to get this count safely.
-    // Instead of building a complex route just for this int, let's assume we have `/api/forge/stats`
+    // Instead of building a complex route just for this int, let's assume we have `/api/stats`
     // Or we can just use a Server Action if we define it. For now, doing a standard fetch.
     const fetchCount = async () => {
       try {
-        const res = await fetch("/api/forge/early-access-count");
+        const res = await fetch("/api/early-access-count");
         if (res.ok) {
           const data = await res.json();
           setActiveCount(data.count);
@@ -82,7 +82,7 @@ export function EarlyAccessWidget() {
           </div>
 
           <Link
-            href="/forge/settings/billing"
+            href="/settings/billing"
             className="w-full md:w-auto px-6 py-3 bg-emerald-500 text-black font-bold text-sm rounded-xl hover:bg-emerald-400 transition-all shadow-[0_4px_20px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2 active:scale-95">
             Asegurar mi lugar <ArrowRight className="w-4 h-4" />
           </Link>

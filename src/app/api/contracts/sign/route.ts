@@ -137,7 +137,7 @@ export async function POST(req: Request) {
           <p><strong>Contrato:</strong> ${contract.contract_number}</p>
           <p><strong>IP de Firma:</strong> ${ip}</p>
           <br />
-          <a href="https://noctra.studio/forge/contracts" style="display: inline-block; padding: 12px 24px; background: #111; color: white; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Gestionar en Forge</a>
+          <a href="https://noctra.studio/contracts" style="display: inline-block; padding: 12px 24px; background: #111; color: white; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Gestionar en Forge</a>
         </div>
       `,
     });

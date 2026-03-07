@@ -48,7 +48,7 @@ export async function exportToAccounting(contractId: string) {
       })
       .eq("id", contractId);
 
-    revalidatePath(`/forge/contracts/${contractId}/edit`);
+    revalidatePath(`/contracts/${contractId}/edit`);
     throw new Error("El cliente no tiene un perfil fiscal configurado.");
   }
 
@@ -74,6 +74,6 @@ export async function exportToAccounting(contractId: string) {
     throw new Error("Error al actualizar el estado de sincronización.");
   }
 
-  revalidatePath(`/forge/contracts/${contractId}/edit`);
+  revalidatePath(`/contracts/${contractId}/edit`);
   return { success: true, externalId: mockExternalId };
 }

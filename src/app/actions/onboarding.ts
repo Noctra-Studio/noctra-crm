@@ -50,6 +50,6 @@ export async function completeOnboardingAction(data: {
   }
 
   // Ensure layouts re-fetch the user metadata
-  revalidatePath("/forge", "layout");
+  revalidatePath("/", "layout");
   return { success: true };
 }

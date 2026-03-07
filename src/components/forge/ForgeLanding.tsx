@@ -313,7 +313,7 @@ export default function ForgeLanding() {
           <div className="flex flex-col sm:flex-row items-center gap-4 flex-wrap justify-center w-full">
             <Link
               href={{
-                pathname: "/forge/login",
+                pathname: "/login",
                 query: { mode: "signup", plan: "starter" },
               }}
               className="flex items-center justify-center gap-2 bg-white text-black font-bold rounded-full h-12 px-8 text-base hover:bg-gray-200 transition-all duration-300 w-full sm:w-auto">
@@ -737,13 +737,13 @@ export default function ForgeLanding() {
           {/* Beta Coming Soon - Temporarily Disabled */}
           <Link
             href={{
-              pathname: "/forge/login",
+              pathname: "/login",
               query: { mode: "signup", plan: "starter" },
             }}
             className="flex items-center justify-center gap-2 bg-white text-black font-bold h-12 rounded-full px-10 text-base hover:bg-gray-200 transition-all duration-300">
             Empezar Gratis <ArrowRight size={18} />
           </Link>
-          {/* Original Link: /forge/login */}
+          {/* Original Link: /login */}
           <p className="text-xs text-neutral-500 mt-6 tracking-wide">
             14 días gratis. Sin tarjeta. Cancela cuando quieras.
           </p>

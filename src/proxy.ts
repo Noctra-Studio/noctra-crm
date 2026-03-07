@@ -36,7 +36,7 @@ export default async function proxy(request: NextRequest) {
       // Validate Premium Tiers for Whitelabel
       if (workspace.tier !== "pro" && workspace.tier !== "agency") {
         // Block custom domain if not Premium
-        return NextResponse.redirect(new URL("https://noctra.studio/forge/settings/billing", request.url));
+        return NextResponse.redirect(new URL("https://noctra.studio/settings/billing", request.url));
       }
       resolvedWorkspace = workspace;
     }
@@ -55,41 +55,38 @@ export default async function proxy(request: NextRequest) {
     user = result.user;
     const aal = (result as any).aal;
 
-    // Handle Forge Route Protection
-    const isForgeRoute = pathname.includes('/forge');
-    const isLoginPage = pathname.endsWith('/forge/login');
+    // Handle CRM Route Protection (everything is basically CRM now)
+    const isLoginPage = pathname.endsWith('/login');
     
-    // Match exactly /forge or /es/forge or /en/forge (ignoring trailing slashes and preventing matches on sub-routes like /forge/projects)
-    const isLandingPage = /^\/(es|en)?\/?forge\/?$/.test(pathname);
+    // Public routes that don't need authentication if they are NOT inside the app area
+    // For now, assuming everything else needs protection unless it's the landing page
+    const isLandingPage = /^\/(es|en)?\/?$/.test(pathname);
     
-    // DEBUG: Remove after fixing the redirect loop
-    if (isForgeRoute && !isLoginPage) {
-      console.log(`[Proxy] Checking route: ${pathname} | isLandingPage: ${isLandingPage} | hasUser: ${!!user}`);
+    // Protected routes: projects, pipeline, proposals, contracts, clients, leads, metrics, settings, docs, search
+    const protectedRoutes = ['/projects', '/pipeline', '/proposals', '/contracts', '/clients', '/leads', '/metrics', '/settings', '/docs', '/search'];
+    const isProtectedRoute = protectedRoutes.some(route => pathname.includes(route));
+
+    if (isProtectedRoute && !user) {
+      const loginUrl = request.nextUrl.clone();
+      if (pathname.startsWith('/en/') || pathname.startsWith('/es/')) {
+        const locale = pathname.split('/')[1];
+        loginUrl.pathname = `/${locale}/login`;
+      } else {
+        loginUrl.pathname = '/login';
+      }
+      return NextResponse.redirect(loginUrl);
     }
 
-    if (isForgeRoute && !isLoginPage && !isLandingPage) {
-      if (!user) {
-        const loginUrl = request.nextUrl.clone();
-        if (pathname.startsWith('/en/') || pathname.startsWith('/es/')) {
-          const locale = pathname.split('/')[1];
-          loginUrl.pathname = `/${locale}/forge/login`;
-        } else {
-          loginUrl.pathname = '/forge/login';
-        }
-        return NextResponse.redirect(loginUrl);
+    // MFA check for protected routes
+    if (isProtectedRoute && aal?.nextLevel === 'aal2' && aal?.currentLevel !== 'aal2') {
+      const loginUrl = request.nextUrl.clone();
+      if (pathname.startsWith('/en/') || pathname.startsWith('/es/')) {
+        const locale = pathname.split('/')[1];
+        loginUrl.pathname = `/${locale}/login`;
+      } else {
+        loginUrl.pathname = '/login';
       }
-
-      // MFA check
-      if (aal?.nextLevel === 'aal2' && aal?.currentLevel !== 'aal2') {
-        const loginUrl = request.nextUrl.clone();
-        if (pathname.startsWith('/en/') || pathname.startsWith('/es/')) {
-          const locale = pathname.split('/')[1];
-          loginUrl.pathname = `/${locale}/forge/login`;
-        } else {
-          loginUrl.pathname = '/forge/login';
-        }
-        return NextResponse.redirect(loginUrl);
-      }
+      return NextResponse.redirect(loginUrl);
     }
 
     // Redirect authenticated users away from login page
@@ -97,9 +94,9 @@ export default async function proxy(request: NextRequest) {
       const adminUrl = request.nextUrl.clone();
       if (pathname.startsWith('/en/') || pathname.startsWith('/es/')) {
         const locale = pathname.split('/')[1];
-        adminUrl.pathname = `/${locale}/forge/projects`;
+        adminUrl.pathname = `/${locale}/projects`;
       } else {
-        adminUrl.pathname = '/forge/projects';
+        adminUrl.pathname = '/projects';
       }
       return NextResponse.redirect(adminUrl);
     }

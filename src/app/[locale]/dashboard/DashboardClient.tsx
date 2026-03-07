@@ -1,12 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import OverviewView from "@/components/dashboard/views/OverviewView";
-import TasksView from "@/components/dashboard/views/TasksView";
-import ActivityView from "@/components/dashboard/views/ActivityView";
-import DeliverablesView from "@/components/dashboard/views/DeliverablesView";
-import FinancialsView from "@/components/dashboard/views/FinancialsView";
-import SettingsView from "@/components/dashboard/views/SettingsView";
+import OverviewView from "@/components/forge/dashboard/views/OverviewView";
+import TasksView from "@/components/forge/dashboard/views/TasksView";
+import ActivityView from "@/components/forge/dashboard/views/ActivityView";
+import DeliverablesView from "@/components/forge/dashboard/views/DeliverablesView";
+import FinancialsView from "@/components/forge/dashboard/views/FinancialsView";
+import SettingsView from "@/components/forge/dashboard/views/SettingsView";
 import { DashboardData } from "@/types/dashboard";
 import { useSearchParams } from "next/navigation";
 

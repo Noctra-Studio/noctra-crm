@@ -44,7 +44,7 @@ export async function addDeliverableAction(data: {
 
   if (error) throw error;
 
-  revalidatePath("/forge/projects");
+  revalidatePath("/projects");
   return deliverable;
 }
 
@@ -106,7 +106,7 @@ Estado: ${isApproved ? 'APROBADO' : 'CAMBIOS SOLICITADOS'}
 ${updates.client_comment ? `\nComentarios del cliente:\n"${updates.client_comment}"` : ''}
 
 Puedes ver los detalles aquí:
-${process.env.NEXT_PUBLIC_SITE_URL || 'https://noctra.studio'}/forge/projects
+${process.env.NEXT_PUBLIC_SITE_URL || 'https://noctra.studio'}/projects
   `;
 
   try {
@@ -121,7 +121,7 @@ ${process.env.NEXT_PUBLIC_SITE_URL || 'https://noctra.studio'}/forge/projects
     // We don't throw here to avoid failing the whole action if only email fails
   }
 
-  revalidatePath("/forge/projects");
+  revalidatePath("/projects");
   revalidatePath(`/client/deliverables/${deliverable.client_token}`);
   
   return deliverable;
@@ -137,6 +137,6 @@ export async function updateDeliverableStatusInternalAction(id: string, status: 
 
   if (error) throw error;
   
-  revalidatePath("/forge/projects");
+  revalidatePath("/projects");
   return { success: true };
 }

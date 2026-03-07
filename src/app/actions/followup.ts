@@ -29,7 +29,7 @@ export type FollowUpTemplate = {
 export async function getPendingFollowUps(): Promise<FollowUpSuggestion[]> {
   const supabase = await createClient();
   const ctx = await getWorkspace();
-  if (!ctx) redirect("/forge/login");
+  if (!ctx) redirect("/login");
 
   const suggestions: FollowUpSuggestion[] = [];
   const now = new Date();
@@ -140,7 +140,7 @@ export async function getPendingFollowUps(): Promise<FollowUpSuggestion[]> {
 export async function getFollowUpTemplates(): Promise<FollowUpTemplate[]> {
   const supabase = await createClient();
   const ctx = await getWorkspace();
-  if (!ctx) redirect("/forge/login");
+  if (!ctx) redirect("/login");
 
   const { data } = await supabase
     .from("followup_templates")
@@ -157,7 +157,7 @@ export async function sendFollowUpEmail(
 ) {
   const supabase = await createClient();
   const ctx = await getWorkspace();
-  if (!ctx) redirect("/forge/login");
+  if (!ctx) redirect("/login");
 
   try {
     // 1. Send via Resend
@@ -197,7 +197,7 @@ export async function sendFollowUpEmail(
 export async function markAsContacted(suggestion: FollowUpSuggestion) {
   const supabase = await createClient();
   const ctx = await getWorkspace();
-  if (!ctx) redirect("/forge/login");
+  if (!ctx) redirect("/login");
 
   try {
     // 1. Log "call" activity

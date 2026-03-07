@@ -131,7 +131,7 @@ export function ConfiguracionesModal({
                 <button
                   onClick={() => {
                     onClose();
-                    router.push("/forge/settings/security");
+                    router.push("/settings/security");
                   }}
                   className="shrink-0 text-[10px] font-mono uppercase tracking-widest text-black font-bold transition-colors border px-4 py-2 bg-white hover:bg-neutral-200 rounded-md flex items-center gap-2">
                   {is2FAEnabled ? t("gestionar2fa") : t("activar2fa")}

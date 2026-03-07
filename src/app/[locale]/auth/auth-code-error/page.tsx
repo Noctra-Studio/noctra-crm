@@ -24,7 +24,7 @@ export default function AuthCodeError() {
 
         <div className="pt-4">
           <Link
-            href="/forge/login"
+            href="/login"
             className="inline-block bg-white text-black px-6 py-3 rounded-lg font-bold hover:bg-neutral-200 transition-colors">
             Try Again
           </Link>

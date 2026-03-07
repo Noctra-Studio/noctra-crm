@@ -41,8 +41,8 @@ export async function updateWorkspaceAction(data: {
 
   if (error) throw error;
 
-  revalidatePath("/forge");
-  revalidatePath("/forge/settings");
+  revalidatePath("/");
+  revalidatePath("/settings");
   return { success: true };
 }
 
@@ -68,7 +68,7 @@ export async function updateWorkspaceConfigAction(data: {
 
   if (error) throw error;
 
-  revalidatePath("/forge");
-  revalidatePath("/forge/settings");
+  revalidatePath("/");
+  revalidatePath("/settings");
   return { success: true };
 }

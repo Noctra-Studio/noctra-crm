@@ -46,7 +46,7 @@ export function AvatarDropdown({
       console.error("Logout error:", error);
       return;
     }
-    router.push("/forge/login");
+    router.push("/login");
   };
 
   const handleAction = (action: () => void) => {

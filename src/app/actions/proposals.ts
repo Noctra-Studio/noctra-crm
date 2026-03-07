@@ -65,7 +65,7 @@ export async function createProposalAction(data: {
 
   if (proposalError) throw proposalError;
 
-  revalidatePath("/forge/proposals");
+  revalidatePath("/proposals");
   return { id: proposal.id };
 }
 
@@ -91,8 +91,8 @@ export async function updateProposalAction(proposalId: string, data: any) {
 
   if (error) throw error;
 
-  revalidatePath("/forge/proposals");
-  revalidatePath(`/forge/proposals/${proposalId}/edit`);
+  revalidatePath("/proposals");
+  revalidatePath(`/proposals/${proposalId}/edit`);
 }
 
 export async function deleteProposalAction(proposalId: string) {
@@ -114,5 +114,5 @@ export async function deleteProposalAction(proposalId: string) {
 
   if (error) throw error;
 
-  revalidatePath("/forge/proposals");
+  revalidatePath("/proposals");
 }

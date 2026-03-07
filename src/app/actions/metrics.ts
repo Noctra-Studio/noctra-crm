@@ -27,7 +27,7 @@ export type RevenueForecast = {
 export async function getRevenueForecast(monthDate: Date = new Date()): Promise<RevenueForecast> {
   const supabase = await createClient();
   const ctx = await getWorkspace();
-  if (!ctx) redirect("/forge/login");
+  if (!ctx) redirect("/login");
 
   const start = startOfMonth(monthDate);
   const end = endOfMonth(monthDate);
@@ -141,7 +141,7 @@ export async function getRevenueForecast(monthDate: Date = new Date()): Promise<
 export async function getRevenueTrend() {
   const supabase = await createClient();
   const ctx = await getWorkspace();
-  if (!ctx) redirect("/forge/login");
+  if (!ctx) redirect("/login");
 
   const months = Array.from({ length: 6 }).map((_, i) => subMonths(new Date(), 5 - i));
 

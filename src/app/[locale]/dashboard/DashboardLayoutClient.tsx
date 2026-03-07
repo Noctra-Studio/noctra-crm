@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import Sidebar from "@/components/dashboard/Sidebar";
+import Sidebar from "@/components/forge/dashboard/Sidebar";
 import { Cursor } from "@/components/ui/cursor";
 
 export default function DashboardLayoutClient({

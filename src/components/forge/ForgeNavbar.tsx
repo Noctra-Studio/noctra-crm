@@ -122,7 +122,7 @@ export function ForgeNavbar() {
 
       {/* Layer 2: Mobile Controls (Z-[60]) - Always fixed, same as Header.tsx */}
       <div className="fixed top-6 left-6 z-[60] h-12 flex items-center md:hidden mix-blend-difference">
-        <Link href="/forge" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <BrandLogo className="w-[100px] h-auto text-white" />
           <span className="text-white font-mono text-[9px] mt-0.5 border-l border-white/20 pl-2 opacity-80 uppercase tracking-widest">
             FORGE
@@ -132,15 +132,6 @@ export function ForgeNavbar() {
 
       <div className="fixed top-6 right-6 z-[60] h-12 flex items-center md:hidden mix-blend-difference">
         <div className="flex items-center gap-3">
-          <Link
-            href="/"
-            className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-full border border-white/10 transition-colors flex items-center gap-2">
-            <ArrowLeft size={12} className="text-white" strokeWidth={2} />
-            <span className="text-[9px] font-bold uppercase tracking-widest text-white">
-              SITIO
-            </span>
-          </Link>
-
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="w-11 h-11 flex items-center justify-center bg-white/10 rounded-full backdrop-blur-md border border-white/10"
@@ -199,7 +190,7 @@ export function ForgeNavbar() {
             <div className="flex items-center justify-between px-8 h-[80px] shrink-0 z-50 relative">
               {/* Left: Branding */}
               <Link
-                href="/forge"
+                href="/"
                 className="relative z-50 hover:opacity-80 transition-opacity flex items-center gap-3">
                 <BrandLogo className="h-8 w-auto text-white" showText={true} />
                 <span className="text-emerald-500 font-mono text-[10px] border-l border-white/20 pl-3 uppercase tracking-[0.3em] font-bold">
@@ -209,24 +200,12 @@ export function ForgeNavbar() {
 
               {/* Right: Actions */}
               <div className="flex items-center gap-8">
-                <Link
-                  href="/"
-                  className="flex items-center gap-2 text-white/40 hover:text-white transition-colors group">
-                  <ArrowLeft
-                    className="w-4 h-4 transition-transform group-hover:-translate-x-1"
-                    strokeWidth={1.5}
-                  />
-                  <span className="text-[10px] font-bold uppercase tracking-widest">
-                    {t("back_to_home", { defaultValue: "Volver al sitio web" })}
-                  </span>
-                </Link>
-
                 <m.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.15 }}>
                   <Link
-                    href="/forge/login"
+                    href="/login"
                     className="flex items-center justify-center px-8 py-2.5 bg-white text-black rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors shadow-[0_10px_30px_rgba(255,255,255,0.1)]">
                     {t("sign_in", { defaultValue: "Ingresar" })}
                   </Link>

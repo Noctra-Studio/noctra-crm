@@ -135,7 +135,7 @@ export function AccountSettingsModal({
       setIsDeleting(false);
     } else {
       await supabase.auth.signOut();
-      router.push("/forge/login");
+      router.push("/login");
     }
   };
 

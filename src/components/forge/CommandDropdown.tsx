@@ -120,13 +120,13 @@ export function CommandDropdown({
               {t("accionesRapidas")}
             </p>
             <button
-              onClick={() => onSelect("/forge/proposals/new")}
+              onClick={() => onSelect("/proposals/new")}
               className="w-full flex items-center gap-3 px-3 py-2 hover:bg-white/5 rounded-md text-sm text-white/80 transition-colors text-left">
               <StickyNote className="w-4 h-4 text-white/40" strokeWidth={1.5} />{" "}
               {t("acciones.nuevaPropuesta")}
             </button>
             <button
-              onClick={() => onSelect("/forge/leads/new")}
+              onClick={() => onSelect("/leads/new")}
               className="w-full flex items-center gap-3 px-3 py-2 hover:bg-white/5 rounded-md text-sm text-white/80 transition-colors text-left">
               <Users className="w-4 h-4 text-white/40" strokeWidth={1.5} />{" "}
               {t("acciones.nuevoLead")}
@@ -143,10 +143,10 @@ export function CommandDropdown({
             const Icon = r.icon;
 
             const baseUrls: Record<string, string> = {
-              proposal: "/forge/proposals",
-              client: "/forge/clients",
-              lead: "/forge/leads",
-              project: "/forge/projects",
+              proposal: "/proposals",
+              client: "/clients",
+              lead: "/leads",
+              project: "/projects",
             };
             const baseUrl = baseUrls[r.type];
 
@@ -165,7 +165,7 @@ export function CommandDropdown({
           })}
           <div className="px-3 pt-2 mt-2 border-t border-white/5">
             <button
-              onClick={() => onSelect(`/forge/search?q=${query}`)}
+              onClick={() => onSelect(`/search?q=${query}`)}
               className="text-xs text-white/40 hover:text-white transition-colors flex items-center gap-1 w-full p-2 hover:bg-white/5 rounded-md">
               {t("verTodos")}
             </button>

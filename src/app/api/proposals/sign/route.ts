@@ -94,7 +94,7 @@ export async function POST(req: Request) {
           <p><strong>Total:</strong> $${proposal.total?.toLocaleString('es-MX')} MXN</p>
           <p><strong>Propuesta:</strong> ${proposal.proposal_number}</p>
           <p><strong>IP de Firma:</strong> ${ip}</p>
-          <a href="https://noctra.studio/forge/proposals" style="display: inline-block; padding: 10px 20px; background: #10b981; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Ver en Forge</a>
+          <a href="https://noctra.studio/proposals" style="display: inline-block; padding: 10px 20px; background: #10b981; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Ver en Forge</a>
         </div>
       `,
     });

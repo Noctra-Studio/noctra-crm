@@ -280,7 +280,7 @@ export const ForgePricing = ({
                 <div className="relative z-10">
                   <Link
                     href={{
-                      pathname: "/forge/login",
+                      pathname: "/login",
                       query: { mode: "signup", plan: "starter" },
                     }}
                     className={cn(

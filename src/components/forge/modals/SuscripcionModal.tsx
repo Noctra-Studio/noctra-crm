@@ -240,7 +240,7 @@ export function SuscripcionModal({ isOpen, onClose }: SuscripcionModalProps) {
               {/* Footer Link */}
               <div className="flex justify-center border-t border-white/5 pt-5">
                 <Link
-                  href="/forge/settings/billing"
+                  href="/settings/billing"
                   onClick={closeModal}
                   className="text-xs text-neutral-400 hover:text-white flex items-center gap-1.5 transition-colors font-medium">
                   Ver historial de facturación completo{" "}

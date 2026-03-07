@@ -5,6 +5,9 @@ import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { IntroProvider } from "@/context/IntroContext";
+import { IntroLoader } from "@/components/ui/IntroLoader";
+import { getWorkspace } from "@/lib/workspace";
 
 import dynamic from "next/dynamic";
 
@@ -102,6 +105,13 @@ export default async function LocaleLayout({
   const { locale } = await params;
   const messages = await getMessages();
 
+  let ctx = null;
+  try {
+    ctx = await getWorkspace();
+  } catch (error) {
+    console.error("[LocaleLayout] getWorkspace error:", error);
+  }
+
   const fontClasses = `${satoshi.variable} ${geistSans.variable} ${geistMono.variable} antialiased selection:bg-white selection:text-black`;
 
   return (
@@ -132,17 +142,20 @@ export default async function LocaleLayout({
         `}
       </Script>
       <NextIntlClientProvider messages={messages} locale={locale}>
-        <Cursor />
-        <SmoothScroll />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          forcedTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange>
-          {children}
-          <ScrollToTop />
-        </ThemeProvider>
+        <IntroProvider>
+          <IntroLoader />
+          <Cursor />
+          <SmoothScroll />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            forcedTheme="dark"
+            enableSystem={false}
+            disableTransitionOnChange>
+            {children}
+            <ScrollToTop />
+          </ThemeProvider>
+        </IntroProvider>
       </NextIntlClientProvider>
     </>
   );
