@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
+import { createManualContractAction } from "@/app/actions/contracts";
 import {
   X,
   Search,
@@ -117,20 +118,14 @@ export function NewContractModal({
     const service = SERVICES.find((s) => s.id === serviceId);
 
     try {
-      const { data: contract, error } = await supabase
-        .from("contracts")
-        .insert({
-          client_name: selectedLead?.name || manualEntry.name,
-          client_email: selectedLead?.email || manualEntry.email,
-          client_company: selectedLead?.company_name || manualEntry.company,
-          total_price: service?.items[0].unit_price || 0,
-          items: service?.items || [],
-          status: "draft",
-        })
-        .select("id")
-        .single();
+      const contract = await createManualContractAction({
+        client_name: selectedLead?.name || manualEntry.name,
+        client_email: selectedLead?.email || manualEntry.email,
+        client_company: selectedLead?.company_name || manualEntry.company,
+        total_price: service?.items[0].unit_price || 0,
+        items: service?.items || [],
+      });
 
-      if (error) throw error;
       router.push(`/contracts/${contract.id}/edit`);
     } catch (err) {
       console.error(err);

@@ -1,6 +1,6 @@
-import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { createAdminClient } from "@/utils/supabase/admin";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { token, signed_name, signature_data, signature_hash } = body;
 
-    const supabase = await createClient();
+    const supabase = createAdminClient();
 
     // 1. Fetch proposal and validate
     const { data: proposal, error: fetchError } = await supabase

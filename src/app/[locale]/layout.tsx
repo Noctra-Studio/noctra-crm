@@ -116,25 +116,6 @@ export default async function LocaleLayout({
 
   return (
     <>
-      <head>
-        <link
-          rel="preload"
-          href="/fonts/Satoshi-Variable.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preconnect"
-          href="https://cdn.resend.com"
-          crossOrigin="anonymous"
-        />
-      </head>
       <Script id="apply-attributes" strategy="beforeInteractive">
         {`
           document.documentElement.lang = '${locale}';

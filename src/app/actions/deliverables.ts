@@ -1,8 +1,9 @@
 "use server";
 
-import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { Resend } from "resend";
+import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -62,7 +63,7 @@ export async function getProjectDeliverablesAction(projectId: string) {
 }
 
 export async function getDeliverableByTokenAction(token: string) {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   
   const { data, error } = await supabase
     .from("project_deliverables")
@@ -75,10 +76,11 @@ export async function getDeliverableByTokenAction(token: string) {
 }
 
 export async function updateDeliverableReviewAction(id: string, updates: {
+  token: string;
   status: 'approved' | 'rejected';
   client_comment?: string;
 }) {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   
   const { data: deliverable, error } = await supabase
     .from("project_deliverables")
@@ -88,6 +90,7 @@ export async function updateDeliverableReviewAction(id: string, updates: {
       reviewed_at: new Date().toISOString()
     })
     .eq("id", id)
+    .eq("client_token", updates.token)
     .select("*, projects(name)")
     .single();
 

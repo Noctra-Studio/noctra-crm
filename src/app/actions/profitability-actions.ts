@@ -2,9 +2,26 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getWorkspace } from "@/lib/workspace";
 
 export async function getProjectProfitabilityMetrics(projectId: string) {
   const supabase = await createClient();
+  const ctx = await getWorkspace();
+
+  if (!ctx) {
+    throw new Error("No autenticado o sin workspace");
+  }
+
+  const { data: project, error: projectError } = await supabase
+    .from("projects")
+    .select("id")
+    .eq("id", projectId)
+    .eq("workspace_id", ctx.workspaceId)
+    .single();
+
+  if (projectError || !project) {
+    throw new Error("Proyecto no encontrado");
+  }
 
   // Call the Postgres RPC function
   const { data, error } = await supabase.rpc("calculate_project_profitability", {

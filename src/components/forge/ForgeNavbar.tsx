@@ -11,21 +11,43 @@ import {
   useMotionValueEvent,
   Variants,
 } from "framer-motion";
-import { Link, usePathname } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
+import { useLocale, useTranslations } from "next-intl";
 import { useIntro } from "@/context/IntroContext";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
+
+const NAVBAR_COPY = {
+  es: {
+    product: "Producto",
+    pricing: "Precios",
+    migration: "Migración",
+    resources: "Recursos",
+    support: "Soporte",
+    version: "Noctra Forge v1.0",
+  },
+  en: {
+    product: "Product",
+    pricing: "Pricing",
+    migration: "Migration",
+    resources: "Resources",
+    support: "Support",
+    version: "Noctra Forge v1.0",
+  },
+} as const;
 
 export function ForgeNavbar() {
   const { isIntroComplete, initialized } = useIntro();
   const pathname = usePathname();
+  const router = useRouter();
+  const locale = useLocale();
   const t = useTranslations("forge.navbar");
+  const navigationT = useTranslations("Navigation");
+  const copy = NAVBAR_COPY[locale as "es" | "en"] ?? NAVBAR_COPY.es;
 
   const [isOpen, setIsOpen] = React.useState(false);
-  const [lang, setLang] = React.useState<"es" | "en">("es");
   const [isScrolled, setIsScrolled] = React.useState(false);
   const { scrollY } = useScroll();
   const headerRef = React.useRef<HTMLDivElement>(null);
@@ -54,6 +76,14 @@ export function ForgeNavbar() {
   React.useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  const handleLocaleChange = React.useCallback(
+    (nextLocale: "es" | "en") => {
+      if (nextLocale === locale) return;
+      router.replace(pathname, { locale: nextLocale, scroll: false });
+    },
+    [locale, pathname, router],
+  );
 
   useMotionValueEvent(scrollY, "change", (latest: any) => {
     if (typeof latest === "number" && latest > 50) {
@@ -105,6 +135,36 @@ export function ForgeNavbar() {
       },
     },
   };
+
+  const languageToggle = (variant: "desktop" | "mobile") => (
+    <div
+      className={cn(
+        "flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em]",
+        variant === "desktop" ? "text-white/70" : "text-white/80",
+      )}>
+      <button
+        type="button"
+        onClick={() => handleLocaleChange("en")}
+        aria-pressed={locale === "en"}
+        className={cn(
+          "transition-colors",
+          locale === "en" ? "text-white" : "text-white/40 hover:text-white/80",
+        )}>
+        EN
+      </button>
+      <span className="text-white/30">/</span>
+      <button
+        type="button"
+        onClick={() => handleLocaleChange("es")}
+        aria-pressed={locale === "es"}
+        className={cn(
+          "transition-colors",
+          locale === "es" ? "text-white" : "text-white/40 hover:text-white/80",
+        )}>
+        ES
+      </button>
+    </div>
+  );
 
   return createPortal(
     <LazyMotion features={domAnimation}>
@@ -200,6 +260,7 @@ export function ForgeNavbar() {
 
               {/* Right: Actions */}
               <div className="flex items-center gap-8">
+                {languageToggle("desktop")}
                 <m.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -216,7 +277,7 @@ export function ForgeNavbar() {
                   aria-label={isOpen ? "Close menu" : "Open menu"}
                   className="flex items-center gap-4 group cursor-pointer">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
-                    {isOpen ? "Cerrar" : "Menú"}
+                    {isOpen ? navigationT("menu_close") : navigationT("menu_open")}
                   </span>
                   <div
                     className={cn(
@@ -262,32 +323,32 @@ export function ForgeNavbar() {
                   <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div className="space-y-8">
                       <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-500">
-                        Navegación
+                        {navigationT("menu_open")}
                       </h4>
                       <div className="flex flex-col gap-6">
                         <a
                           href="#features"
                           className="text-4xl font-bold text-white hover:text-emerald-500 transition-colors"
                           onClick={() => setIsOpen(false)}>
-                          Producto
+                          {copy.product}
                         </a>
                         <a
                           href="#pricing"
                           className="text-4xl font-bold text-white hover:text-emerald-500 transition-colors"
                           onClick={() => setIsOpen(false)}>
-                          Precios
+                          {copy.pricing}
                         </a>
                         <a
                           href="#migracion"
                           className="text-4xl font-bold text-white hover:text-emerald-500 transition-colors"
                           onClick={() => setIsOpen(false)}>
-                          Migración
+                          {copy.migration}
                         </a>
                         <Link
                           href="/blog"
                           className="text-4xl font-bold text-white hover:text-emerald-500 transition-colors"
                           onClick={() => setIsOpen(false)}>
-                          Recursos
+                          {copy.resources}
                         </Link>
                       </div>
                     </div>
@@ -301,7 +362,7 @@ export function ForgeNavbar() {
                           className="text-2xl font-bold text-white/60 hover:text-white transition-colors flex items-center gap-3"
                           onClick={() => setIsOpen(false)}>
                           <ExternalLink className="w-5 h-5" />
-                          Soporte Técnico
+                          {copy.support}
                         </a>
                       </div>
                     </div>
@@ -329,25 +390,25 @@ export function ForgeNavbar() {
                   href="#features"
                   className="text-4xl font-bold text-white"
                   onClick={() => setIsOpen(false)}>
-                  Producto
+                  {copy.product}
                 </a>
                 <a
                   href="#pricing"
                   className="text-4xl font-bold text-white"
                   onClick={() => setIsOpen(false)}>
-                  Precios
+                  {copy.pricing}
                 </a>
                 <a
                   href="#migracion"
                   className="text-4xl font-bold text-white"
                   onClick={() => setIsOpen(false)}>
-                  Migración
+                  {copy.migration}
                 </a>
                 <Link
                   href="/blog"
                   className="text-4xl font-bold text-white"
                   onClick={() => setIsOpen(false)}>
-                  Recursos
+                  {copy.resources}
                 </Link>
 
                 <div className="w-12 h-px bg-white/10 my-4" />
@@ -356,38 +417,16 @@ export function ForgeNavbar() {
                   href="mailto:hola@noctra.studio"
                   className="text-xl font-medium text-white/40 flex items-center gap-2"
                   onClick={() => setIsOpen(false)}>
-                  Soporte
+                  {copy.support}
                 </a>
               </div>
 
               <div className="w-full pt-8 border-t border-white/5 flex items-center justify-between">
                 <p className="text-[10px] font-mono text-white/20 uppercase tracking-[0.2em]">
-                  Noctra Forge v1.0
+                  {copy.version}
                 </p>
 
-                {/* Language Toggle */}
-                <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
-                  <button
-                    onClick={() => setLang("es")}
-                    className={cn(
-                      "px-4 py-1.5 text-[10px] font-black rounded-full transition-all",
-                      lang === "es"
-                        ? "bg-white text-black"
-                        : "text-white/40 hover:text-white",
-                    )}>
-                    ES
-                  </button>
-                  <button
-                    onClick={() => setLang("en")}
-                    className={cn(
-                      "px-4 py-1.5 text-[10px] font-black rounded-full transition-all",
-                      lang === "en"
-                        ? "bg-white text-black"
-                        : "text-white/40 hover:text-white",
-                    )}>
-                    EN
-                  </button>
-                </div>
+                {languageToggle("mobile")}
               </div>
             </div>
           </m.div>

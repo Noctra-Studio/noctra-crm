@@ -27,6 +27,7 @@ export default function DeliverablePortalClient({
     setIsSubmitting(true);
     try {
       await updateDeliverableReviewAction(deliverable.id, {
+        token: deliverable.client_token,
         status: "approved",
       });
       setStatus("approved");
@@ -43,6 +44,7 @@ export default function DeliverablePortalClient({
     setIsSubmitting(true);
     try {
       await updateDeliverableReviewAction(deliverable.id, {
+        token: deliverable.client_token,
         status: "rejected",
         client_comment: comment,
       });

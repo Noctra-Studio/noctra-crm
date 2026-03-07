@@ -1,5 +1,4 @@
-import { notFound } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import { FileText } from "lucide-react";
 import { ClientContractClient } from "./ClientContractClient";
 
@@ -10,7 +9,7 @@ export default async function ClientContractPage({
 }: {
   params: { token: string };
 }) {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   // 1. Fetch contract by client_token with workspace info
   const { data: contract, error } = await supabase

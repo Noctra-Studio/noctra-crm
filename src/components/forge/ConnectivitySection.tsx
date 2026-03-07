@@ -4,8 +4,61 @@ import React from "react";
 import { m } from "framer-motion";
 import { MessageSquare, Zap, CheckCircle2 } from "lucide-react";
 import { CentralBrainLogo } from "@/components/ui/CentralBrainLogo";
+import { useLocale } from "next-intl";
+
+const CONNECTIVITY_COPY = {
+  es: {
+    eyebrow: "Plataforma Abierta & Inteligente",
+    title: "Más que management. Un cerebro para tu negocio.",
+    radarTitle: "Revenue Radar: Escucha lo que tus datos dicen.",
+    radarDescription:
+      "Analiza el sentimiento de tus clientes en WhatsApp y Slack. Detecta riesgos de churn y oportunidades de upsell antes de que sea demasiado tarde.",
+    chat:
+      '"Me encanta la nueva propuesta, ¿podemos revisar los detalles del contrato de una vez? Queremos arrancar el lunes."',
+    brain: "Cerebro Central",
+    mode: "Modo de Ejecución",
+    optimized: "Optimized Mode",
+    tokenEfficiency: "Token Efficiency",
+    highRoi: "High ROI",
+    orchestratedAction: "Acción Orquestada",
+    generateContract: "Generar Contrato",
+    hubTitle: "Tu Hub Central. Conectado a todo.",
+    hubDescription:
+      "Noctra es tu cerebro financiero. Sincroniza automáticamente contratos y tareas con las herramientas que tu equipo ya ama y domina.",
+    syncDocs: "Webhook: Sync Docs",
+    contractSigned: "Alert: Contract Signed",
+    newInvoice: "Trigger: New Invoice",
+    createTask: "Sync: Create Task",
+  },
+  en: {
+    eyebrow: "Open & Intelligent Platform",
+    title: "More than management. A brain for your business.",
+    radarTitle: "Revenue Radar: Listen to what your data is saying.",
+    radarDescription:
+      "Analyze client sentiment across WhatsApp and Slack. Detect churn risk and upsell opportunities before they become visible in revenue.",
+    chat:
+      '"Love the new proposal. Can we review the contract details today? We want to kick off on Monday."',
+    brain: "Central Brain",
+    mode: "Execution Mode",
+    optimized: "Optimized Mode",
+    tokenEfficiency: "Token Efficiency",
+    highRoi: "High ROI",
+    orchestratedAction: "Orchestrated Action",
+    generateContract: "Generate Contract",
+    hubTitle: "Your central hub. Connected to everything.",
+    hubDescription:
+      "Noctra becomes your financial brain. It syncs contracts and tasks with the tools your team already uses well.",
+    syncDocs: "Webhook: Sync Docs",
+    contractSigned: "Alert: Contract Signed",
+    newInvoice: "Trigger: New Invoice",
+    createTask: "Sync: Create Task",
+  },
+} as const;
 
 export const ConnectivitySection = () => {
+  const locale = useLocale();
+  const copy = CONNECTIVITY_COPY[locale as "es" | "en"] ?? CONNECTIVITY_COPY.es;
+
   return (
     <section className="py-24 md:py-32 bg-gradient-to-b from-black via-[#050505] to-zinc-950 relative border-t border-white/5 overflow-hidden">
       {/* Dynamic Background */}
@@ -15,11 +68,10 @@ export const ConnectivitySection = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
           <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-emerald-500 mb-6 block">
-            Plataforma Abierta & Inteligente
+            {copy.eyebrow}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-6">
-            Más que management. <br className="hidden md:block" />
-            Un cerebro para tu negocio.
+            {copy.title}
           </h2>
         </div>
 
@@ -30,12 +82,10 @@ export const ConnectivitySection = () => {
 
             <div className="mb-12 relative z-10">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 line-clamp-2">
-                Revenue Radar: Escucha lo que tus datos dicen.
+                {copy.radarTitle}
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed max-w-sm">
-                Analiza el sentimiento de tus clientes en WhatsApp y Slack.
-                Detecta riesgos de churn y oportunidades de upsell antes de que
-                sea demasiado tarde.
+                {copy.radarDescription}
               </p>
             </div>
 
@@ -46,9 +96,7 @@ export const ConnectivitySection = () => {
                 <div className="flex gap-3">
                   <div className="w-6 h-6 rounded-full bg-zinc-800 shrink-0" />
                   <div className="bg-zinc-900 rounded-tr-xl rounded-b-xl px-4 py-2.5 text-xs text-neutral-300 max-w-[80%] border border-white/5">
-                    "Me encanta la nueva propuesta, ¿podemos revisar los
-                    detalles del contrato de una vez? Queremos arrancar el
-                    lunes."
+                    {copy.chat}
                   </div>
                 </div>
               </div>
@@ -61,7 +109,7 @@ export const ConnectivitySection = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] uppercase font-bold tracking-widest text-white">
-                      Cerebro Central
+                      {copy.brain}
                     </span>
                     <span className="text-[8px] uppercase font-medium tracking-tighter text-emerald-500">
                       Orchestrator v2.0
@@ -72,28 +120,28 @@ export const ConnectivitySection = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center bg-white/[0.03] p-2 rounded-lg border border-white/5">
                     <span className="text-[10px] text-neutral-500 font-medium">
-                      Modo de Ejecución
+                      {copy.mode}
                     </span>
                     <span className="text-[10px] text-emerald-400 font-bold flex items-center gap-1 uppercase tracking-tighter">
-                      <Zap size={10} /> Optimized Mode
+                      <Zap size={10} /> {copy.optimized}
                     </span>
                   </div>
 
                   <div className="flex justify-between items-center bg-white/[0.03] p-2 rounded-lg border border-white/5">
                     <span className="text-[10px] text-neutral-500 font-medium whitespace-nowrap">
-                      Token Efficiency
+                      {copy.tokenEfficiency}
                     </span>
                     <span className="text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">
-                      High ROI
+                      {copy.highRoi}
                     </span>
                   </div>
 
                   <div className="flex flex-col gap-1.5 pt-2 border-t border-white/5">
                     <span className="text-[9px] text-neutral-500 font-medium">
-                      Acción Orquestada
+                      {copy.orchestratedAction}
                     </span>
                     <button className="w-full py-1.5 bg-white text-black text-[10px] font-bold rounded-md hover:bg-neutral-200 transition-colors flex items-center justify-center gap-1.5 uppercase tracking-wider">
-                      Generar Contrato <CheckCircle2 size={12} />
+                      {copy.generateContract} <CheckCircle2 size={12} />
                     </button>
                   </div>
                 </div>
@@ -107,13 +155,10 @@ export const ConnectivitySection = () => {
 
             <div className="mb-12 relative z-10">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 line-clamp-2">
-                Tu Hub Central. <br />
-                Conectado a todo.
+                {copy.hubTitle}
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed max-w-sm">
-                Noctra es tu cerebro financiero. Sincroniza automáticamente
-                contratos y tareas con las herramientas que tu equipo ya ama y
-                domina.
+                {copy.hubDescription}
               </p>
             </div>
 
@@ -187,7 +232,7 @@ export const ConnectivitySection = () => {
                     <span className="text-white font-bold text-sm">N</span>
                   </div>
                   <div className="absolute top-14 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black border border-white/5 text-[9px] uppercase tracking-widest text-[#10b981] px-2 py-1 rounded shadow-lg opacity-0 group-hover/node:opacity-100 transition-opacity">
-                    Webhook: Sync Docs
+                    {copy.syncDocs}
                   </div>
                 </div>
 
@@ -197,7 +242,7 @@ export const ConnectivitySection = () => {
                     <MessageSquare size={18} className="text-white" />
                   </div>
                   <div className="absolute top-14 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black border border-white/5 text-[9px] uppercase tracking-widest text-purple-400 px-2 py-1 rounded shadow-lg opacity-0 group-hover/node:opacity-100 transition-opacity">
-                    Alert: Contract Signed
+                    {copy.contractSigned}
                   </div>
                 </div>
 
@@ -207,7 +252,7 @@ export const ConnectivitySection = () => {
                     <Zap size={18} className="text-white" />
                   </div>
                   <div className="absolute bottom-14 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black border border-white/5 text-[9px] uppercase tracking-widest text-orange-400 px-2 py-1 rounded shadow-lg opacity-0 group-hover/node:opacity-100 transition-opacity">
-                    Trigger: New Invoice
+                    {copy.newInvoice}
                   </div>
                 </div>
 
@@ -217,7 +262,7 @@ export const ConnectivitySection = () => {
                     <CheckCircle2 size={18} className="text-white" />
                   </div>
                   <div className="absolute bottom-14 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black border border-white/5 text-[9px] uppercase tracking-widest text-blue-400 px-2 py-1 rounded shadow-lg opacity-0 group-hover/node:opacity-100 transition-opacity">
-                    Sync: Create Task
+                    {copy.createTask}
                   </div>
                 </div>
               </div>

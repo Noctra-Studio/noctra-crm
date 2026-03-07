@@ -1,7 +1,7 @@
-import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { populateProjectTasks } from "@/lib/populate-tasks";
+import { createAdminClient } from "@/utils/supabase/admin";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { token, signed_name, signature_data, signature_hash } = body;
 
-    const supabase = await createClient();
+    const supabase = createAdminClient();
 
     // 1. Fetch contract and validate
     const { data: contract, error: fetchError } = await supabase
@@ -76,6 +76,7 @@ export async function POST(req: Request) {
         .from("projects")
         .insert({
           client_id: profile.id,
+          workspace_id: contract.workspace_id,
           name: projectName,
           status: 'discovery',
           service_type: contract.service_type || 'web_presence'

@@ -1,15 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
-import { createClient as createServerClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
+import { requireAdminUser } from "@/lib/admin-auth";
 
 export async function POST(request: Request) {
-  // 1. Verify Admin (Server-side check)
-  const supabase = await createServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user || user.email !== "hello@noctra.studio") {
+  try {
+    await requireAdminUser();
+  } catch {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

@@ -36,6 +36,7 @@ export async function createProposalAction(data: {
     const { data: newLead, error: leadError } = await supabase
       .from("contact_submissions")
       .insert({
+        workspace_id: ctx.workspaceId,
         name: data.manual_lead.name,
         email: data.manual_lead.email,
         service_interest: data.manual_lead.service_interest || "Manual",
@@ -53,6 +54,7 @@ export async function createProposalAction(data: {
   const { data: proposal, error: proposalError } = await supabase
     .from("proposals")
     .insert({
+      workspace_id: ctx.workspaceId,
       lead_id: leadId,
       title: `Propuesta - ${data.service.name}`,
       status: "draft",

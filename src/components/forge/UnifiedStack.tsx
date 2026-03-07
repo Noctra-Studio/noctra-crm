@@ -7,12 +7,49 @@ import {
   Feather,
   Megaphone,
   RefreshCcw,
-  Sparkles,
-  Info,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
+
+const UNIFIED_STACK_COPY = {
+  es: {
+    title: "Tu Stack Comercial, Unificado.",
+    description:
+      "Deja de pagar $100+ en herramientas dispersas. Noctra conecta Marketing, Ventas, Legal y Finanzas en un solo flujo continuo.",
+    profitabilityTitle: "Predictive Profitability AI",
+    profitabilityDescription:
+      "Noctra calcula tu Margen Neto en tiempo real cruzando horas, costos y facturación.",
+    projectMargin: "Project Margin",
+    signatureTitle: "Firma Digital Nativa",
+    signatureDescription: "Envía propuestas y ciérralas en el acto. Sin salir de Noctra.",
+    accountingTitle: "Contabilidad Sync",
+    accountingDescription: "Tus facturas en Noctra viajan directo a QuickBooks sin esfuerzo.",
+    marketingTitle: "Marketing Bridge",
+    marketingDescription:
+      "Conexión bidireccional con Audiencias para automatizar tu embudo.",
+    protocol: "Noctra Unified Intelligence Protocol",
+  },
+  en: {
+    title: "Your commercial stack, unified.",
+    description:
+      "Stop spending $100+ on disconnected tools. Noctra connects marketing, sales, legal, and finance in a single continuous flow.",
+    profitabilityTitle: "Predictive Profitability AI",
+    profitabilityDescription:
+      "Noctra calculates net margin in real time by combining hours, costs, and billing.",
+    projectMargin: "Project Margin",
+    signatureTitle: "Native digital signature",
+    signatureDescription: "Send proposals and close them instantly without leaving Noctra.",
+    accountingTitle: "Accounting Sync",
+    accountingDescription: "Invoices created in Noctra sync directly to QuickBooks with no manual work.",
+    marketingTitle: "Marketing Bridge",
+    marketingDescription:
+      "Two-way audience sync to automate your funnel without operational drift.",
+    protocol: "Noctra Unified Intelligence Protocol",
+  },
+} as const;
 
 export const UnifiedStack = () => {
+  const locale = useLocale();
+  const copy = UNIFIED_STACK_COPY[locale as "es" | "en"] ?? UNIFIED_STACK_COPY.es;
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -41,7 +78,7 @@ export const UnifiedStack = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-black tracking-tighter text-white mb-6">
-            Tu Stack Comercial, Unificado.
+            {copy.title}
           </m.h2>
           <m.p
             initial={{ opacity: 0, y: 20 }}
@@ -49,8 +86,7 @@ export const UnifiedStack = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="text-neutral-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-            Deja de pagar $100+ en herramientas dispersas. Noctra conecta
-            Marketing, Ventas, Legal y Finanzas en un solo flujo continuo.
+            {copy.description}
           </m.p>
         </div>
 
@@ -70,11 +106,10 @@ export const UnifiedStack = () => {
                 <BrainCircuit size={32} className="text-[#10b981]" />
               </div>
               <h3 className="text-3xl font-black text-white mb-6">
-                Predictive Profitability AI
+                {copy.profitabilityTitle}
               </h3>
               <p className="text-neutral-400 text-base md:text-lg leading-relaxed max-w-md">
-                Noctra calcula tu Margen Neto en tiempo real cruzando horas,
-                costos y facturación.
+                {copy.profitabilityDescription}
               </p>
             </div>
 
@@ -82,7 +117,7 @@ export const UnifiedStack = () => {
             <div className="relative z-10 mt-8 pt-6 border-t border-white/5">
               <div className="flex justify-between items-end mb-2">
                 <span className="text-sm font-bold text-white">
-                  Project Margin
+                  {copy.projectMargin}
                 </span>
                 <span className="text-xl font-black text-[#10b981]">82%</span>
               </div>
@@ -107,10 +142,10 @@ export const UnifiedStack = () => {
                 <Feather size={24} className="text-[#10b981]" />
               </div>
               <h3 className="text-xl font-bold text-white mb-3">
-                Firma Digital Nativa
+                {copy.signatureTitle}
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                Envía propuestas y ciérralas en el acto. Sin salir de Noctra.
+                {copy.signatureDescription}
               </p>
             </div>
 
@@ -129,10 +164,10 @@ export const UnifiedStack = () => {
               <RefreshCcw size={24} className="text-blue-500" />
             </div>
             <h3 className="text-xl font-bold text-white mb-3">
-              Contabilidad Sync
+              {copy.accountingTitle}
             </h3>
             <p className="text-neutral-400 text-sm leading-relaxed">
-              Tus facturas en Noctra viajan directo a QuickBooks sin esfuerzo.
+              {copy.accountingDescription}
             </p>
           </m.div>
 
@@ -144,11 +179,10 @@ export const UnifiedStack = () => {
                 <Megaphone size={24} className="text-orange-500" />
               </div>
               <h3 className="text-xl font-bold text-white mb-3">
-                Marketing Bridge
+                {copy.marketingTitle}
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                Conexión bidireccional con Audiencias para automatizar tu
-                embudo.
+                {copy.marketingDescription}
               </p>
             </div>
 
@@ -164,7 +198,7 @@ export const UnifiedStack = () => {
           transition={{ delay: 0.8 }}
           className="mt-20 flex items-center justify-center gap-4 text-neutral-600 font-mono text-[10px] uppercase tracking-[0.4em] font-medium">
           <div className="h-[1px] w-12 bg-white/5" />
-          <span>Noctra Unified Intelligence Protocol</span>
+          <span>{copy.protocol}</span>
           <div className="h-[1px] w-12 bg-white/5" />
         </m.div>
       </div>

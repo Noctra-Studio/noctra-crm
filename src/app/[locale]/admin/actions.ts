@@ -2,6 +2,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
+import { requireAdminUser } from '@/lib/admin-auth';
 
 // Initialize the "God Mode" client
 const supabaseAdmin = createClient(
@@ -22,12 +23,22 @@ export type ActionResponse = {
 };
 
 export async function deployClientInfrastructure(prevState: any, formData: FormData): Promise<ActionResponse> {
+  try {
+    await requireAdminUser();
+  } catch {
+    return { success: false, error: "Unauthorized" };
+  }
+
   // 1. Extract Data
-  const email = formData.get('email') as string;
-  const clientName = formData.get('clientName') as string;
-  const companyName = formData.get('companyName') as string;
-  const projectName = formData.get('projectName') as string;
-  const budget = parseFloat(formData.get('budget') as string);
+  const email = String(formData.get('email') || '').trim();
+  const clientName = String(formData.get('clientName') || '').trim();
+  const companyName = String(formData.get('companyName') || '').trim();
+  const projectName = String(formData.get('projectName') || '').trim();
+  const budget = parseFloat(String(formData.get('budget') || '0'));
+
+  if (!email || !clientName || !companyName || !projectName || !Number.isFinite(budget) || budget <= 0) {
+    return { success: false, error: 'Invalid input' };
+  }
 
   // 2. Create the User (Send Magic Link Invite)
   const { data: authData, error: authError } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, {

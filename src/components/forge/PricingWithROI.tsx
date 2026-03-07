@@ -4,18 +4,105 @@ import React from "react";
 import {
   Check,
   ArrowRight,
-  Sparkles,
   Building2,
   User,
-  Phone,
   Briefcase,
-  Zap,
   Info,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
-import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
+
+const PRICING_COPY = {
+  es: {
+    eyebrow: "Planes y Precios",
+    title: "No es un gasto, es una inversión en tu crecimiento.",
+    description:
+      "Consolida tus herramientas y escala sin límites. Planes diseñados para el tamaño exacto de tu operación.",
+    starterPeriod: "/usuario/mes",
+    starterDescription:
+      "Para Freelancers y Solopreneurs gestionando sus operaciones.",
+    starterFeatures: [
+      "CRM Básico & Pipeline de Ventas",
+      "Gestión de Proyectos",
+      "50,000 Créditos IA / mes",
+      "Soporte vía Email",
+      "Integración con pagos (Stripe)",
+    ],
+    starterCta: "Empezar Gratis",
+    popular: "Más Popular",
+    proPeriod: "/usuario/mes",
+    proDescription: "Para Agencias y Equipos en Crecimiento. La suite completa.",
+    proIncludes: "Todo en Starter, más:",
+    proFeatures: [
+      "200,000 Créditos IA / mes",
+      "Integración WhatsApp Nativa",
+      "Firmas Digitales Ilimitadas (Noctra Sign)",
+      "Portales de Cliente (Clase Mundial)",
+      "Soporte Prioritario",
+    ],
+    proCta: "Probar 14 días",
+    enterprisePrice: "Custom",
+    enterpriseDescription:
+      "Para Organizaciones y Corporativos que escalan masivamente.",
+    enterpriseIncludes: "Todo en Pro, más:",
+    fairUse:
+      "Sujeto a Política de Uso Justo (Fair Use Policy) para prevenir explotación automatizada por bots.",
+    enterpriseFeatures: [
+      "Entrenamiento de Modelos Custom",
+      "SSO (SAML/Okta) & Audit Logs",
+      "Opción On-Premise",
+      "Soporte Dedicado / Slack Connect",
+    ],
+    contactSales: "Contactar Ventas",
+  },
+  en: {
+    eyebrow: "Plans & Pricing",
+    title: "This is not overhead. It is growth infrastructure.",
+    description:
+      "Consolidate your tool stack and scale without fragmentation. Plans designed for the real size of your operation.",
+    starterPeriod: "/user/mo",
+    starterDescription:
+      "For freelancers and solo operators managing delivery, clients, and revenue.",
+    starterFeatures: [
+      "Core CRM & sales pipeline",
+      "Project management",
+      "50,000 AI credits / month",
+      "Email support",
+      "Stripe payment integration",
+    ],
+    starterCta: "Start Free",
+    popular: "Most Popular",
+    proPeriod: "/user/mo",
+    proDescription: "For growing agencies and teams. The complete operating suite.",
+    proIncludes: "Everything in Starter, plus:",
+    proFeatures: [
+      "200,000 AI credits / month",
+      "Native WhatsApp integration",
+      "Unlimited digital signatures (Noctra Sign)",
+      "World-class client portals",
+      "Priority support",
+    ],
+    proCta: "Try 14 days",
+    enterprisePrice: "Custom",
+    enterpriseDescription:
+      "For organizations and enterprises scaling at high volume.",
+    enterpriseIncludes: "Everything in Pro, plus:",
+    fairUse:
+      "Subject to a Fair Use Policy to prevent automated abuse at scale.",
+    enterpriseFeatures: [
+      "Custom model training",
+      "SSO (SAML/Okta) & audit logs",
+      "On-premise option",
+      "Dedicated support / Slack Connect",
+    ],
+    contactSales: "Contact Sales",
+  },
+} as const;
 
 export const PricingWithROI = () => {
+  const locale = useLocale();
+  const copy = PRICING_COPY[locale as "es" | "en"] ?? PRICING_COPY.es;
+
   return (
     <section
       id="pricing"
@@ -27,15 +114,13 @@ export const PricingWithROI = () => {
         {/* Header Section */}
         <div className="text-center mb-16">
           <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-emerald-500 mb-6 block">
-            Planes y Precios
+            {copy.eyebrow}
           </span>
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-6 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
-            No es un gasto, <br className="hidden md:block" /> es una inversión
-            en tu crecimiento.
+            {copy.title}
           </h2>
           <p className="text-neutral-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Consolida tus herramientas y escala sin límites. Planes diseñados
-            para el tamaño exacto de tu operación.
+            {copy.description}
           </p>
         </div>
 
@@ -57,22 +142,16 @@ export const PricingWithROI = () => {
                   $9
                 </span>
                 <span className="text-neutral-500 text-sm font-bold">
-                  /usuario/mes
+                  {copy.starterPeriod}
                 </span>
               </div>
               <p className="text-neutral-400 font-medium text-sm">
-                Para Freelancers y Solopreneurs gestionando sus operaciones.
+                {copy.starterDescription}
               </p>
             </div>
 
             <div className="space-y-4 mb-10 flex-1">
-              {[
-                "CRM Básico & Pipeline de Ventas",
-                "Gestión de Proyectos",
-                "50,000 Créditos IA / mes",
-                "Soporte vía Email",
-                "Integración con pagos (Stripe)",
-              ].map((f, i) => (
+              {copy.starterFeatures.map((f, i) => (
                 <div
                   key={i}
                   className="flex items-start gap-4 text-sm text-neutral-300">
@@ -94,7 +173,7 @@ export const PricingWithROI = () => {
                 query: { mode: "signup", plan: "starter" },
               }}
               className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all active:scale-[0.98]">
-              Empezar Gratis
+              {copy.starterCta}
             </Link>
           </div>
 
@@ -104,7 +183,7 @@ export const PricingWithROI = () => {
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none" />
 
             <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-[#10b981] text-black text-[10px] uppercase font-black px-4 py-1 rounded-b-xl tracking-widest shadow-lg z-10">
-              Más Popular
+              {copy.popular}
             </div>
 
             <div className="mb-8 mt-4 relative z-10">
@@ -121,25 +200,19 @@ export const PricingWithROI = () => {
                   $29
                 </span>
                 <span className="text-neutral-500 text-sm font-bold">
-                  /usuario/mes
+                  {copy.proPeriod}
                 </span>
               </div>
               <p className="text-neutral-400 font-medium text-sm">
-                Para Agencias y Equipos en Crecimiento. La suite completa.
+                {copy.proDescription}
               </p>
             </div>
 
             <div className="space-y-4 mb-10 flex-1 relative z-10">
               <div className="text-[10px] font-black uppercase tracking-widest text-[#10b981] mb-2">
-                Todo en Starter, más:
+                {copy.proIncludes}
               </div>
-              {[
-                "200,000 Créditos IA / mes",
-                "Integración WhatsApp Nativa",
-                "Firmas Digitales Ilimitadas (Noctra Sign)",
-                "Portales de Cliente (Clase Mundial)",
-                "Soporte Prioritario",
-              ].map((f, i) => (
+              {copy.proFeatures.map((f, i) => (
                 <div
                   key={i}
                   className="flex items-start gap-4 text-sm text-neutral-300">
@@ -169,7 +242,7 @@ export const PricingWithROI = () => {
                   query: { mode: "signup", plan: "pro", trial: "true" },
                 }}
                 className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-white text-black font-black hover:bg-neutral-200 transition-all active:scale-[0.98]">
-                Probar 14 días <ArrowRight size={18} />
+                {copy.proCta} <ArrowRight size={18} />
               </Link>
             </div>
           </div>
@@ -190,33 +263,29 @@ export const PricingWithROI = () => {
               </div>
               <div className="flex items-baseline gap-2 mb-2">
                 <span className="text-5xl font-black text-white tracking-tighter tabular-nums">
-                  Custom
+                  {copy.enterprisePrice}
                 </span>
               </div>
               <p className="text-neutral-400 font-medium text-sm">
-                Para Organizaciones y Corporativos que escalan masivamente.
+                {copy.enterpriseDescription}
               </p>
             </div>
 
             <div className="space-y-4 mb-10 flex-1 relative z-10">
               <div className="text-[10px] font-black uppercase tracking-widest text-amber-500/80 mb-2">
-                Todo en Pro, más:
+                {copy.enterpriseIncludes}
               </div>
               {[
                 <span
                   key="1"
                   className="flex items-center gap-2 break-all group relative cursor-help">
-                  IA Ilimitada*
+                  {locale === "es" ? "IA Ilimitada*" : "Unlimited AI*"}
                   <Info size={14} className="text-white/40" />
                   <div className="absolute bottom-full left-0 mb-2 w-48 p-2 bg-black border border-white/10 rounded-lg text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20 shadow-xl">
-                    Sujeto a Política de Uso Justo (Fair Use Policy) para
-                    prevenir explotación automatizada por bots.
+                    {copy.fairUse}
                   </div>
                 </span>,
-                "Entrenamiento de Modelos Custom",
-                "SSO (SAML/Okta) & Audit Logs",
-                "Opción On-Premise",
-                "Soporte Dedicado / Slack Connect",
+                ...copy.enterpriseFeatures,
               ].map((f, i) => (
                 <div
                   key={i}
@@ -238,7 +307,7 @@ export const PricingWithROI = () => {
                 href="mailto:ventas@noctra.studio?subject=Consulta%20Plan%20Enterprise"
                 className="w-full relative flex items-center justify-center gap-2 py-4 rounded-xl bg-black border border-white/10 text-white font-bold hover:bg-white/5 transition-all active:scale-[0.98] group/btn overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />
-                Contactar Ventas{" "}
+                {copy.contactSales}{" "}
                 <ArrowRight
                   size={16}
                   className="text-white/40 group-hover/btn:text-white"

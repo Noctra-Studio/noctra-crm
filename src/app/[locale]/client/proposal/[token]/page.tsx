@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
 import { format, addWeeks, differenceInDays } from "date-fns";
+import { createAdminClient } from "@/utils/supabase/admin";
 import {
   Check,
   Download,
@@ -24,7 +24,7 @@ export default async function ClientProposalPage({
 }: {
   params: { token: string };
 }) {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   // Fetch proposal by client_token with workspace info
   const { data: proposal, error } = await supabase

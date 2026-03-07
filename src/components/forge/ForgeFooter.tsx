@@ -1,12 +1,54 @@
 "use client";
 
 import { Link } from "@/i18n/routing";
-import { ArrowRight, Instagram } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import NextImage from "next/image";
+import { useLocale } from "next-intl";
+
+const FOOTER_COPY = {
+  es: {
+    tagline: "Construido por diseñadores, para creativos.",
+    platform: "Plataforma",
+    demo: "Demo",
+    pricing: "Precios",
+    signIn: "Iniciar sesión",
+    createAccount: "Crear cuenta gratis",
+    resources: "Recursos",
+    migrationCenter: "Centro de Migración",
+    studio: "Noctra Studio",
+    legal: "Legal",
+    terms: "Términos de Servicio",
+    privacy: "Política de Privacidad",
+    rights: "Todos los derechos reservados",
+    systems: "Sistemas",
+    operational: "Operativos",
+    designedIn: "Diseñado en Querétaro con ☕",
+  },
+  en: {
+    tagline: "Built by designers, for creative operators.",
+    platform: "Platform",
+    demo: "Demo",
+    pricing: "Pricing",
+    signIn: "Sign in",
+    createAccount: "Create free account",
+    resources: "Resources",
+    migrationCenter: "Migration Center",
+    studio: "Noctra Studio",
+    legal: "Legal",
+    terms: "Terms of Service",
+    privacy: "Privacy Policy",
+    rights: "All rights reserved",
+    systems: "Systems",
+    operational: "Operational",
+    designedIn: "Designed in Queretaro with ☕",
+  },
+} as const;
 
 export function ForgeFooter() {
   const year = new Date().getFullYear();
+  const locale = useLocale();
+  const copy = FOOTER_COPY[locale as "es" | "en"] ?? FOOTER_COPY.es;
 
   return (
     <footer className="bg-[#050505] border-t border-neutral-900 text-neutral-300 font-sans">
@@ -30,7 +72,7 @@ export function ForgeFooter() {
               </div>
             </Link>
             <p className="text-sm text-neutral-400 leading-relaxed max-w-xs font-medium">
-              Construido por diseñadores, para creativos.
+              {copy.tagline}
             </p>
           </div>
 
@@ -39,38 +81,38 @@ export function ForgeFooter() {
             {/* PLATAFORMA */}
             <div>
               <h4 className="text-xs font-bold text-white uppercase tracking-widest mb-6">
-                Plataforma
+                {copy.platform}
               </h4>
               <ul className="space-y-4">
                 <li>
                   <a
                     href="#demo"
                     className="text-sm text-neutral-300 hover:text-white transition-colors">
-                    Demo
+                    {copy.demo}
                   </a>
                 </li>
                 <li>
                   <a
                     href="#pricing"
                     className="text-sm text-neutral-300 hover:text-white transition-colors">
-                    Precios
+                    {copy.pricing}
                   </a>
                 </li>
                 <li>
                   <Link
                     href="/login"
                     className="text-sm text-neutral-300 hover:text-white transition-colors">
-                    Iniciar sesión
+                    {copy.signIn}
                   </Link>
                 </li>
                 <li>
                   <Link
                     href={{
                       pathname: "/login",
-                      query: { mode: "signup", plan: "starter" },
+                    query: { mode: "signup", plan: "starter" },
                     }}
                     className="text-sm text-neutral-300 hover:text-white transition-colors">
-                    Crear cuenta gratis
+                    {copy.createAccount}
                   </Link>
                 </li>
               </ul>
@@ -79,21 +121,21 @@ export function ForgeFooter() {
             {/* RECURSOS */}
             <div>
               <h4 className="text-xs font-bold text-white uppercase tracking-widest mb-6">
-                Recursos
+                {copy.resources}
               </h4>
               <ul className="space-y-4">
                 <li>
                   <Link
                     href={"/docs/migracion" as any}
                     className="text-sm text-neutral-300 hover:text-white transition-colors">
-                    Centro de Migración
+                    {copy.migrationCenter}
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="/"
                     className="text-sm text-neutral-300 hover:text-white transition-colors">
-                    Noctra Studio
+                    {copy.studio}
                   </Link>
                 </li>
               </ul>
@@ -102,21 +144,21 @@ export function ForgeFooter() {
             {/* LEGAL */}
             <div>
               <h4 className="text-xs font-bold text-white uppercase tracking-widest mb-6">
-                Legal
+                {copy.legal}
               </h4>
               <ul className="space-y-4">
                 <li>
                   <Link
                     href="/terms-and-conditions"
                     className="text-sm text-neutral-300 hover:text-white transition-colors">
-                    Términos de Servicio
+                    {copy.terms}
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="/privacy-policy"
                     className="text-sm text-neutral-300 hover:text-white transition-colors">
-                    Política de Privacidad
+                    {copy.privacy}
                   </Link>
                 </li>
               </ul>
@@ -132,7 +174,7 @@ export function ForgeFooter() {
               <div className="flex flex-wrap justify-center lg:justify-start items-center gap-x-4 gap-y-2 text-xs text-neutral-300 font-medium">
                 <span>© {year} Noctra Studio</span>
                 <span className="hidden sm:inline text-neutral-800">•</span>
-                <span>Todos los derechos reservados</span>
+                <span>{copy.rights}</span>
               </div>
 
               <div className="flex items-center gap-6">
@@ -140,12 +182,12 @@ export function ForgeFooter() {
                   <div className="flex items-center gap-2">
                     <div className="h-1.5 w-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
                     <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-bold">
-                      Sistemas
+                      {copy.systems}
                     </span>
                   </div>
                   <div className="w-px h-3 bg-neutral-800" />
                   <span className="text-[10px] uppercase tracking-widest text-neutral-300 font-bold">
-                    Operativos
+                    {copy.operational}
                   </span>
                 </div>
               </div>
@@ -154,7 +196,7 @@ export function ForgeFooter() {
             {/* Center: Casual Tagline */}
             <div className="hidden xl:block">
               <p className="text-xs text-neutral-400 font-medium tracking-tight">
-                Diseñado en Querétaro con ☕
+                {copy.designedIn}
               </p>
             </div>
 
@@ -188,7 +230,7 @@ export function ForgeFooter() {
           {/* Mobile Only Casual Tagline */}
           <div className="mt-12 xl:hidden text-center">
             <p className="text-[10px] text-neutral-400 uppercase tracking-[0.2em] font-bold">
-              Diseñado en Querétaro con ☕
+              {copy.designedIn}
             </p>
           </div>
         </div>

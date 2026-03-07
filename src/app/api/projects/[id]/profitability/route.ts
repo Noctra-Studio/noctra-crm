@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getWorkspace } from "@/lib/workspace";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
@@ -16,8 +17,24 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const ctx = await getWorkspace();
+    if (!ctx) {
+      return NextResponse.json({ error: "Workspace not found" }, { status: 403 });
+    }
+
     const resolvedParams = await params;
     const projectId = resolvedParams.id;
+
+    const { data: project } = await supabase
+      .from("projects")
+      .select("id, name, status, budget, start_date, launch_date")
+      .eq("id", projectId)
+      .eq("workspace_id", ctx.workspaceId)
+      .single();
+
+    if (!project) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
+    }
 
     // 1. Fetch profitability data from RPC
     const { data: profitability, error } = await supabase
@@ -32,14 +49,7 @@ export async function GET(
       return NextResponse.json({ error: "No profitability data found" }, { status: 404 });
     }
 
-    // 2. Fetch recent project info to give context to the AI (e.g. status, deadlines)
-    const { data: project } = await supabase
-      .from("projects")
-      .select("name, status, budget, start_date, launch_date")
-      .eq("id", projectId)
-      .single();
-
-    // 3. AI Analysis
+    // 2. AI Analysis
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
     const prompt = `
