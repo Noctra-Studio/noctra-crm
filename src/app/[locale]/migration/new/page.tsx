@@ -1,10 +1,13 @@
 import { MigrationWizard } from "@/components/forge/migration/MigrationWizard";
-import { getWorkspace } from "@/lib/workspace";
-import { redirect } from "next/navigation";
+import { getRequiredWorkspace } from "@/lib/workspace";
 
-export default async function NewMigrationPage() {
-  const ctx = await getWorkspace();
-  if (!ctx) redirect("/login");
+export default async function NewMigrationPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const ctx = await getRequiredWorkspace(locale);
 
   return (
     <div className="max-w-5xl mx-auto py-10 px-6">

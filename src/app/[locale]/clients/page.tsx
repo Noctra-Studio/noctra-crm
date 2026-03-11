@@ -1,12 +1,15 @@
 import { createClient } from "@/utils/supabase/server";
 import { ClientsClient } from "./ClientsClient";
-import { getWorkspace } from "@/lib/workspace";
-import { redirect } from "next/navigation";
+import { getRequiredWorkspace } from "@/lib/workspace";
 
-export default async function ForgeClientsPage() {
+export default async function ForgeClientsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const supabase = await createClient();
-  const ctx = await getWorkspace();
-  if (!ctx) redirect("/login");
+  const ctx = await getRequiredWorkspace(locale);
 
   // Source 1: Projects (primary source)
   const { data: projectClients, error: projectsError } = await supabase

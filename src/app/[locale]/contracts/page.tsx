@@ -1,17 +1,17 @@
-import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { getWorkspace } from "@/lib/workspace";
+import { getRequiredWorkspace } from "@/lib/workspace";
 import ContractsClient from "./ContractsClient";
 
 export const dynamic = "force-dynamic";
 
-export default async function ContractsPage() {
+export default async function ContractsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const supabase = await createClient();
-  const ctx = await getWorkspace();
-
-  if (!ctx) {
-    redirect("/login");
-  }
+  const ctx = await getRequiredWorkspace(locale);
 
   const { data: contracts, error } = await supabase
     .from("contracts")

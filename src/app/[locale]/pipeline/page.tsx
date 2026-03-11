@@ -1,17 +1,17 @@
 import { createClient } from "@/utils/supabase/server";
 import PipelineClient from "./PipelineClient";
-import { redirect } from "next/navigation";
-import { getWorkspace } from "@/lib/workspace";
+import { getRequiredWorkspace } from "@/lib/workspace";
 
 export const dynamic = "force-dynamic";
 
-export default async function PipelinePage() {
+export default async function PipelinePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const supabase = await createClient();
-  const ctx = await getWorkspace();
-
-  if (!ctx) {
-    redirect("/login");
-  }
+  const ctx = await getRequiredWorkspace(locale);
 
   // Fetch leads with all pipeline metadata
   const { data: leads, error } = await supabase

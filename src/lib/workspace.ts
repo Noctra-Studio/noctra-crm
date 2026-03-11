@@ -1,4 +1,5 @@
 import { createClient } from '@/utils/supabase/server'
+import { redirect } from 'next/navigation'
 import { cache } from 'react'
 
 export const getWorkspace = cache(async () => {
@@ -64,6 +65,26 @@ export const getWorkspace = cache(async () => {
 
   return null;
 })
+
+export async function getRequiredWorkspace(locale: string) {
+  const supabase = await createClient()
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect(`/${locale}/login`)
+  }
+
+  const ctx = await getWorkspace()
+
+  if (!ctx) {
+    redirect(`/${locale}`)
+  }
+
+  return ctx
+}
 
 export type WorkspaceContext = NonNullable<
   Awaited<ReturnType<typeof getWorkspace>>

@@ -1,19 +1,19 @@
-import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { getWorkspace } from "@/lib/workspace";
+import { getRequiredWorkspace } from "@/lib/workspace";
 import ForgeProjectsClient from "./ForgeProjectsClient";
 import type { Project } from "@/lib/projects";
 
 // Ensure this page is not statically cached
 export const dynamic = "force-dynamic";
 
-export default async function ForgeProjectsPage() {
+export default async function ForgeProjectsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const supabase = await createClient();
-  const ctx = await getWorkspace();
-
-  if (!ctx) {
-    redirect("/login");
-  }
+  const ctx = await getRequiredWorkspace(locale);
 
   const { data: projects, error } = await supabase
     .from("projects")

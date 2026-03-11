@@ -1,12 +1,15 @@
 import { MigrationHistoryTable } from "@/components/forge/migration/MigrationHistoryTable";
-import { getWorkspace } from "@/lib/workspace";
-import { redirect } from "next/navigation";
+import { getRequiredWorkspace } from "@/lib/workspace";
 import Link from "next/link";
 import { Plus, Database } from "lucide-react";
 
-export default async function MigrationHistoryPage() {
-  const ctx = await getWorkspace();
-  if (!ctx) redirect("/login");
+export default async function MigrationHistoryPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const ctx = await getRequiredWorkspace(locale);
 
   return (
     <div className="max-w-6xl mx-auto py-10 px-6">

@@ -1,17 +1,17 @@
-import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { getWorkspace } from "@/lib/workspace";
+import { getRequiredWorkspace } from "@/lib/workspace";
 import ProposalsClient from "./ProposalsClient";
 
 export const dynamic = "force-dynamic";
 
-export default async function ProposalsPage() {
+export default async function ProposalsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const supabase = await createClient();
-  const ctx = await getWorkspace();
-
-  if (!ctx) {
-    redirect("/login");
-  }
+  const ctx = await getRequiredWorkspace(locale);
 
   // Fetch proposals with lead information
   const { data: proposals, error } = await supabase
