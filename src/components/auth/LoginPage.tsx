@@ -39,7 +39,7 @@ export default function LoginPage() {
       );
       setIsLoading(false);
     } else {
-      router.push("/"); // Default redirect for login
+      router.push("/projects");
       router.refresh();
     }
   };

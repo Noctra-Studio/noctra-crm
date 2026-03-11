@@ -102,7 +102,7 @@ function AuthForms() {
       const requiresMfa = await checkMfaRequirement();
       if (!requiresMfa) {
         sessionStorage.setItem("session_start", Date.now().toString());
-        router.push("/");
+        router.push("/projects");
       } else {
         setLoading(false);
       }
@@ -129,7 +129,7 @@ function AuthForms() {
       if (error) throw error;
 
       sessionStorage.setItem("session_start", Date.now().toString());
-      router.push("/");
+      router.push("/projects");
     } catch (err: any) {
       console.error("MFA verification error", err);
       setMfaError(t("error_mfa_invalid_code"));
@@ -229,7 +229,7 @@ function AuthForms() {
       if (linkError) throw linkError;
 
       sessionStorage.setItem("session_start", Date.now().toString());
-      router.push("/");
+      router.push("/projects");
     } catch (err: any) {
       console.error(err);
       setError(
