@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { BrandLogo } from "@/components/ui/BrandLogo";
-import Link from "next/link";
+import { Link, useRouter } from "@/i18n/routing";
 import { createClient } from "@/utils/supabase/client";
 import {
   ArrowRight,
