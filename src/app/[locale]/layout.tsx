@@ -8,6 +8,7 @@ import { getMessages } from "next-intl/server";
 import { IntroProvider } from "@/context/IntroContext";
 import { IntroLoader } from "@/components/ui/IntroLoader";
 import { getWorkspace } from "@/lib/workspace";
+import ForgeLayoutClient from "./ForgeLayoutClient";
 
 import dynamic from "next/dynamic";
 
@@ -133,7 +134,9 @@ export default async function LocaleLayout({
             forcedTheme="dark"
             enableSystem={false}
             disableTransitionOnChange>
-            {children}
+            <ForgeLayoutClient workspace={ctx?.workspace}>
+              {children}
+            </ForgeLayoutClient>
             <ScrollToTop />
           </ThemeProvider>
         </IntroProvider>
