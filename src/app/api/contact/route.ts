@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { resend } from "@/lib/resend";
-import { validateCsrfToken } from "@/lib/csrf";
+import { getCsrfCookieName, validateCsrfToken } from "@/lib/csrf";
+import { assertSameOrigin } from "@/lib/request-security";
 import validator from "validator";
 import sanitizeHtml from "sanitize-html";
 import { calculateLeadScore } from "@/lib/lead-scoring";
@@ -18,12 +19,26 @@ if (!process.env.RESEND_API_KEY) {
 
 export async function POST(req: Request) {
   try {
+    if (!assertSameOrigin(req)) {
+      return NextResponse.json(
+        { error: "invalid_origin" },
+        { status: 403, headers: SECURITY_HEADERS },
+      );
+    }
+
     const body = await req.json();
     const supabase = await createClient();
 
     // 1. CSRF Token Validation
     const csrfToken = body.csrf_token;
-    if (!csrfToken || !validateCsrfToken(csrfToken)) {
+    const csrfSecret = req.headers
+      .get("cookie")
+      ?.split(";")
+      .map((part) => part.trim())
+      .find((part) => part.startsWith(`${getCsrfCookieName()}=`))
+      ?.slice(getCsrfCookieName().length + 1);
+
+    if (!csrfToken || !csrfSecret || !validateCsrfToken(csrfSecret, csrfToken)) {
       return NextResponse.json(
         { error: "invalid_csrf" },
         { status: 403, headers: SECURITY_HEADERS }

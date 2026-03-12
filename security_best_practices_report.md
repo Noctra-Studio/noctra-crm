@@ -1,74 +1,74 @@
-# Security Best Practices Report
+# Security Hardening Report
 
 ## Executive Summary
 
-Se revisó la superficie de acceso a Supabase en el código de aplicación y en las migraciones SQL incluidas en el repo. Durante esta pasada ya quedaron corregidos los flujos públicos que dependían de RLS abierto por `client_token` o `report_token`, además del endpoint/server action de profitability y los usos administrativos de `SUPABASE_SERVICE_ROLE_KEY`. La remediación de base de datos quedó preparada en una migración correctiva nueva: `supabase/migrations/20260307000007_harden_public_and_workspace_rls.sql`. Los hallazgos críticos documentados abajo deben considerarse mitigados en código y pendientes de cierre definitivo hasta que esa migración se ejecute en Supabase.
+This codebase is materially safer than before this pass, but it is not accurate to call it "bank-grade" yet. The highest-impact access-control, CSRF, secret-handling, and payment-authorization issues found in the application layer were remediated. The biggest remaining gap is that most business data in Supabase is still stored in plaintext at the application layer; if you want confidentiality against a database dump or privileged insider compromise, that requires a field-level encryption design plus external key management.
 
-## Remediated In This Pass
+## Remediated Findings
 
-### Fixed-01
-- Severity: High
-- Location: `src/app/[locale]/admin/actions.ts`, `src/app/api/admin/invite/route.ts`, `src/lib/admin-auth.ts`
-- Summary: Se agregó validación de admin real antes de usar `SUPABASE_SERVICE_ROLE_KEY`.
+### CR-001: CSRF tokens were global and replayable across users
+- OWASP: A01 Broken Access Control, A05 Security Misconfiguration
+- Fixed in [src/app/api/csrf/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/csrf/route.ts#L8) and [src/app/api/contact/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/contact/route.ts#L20)
+- Previous issue: a single app-wide CSRF secret meant any valid token could be replayed across users and sessions.
+- Fix: CSRF is now bound to a per-browser secret in an `HttpOnly` cookie, signed server-side, and checked together with same-origin validation.
 
-### Fixed-02
-- Severity: High
-- Location: `src/app/api/projects/[id]/profitability/route.ts`
-- Summary: El endpoint ahora valida que el proyecto pertenezca al `workspace` del usuario autenticado antes de invocar el RPC de profitability.
+### CR-002: Sensitive admin resend route exposed lead data without admin auth
+- OWASP: A01 Broken Access Control
+- Fixed in [src/app/api/contact/resend-email/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/contact/resend-email/route.ts#L18)
+- Previous issue: anyone who could hit the endpoint with a `submissionId` could trigger outbound mail and read error behavior around lead records.
+- Fix: same-origin enforcement, admin authentication, and UUID validation were added.
 
-### Fixed-03
-- Severity: Critical
-- Location: `src/app/[locale]/client/proposal/[token]/page.tsx`, `src/app/[locale]/client/contract/[token]/page.tsx`, `src/app/actions/deliverables.ts`, `src/app/actions/reports.ts`, `src/app/api/proposals/sign/route.ts`, `src/app/api/contracts/sign/route.ts`, `src/app/p/[id]/page.tsx`, `src/utils/supabase/admin.ts`
-- Summary: Los flujos públicos por token dejaron de depender del cliente Supabase con RLS público y ahora pasan por un cliente server-only con `service_role`, validando explícitamente el token en la capa de aplicación.
+### CR-003: Revalidation endpoint allowed any authenticated user to purge arbitrary cache paths
+- OWASP: A01 Broken Access Control
+- Fixed in [src/app/api/revalidate/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/revalidate/route.ts#L11)
+- Previous issue: any logged-in user could call the endpoint and revalidate attacker-chosen paths.
+- Fix: same-origin enforcement, admin-only access, and a path allowlist.
 
-### Fixed-04
-- Severity: Critical
-- Location: `supabase/migrations/20260307000007_harden_public_and_workspace_rls.sql`
-- Summary: Se agregó una migración correctiva para eliminar policies públicas inseguras, limitar tablas sensibles por `workspace`, restringir `employee_costs`, y reescribir los RPCs `get_leads_needing_attention` y `calculate_project_profitability` con validación de pertenencia real.
+### CR-004: Stripe checkout and billing portal trusted client-supplied `workspaceId`
+- OWASP: A01 Broken Access Control
+- Fixed in [src/app/api/stripe/checkout/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/stripe/checkout/route.ts#L27) and [src/app/api/stripe/portal/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/stripe/portal/route.ts#L22)
+- Previous issue: any authenticated user could attempt billing operations against another workspace UUID.
+- Fix: strict payload validation, same-origin checks, and server-side membership enforcement via `getWorkspace()`.
 
-## Critical Findings
+### CR-005: Stripe server routes allowed insecure secret fallback behavior
+- OWASP: A05 Security Misconfiguration
+- Fixed in [src/app/api/stripe/checkout/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/stripe/checkout/route.ts#L9), [src/app/api/stripe/portal/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/stripe/portal/route.ts#L8), and [src/app/api/stripe/webhook/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/stripe/webhook/route.ts#L6)
+- Previous issue: routes fell back to test-style secret defaults when env vars were missing.
+- Fix: fail-fast behavior now requires the real secrets to exist.
 
-### SEC-01
-- Severity: Critical
-- Location: `supabase/migrations/011_rls_security_update.sql:11`, `supabase/migrations/011_rls_security_update.sql:28`, `supabase/migrations/011_rls_security_update.sql:44`, `supabase/migrations/011_rls_security_update.sql:52`, `supabase/migrations/011_rls_security_update.sql:59`, `supabase/migrations/011_rls_security_update.sql:65`, `supabase/migrations/011_rls_security_update.sql:71`, `supabase/migrations/011_rls_security_update.sql:77`, `supabase/migrations/011_rls_security_update.sql:91`
-- Evidence: Las policies usan `FOR ALL TO authenticated USING (true) WITH CHECK (true)` o equivalente sobre `proposals`, `contracts`, `contact_submissions`, `lead_activities`, `project_tasks`, `project_time_logs`, `project_expenses`, `project_deliverables` y `deliverable_items`.
-- Impact: Si esta migración fue aplicada, cualquier usuario autenticado puede leer, insertar, actualizar y borrar registros de otros workspaces. Eso rompe por completo el aislamiento multi-tenant y permite exfiltración o corrupción transversal de datos.
-- Fix: Reemplazar cada policy abierta por reglas atadas a `workspace_id` o al ownership real del recurso. La condición debe usar membresía del workspace actual, por ejemplo contra `workspace_members`, y el `WITH CHECK` debe impedir writes fuera del workspace del usuario.
-- Mitigation: Revocar temporalmente acceso directo desde el browser a tablas sensibles hasta corregir RLS y rotar cualquier token/policy pública asociada a recursos expuestos.
-- False positive notes: Solo deja de ser crítico si esta migración nunca fue ejecutada en ningún ambiente. Eso debe verificarse directamente en Supabase.
+### CR-006: Stored third-party integration secrets were persisted plaintext and re-exposed to the browser
+- OWASP: A02 Cryptographic Failures
+- Fixed in [src/lib/request-security.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/lib/request-security.ts#L91), [src/app/actions/marketing-actions.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/actions/marketing-actions.ts#L6), and [src/app/[locale]/settings/marketing/MarketingSettingsClient.tsx](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/[locale]/settings/marketing/MarketingSettingsClient.tsx#L19)
+- Previous issue: Mailchimp API keys were stored as plaintext and then sent back to the client UI.
+- Fix: Mailchimp credentials are now encrypted with AES-256-GCM before persistence, decrypted only on the server, and never returned raw to the browser.
 
-### SEC-02
-- Severity: Critical
-- Location: `supabase/migrations/011_rls_security_update.sql:19`, `supabase/migrations/011_rls_security_update.sql:36`, `supabase/migrations/011_rls_security_update.sql:81`
-- Evidence: Las policies públicas para `proposals`, `contracts` y `project_deliverables` usan `USING (client_token IS NOT NULL)`.
-- Impact: Esa condición no valida el token solicitado; solamente exige que el registro tenga algún token. En práctica, cualquier actor anónimo puede consultar todas las filas con `client_token` no nulo si conoce o prueba los endpoints/queries correctos.
-- Fix: Cambiar las policies para comparar el token de la fila con el token presentado por el flujo público, idealmente vía vistas o RPCs controlados. Otra opción más segura es no exponer tablas directamente al rol `anon` y encapsular lectura pública en route handlers server-side.
-- Mitigation: Deshabilitar inmediatamente estas policies públicas y rotar todos los `client_token` existentes.
-- False positive notes: No hay una salvaguarda visible en la policy misma. Cualquier protección adicional tendría que vivir fuera de Supabase y no aparece en este repo.
+### CR-007: Unauthenticated AI endpoints expanded attack surface and cost abuse
+- OWASP: A01 Broken Access Control, A05 Security Misconfiguration
+- Fixed in [src/app/api/completion/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/completion/route.ts#L7), [src/app/api/agent/email/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/agent/email/route.ts#L7), [src/app/api/agent/proposal/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/agent/proposal/route.ts#L7), [src/app/api/agent/[type]/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/agent/[type]/route.ts#L7), and [src/app/api/forge/login/route.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/app/api/forge/login/route.ts#L11)
+- Fix: these routes now require an authenticated workspace session or same-origin checks.
 
-### SEC-03
-- Severity: Critical
-- Location: `supabase/migrations/20260223000001_ai_profitability_schema.sql:22`, `supabase/migrations/20260223000001_ai_profitability_schema.sql:28`, `profitability-migration.sql:31`, `profitability-migration.sql:32`, `profitability-migration.sql:33`, `profitability-migration.sql:34`, `profitability-migration.sql:38`, `profitability-migration.sql:39`, `profitability-migration.sql:40`, `profitability-migration.sql:41`
-- Evidence: `employee_costs` queda con `FOR ALL TO authenticated USING (true)`. Además, `project_time_logs` y `project_expenses` tienen lectura/escritura universal para `authenticated`. Encima, `calculate_project_profitability` corre como `SECURITY DEFINER`.
-- Impact: Un usuario autenticado podría leer o manipular costos, horas y gastos de otros proyectos, y el RPC podría devolver márgenes de proyectos ajenos si llega a invocarse con IDs arbitrarios o si el SQL subyacente ignora RLS por diseño.
-- Fix: Limitar todas esas tablas por `workspace_id` y/o `project_id` relacionado al workspace del usuario. El RPC debe validar pertenencia del proyecto dentro de la función o convertirse a `SECURITY INVOKER` si el diseño lo permite.
-- Mitigation: Mantener la validación de app recién agregada en `src/app/api/projects/[id]/profitability/route.ts`, pero no confiar solo en ella: la protección fuerte debe estar en Supabase.
-- False positive notes: El endpoint HTTP ya quedó endurecido, pero el riesgo sigue existiendo si otras rutas o el cliente invocan el RPC directamente.
+## Residual Risks
 
-## Medium Findings
+### RS-001: CSP is still weaker than a high-assurance target because production `script-src` allows `unsafe-inline`
+- OWASP: A03 Injection, A05 Security Misconfiguration
+- Location: [src/proxy.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/proxy.ts#L101)
+- Impact: CSP still provides some protection, but it is not a strong XSS containment policy while inline scripts remain globally allowed.
+- Recommendation: move to nonce- or hash-based CSP and remove `unsafe-inline` from `script-src`.
 
-### SEC-04
-- Severity: Medium
-- Location: `src/app/api/contact/route.ts:48`, `src/app/api/contact/route.ts:96`
-- Evidence: El rate limit usa `x-forwarded-for`/`x-real-ip` sin validación adicional, y el endpoint responde `duplicate_email` cuando encuentra un correo existente.
-- Impact: Un atacante puede intentar evadir parte del rate limiting manipulando headers en algunos despliegues y también usar la respuesta `duplicate_email` para enumerar si un email ya existe en la base.
-- Fix: Resolver IP solo desde headers confiables del proxy/CDN real y responder un mensaje genérico para duplicados del formulario público.
-- Mitigation: Aplicar rate limiting también en edge/CDN y monitorear bursts contra `/api/contact`.
-- False positive notes: Si el proveedor de hosting sanea `x-forwarded-for`, la parte de evasión puede bajar de severidad; la enumeración por correo sigue presente.
+### RS-002: Most CRM and customer data is still plaintext at the application layer
+- OWASP: A02 Cryptographic Failures
+- Location: business tables in Supabase, not a single file
+- Impact: if an attacker obtains a logical dump of `profiles`, `contact_submissions`, `projects`, `contracts`, `deliverables`, or similar tables, that data remains readable.
+- Recommendation: introduce envelope encryption for selected high-sensitivity columns, store data-encryption keys outside the database, and accept the queryability tradeoffs explicitly.
 
-## Recommended Next Steps
+### RS-003: Admin authorization still depends on a hardcoded email allowlist
+- OWASP: A01 Broken Access Control
+- Location: [src/lib/admin-auth.ts](/Users/manu/Documents/1.Projects/Noctra-studio/website/noctra-studio-crm/src/lib/admin-auth.ts#L3)
+- Impact: this is stricter than role-only auth, but brittle operationally and not suitable as a long-term privileged-access model.
+- Recommendation: move privileged access control to workspace/role claims plus MFA enforcement and an auditable admin membership table.
 
-1. Aplicar `supabase/migrations/20260307000007_harden_public_and_workspace_rls.sql` en staging y producción.
-2. Rotar `client_token` y `report_token` si las policies públicas vulnerables llegaron a estar expuestas en algún ambiente.
-3. Probar con dos usuarios autenticados de distintos workspaces que no puedan leer ni mutar `proposals`, `contracts`, `contact_submissions`, `project_tasks`, `project_time_logs`, `project_expenses` ni `project_deliverables` cruzados.
-4. Confirmar desde la UI pública que propuestas, contratos, deliverables y reportes siguen resolviendo correctamente vía capa server-side.
+## Operational Requirements Added By This Hardening
+
+- `CSRF_SECRET` must remain configured.
+- `APP_ENCRYPTION_KEY` must be set to a 32-byte key encoded as 64-char hex or base64.
+- `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` must be present in every environment where those routes exist.

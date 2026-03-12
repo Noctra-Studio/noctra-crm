@@ -1,5 +1,6 @@
 import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
+import { getWorkspace } from '@/lib/workspace';
 
 export const maxDuration = 30;
 
@@ -8,6 +9,11 @@ export async function POST(
   { params }: { params: Promise<{ type: string }> }
 ) {
   try {
+    const ctx = await getWorkspace();
+    if (!ctx) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+    }
+
     const { type } = await params;
     const { prompt } = await req.json();
 

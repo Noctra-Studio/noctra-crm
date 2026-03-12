@@ -230,7 +230,6 @@ function AuthForms() {
         .insert({
           name: workspaceName,
           slug: workspaceName.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-          owner_id: user.id,
           ai_credits_balance: 1000,
           subscription_status: "trialing",
           trial_ends_at: trialEndsAt.toISOString(),

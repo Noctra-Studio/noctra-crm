@@ -19,6 +19,8 @@ import {
 export default function MarketingSettingsClient() {
   const [apiKey, setApiKey] = useState("");
   const [audienceId, setAudienceId] = useState("");
+  const [hasSavedApiKey, setHasSavedApiKey] = useState(false);
+  const [savedApiKeyLast4, setSavedApiKeyLast4] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
@@ -49,8 +51,9 @@ export default function MarketingSettingsClient() {
           setOrganizationId(profile.organization_id);
           const config = await getMailchimpConfig(profile.organization_id);
           if (config) {
-            setApiKey(config.api_key || "");
             setAudienceId(config.audience_id || "");
+            setHasSavedApiKey(Boolean(config.has_api_key));
+            setSavedApiKeyLast4(config.api_key_last4 || null);
           }
         }
       } catch (err) {
@@ -80,7 +83,7 @@ export default function MarketingSettingsClient() {
     if (!apiKey || !audienceId) {
       setTestResult({
         success: false,
-        message: "Ingresa ambos valores para probar.",
+        message: "Ingresa un nuevo API key y el Audience ID para probar.",
       });
       return;
     }
@@ -148,9 +151,19 @@ export default function MarketingSettingsClient() {
               type="password"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
-              placeholder="Ej. xxxxxxxxxxxxxxxxxxxxxxxx-us14"
+              placeholder={
+                hasSavedApiKey && savedApiKeyLast4
+                  ? `API key cifrada guardada (termina en ${savedApiKeyLast4})`
+                  : "Ej. xxxxxxxxxxxxxxxxxxxxxxxx-us14"
+              }
               className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500/50 transition-all font-mono"
             />
+            {hasSavedApiKey && (
+              <p className="text-xs text-neutral-500 mt-1">
+                La llave guardada ya no se expone al navegador. Deja este campo
+                vacío para conservarla o ingresa una nueva para rotarla.
+              </p>
+            )}
           </div>
 
           <div className="space-y-2">

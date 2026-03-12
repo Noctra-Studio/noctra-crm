@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { decryptSecret, encryptSecret } from "@/lib/request-security";
 
 export async function getMailchimpConfig(organizationId: string) {
   const supabase = await createClient();
@@ -16,7 +17,18 @@ export async function getMailchimpConfig(organizationId: string) {
     throw new Error(error.message);
   }
 
-  return data;
+  if (!data) {
+    return null;
+  }
+
+  return {
+    ...data,
+    api_key: "",
+    has_api_key: Boolean(data.api_key),
+    api_key_last4: data.api_key
+      ? decryptSecret(data.api_key).slice(-4)
+      : null,
+  };
 }
 
 export async function saveMailchimpConfig(
@@ -25,6 +37,24 @@ export async function saveMailchimpConfig(
   audienceId: string
 ) {
   const supabase = await createClient();
+
+  const normalizedAudienceId = audienceId.trim();
+  const normalizedApiKey = apiKey.trim();
+
+  const { data: existingConfig } = await supabase
+    .from("integrations_config")
+    .select("api_key")
+    .eq("organization_id", organizationId)
+    .eq("provider", "mailchimp")
+    .eq("is_active", true)
+    .maybeSingle();
+
+  const apiKeyToPersist =
+    normalizedApiKey || existingConfig?.api_key || "";
+
+  if (!apiKeyToPersist || !normalizedAudienceId) {
+    throw new Error("Mailchimp credentials are incomplete");
+  }
 
   // Deactivate any existing first
   await supabase
@@ -39,8 +69,10 @@ export async function saveMailchimpConfig(
     .insert({
       organization_id: organizationId,
       provider: "mailchimp",
-      api_key: apiKey,
-      audience_id: audienceId,
+      api_key: normalizedApiKey
+        ? encryptSecret(normalizedApiKey)
+        : apiKeyToPersist,
+      audience_id: normalizedAudienceId,
       is_active: true,
     })
     .select()

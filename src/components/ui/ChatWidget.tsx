@@ -1,18 +1,22 @@
 "use client";
 
-import { useChat } from "@ai-sdk/react";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  MessageSquare,
   X,
   Send,
   Terminal,
-  Brain,
   Sparkles,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { CentralBrainLogo } from "@/components/ui/CentralBrainLogo";
+import { readNoctraResponse } from "@/lib/ai/read-noctra-response";
+
+const providerLabel: Record<string, string> = {
+  anthropic: "Anthropic",
+  gemini: "Gemini",
+  openai: "OpenAI",
+};
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +25,12 @@ export function ChatWidget() {
   >([]);
   const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState("");
+  const [routeMeta, setRouteMeta] = useState<{
+    provider?: string;
+    model?: string;
+    complexity?: string;
+    mode?: string;
+  } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,10 +65,12 @@ export function ChatWidget() {
 
       if (!response.ok) throw new Error("API request failed");
 
-      // Read the stream
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-      let aiResponse = "";
+      setRouteMeta({
+        provider: response.headers.get("x-noctra-provider") || undefined,
+        model: response.headers.get("x-noctra-model") || undefined,
+        complexity: response.headers.get("x-noctra-complexity") || undefined,
+        mode: response.headers.get("x-noctra-mode") || undefined,
+      });
 
       const aiMessage = {
         id: (Date.now() + 1).toString(),
@@ -67,38 +79,24 @@ export function ChatWidget() {
       };
       setMessages((prev) => [...prev, aiMessage]);
 
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          const chunk = decoder.decode(value);
-          const lines = chunk.split("\n");
-
-          for (const line of lines) {
-            if (line.startsWith('0:"')) {
-              // Extract text from data stream format: 0:"text"\n
-              const match = line.match(/^0:"(.*)"\s*$/);
-              if (match) {
-                const text = match[1]
-                  .replace(/\\n/g, "\n")
-                  .replace(/\\r/g, "\r")
-                  .replace(/\\t/g, "\t")
-                  .replace(/\\"/g, '"')
-                  .replace(/\\\\/g, "\\");
-                aiResponse += text;
-                setMessages((prev) =>
-                  prev.map((m) =>
-                    m.id === aiMessage.id ? { ...m, content: aiResponse } : m,
-                  ),
-                );
-              }
-            }
-          }
-        }
-      }
+      await readNoctraResponse(response, (content) => {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === aiMessage.id ? { ...m, content } : m,
+          ),
+        );
+      });
     } catch (error) {
       console.error("Error:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 2).toString(),
+          role: "assistant",
+          content:
+            "No pude procesar tu consulta ahora mismo. Intenta nuevamente en unos segundos.",
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
@@ -134,7 +132,9 @@ export function ChatWidget() {
                     <Sparkles className="w-2.5 h-2.5 text-emerald-500" />
                   </span>
                   <span className="text-neutral-500 text-[9px] uppercase tracking-tighter font-mono">
-                    Modelo Optimizado
+                    {routeMeta?.provider
+                      ? `${providerLabel[routeMeta.provider] || routeMeta.provider} · ${routeMeta.mode === "clarification" ? "aclarando" : routeMeta.complexity || "listo"}`
+                      : "Modelo optimizado"}
                   </span>
                 </div>
               </div>
@@ -221,7 +221,7 @@ export function ChatWidget() {
                 className="flex-1 bg-transparent text-white placeholder-neutral-700 focus:outline-none text-sm font-mono"
                 value={input || ""}
                 onChange={handleInputChange}
-                placeholder="Enter command..."
+                placeholder="Pregunta por leads, proyectos o siguiente acción..."
               />
               <button
                 type="submit"

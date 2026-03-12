@@ -1,15 +1,25 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
+import { createAdminClient } from "@/utils/supabase/admin";
+
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+if (!stripeSecretKey) {
+  throw new Error("Missing STRIPE_SECRET_KEY");
+}
+
+if (!stripeWebhookSecret) {
+  throw new Error("Missing STRIPE_WEBHOOK_SECRET");
+}
+
+const verifiedStripeWebhookSecret: string = stripeWebhookSecret;
 
 // Initialize Supabase with Service Role Key for Admin access to DB
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const supabaseAdmin = createAdminClient();
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_fallback", {
+const stripe = new Stripe(stripeSecretKey, {
   apiVersion: "2024-06-20",
 } as any);
 
@@ -23,7 +33,7 @@ export async function POST(req: Request) {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      verifiedStripeWebhookSecret
     );
   } catch (error: any) {
       console.log(`❌ Error message: ${error.message}`);

@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { resend } from "@/lib/resend";
+import { requireAdminUser } from "@/lib/admin-auth";
+import { assertSameOrigin } from "@/lib/request-security";
+import { z } from "zod";
 
 const SECURITY_HEADERS = {
   "X-Content-Type-Options": "nosniff",
@@ -8,17 +11,31 @@ const SECURITY_HEADERS = {
   "Cache-Control": "no-store",
 };
 
+const ResendEmailSchema = z.object({
+  submissionId: z.string().uuid("Invalid submissionId"),
+});
+
 export async function POST(req: Request) {
   try {
-    const { submissionId } = await req.json();
-    const supabase = await createClient();
-
-    if (!submissionId) {
+    if (!assertSameOrigin(req)) {
       return NextResponse.json(
-        { error: "Missing submissionId" },
-        { status: 400, headers: SECURITY_HEADERS }
+        { error: "invalid_origin" },
+        { status: 403, headers: SECURITY_HEADERS },
       );
     }
+
+    await requireAdminUser();
+
+    const parseResult = ResendEmailSchema.safeParse(await req.json());
+    if (!parseResult.success) {
+      return NextResponse.json(
+        { error: "Invalid submissionId" },
+        { status: 400, headers: SECURITY_HEADERS },
+      );
+    }
+
+    const { submissionId } = parseResult.data;
+    const supabase = await createClient();
 
     // 1. Fetch lead from DB
     const { data: lead, error: fetchError } = await supabase
@@ -85,6 +102,13 @@ export async function POST(req: Request) {
       { headers: SECURITY_HEADERS }
     );
   } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401, headers: SECURITY_HEADERS },
+      );
+    }
+
     console.error("Resend Retry Exception:", error);
     return NextResponse.json(
       { error: "internal_error" },

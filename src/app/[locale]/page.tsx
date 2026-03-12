@@ -3,6 +3,7 @@ import DashboardClient from "./DashboardClient";
 import ForgeLanding from "@/components/forge/ForgeLanding";
 import { getRevenueForecast } from "@/app/actions/metrics";
 import { getWorkspace } from "@/lib/workspace";
+import { canAccessCentralBrainRole } from "@/lib/ai/brain-access";
 
 export default async function ForgeIndexPage() {
   const supabase = await createClient();
@@ -41,6 +42,7 @@ export default async function ForgeIndexPage() {
       projects={projects || []}
       forecast={forecast}
       isTrial={isTrial}
+      canUseCentralBrain={canAccessCentralBrainRole(ctx.role)}
     />
   );
 }

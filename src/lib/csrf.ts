@@ -1,18 +1,22 @@
-import Tokens from 'csrf'
+import "server-only";
 
-const tokens = new Tokens()
-const CSRF_SECRET = process.env.CSRF_SECRET!
+import {
+  createCsrfSecret,
+  getCsrfCookieName,
+  issueCsrfToken,
+  verifyCsrfToken,
+} from "@/lib/request-security";
 
-export function generateCsrfToken(): string {
-  if (!CSRF_SECRET) {
-    throw new Error('CSRF_SECRET is not defined in environment variables')
-  }
-  return tokens.create(CSRF_SECRET)
+export { getCsrfCookieName };
+
+export function generateCsrfSecret() {
+  return createCsrfSecret();
 }
 
-export function validateCsrfToken(token: string): boolean {
-  if (!CSRF_SECRET) {
-    throw new Error('CSRF_SECRET is not defined in environment variables')
-  }
-  return tokens.verify(CSRF_SECRET, token)
+export function generateCsrfToken(secret: string) {
+  return issueCsrfToken(secret);
+}
+
+export function validateCsrfToken(secret: string, token: string) {
+  return verifyCsrfToken(secret, token);
 }

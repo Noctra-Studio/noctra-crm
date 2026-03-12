@@ -1,6 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { assertSameOrigin } from '@/lib/request-security'
 
 // Simple in-memory rate limiting
 const ATTEMPTS_LIMIT = 5
@@ -8,6 +9,10 @@ const WINDOW_MS = 15 * 60 * 1000 // 15 minutes
 const loginAttempts = new Map<string, { count: number, lastAttempt: number }>()
 
 export async function POST(req: NextRequest) {
+  if (!assertSameOrigin(req)) {
+    return NextResponse.json({ error: 'Invalid origin' }, { status: 403 })
+  }
+
   const ip = req.headers.get('x-forwarded-for') ?? 'unknown'
   const now = Date.now()
   

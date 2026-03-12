@@ -12,13 +12,16 @@ import { CommandBar } from "@/components/forge/CommandBar";
 import { Plus } from "lucide-react";
 import { OnboardingWizard } from "@/components/forge/OnboardingWizard";
 import { ChatWidget } from "@/components/ui/ChatWidget";
+import { canAccessCentralBrainRole } from "@/lib/ai/brain-access";
 
 export default function ForgeLayoutClient({
   children,
   workspace,
+  workspaceRole,
 }: {
   children: React.ReactNode;
   workspace: any;
+  workspaceRole?: string | null;
 }) {
   const supabase = createClient(false); // Disable session persistence for forge
   const router = useRouter();
@@ -148,7 +151,7 @@ export default function ForgeLayoutClient({
             !isLandingPage && <OnboardingWizard />}
 
           {/* AI Chat Widget */}
-          {hasSession && <ChatWidget />}
+          {hasSession && canAccessCentralBrainRole(workspaceRole) && <ChatWidget />}
         </>
       )}
     </>

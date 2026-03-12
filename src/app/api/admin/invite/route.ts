@@ -1,35 +1,37 @@
-import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { requireAdminUser } from "@/lib/admin-auth";
+import { createAdminClient } from "@/utils/supabase/admin";
+import { assertSameOrigin } from "@/lib/request-security";
+import { z } from "zod";
+
+const InviteSchema = z.object({
+  email: z.string().email(),
+  company_name: z.string().trim().min(1).max(120),
+  project_name: z.string().trim().min(1).max(160),
+});
 
 export async function POST(request: Request) {
+  if (!assertSameOrigin(request)) {
+    return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
+  }
+
   try {
     await requireAdminUser();
   } catch {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // 2. Parse Input
-  const { email, company_name, project_name } = await request.json();
-
-  if (!email || !company_name || !project_name) {
+  const parsed = InviteSchema.safeParse(await request.json());
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: "Missing required fields" },
+      { error: "Invalid request payload" },
       { status: 400 }
     );
   }
 
-  // 3. Initialize Admin Client (Bypass RLS)
-  const supabaseAdmin = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-      },
-    }
-  );
+  const { email, company_name, project_name } = parsed.data;
+
+  const supabaseAdmin = createAdminClient();
 
   // 4. Invite User
   const { data: authData, error: inviteError } =

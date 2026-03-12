@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import {
@@ -13,9 +13,7 @@ import {
   addDays,
 } from "date-fns";
 import { es } from "date-fns/locale";
-import { ForgeSidebar } from "@/components/forge/ForgeSidebar";
 import {
-  Bell,
   FileText,
   PenTool,
   Clock,
@@ -26,20 +24,15 @@ import {
   ArrowRight,
   Activity,
   Calendar,
-  Search,
-  Sparkles,
-  Loader2,
   AlertCircle,
-  MessageSquare,
-  User,
   AlertTriangle,
   Globe,
 } from "lucide-react";
 import { useFollowUps } from "@/hooks/useFollowUps";
 import { FollowUpModal } from "@/components/forge/FollowUpModal";
 import { RevenueForecast } from "@/app/actions/metrics";
-import { createClient } from "@/utils/supabase/client";
 import { EarlyAccessWidget } from "@/components/forge/EarlyAccessWidget";
+import { CentralBrainPanel } from "@/components/forge/CentralBrainPanel";
 
 type Lead = any;
 type Proposal = any;
@@ -70,6 +63,7 @@ export default function DashboardClient({
   projects,
   forecast,
   isTrial,
+  canUseCentralBrain = false,
 }: {
   leads: Lead[];
   proposals: Proposal[];
@@ -77,14 +71,11 @@ export default function DashboardClient({
   projects: Project[];
   forecast: RevenueForecast;
   isTrial?: boolean;
+  canUseCentralBrain?: boolean;
 }) {
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const { suggestions, refresh } = useFollowUps();
-  const [selectedSuggestion, setSelectedSuggestion] = useState<any>(null);
+  const { suggestions } = useFollowUps();
 
   const t = useTranslations("forge.dashboard");
-  const tSearch = useTranslations("forge.search");
-  const supabase = createClient();
 
   const uncontactedLeadsCount = leads.filter(
     (l) => l.pipeline_status === "nuevo",
@@ -194,7 +185,7 @@ export default function DashboardClient({
           />
 
           {/* AI Assistant Full Width Row */}
-          <NoctraAiPanel />
+          {canUseCentralBrain ? <NoctraAiPanel /> : null}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -621,92 +612,7 @@ function KpiCard({
 // NOCTRA AI COPILOT
 // ----------------------------------------------------------------------
 function NoctraAiPanel() {
-  const t = useTranslations("forge.dashboard");
-  const [insights, setInsights] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchInsights() {
-      try {
-        const res = await fetch("/api/ai-insights");
-        const data = await res.json();
-        if (data.insights) {
-          setInsights(data.insights);
-        }
-      } catch (err) {
-        console.error("Failed to load Noctra AI insights", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchInsights();
-  }, []);
-
-  const dismissInsight = (idx: number) => {
-    setInsights((prev) => prev.filter((_, i) => i !== idx));
-  };
-
-  return (
-    <div className="bg-emerald-500/[0.02] border border-emerald-500/20 rounded-xl p-6 relative overflow-hidden group">
-      {/* Background ambient glow */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none transition-opacity duration-1000" />
-
-      <div className="flex items-center justify-between mb-6 relative z-10">
-        <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-emerald-500" />
-          <h2 className="text-sm font-semibold text-emerald-500">Noctra AI</h2>
-        </div>
-        {!loading && (
-          <button
-            onClick={() => {
-              setLoading(true);
-              setTimeout(() => setLoading(false), 1000);
-            }}
-            className="border border-white/10 rounded px-3 py-1.5 text-xs font-medium text-white/60 hover:text-white hover:bg-white/5 hover:border-white/20 transition-all">
-            Actualizar
-          </button>
-        )}
-      </div>
-
-      <div className="relative z-10">
-        {loading ? (
-          <div className="flex items-center gap-3 py-4 text-white/50">
-            <Loader2 className="w-4 h-4 animate-spin text-emerald-500" />
-            <span className="text-sm font-medium">Analizando CRM...</span>
-          </div>
-        ) : insights.length === 0 ? (
-          <p className="text-white/40 text-sm py-2 italic font-serif">
-            "{t("todoAlDia")}"
-          </p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {insights.map((insight, idx) => (
-              <div
-                key={idx}
-                className="bg-black/40 border-l-4 border-l-emerald-500 border-y border-y-white/5 border-r border-r-white/5 p-5 flex flex-col justify-between shadow-lg">
-                <div className="flex gap-3 mb-5">
-                  <p className="text-sm text-white font-medium leading-relaxed text-balance">
-                    {insight.mensaje}
-                  </p>
-                </div>
-
-                <div className="flex items-center mt-auto">
-                  <button className="bg-emerald-500 text-black rounded-md px-4 py-2 text-xs font-bold hover:bg-emerald-400 transition-colors shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-                    {insight.accion_label}
-                  </button>
-                  <button
-                    onClick={() => dismissInsight(idx)}
-                    className="text-xs font-medium text-white/40 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md transition-colors ml-3">
-                    Ignorar
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  return <CentralBrainPanel />;
 }
 
 // ----------------------------------------------------------------------

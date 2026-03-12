@@ -2,13 +2,34 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@/utils/supabase/server";
 import { isEarlyAccessAvailable } from "@/lib/subscriptions";
+import { getWorkspace } from "@/lib/workspace";
+import { assertSameOrigin } from "@/lib/request-security";
+import { z } from "zod";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_fallback", {
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
+if (!stripeSecretKey) {
+  throw new Error("Missing STRIPE_SECRET_KEY");
+}
+
+const stripe = new Stripe(stripeSecretKey, {
   apiVersion: "2024-06-20",
 } as any);
 
+const CheckoutSchema = z.object({
+  priceId: z.string().min(1),
+  mode: z.enum(["subscription", "payment"]).default("subscription"),
+  quantity: z.number().int().positive().max(100).default(1),
+  workspaceId: z.string().uuid(),
+  creditAmount: z.number().int().positive().optional(),
+});
+
 export async function POST(req: Request) {
   try {
+    if (!assertSameOrigin(req)) {
+      return new NextResponse("Invalid origin", { status: 403 });
+    }
+
     const supabase = await createClient();
     const {
       data: { session },
@@ -18,11 +39,15 @@ export async function POST(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const body = await req.json();
-    const { priceId, mode = "subscription", quantity = 1, workspaceId, creditAmount } = body;
+    const parsed = CheckoutSchema.safeParse(await req.json());
+    if (!parsed.success) {
+      return new NextResponse("Invalid request payload", { status: 400 });
+    }
 
-    if (!priceId || !workspaceId) {
-      return new NextResponse("Missing required parameters", { status: 400 });
+    const { priceId, mode, quantity, workspaceId, creditAmount } = parsed.data;
+    const ctx = await getWorkspace();
+    if (!ctx || ctx.workspaceId !== workspaceId) {
+      return new NextResponse("Forbidden", { status: 403 });
     }
 
     // Optional: Fetch Stripe Customer ID from the DB if they have one already

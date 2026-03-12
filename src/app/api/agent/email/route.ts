@@ -1,10 +1,16 @@
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
+import { getWorkspace } from '@/lib/workspace';
 
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
   try {
+    const ctx = await getWorkspace();
+    if (!ctx) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+    }
+
     const { prompt } = await req.json();
 
     const result = await streamText({

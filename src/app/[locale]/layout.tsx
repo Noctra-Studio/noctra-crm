@@ -134,7 +134,9 @@ export default async function LocaleLayout({
             forcedTheme="dark"
             enableSystem={false}
             disableTransitionOnChange>
-            <ForgeLayoutClient workspace={ctx?.workspace}>
+            <ForgeLayoutClient
+              workspace={ctx?.workspace}
+              workspaceRole={ctx?.role ?? null}>
               {children}
             </ForgeLayoutClient>
             <ScrollToTop />

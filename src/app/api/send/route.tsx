@@ -4,8 +4,27 @@ import { AuditConfirmationTemplate } from "@/components/email/AuditConfirmationT
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { assertSameOrigin } from "@/lib/request-security";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+
+function isAllowedByRateLimit(identifier: string, limit = 5, windowMs = 60_000) {
+  const now = Date.now();
+  const current = rateLimitMap.get(identifier);
+
+  if (!current || current.resetAt < now) {
+    rateLimitMap.set(identifier, { count: 1, resetAt: now + windowMs });
+    return true;
+  }
+
+  if (current.count >= limit) {
+    return false;
+  }
+
+  current.count += 1;
+  return true;
+}
 
 // Input validation schemas
 const ContactFormSchema = z.object({
@@ -31,6 +50,22 @@ const RequestSchema = z.discriminatedUnion("type", [
 
 export async function POST(request: Request) {
   try {
+    if (!assertSameOrigin(request)) {
+      return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
+    }
+
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+
+    if (!isAllowedByRateLimit(ip)) {
+      return NextResponse.json(
+        { error: "Rate limit exceeded" },
+        { status: 429 },
+      );
+    }
+
     const body = await request.json();
 
     // Validate input

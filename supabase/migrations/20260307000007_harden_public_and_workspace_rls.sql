@@ -16,11 +16,6 @@ AS $$
     FROM public.workspace_members wm
     WHERE wm.workspace_id = target_workspace_id
       AND wm.user_id = auth.uid()
-  ) OR EXISTS (
-    SELECT 1
-    FROM public.workspaces w
-    WHERE w.id = target_workspace_id
-      AND w.owner_id = auth.uid()
   );
 $$;
 
