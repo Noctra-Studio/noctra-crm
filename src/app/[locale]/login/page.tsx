@@ -48,6 +48,28 @@ function AuthForms() {
   const [mfaError, setMfaError] = useState<string | null>(null);
   const [shake, setShake] = useState(false);
 
+  const getPostLoginDestination = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return "/";
+    }
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (profile?.role === "client") {
+      return "/dashboard";
+    }
+
+    return "/projects";
+  };
+
   // Función auxiliar para verificar si se requiere MFA (Login)
   const checkMfaRequirement = async () => {
     const { data: aal } =
@@ -102,7 +124,7 @@ function AuthForms() {
       const requiresMfa = await checkMfaRequirement();
       if (!requiresMfa) {
         sessionStorage.setItem("session_start", Date.now().toString());
-        router.push("/projects");
+        router.push(await getPostLoginDestination());
       } else {
         setLoading(false);
       }
@@ -129,7 +151,7 @@ function AuthForms() {
       if (error) throw error;
 
       sessionStorage.setItem("session_start", Date.now().toString());
-      router.push("/projects");
+      router.push(await getPostLoginDestination());
     } catch (err: any) {
       console.error("MFA verification error", err);
       setMfaError(t("error_mfa_invalid_code"));

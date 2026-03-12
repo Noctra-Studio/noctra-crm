@@ -92,11 +92,33 @@ export default async function proxy(request: NextRequest) {
     // Redirect authenticated users away from login page
     if (isLoginPage && user && !(aal?.nextLevel === 'aal2' && aal?.currentLevel !== 'aal2')) {
       const adminUrl = request.nextUrl.clone();
+      let destination = '/';
+
+      try {
+        const supabaseAdmin = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL!,
+          process.env.SUPABASE_SERVICE_ROLE_KEY!
+        );
+        const { data: profile } = await supabaseAdmin
+          .from("profiles")
+          .select("role")
+          .eq("id", user.id)
+          .maybeSingle();
+
+        if (profile?.role === "client") {
+          destination = '/dashboard';
+        } else if (profile?.role) {
+          destination = '/projects';
+        }
+      } catch (profileError) {
+        console.error("Proxy login redirect profile lookup failed:", profileError);
+      }
+
       if (pathname.startsWith('/en/') || pathname.startsWith('/es/')) {
         const locale = pathname.split('/')[1];
-        adminUrl.pathname = `/${locale}/projects`;
+        adminUrl.pathname = `/${locale}${destination}`;
       } else {
-        adminUrl.pathname = '/projects';
+        adminUrl.pathname = destination;
       }
       return NextResponse.redirect(adminUrl);
     }

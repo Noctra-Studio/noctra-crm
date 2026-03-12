@@ -13,7 +13,7 @@ export const getWorkspace = cache(async () => {
     return null;
   }
 
-  const { data: membership } = await supabase
+  const { data: memberships, error: membershipError } = await supabase
     .from("workspace_members")
     .select(
       `
@@ -36,7 +36,15 @@ export const getWorkspace = cache(async () => {
     `,
     )
     .eq("user_id", user.id)
-    .maybeSingle();
+    .limit(10);
+
+  if (membershipError) {
+    console.error("[getWorkspace] membership lookup failed:", membershipError);
+  }
+
+  const membership = (memberships ?? []).find(
+    (item) => item.workspace_id && (item as any).workspaces,
+  );
 
   if (membership) {
     return {
@@ -48,11 +56,17 @@ export const getWorkspace = cache(async () => {
 
   // Fallback: Check if the user is an owner of any workspace directly
   // This handles cases where workspace_members record creation might have failed
-  const { data: ownedWorkspace } = await supabase
+  const { data: ownedWorkspaces, error: ownedWorkspaceError } = await supabase
     .from("workspaces")
     .select("*")
     .eq("owner_id", user.id)
-    .maybeSingle();
+    .limit(10);
+
+  if (ownedWorkspaceError) {
+    console.error("[getWorkspace] owner workspace lookup failed:", ownedWorkspaceError);
+  }
+
+  const ownedWorkspace = ownedWorkspaces?.[0];
 
   if (ownedWorkspace) {
     console.warn(`[getWorkspace] No membership found for user ${user.id}, but found owned workspace ${ownedWorkspace.id}. Using fallback.`);

@@ -39,7 +39,17 @@ export default function LoginPage() {
       );
       setIsLoading(false);
     } else {
-      router.push("/projects");
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user?.id || "")
+        .maybeSingle();
+
+      router.push(profile?.role === "client" ? "/dashboard" : "/projects");
       router.refresh();
     }
   };
