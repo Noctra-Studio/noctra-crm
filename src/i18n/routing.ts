@@ -34,6 +34,10 @@ export const routing = defineRouting({
     },
     '/dashboard': '/dashboard',
     '/login': '/login',
+    '/waitlist': {
+      en: '/waitlist',
+      es: '/lista-de-espera'
+    },
     '/forgot-password': '/forgot-password',
     '/projects': '/projects',
     '/pipeline': '/pipeline',

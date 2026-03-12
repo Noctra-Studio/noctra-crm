@@ -8,12 +8,12 @@ import { useLocale } from "next-intl";
 
 const FOOTER_COPY = {
   es: {
-    tagline: "Construido por diseñadores, para creativos.",
+    tagline: "Sistema AI-native para la operación con clientes.",
     platform: "Plataforma",
     demo: "Demo",
     pricing: "Precios",
     signIn: "Iniciar sesión",
-    createAccount: "Crear cuenta gratis",
+    createAccount: "Unirme a la lista",
     resources: "Recursos",
     migrationCenter: "Centro de Migración",
     studio: "Noctra Studio",
@@ -26,12 +26,12 @@ const FOOTER_COPY = {
     designedIn: "Diseñado en Querétaro con ☕",
   },
   en: {
-    tagline: "Built by designers, for creative operators.",
+    tagline: "AI-native system for client operations.",
     platform: "Platform",
     demo: "Demo",
     pricing: "Pricing",
     signIn: "Sign in",
-    createAccount: "Create free account",
+    createAccount: "Join waitlist",
     resources: "Resources",
     migrationCenter: "Migration Center",
     studio: "Noctra Studio",
@@ -61,13 +61,13 @@ export function ForgeFooter() {
               <div className="flex items-center gap-3">
                 <NextImage
                   src="/favicon-light.svg"
-                  alt="Noctra Forge"
+                  alt="Noctra CRM"
                   width={24}
                   height={24}
                   className="w-8 h-8 opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all"
                 />
                 <span className="text-xl font-bold text-white tracking-tight">
-                  Noctra Forge
+                  Noctra CRM
                 </span>
               </div>
             </Link>
@@ -107,10 +107,7 @@ export function ForgeFooter() {
                 </li>
                 <li>
                   <Link
-                    href={{
-                      pathname: "/login",
-                    query: { mode: "signup", plan: "starter" },
-                    }}
+                    href="/waitlist"
                     className="text-sm text-neutral-300 hover:text-white transition-colors">
                     {copy.createAccount}
                   </Link>

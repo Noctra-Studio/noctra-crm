@@ -28,7 +28,6 @@ import {
 import NextImage from "next/image";
 import { PricingWithROI } from "./PricingWithROI";
 import { PricingComparison } from "./PricingComparison";
-import { MarketComparison } from "./MarketComparison";
 import { UnifiedStack } from "./UnifiedStack";
 import { ConnectivitySection } from "./ConnectivitySection";
 import { ForgeNavbar } from "./ForgeNavbar";
@@ -40,164 +39,206 @@ import { useLocale } from "next-intl";
 
 const LANDING_COPY = {
   es: {
-    badge: "14 días gratis · Sin tarjeta de crédito",
-    heroTitle: "El Sistema Operativo para Negocios Creativos.",
-    personaFreelancer: "Soy Freelancer",
-    personaAgency: "Soy Agencia",
+    badge: "Lanzamiento previsto entre finales de 2026 e inicios de 2027",
+    heroTitle: "El sistema operativo para gestionar tus clientes.",
+    personaFreelancer: "Trabajo por mi cuenta",
+    personaAgency: "Lidero un equipo",
     proDescription:
-      "Deja de perder tiempo en admin. Gestiona clientes, propuestas y cobros en un solo lugar.",
+      "Para profesionales que necesitan captar leads, dar seguimiento con orden y mantener cada relación con clientes en un solo sistema claro.",
     agencyDescription:
-      "Escala tus operaciones. Unifica tu equipo, proyectos y finanzas en una sola verdad.",
-    startFree: "Empezar Gratis",
-    watchDemo: "Ver demo",
-    trustIndicators: ["Sin tarjeta de crédito", "Cancela cuando quieras", "Soporte incluido"],
-    builtBy: "Construido por diseñadores, para creativos",
+      "Para equipos que necesitan visibilidad compartida sobre pipeline, conversaciones, responsabilidades y próximos pasos sin sumar más ruido operativo.",
+    startFree: "Unirme a la lista de espera",
+    watchDemo: "Ver cómo funciona",
+    trustIndicators: ["IA nativa desde el sistema", "Uso de IA transparente", "Diseñado para operaciones reales"],
+    builtBy: "Nacido del trabajo operativo real en Noctra Studio",
     internalSystem:
-      "El sistema interno que usamos en Noctra Studio, ahora disponible para la comunidad.",
-    painEyebrow: "¿Te suena familiar?",
-    painTitle: "Las agencias pierden miles de dólares por mala organización.",
-    productEyebrow: "El producto",
-    productTitle: "Todo fluye mejor aquí adentro.",
+      "Noctra CRM surge de los sistemas que construimos para dar seguimiento a clientes, oportunidades y operación con más claridad.",
+    painEyebrow: "El problema",
+    painTitle: "Cuando la operación comercial vive en muchos lugares, el seguimiento se rompe.",
+    productEyebrow: "Vista general del sistema",
+    productTitle: "Una sola vista estructurada para cada relación.",
     productDescription:
-      "Una interfaz minimalista que te da toda la información que necesitas, sin el ruido que no necesitas.",
+      "Visualiza leads, clientes, pipeline, actividad y próximos pasos en un solo lugar para que el equipo siempre sepa qué está pasando y qué sigue.",
     workflowEyebrow: "Flujo de trabajo",
-    workflowTitle: "De lead a proyecto entregado en 4 pasos.",
-    featuresEyebrow: "Todo incluido",
-    featuresTitle: "Todas las herramientas que necesitas. Ninguna que no.",
-    stackTitle: "Deja de pagar por 5 herramientas.",
+    workflowTitle: "Un flujo claro desde el primer contacto hasta el cierre.",
+    featuresEyebrow: "Capacidades",
+    featuresTitle: "Diseñado para que la operación con clientes sea clara, constante y visible.",
+    stackTitle: "Sustituye la dispersión operativa por un solo sistema.",
     stackDescription:
-      "Todo tu sistema operativo por el precio de una sola de tus apps actuales. No más saltar entre pestañas.",
-    chaos: "El Caos Actual",
-    total: "Total aproximado",
-    efficiency: "Eficiencia Radical",
-    pricingStarterNote: "o comienza con el plan Starter por $9/mes",
-    faqEyebrow: "Dudas comunes",
-    faqTitle: "Preguntas frecuentes.",
-    finalTitle: "El sistema operativo para tu negocio.",
-    finalDescription: "Organiza tu pipeline. Entrega proyectos a tiempo. Escala tu operación hoy.",
-    finalFootnote: "14 días gratis. Sin tarjeta. Cancela cuando quieras.",
+      "La mayoría de los equipos arma la operación con inbox, hojas de cálculo, tableros y CRMs desconectados. Noctra reúne relación, contexto y seguimiento en un mismo sistema operativo.",
+    chaos: "Flujo desconectado",
+    total: "Stack mensual típico",
+    efficiency: "Un solo sistema claro",
+    pricingStarterNote: "precios planeados visibles antes del lanzamiento",
+    audienceEyebrow: "Para quién es",
+    audienceTitle: "Quién puede aprovechar Noctra CRM",
+    principlesEyebrow: "Principios del producto",
+    principlesTitle: "Construido sobre tres principios",
+    storyEyebrow: "Por qué construimos Noctra CRM",
+    storyTitle: "No nació para verse bien en una demo. Nació para resolver una operación real.",
+    storyDescription:
+      "En Noctra Studio vimos el mismo patrón una y otra vez: leads perdidos, contexto disperso, seguimientos inconsistentes y poca visibilidad de lo que realmente estaba avanzando. Noctra CRM nace para resolver eso con estructura, IA integrada y uso transparente.",
+    faqEyebrow: "Preguntas",
+    faqTitle: "Lo que los equipos suelen preguntar antes de unirse a la lista.",
+    finalTitle: "Recibe noticias cuando Noctra CRM esté listo para lanzarse.",
+    finalDescription: "Únete a la lista de espera para seguir el desarrollo del producto, recibir actualizaciones y enterarte primero cuando Noctra CRM abra oficialmente.",
+    finalFootnote: "Ventana estimada de lanzamiento: finales de 2026 a inicios de 2027.",
     painPoints: [
-      ["Propuestas en Word que se pierden en el email", "Crea y envía propuestas profesionales en minutos"],
-      ["No sabes en qué etapa está cada cliente", "Pipeline visual con el estado de cada oportunidad"],
-      ["Horas perdidas actualizando clientes manualmente", "Portal del cliente con actualizaciones en tiempo real"],
-      ["4 herramientas distintas para lo que debería ser 1", "Todo en un solo lugar — desde el lead hasta el cierre"],
-      ["Se te olvidan los follow-ups y pierdes oportunidades", "Noctra AI te recuerda cuándo actuar y qué hacer"],
-      ["No tienes visibilidad real de tus ingresos futuros", "Forecast de ingresos calculado automáticamente"],
+      ["Los leads llegan por mensajes, formularios y referencias sin un solo registro confiable", "Captura cada oportunidad en una línea de tiempo estructurada"],
+      ["Los follow-ups dependen de la memoria y no del proceso", "Mantén próximos pasos visibles para que ninguna conversación se enfríe"],
+      ["El contexto importante se pierde entre chats, notas y hojas de cálculo", "Concentra historial, actividad y decisiones en un mismo sistema"],
+      ["El pipeline cambia según la persona que lo mire", "Dale a todo el equipo una sola vista operativa"],
+      ["Las herramientas de IA generan texto, pero no orden operativo", "Usa IA dentro del flujo para resumir, organizar y sugerir acción"],
+      ["Los líderes no ven con claridad qué avanza y qué está detenido", "Haz visible la salud del pipeline y la actividad sin reportes manuales"],
     ],
     steps: [
-      ["01", "Nunca vuelvas a perder un lead ante el caos", "Captura automáticamente cada contacto. Noctra AI te alerta al instante para que ninguna oportunidad se enfríe.", "UserPlus"],
-      ["02", "Envía propuestas en 3 clics, no en 3 horas", "Cierra tratos a la velocidad del pensamiento. Propuestas visuales de alto impacto que tus clientes pueden aprobar desde su móvil.", "FileText"],
-      ["03", "Claridad total en cada proyecto", "La respuesta a '¿en qué vamos con esto?' siempre está aquí. Tu equipo sincronizado y tus clientes informados sin enviar un solo email.", "FolderOpen"],
-      ["04", "Deja de adivinar tus márgenes", "Ve exactamente cuánto estás ganando en tiempo real. Análisis profundo de rentabilidad para que escales con datos, no con suposiciones.", "BarChart2"],
+      ["01", "Captura leads sin perder contexto", "Centraliza formularios, mensajes y referencias para que toda oportunidad entre al sistema con información útil desde el primer momento.", "UserPlus"],
+      ["02", "Organiza oportunidades con claridad", "Ordena el pipeline por etapa, prioridad y siguiente acción para que el trabajo comercial deje de depender de recordatorios personales.", "Layers"],
+      ["03", "Da seguimiento a cada interacción", "Conserva conversaciones, notas, documentos y decisiones en una sola historia compartida para que cualquier persona entienda la relación.", "Search"],
+      ["04", "Automatiza los follow-ups importantes", "Noctra identifica tareas repetitivas, recuerda próximos pasos y sugiere acciones cuando una oportunidad requiere atención.", "Brain"],
+      ["05", "Cierra con más visibilidad", "Llega a cada negociación con una vista clara de actividad, responsables y estado real del pipeline.", "BarChart2"],
     ],
     features: [
-      ["Sparkles", "Cerebro Central AI", "Orquestación inteligente de modelos. Noctra selecciona automáticamente el procesador más eficiente según la complejidad de tu tarea para maximizar tu ROI."],
-      ["FileText", "Proposal Builder", "Crea propuestas con tu branding en minutos. El cliente las aprueba en línea con un solo click."],
-      ["BarChart2", "Pipeline Visual", "Visualiza cada oportunidad por etapa. Forecast de ingresos calculado automáticamente."],
-      ["FolderOpen", "Gestión de Proyectos", "Cada proyecto vinculado a su cliente, propuesta y entregables. Sin nada perdido."],
-      ["Users", "CRM de Clientes", "Historial completo de cada cliente — comunicaciones, proyectos, propuestas y pagos."],
-      ["Search", "Búsqueda Global", "Encuentra cualquier cliente, propuesta o proyecto en segundos con ⌘K."],
-      ["Globe", "Bilingüe ES/EN", "Interfaz completa en español e inglés. Cambia de idioma instantáneamente."],
-      ["Shield", "Seguridad 2FA", "Autenticación de dos factores para proteger la información de tus clientes."],
-      ["Smartphone", "Mobile Nativo", "Experiencia de app nativa en mobile con navegación bottom tab y gestos."],
+      ["Sparkles", "Operación AI-native", "La IA vive dentro del sistema y trabaja sobre el contexto real de clientes, conversaciones y pipeline para ayudarte a decidir mejor."],
+      ["UserPlus", "Lead Management", "Captura y organiza oportunidades desde el inicio para que ningún lead quede fuera del proceso."],
+      ["BarChart2", "Sales Pipeline", "Visualiza etapas, riesgos y próximos pasos para dar seguimiento con más consistencia."],
+      ["Users", "Client History", "Mantén juntas conversaciones, notas, archivos y decisiones para entender cada relación sin reconstruirla a mano."],
+      ["Brain", "Automations", "Genera recordatorios, sugerencias y acciones útiles donde el equipo realmente trabaja."],
+      ["Search", "Operational Visibility", "Detecta rápido qué se movió, qué está detenido y dónde hace falta intervenir."],
+      ["Globe", "Claridad para equipos diversos", "Funciona en español e inglés para mantener alineación entre personas, áreas y sedes."],
+      ["Shield", "Acceso por roles", "Cada usuario ve la información relevante para su trabajo, sin exponer más de lo necesario."],
+      ["Smartphone", "Trabajo en movimiento", "Consulta clientes, pipeline y actividad desde desktop o móvil sin perder continuidad."],
     ],
     faqs: [
-      ["¿Necesito tarjeta de crédito para el trial?", "No. El trial de 14 días es completamente gratis y no requiere datos de pago. Solo necesitas un email."],
-      ["¿Qué pasa cuando termina el trial?", "Te mostramos las opciones de plan. Todo tu contenido se mantiene intacto — clientes, propuestas y proyectos siguen disponibles al suscribirte."],
-      ["¿Puedo cancelar en cualquier momento?", "Sí. En el plan mensual puedes cancelar cuando quieras. En el plan anual, el acceso se mantiene hasta el final del período pagado."],
-      ["¿Es solo para agencias de diseño y desarrollo?", "Noctra Forge está optimizado para agencias creativas y digitales, pero cualquier negocio que gestione proyectos y clientes puede usarlo."],
-      ["¿Cómo se consumen los tokens y qué modelo usa Noctra?", "El 'Cerebro Central' de Noctra analiza cada petición. Para tareas simples usa modelos ultra-rápidos, mientras que para análisis complejos rutea la tarea a modelos de alta potencia."],
-      ["¿Mis datos están seguros?", "Sí. Todos los datos se almacenan en Supabase con Row Level Security — solo tú tienes acceso a tu información."],
-      ["¿Tiene app móvil?", "Noctra Forge es una Progressive Web App con experiencia nativa en mobile. Puedes agregarla a tu pantalla de inicio desde el navegador."],
+      ["¿Cuándo está previsto el lanzamiento?", "La meta actual es lanzar entre finales de 2026 e inicios de 2027, porque el producto incorpora una capa de IA y una lógica operativa más profunda que un CRM tradicional."],
+      ["¿Es solo para agencias?", "No. Está pensado para profesionales, PyMES, escuelas, startups y agencias inmobiliarias que necesitan gestionar relaciones y seguimiento con más estructura."],
+      ["¿Cómo funciona el uso de IA?", "Cada plan incluye una capacidad de uso de IA. Esa capacidad se utiliza cuando Noctra genera resúmenes, sugerencias o insights dentro del flujo de trabajo."],
+      ["¿Qué significan los tokens?", "Piensa en los tokens como la capacidad de trabajo de IA incluida en tu plan, no como algo técnico que tengas que administrar manualmente."],
+      ["¿Cómo funciona el acceso para equipos?", "El sistema permite dar visibilidad según rol para que ventas, operación y liderazgo vean lo que les corresponde."],
+      ["¿Qué recibe alguien que se une a la lista de espera?", "Recibe actualizaciones del desarrollo, hitos del producto y el primer aviso cuando Noctra CRM abra oficialmente."],
+      ["¿La estructura de precios será transparente?", "Sí. Queremos que el precio y el uso de IA se entiendan desde el primer día, sin cargos opacos ni capas ocultas."],
     ],
     tools: [
-      ["Asana/ClickUp", "Proyectos", "$13"],
-      ["DocuSign/PandaDoc", "Firmas", "$20"],
-      ["Harvest/Toggl", "Tiempo y Cobros", "$12"],
-      ["Pipedrive/Hubspot", "CRM/Leads", "$15"],
+      ["Inbox y chats", "Comunicación", "$12"],
+      ["Hojas de cálculo", "Contexto", "$10"],
+      ["Tablero de tareas", "Seguimiento", "$15"],
+      ["CRM con add-ons", "Pipeline + automatización", "$25"],
     ],
-    solutionTitle: "Noctra Forge",
-    solutionDescription: "Centraliza tu operación. Recupera tu enfoque. Quédate con el margen.",
+    solutionTitle: "Noctra CRM",
+    solutionDescription: "Un sistema AI-native para pipeline, historial, seguimiento y claridad operativa.",
+    audiences: [
+      ["Profesionales", "Necesitan seguimiento confiable sin volverse administradores de herramientas.", "Noctra concentra clientes, actividad y próximos pasos en un mismo lugar."],
+      ["PyMES", "Superan rápidamente las hojas de cálculo pero no necesitan complejidad empresarial.", "Noctra aporta estructura, visibilidad y apoyo de IA sin inflar la operación."],
+      ["Escuelas e instituciones educativas", "Coordinan admisiones, seguimiento y comunicación entre varias personas.", "Noctra centraliza el historial y aclara responsabilidades en cada etapa."],
+      ["Startups", "Necesitan velocidad comercial sin construir procesos frágiles.", "Noctra conecta contexto, pipeline y acción para que el equipo avance con orden."],
+      ["Agencias inmobiliarias", "Gestionan muchos leads, seguimiento repetitivo y oportunidades sensibles al tiempo.", "Noctra organiza interacciones, recordatorios y movimiento del pipeline con claridad."],
+    ],
+    principles: [
+      ["Claridad", "Cada relación con clientes debe ser fácil de entender, fácil de actualizar y fácil de actuar."],
+      ["Eficiencia", "La IA y la automatización deben ahorrar trabajo útil, no agregar pasos ni complejidad."],
+      ["Transparencia", "El precio, el uso de IA y el alcance del sistema deben ser visibles desde el inicio."],
+    ],
   },
   en: {
-    badge: "14 days free · No credit card required",
-    heroTitle: "The Operating System for Creative Businesses.",
-    personaFreelancer: "I'm a Freelancer",
-    personaAgency: "I'm an Agency",
+    badge: "Planned launch window: late 2026 to early 2027",
+    heroTitle: "The operating system for managing your clients.",
+    personaFreelancer: "I work solo",
+    personaAgency: "I lead a team",
     proDescription:
-      "Stop wasting hours on admin. Manage clients, proposals, and payments in one place.",
+      "For professionals who need one clear place to capture leads, follow up consistently, and keep every client relationship organized.",
     agencyDescription:
-      "Scale operations with clarity. Unify your team, projects, and finances in a single source of truth.",
-    startFree: "Start Free",
-    watchDemo: "Watch demo",
-    trustIndicators: ["No credit card", "Cancel anytime", "Support included"],
-    builtBy: "Built by designers, for creative operators",
+      "For teams that need shared visibility across pipeline, conversations, responsibilities, and next steps without adding more operational noise.",
+    startFree: "Join the waitlist",
+    watchDemo: "See how it works",
+    trustIndicators: ["AI-native by design", "Transparent AI usage", "Built for real operations"],
+    builtBy: "Built from real operational work at Noctra Studio",
     internalSystem:
-      "The internal system we use at Noctra Studio, now available to the community.",
-    painEyebrow: "Sound familiar?",
-    painTitle: "Agencies lose thousands because operations stay fragmented.",
-    productEyebrow: "The product",
-    productTitle: "Everything flows better in here.",
+      "Noctra CRM grows out of the systems we build to manage clients, opportunities, and follow-through with more clarity.",
+    painEyebrow: "The problem",
+    painTitle: "When client operations live everywhere, follow-through breaks.",
+    productEyebrow: "System overview",
+    productTitle: "One structured view of every relationship.",
     productDescription:
-      "A minimal interface that gives you the information you need without the noise you do not.",
+      "See leads, clients, pipeline, activity, and next actions in one place so the team always knows what is happening and what comes next.",
     workflowEyebrow: "Workflow",
-    workflowTitle: "From lead to delivered project in 4 steps.",
-    featuresEyebrow: "Everything included",
-    featuresTitle: "Every tool you need. None that you do not.",
-    stackTitle: "Stop paying for 5 different tools.",
+    workflowTitle: "A clear flow from first contact to closed deal.",
+    featuresEyebrow: "Capabilities",
+    featuresTitle: "Built to keep client operations clear, consistent, and visible.",
+    stackTitle: "Replace operational sprawl with one system.",
     stackDescription:
-      "Get your operating system for the cost of a single app in your current stack. No more context switching.",
-    chaos: "Today's mess",
-    total: "Estimated total",
-    efficiency: "Radical Efficiency",
-    pricingStarterNote: "or start with Starter at $9/mo",
-    faqEyebrow: "Common questions",
-    faqTitle: "Frequently asked questions.",
-    finalTitle: "The operating system for your business.",
-    finalDescription: "Organize pipeline. Deliver on time. Scale operations today.",
-    finalFootnote: "14 days free. No card. Cancel anytime.",
+      "Most teams piece client work together across inboxes, spreadsheets, task boards, and disconnected CRM tools. Noctra keeps the relationship, the context, and the follow-through in one operating system.",
+    chaos: "Disconnected workflow",
+    total: "Typical monthly stack",
+    efficiency: "One clear system",
+    pricingStarterNote: "planned pricing stays visible before launch",
+    audienceEyebrow: "Who it is for",
+    audienceTitle: "Who Noctra CRM is designed for",
+    principlesEyebrow: "Product principles",
+    principlesTitle: "Built on three principles",
+    storyEyebrow: "Why we built Noctra CRM",
+    storyTitle: "It was not created to look good in a demo. It was created to fix a real operation.",
+    storyDescription:
+      "At Noctra Studio we kept seeing the same pattern: lost leads, fragmented context, inconsistent follow-up, and limited visibility into what was actually moving. Noctra CRM is being built to solve that with structure, embedded AI, and transparent usage.",
+    faqEyebrow: "Questions",
+    faqTitle: "What teams usually ask before joining the waitlist.",
+    finalTitle: "Be the first to hear when Noctra CRM is ready to launch.",
+    finalDescription: "Join the waitlist to follow the product roadmap, receive launch updates, and hear first when Noctra CRM officially opens.",
+    finalFootnote: "Estimated launch window: late 2026 to early 2027.",
     painPoints: [
-      ["Word proposals lost in email threads", "Create and send polished proposals in minutes"],
-      ["You do not know which stage each client is in", "A visual pipeline that shows every opportunity"],
-      ["Hours lost updating clients manually", "Client portal with real-time updates"],
-      ["4 tools for what should really be 1", "Everything in one place, from lead to close"],
-      ["Follow-ups slip and opportunities disappear", "Noctra AI reminds you when to act and what to do"],
-      ["You have no real view of future revenue", "Revenue forecasting calculated automatically"],
+      ["Leads arrive through messages, forms, and referrals with no single reliable record", "Capture every opportunity inside one structured timeline"],
+      ["Follow-ups depend on memory instead of process", "Keep next steps visible so conversations do not go cold"],
+      ["Important context gets buried across chats, notes, and spreadsheets", "Bring history, activity, and decisions into one system"],
+      ["The pipeline looks different depending on who you ask", "Give the whole team one shared operational view"],
+      ["AI tools create text, but not operational clarity", "Use AI inside the workflow to summarize, organize, and suggest action"],
+      ["Leaders cannot clearly see what is moving and what is stuck", "Surface pipeline health and team activity without manual reporting"],
     ],
     steps: [
-      ["01", "Never lose a lead to operational chaos again", "Capture every contact automatically. Noctra AI alerts you instantly so opportunities never go cold.", "UserPlus"],
-      ["02", "Send proposals in 3 clicks, not 3 hours", "Close deals at the speed of thought. High-impact visual proposals that clients can approve from their phone.", "FileText"],
-      ["03", "Total clarity in every project", "The answer to 'where are we on this?' is always here. Your team stays aligned and clients stay informed without extra email.", "FolderOpen"],
-      ["04", "Stop guessing your margins", "See exactly what you are earning in real time. Deep profitability analysis so you scale with data, not assumptions.", "BarChart2"],
+      ["01", "Capture leads without losing context", "Bring forms, messages, and referrals into one system so every opportunity starts with useful information.", "UserPlus"],
+      ["02", "Organize opportunities clearly", "Structure the pipeline by stage, priority, and next action so commercial work stops depending on personal memory.", "Layers"],
+      ["03", "Track every interaction", "Keep conversations, notes, files, and decisions inside one shared relationship history.", "Search"],
+      ["04", "Automate the follow-ups that matter", "Noctra identifies repetitive work, reminds the team about next steps, and suggests action when a deal needs attention.", "Brain"],
+      ["05", "Close with more visibility", "Reach each decision point with a clear view of activity, ownership, and real pipeline status.", "BarChart2"],
     ],
     features: [
-      ["Sparkles", "Central AI Brain", "Intelligent model orchestration. Noctra automatically routes each task to the most efficient processor to maximize ROI."],
-      ["FileText", "Proposal Builder", "Create branded proposals in minutes. Clients approve them online with a single click."],
-      ["BarChart2", "Visual Pipeline", "See every opportunity by stage with automatically calculated revenue forecasting."],
-      ["FolderOpen", "Project Management", "Every project tied to its client, proposal, and deliverables. Nothing gets lost."],
-      ["Users", "Client CRM", "Full history for every client: communication, projects, proposals, and payments."],
-      ["Search", "Global Search", "Find any client, proposal, or project in seconds with ⌘K."],
-      ["Globe", "Bilingual ES/EN", "Full interface in Spanish and English. Switch language instantly."],
-      ["Shield", "2FA Security", "Two-factor authentication to protect your client information."],
-      ["Smartphone", "Native Mobile", "Native-feeling mobile experience with bottom tabs and gestures."],
+      ["Sparkles", "AI-native workflows", "AI lives inside the system and works with real client, conversation, and pipeline context so teams can act with better judgment."],
+      ["UserPlus", "Lead Management", "Capture and organize opportunities from the start so no lead falls outside the process."],
+      ["BarChart2", "Sales Pipeline", "See stages, risk, and next steps clearly so follow-through becomes consistent."],
+      ["Users", "Client History", "Keep conversations, notes, files, and decisions together so every relationship stays understandable."],
+      ["Brain", "Automations", "Generate reminders, suggestions, and useful actions exactly where the team already works."],
+      ["Search", "Operational Visibility", "Surface what moved, what stalled, and where attention is needed without digging through tools."],
+      ["Globe", "Clarity for diverse teams", "Work in Spanish or English while keeping the same structured operational view."],
+      ["Shield", "Role-based access", "Each user sees the information they need for their job without exposing more than necessary."],
+      ["Smartphone", "Built for movement", "Review clients, pipeline, and activity from desktop or mobile without losing continuity."],
     ],
     faqs: [
-      ["Do I need a credit card for the trial?", "No. The 14-day trial is completely free and does not require payment details. You only need an email."],
-      ["What happens when the trial ends?", "We show you the available plans. Your content stays intact, and clients, proposals, and projects remain available once you subscribe."],
-      ["Can I cancel anytime?", "Yes. On the monthly plan you can cancel whenever you want. On annual billing, access remains active until the end of the paid period."],
-      ["Is it only for design and development agencies?", "Noctra Forge is optimized for creative and digital agencies, but any business managing clients and projects can use it."],
-      ["How are tokens used and what model does Noctra run?", "Noctra's central brain analyzes each request. Simple tasks use ultra-fast models, while more complex analysis is routed to higher-capability models."],
-      ["Is my data secure?", "Yes. All data is stored in Supabase with Row Level Security, so only you can access your information."],
-      ["Is there a mobile app?", "Noctra Forge is a progressive web app with a native-feeling mobile experience. You can add it to your home screen from the browser."],
+      ["When is the launch expected?", "The current goal is a late 2026 to early 2027 launch because the product includes a deeper AI layer and shared operational workflows, not just a standard CRM shell."],
+      ["Is this only for agencies?", "No. It is designed for professionals, SMBs, schools, startups, and real estate teams that need more structure in how they manage relationships and follow-through."],
+      ["How does AI usage work?", "Each plan includes AI usage capacity. That capacity is used when Noctra creates summaries, suggestions, or insights inside the workflow."],
+      ["What do tokens mean?", "Think of tokens as the amount of AI work included in your plan, not as a technical resource you need to manage manually."],
+      ["How does team access work?", "The system supports role-based visibility so sales, operations, and leadership can see what is relevant to them."],
+      ["What will waitlist members receive?", "They receive product updates, roadmap milestones, and the first notification when Noctra CRM opens publicly."],
+      ["Will pricing be transparent at launch?", "Yes. The goal is to make pricing and AI usage understandable from day one without hidden layers or surprise charges."],
     ],
     tools: [
-      ["Asana/ClickUp", "Projects", "$13"],
-      ["DocuSign/PandaDoc", "Signatures", "$20"],
-      ["Harvest/Toggl", "Time & Billing", "$12"],
-      ["Pipedrive/Hubspot", "CRM/Leads", "$15"],
+      ["Inbox + chat", "Communication", "$12"],
+      ["Spreadsheets", "Context", "$10"],
+      ["Task board", "Execution", "$15"],
+      ["Traditional CRM add-ons", "Pipeline + automation", "$25"],
     ],
-    solutionTitle: "Noctra Forge",
-    solutionDescription: "Centralize operations. Recover focus. Keep the margin.",
+    solutionTitle: "Noctra CRM",
+    solutionDescription: "One AI-native client operations system for pipeline, history, follow-through, and clarity.",
+    audiences: [
+      ["Professionals", "They need reliable follow-through without becoming administrators of five different tools.", "Noctra keeps clients, activity, and next actions in one place."],
+      ["SMBs", "They outgrow spreadsheets before they can justify enterprise complexity.", "Noctra adds structure, visibility, and AI assistance without unnecessary overhead."],
+      ["Schools and educational institutions", "They coordinate admissions, follow-up, and communication across multiple people.", "Noctra centralizes relationship history and makes responsibilities clearer."],
+      ["Startups", "They need commercial speed without building fragile operating habits.", "Noctra connects context, pipeline, and action in one system."],
+      ["Real estate agencies", "They manage many leads, repetitive follow-ups, and time-sensitive opportunities.", "Noctra helps organize interactions, reminders, and pipeline movement with more clarity."],
+    ],
+    principles: [
+      ["Clarity", "Every client relationship should be easy to understand, easy to update, and easy to act on."],
+      ["Efficiency", "AI and automation should remove useful work, not create more process to manage."],
+      ["Transparency", "Pricing, AI usage, and system scope should be visible from the start."],
+    ],
   },
 } as const;
 
@@ -288,6 +329,20 @@ export default function ForgeLanding() {
     desc,
   }));
 
+  const audienceIcons = ["UserPlus", "Layers", "Users", "Brain", "BarChart2"] as const;
+  const audiences = copy.audiences.map(([title, challenge, outcome], index) => ({
+    icon: audienceIcons[index],
+    title,
+    challenge,
+    outcome,
+  }));
+
+  const principles = copy.principles.map(([title, desc], index) => ({
+    icon: ["SearchCode", "Sparkles", "Shield"][index],
+    title,
+    desc,
+  }));
+
   const faqs = copy.faqs.map(([q, a]) => ({ q, a }));
 
   return (
@@ -360,10 +415,7 @@ export default function ForgeLanding() {
         <div className="flex flex-col items-center gap-6 animate-in fade-in slide-in-from-bottom-16 duration-1000 delay-500 relative z-10">
           <div className="flex flex-col sm:flex-row items-center gap-4 flex-wrap justify-center w-full">
             <Link
-              href={{
-                pathname: "/login",
-                query: { mode: "signup", plan: "starter" },
-              }}
+              href="/waitlist"
               className="flex items-center justify-center gap-2 bg-white text-black font-bold rounded-full h-12 px-8 text-base hover:bg-gray-200 transition-all duration-300 w-full sm:w-auto">
               {copy.startFree} <ArrowRight size={18} />
             </Link>
@@ -461,7 +513,7 @@ export default function ForgeLanding() {
             {/* Animated Screenshot (GIF behavior) */}
             <Image
               src="/images/forge-dashboard-animated.webp"
-              alt="Noctra Forge Dashboard"
+              alt="Noctra CRM dashboard preview"
               width={1200}
               height={800}
               unoptimized
@@ -681,7 +733,7 @@ export default function ForgeLanding() {
                   {copy.total}
                 </span>
                 <span className="text-red-500 font-mono text-xl font-bold">
-                  ~$60 <span className="text-xs">/usuario</span>
+                  ~$62 <span className="text-xs">/mo</span>
                 </span>
               </div>
             </div>
@@ -706,7 +758,10 @@ export default function ForgeLanding() {
                 </p>
                 <div className="flex flex-col items-center">
                   <span className="text-[#10b981] text-5xl font-black tracking-tighter mb-1">
-                    $29<span className="text-sm font-bold">/mes</span>
+                    $39
+                    <span className="text-sm font-bold">
+                      {locale === "es" ? "/mes" : "/mo"}
+                    </span>
                   </span>
                   <span className="text-[10px] text-neutral-500 font-medium mb-3">
                     {copy.pricingStarterNote}
@@ -736,7 +791,91 @@ export default function ForgeLanding() {
       {/* --- SECTION 6: PRICING --- */}
       <PricingWithROI />
 
-      {/* --- SECTION 7: FAQ --- */}
+      {/* --- SECTION 7: AUDIENCE --- */}
+      <section className="py-20 md:py-28 px-6 border-t border-white/5 bg-white/[0.01]">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-[10px] sm:text-xs uppercase tracking-widest text-[#10b981] font-bold text-center mb-4">
+            {copy.audienceEyebrow}
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white text-center mb-16">
+            {copy.audienceTitle}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
+            {audiences.map((item) => (
+              <div
+                key={item.title}
+                className="border border-white/5 rounded-3xl p-6 bg-white/[0.02] hover:bg-white/[0.04] hover:border-[#10b981]/20 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-5">
+                  <DynamicIcon
+                    name={item.icon}
+                    size={22}
+                    className="text-white/60"
+                  />
+                </div>
+                <h3 className="text-lg font-bold text-white mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-neutral-400 leading-relaxed mb-4">
+                  {item.challenge}
+                </p>
+                <p className="text-sm text-neutral-300 leading-relaxed">
+                  {item.outcome}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- SECTION 8: PRINCIPLES --- */}
+      <section className="py-20 md:py-28 px-6 border-t border-white/5">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[10px] sm:text-xs uppercase tracking-widest text-[#10b981] font-bold text-center mb-4">
+            {copy.principlesEyebrow}
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white text-center mb-16">
+            {copy.principlesTitle}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {principles.map((item) => (
+              <div
+                key={item.title}
+                className="border border-white/5 rounded-3xl p-8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-[#10b981]/20 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6">
+                  <DynamicIcon
+                    name={item.icon}
+                    size={22}
+                    className="text-white/60"
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-neutral-400 leading-relaxed text-sm md:text-base">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- SECTION 9: STORY --- */}
+      <section className="py-20 md:py-28 px-6 border-t border-white/5 bg-black">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-[10px] sm:text-xs uppercase tracking-widest text-[#10b981] font-bold mb-4">
+            {copy.storyEyebrow}
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-8 text-balance">
+            {copy.storyTitle}
+          </h2>
+          <p className="text-base md:text-xl text-neutral-400 leading-relaxed max-w-3xl mx-auto">
+            {copy.storyDescription}
+          </p>
+        </div>
+      </section>
+
+      {/* --- SECTION 10: FAQ --- */}
       <section className="py-20 md:py-28 px-6 border-t border-white/5">
         <div className="max-w-3xl mx-auto">
           <p className="text-[10px] sm:text-xs uppercase tracking-widest text-[#10b981] font-bold text-center mb-4">
@@ -753,7 +892,7 @@ export default function ForgeLanding() {
         </div>
       </section>
 
-      {/* --- SECTION 8: CTA FINAL --- */}
+      {/* --- SECTION 11: CTA FINAL --- */}
       <section className="py-28 md:py-40 px-6 border-t border-white/5 text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#10b981]/[0.02] to-transparent pointer-events-none" />
         <div className="max-w-2xl mx-auto relative z-10 flex flex-col items-center">
@@ -763,16 +902,11 @@ export default function ForgeLanding() {
           <p className="text-lg md:text-xl text-neutral-400 mb-10 max-w-xl leading-relaxed">
             {copy.finalDescription}
           </p>
-          {/* Beta Coming Soon - Temporarily Disabled */}
           <Link
-            href={{
-              pathname: "/login",
-              query: { mode: "signup", plan: "starter" },
-            }}
+            href="/waitlist"
             className="flex items-center justify-center gap-2 bg-white text-black font-bold h-12 rounded-full px-10 text-base hover:bg-gray-200 transition-all duration-300">
             {copy.startFree} <ArrowRight size={18} />
           </Link>
-          {/* Original Link: /login */}
           <p className="text-xs text-neutral-500 mt-6 tracking-wide">
             {copy.finalFootnote}
           </p>

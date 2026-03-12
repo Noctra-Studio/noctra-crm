@@ -12,38 +12,38 @@ import { useLocale } from "next-intl";
 
 const UNIFIED_STACK_COPY = {
   es: {
-    title: "Tu Stack Comercial, Unificado.",
+    title: "Cómo funciona el uso de IA",
     description:
-      "Deja de pagar $100+ en herramientas dispersas. Noctra conecta Marketing, Ventas, Legal y Finanzas en un solo flujo continuo.",
-    profitabilityTitle: "Predictive Profitability AI",
+      "Cada plan incluye capacidad de uso de IA. Noctra la utiliza cuando resume conversaciones, sugiere acciones o detecta información útil dentro del flujo de trabajo.",
+    profitabilityTitle: "Capacidad de IA incluida con claridad",
     profitabilityDescription:
-      "Noctra calcula tu Margen Neto en tiempo real cruzando horas, costos y facturación.",
-    projectMargin: "Project Margin",
-    signatureTitle: "Firma Digital Nativa",
-    signatureDescription: "Envía propuestas y ciérralas en el acto. Sin salir de Noctra.",
-    accountingTitle: "Contabilidad Sync",
-    accountingDescription: "Tus facturas en Noctra viajan directo a QuickBooks sin esfuerzo.",
-    marketingTitle: "Marketing Bridge",
+      "Piensa en los tokens como la capacidad de trabajo de IA incluida en tu plan. No se gastan por tener la función visible, solo cuando el sistema ejecuta tareas útiles para el equipo.",
+    projectMargin: "Uso útil de IA",
+    signatureTitle: "Eficiencia en el consumo",
+    signatureDescription: "Noctra prioriza tareas importantes, evita solicitudes innecesarias y busca sacar más valor de cada interacción de IA.",
+    accountingTitle: "Acceso por roles",
+    accountingDescription: "Cada persona ve lo necesario para su trabajo, sin abrir más información de la cuenta de la que realmente necesita.",
+    marketingTitle: "Inteligencia de equipo",
     marketingDescription:
-      "Conexión bidireccional con Audiencias para automatizar tu embudo.",
-    protocol: "Noctra Unified Intelligence Protocol",
+      "El sistema aprende del historial compartido, mantiene continuidad entre personas y protege el contexto sensible dentro de la operación.",
+    protocol: "Uso transparente por diseño",
   },
   en: {
-    title: "Your commercial stack, unified.",
+    title: "How AI usage works",
     description:
-      "Stop spending $100+ on disconnected tools. Noctra connects marketing, sales, legal, and finance in a single continuous flow.",
-    profitabilityTitle: "Predictive Profitability AI",
+      "Every plan includes AI usage capacity. Noctra uses it when the system summarizes conversations, suggests actions, or surfaces useful insights inside the workflow.",
+    profitabilityTitle: "Included AI capacity, explained clearly",
     profitabilityDescription:
-      "Noctra calculates net margin in real time by combining hours, costs, and billing.",
-    projectMargin: "Project Margin",
-    signatureTitle: "Native digital signature",
-    signatureDescription: "Send proposals and close them instantly without leaving Noctra.",
-    accountingTitle: "Accounting Sync",
-    accountingDescription: "Invoices created in Noctra sync directly to QuickBooks with no manual work.",
-    marketingTitle: "Marketing Bridge",
+      "Think of tokens as the amount of AI work included in your plan. They are not consumed because a feature exists, only when the system performs useful AI tasks for the team.",
+    projectMargin: "Useful AI coverage",
+    signatureTitle: "Efficient by default",
+    signatureDescription: "Noctra prioritizes important tasks, avoids unnecessary requests, and tries to get more value from every AI interaction.",
+    accountingTitle: "Role-based access",
+    accountingDescription: "Each person sees the information they need for their role without opening up more account context than necessary.",
+    marketingTitle: "Team intelligence",
     marketingDescription:
-      "Two-way audience sync to automate your funnel without operational drift.",
-    protocol: "Noctra Unified Intelligence Protocol",
+      "The system learns from shared history, keeps continuity across people, and protects sensitive context inside daily operations.",
+    protocol: "Transparent usage by design",
   },
 } as const;
 

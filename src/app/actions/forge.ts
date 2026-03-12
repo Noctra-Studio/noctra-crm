@@ -3,7 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { resend } from "@/lib/resend";
 
-export async function submitEarlyAccess(formData: {
+export async function submitWaitlist(formData: {
   email: string;
   agencyName?: string;
   locale?: string;
@@ -33,34 +33,34 @@ export async function submitEarlyAccess(formData: {
   try {
     const isEn = locale === "en";
     const subject = isEn 
-      ? "Welcome to Noctra CRM Early Access List! 🚀" 
-      : "¡Bienvenido a la lista de Early Access de Noctra CRM! 🚀";
+      ? "You are on the Noctra CRM waitlist"
+      : "Ya estás en la lista de espera de Noctra CRM";
 
     const html = isEn 
       ? `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #10B981;">You're on the list!</h1>
+          <h1 style="color: #10B981;">You're on the waitlist</h1>
           <p>Hello,</p>
-          <p>Thanks for your interest in <strong>Noctra CRM (Forge)</strong>. We've received your request for early access.</p>
-          <p>Our team is reviewing applications for the private beta. We're looking for agencies that want to help us shape the future of digital management.</p>
+          <p>Thanks for your interest in <strong>Noctra CRM</strong>. We have received your waitlist request.</p>
+          <p>We are currently building the product toward a planned launch window in late 2026 to early 2027.</p>
           <p><strong>What's next?</strong></p>
           <ul>
-            <li>We'll contact you within 48 hours to discuss your agency's needs.</li>
-            <li>Early access members get founder pricing and a direct line to our dev team.</li>
+            <li>We will share product milestones and launch updates with you.</li>
+            <li>You will be among the first to know when Noctra CRM is ready to open publicly.</li>
           </ul>
           <p>Best regards,<br/>The Noctra Studio Team</p>
         </div>
       `
       : `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #10B981;">¡Ya estás en la lista!</h1>
+          <h1 style="color: #10B981;">Ya estás en la lista de espera</h1>
           <p>Hola,</p>
-          <p>Gracias por tu interés en <strong>Noctra CRM (Forge)</strong>. Hemos recibido tu solicitud para el acceso anticipado.</p>
-          <p>Nuestro equipo está revisando las aplicaciones para la beta privada. Buscamos agencias que quieran ayudarnos a moldear el futuro de la gestión digital.</p>
+          <p>Gracias por tu interés en <strong>Noctra CRM</strong>. Ya recibimos tu solicitud para la lista de espera.</p>
+          <p>Estamos construyendo el producto con una ventana estimada de lanzamiento entre finales de 2026 e inicios de 2027.</p>
           <p><strong>¿Qué sigue?</strong></p>
           <ul>
-            <li>Te contactaremos en las próximas 48 horas para discutir las necesidades de tu agencia.</li>
-            <li>Los miembros con early access obtienen precio de fundador y línea directa con nuestro equipo de desarrollo.</li>
+            <li>Te compartiremos hitos del producto y actualizaciones de lanzamiento.</li>
+            <li>Serás de las primeras personas en enterarte cuando Noctra CRM abra oficialmente.</li>
           </ul>
           <p>Saludos,<br/>El equipo de Noctra Studio</p>
         </div>
@@ -77,20 +77,20 @@ export async function submitEarlyAccess(formData: {
     await resend.emails.send({
       from: "Noctra Forge <system@noctra.studio>",
       to: ["hello@noctra.studio"],
-      subject: `New Early Access Lead: ${agencyName || 'Personal'} (${email})`,
+      subject: `New Noctra CRM Waitlist Lead: ${agencyName || 'Individual'} (${email})`,
       html: `
         <div style="font-family: sans-serif;">
-          <h2>New Forge CRM Lead</h2>
+          <h2>New Noctra CRM Waitlist Lead</h2>
           <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Agency:</strong> ${agencyName || 'N/A'}</p>
+          <p><strong>Organization:</strong> ${agencyName || 'N/A'}</p>
           <p><strong>Locale:</strong> ${locale}</p>
-          <p><strong>Status:</strong> Set as CRM potential</p>
+          <p><strong>Status:</strong> Waitlist</p>
         </div>
       `,
     });
 
   } catch (emailError) {
-    console.error("Error sending Early Access email:", emailError);
+    console.error("Error sending waitlist email:", emailError);
     // We don't throw here to avoid failing the whole request if email fails but DB succeeded
   }
 

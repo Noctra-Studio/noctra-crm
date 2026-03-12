@@ -14,88 +14,88 @@ import { useLocale } from "next-intl";
 
 const PRICING_COPY = {
   es: {
-    eyebrow: "Planes y Precios",
-    title: "No es un gasto, es una inversión en tu crecimiento.",
+    eyebrow: "Precios transparentes",
+    title: "Precios claros desde antes del lanzamiento.",
     description:
-      "Consolida tus herramientas y escala sin límites. Planes diseñados para el tamaño exacto de tu operación.",
+      "Noctra CRM quiere dejar claro desde el inicio qué incluye cada plan y cómo se utiliza la capacidad de IA. Sin letras pequeñas, sin capas ocultas.",
     starterPeriod: "/usuario/mes",
     starterDescription:
-      "Para Freelancers y Solopreneurs gestionando sus operaciones.",
+      "Para profesionales y operaciones pequeñas que necesitan estructura desde el inicio.",
     starterFeatures: [
-      "CRM Básico & Pipeline de Ventas",
-      "Gestión de Proyectos",
-      "50,000 Créditos IA / mes",
-      "Soporte vía Email",
-      "Integración con pagos (Stripe)",
+      "Lead management y pipeline estructurado",
+      "Historial centralizado por cliente",
+      "50,000 tokens de uso de IA / mes",
+      "Resúmenes y sugerencias dentro del flujo",
+      "Soporte por email",
     ],
-    starterCta: "Empezar Gratis",
-    popular: "Más Popular",
+    starterCta: "Unirme a la lista",
+    popular: "Pensado para equipos",
     proPeriod: "/usuario/mes",
-    proDescription: "Para Agencias y Equipos en Crecimiento. La suite completa.",
+    proDescription: "Para equipos en crecimiento que necesitan más visibilidad y automatización.",
     proIncludes: "Todo en Starter, más:",
     proFeatures: [
-      "200,000 Créditos IA / mes",
-      "Integración WhatsApp Nativa",
-      "Firmas Digitales Ilimitadas (Noctra Sign)",
-      "Portales de Cliente (Clase Mundial)",
-      "Soporte Prioritario",
+      "200,000 tokens de uso de IA / mes",
+      "Automatizaciones y follow-ups sugeridos",
+      "Mejor visibilidad operativa por equipo",
+      "Más capacidad para historiales y actividad",
+      "Soporte prioritario",
     ],
-    proCta: "Probar 14 días",
+    proCta: "Unirme a la lista",
     enterprisePrice: "Custom",
     enterpriseDescription:
-      "Para Organizaciones y Corporativos que escalan masivamente.",
+      "Para organizaciones que requieren seguridad, control y volumen a mayor escala.",
     enterpriseIncludes: "Todo en Pro, más:",
     fairUse:
-      "Sujeto a Política de Uso Justo (Fair Use Policy) para prevenir explotación automatizada por bots.",
+      "Sujeto a una política de uso responsable para prevenir abuso automatizado y proteger la calidad del sistema.",
     enterpriseFeatures: [
-      "Entrenamiento de Modelos Custom",
-      "SSO (SAML/Okta) & Audit Logs",
-      "Opción On-Premise",
-      "Soporte Dedicado / Slack Connect",
+      "Mayores volúmenes de uso de IA",
+      "Controles avanzados de acceso",
+      "Opciones de seguridad adicionales",
+      "Acompañamiento dedicado",
     ],
-    contactSales: "Contactar Ventas",
+    contactSales: "Hablar con nosotros",
   },
   en: {
-    eyebrow: "Plans & Pricing",
-    title: "This is not overhead. It is growth infrastructure.",
+    eyebrow: "Transparent pricing",
+    title: "Clear pricing before launch.",
     description:
-      "Consolidate your tool stack and scale without fragmentation. Plans designed for the real size of your operation.",
+      "Noctra CRM is being designed to make plan scope and AI usage understandable from the start. No small print, no hidden layers.",
     starterPeriod: "/user/mo",
     starterDescription:
-      "For freelancers and solo operators managing delivery, clients, and revenue.",
+      "For professionals and small operations that need structure from the beginning.",
     starterFeatures: [
-      "Core CRM & sales pipeline",
-      "Project management",
-      "50,000 AI credits / month",
+      "Structured lead management and pipeline",
+      "Centralized client history",
+      "50,000 AI usage tokens / month",
+      "Summaries and suggestions inside the workflow",
       "Email support",
-      "Stripe payment integration",
     ],
-    starterCta: "Start Free",
-    popular: "Most Popular",
+    starterCta: "Join the waitlist",
+    popular: "Built for teams",
     proPeriod: "/user/mo",
-    proDescription: "For growing agencies and teams. The complete operating suite.",
+    proDescription: "For growing teams that need more visibility and automation.",
     proIncludes: "Everything in Starter, plus:",
     proFeatures: [
-      "200,000 AI credits / month",
-      "Native WhatsApp integration",
-      "Unlimited digital signatures (Noctra Sign)",
-      "World-class client portals",
+      "200,000 AI usage tokens / month",
+      "Suggested automations and follow-ups",
+      "Stronger operational visibility across teams",
+      "More capacity for shared history and activity",
       "Priority support",
     ],
-    proCta: "Try 14 days",
+    proCta: "Join the waitlist",
     enterprisePrice: "Custom",
     enterpriseDescription:
-      "For organizations and enterprises scaling at high volume.",
+      "For organizations that need more security, control, and higher-volume usage.",
     enterpriseIncludes: "Everything in Pro, plus:",
     fairUse:
-      "Subject to a Fair Use Policy to prevent automated abuse at scale.",
+      "Subject to a responsible-use policy to prevent automated abuse and protect system quality.",
     enterpriseFeatures: [
-      "Custom model training",
-      "SSO (SAML/Okta) & audit logs",
-      "On-premise option",
-      "Dedicated support / Slack Connect",
+      "Higher AI usage volumes",
+      "Advanced access controls",
+      "Additional security options",
+      "Dedicated support",
     ],
-    contactSales: "Contact Sales",
+    contactSales: "Talk to us",
   },
 } as const;
 
@@ -168,10 +168,7 @@ export const PricingWithROI = () => {
             </div>
 
             <Link
-              href={{
-                pathname: "/login",
-                query: { mode: "signup", plan: "starter" },
-              }}
+              href="/waitlist"
               className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all active:scale-[0.98]">
               {copy.starterCta}
             </Link>
@@ -237,10 +234,7 @@ export const PricingWithROI = () => {
 
             <div className="relative z-10">
               <Link
-                href={{
-                  pathname: "/login",
-                  query: { mode: "signup", plan: "pro", trial: "true" },
-                }}
+                href="/waitlist"
                 className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-white text-black font-black hover:bg-neutral-200 transition-all active:scale-[0.98]">
                 {copy.proCta} <ArrowRight size={18} />
               </Link>
