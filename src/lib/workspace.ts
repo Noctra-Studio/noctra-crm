@@ -28,8 +28,9 @@ export const getWorkspace = cache(async () => {
         email,
         currency,
         country,
-        subscription_status,
         tier,
+        plan,
+        is_active,
         custom_domain,
         subdomain
       )
@@ -51,29 +52,6 @@ export const getWorkspace = cache(async () => {
       workspaceId: membership.workspace_id,
       role: membership.role,
       workspace: (membership as any).workspaces,
-    };
-  }
-
-  // Fallback: Check if the user is an owner of any workspace directly
-  // This handles cases where workspace_members record creation might have failed
-  const { data: ownedWorkspaces, error: ownedWorkspaceError } = await supabase
-    .from("workspaces")
-    .select("*")
-    .eq("owner_id", user.id)
-    .limit(10);
-
-  if (ownedWorkspaceError) {
-    console.error("[getWorkspace] owner workspace lookup failed:", ownedWorkspaceError);
-  }
-
-  const ownedWorkspace = ownedWorkspaces?.[0];
-
-  if (ownedWorkspace) {
-    console.warn(`[getWorkspace] No membership found for user ${user.id}, but found owned workspace ${ownedWorkspace.id}. Using fallback.`);
-    return {
-      workspaceId: ownedWorkspace.id,
-      role: "owner",
-      workspace: ownedWorkspace,
     };
   }
 
