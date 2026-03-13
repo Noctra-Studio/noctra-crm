@@ -8,7 +8,7 @@ import { useLocale } from "next-intl";
 
 const FOOTER_COPY = {
   es: {
-    tagline: "Sistema AI-native para ventas, clientes y operación.",
+    tagline: "Client Operations System para ventas, relaciones con clientes y operación.",
     platform: "Plataforma",
     demo: "Demo",
     pricing: "Precios",
@@ -26,7 +26,7 @@ const FOOTER_COPY = {
     designedIn: "Diseñado en Querétaro con ☕",
   },
   en: {
-    tagline: "AI-native system for sales, clients, and operations.",
+    tagline: "Client Operations System for sales, client relationships, and operations.",
     platform: "Platform",
     demo: "Demo",
     pricing: "Pricing",

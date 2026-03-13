@@ -9,7 +9,6 @@ import {
   Building2,
   Brain,
   MessageSquare,
-  Shield,
   Server,
   Zap,
 } from "lucide-react";
@@ -19,19 +18,17 @@ import { useLocale } from "next-intl";
 const COMPARISON_COPY = {
   es: {
     rows: [
-      ["Arquitectura de IA", "Herramientas sueltas sin contexto compartido", "IA añadida como complemento o módulo aparte", "IA nativa dentro del flujo operativo"],
-      ["Claridad del workflow", "Depende de memoria, chats y hojas de cálculo", "Pipeline visible, pero el contexto vive fuera", "Pipeline, historial y próximos pasos en un mismo sistema"],
-      ["Complejidad de implementación", "Rápida al inicio, costosa al crecer", "Requiere configuración, campos y procesos extra", "Pensado para operar con estructura desde el día uno"],
-      ["Inteligencia de automatización", "Recordatorios manuales o parciales", "Automatizaciones basadas en reglas", "Sugerencias, resúmenes y acciones con contexto real"],
-      ["Visibilidad operativa", "Cada área arma su propia versión", "La operación se reparte entre varios módulos", "Una vista compartida de clientes, actividad y oportunidades"],
-      ["Uso de IA", "Sin capacidad incluida", "Cobros opacos o por add-ons", "Capacidad incluida y explicada con claridad"],
-      ["Seguridad para equipos", "Acceso informal por archivos o chats", "Permisos disponibles, pero no siempre claros", "Acceso por rol y mejor protección del contexto sensible"],
+      ["Arquitectura de IA", "La IA vive fuera del proceso y sin contexto compartido", "La IA se añade como una capa aparte del CRM", "La IA forma parte del sistema y trabaja con el contexto real del cliente"],
+      ["Claridad del workflow", "El trabajo depende de memoria, chats y hojas de cálculo", "Hay pipeline, pero el contexto se reparte entre módulos y registros", "Pipeline, interacciones, historial y próximos pasos viven en un mismo flujo"],
+      ["Complejidad de implementación", "Es fácil empezar, pero difícil operar con consistencia", "Requiere configuración, campos y administración antes de que el equipo lo adopte", "Está pensado para entenderse rápido y usarse con estructura desde el inicio"],
+      ["Inteligencia de automatización", "Los recordatorios y seguimientos se hacen manualmente", "Las automatizaciones siguen reglas, pero entienden poco del contexto", "Resume conversaciones, sugiere follow-ups e identifica oportunidades con más criterio"],
+      ["Visibilidad operativa", "No hay una vista clara de lo que avanza o se detiene", "Hay reportes, pero el estado real sigue repartido", "Da una vista compartida de pipeline, actividad y siguientes pasos para decidir mejor"],
     ],
     fairUse: "",
     eyebrow: "Comparativa",
     title: "Compara modelos operativos, no solo listas de funciones.",
     description:
-      "La diferencia real no está en una función aislada. Está en si el equipo opera con herramientas fragmentadas, con un CRM lleno de add-ons o con un sistema AI-native para la relación con clientes.",
+      "La diferencia real no está en tener más funciones. Está en si la IA se añade como un extra o si forma parte del sistema para dar claridad al trabajo con clientes.",
     recommended: "AI-native",
     starterCta: "Ver el flujo",
     proCta: "Solicitar acceso",
@@ -42,19 +39,17 @@ const COMPARISON_COPY = {
   },
   en: {
     rows: [
-      ["AI architecture", "Loose tools with no shared context", "AI added as an extra module or add-on", "AI built directly into the operating workflow"],
-      ["Workflow clarity", "Relies on memory, chats, and spreadsheets", "Pipeline is visible, but context lives elsewhere", "Pipeline, history, and next steps live in one system"],
-      ["Setup complexity", "Fast to start, costly to scale", "Needs configuration, fields, and process overhead", "Designed to operate with structure from day one"],
-      ["Automation intelligence", "Manual or partial reminders", "Rule-based automation", "Suggestions, summaries, and actions with real context"],
-      ["Operational visibility", "Each area builds its own version of reality", "Operations are split across modules", "One shared view of clients, activity, and opportunities"],
-      ["AI usage model", "No included AI capacity", "Opaque charges or add-on pricing", "Included AI capacity explained clearly"],
-      ["Team security", "Informal access through files or chats", "Permissions exist but are not always clear", "Role-based access and better protection of sensitive context"],
+      ["AI architecture", "AI sits outside the process with no shared context", "AI is added as a separate layer on top of the CRM", "AI is part of the system and works from real client context"],
+      ["Workflow clarity", "Work depends on memory, chats, and spreadsheets", "There is a pipeline, but context is split across modules and records", "Pipeline, interactions, history, and next steps live in one flow"],
+      ["Setup complexity", "Easy to start, hard to run consistently", "Needs configuration, fields, and admin work before teams adopt it", "Designed to be understood quickly and used with structure from the start"],
+      ["Automation intelligence", "Reminders and follow-ups are handled manually", "Automation follows rules, but understands little of the relationship context", "Summarizes conversations, suggests follow-ups, and identifies opportunities with more context"],
+      ["Operational visibility", "There is no clear view of what is moving or stalled", "Reports exist, but the real picture is still scattered", "Gives the team a shared view of pipeline, activity, and next steps to make better decisions"],
     ],
     fairUse: "",
     eyebrow: "Comparison",
     title: "Compare operating models, not just feature lists.",
     description:
-      "The real difference is not one isolated feature. It is whether the team runs on fragmented tools, on a CRM filled with add-ons, or on one AI-native client operations system.",
+      "The real difference is not having more features. It is whether AI is added as an extra or built into the system to bring clarity to client work.",
     recommended: "AI-native",
     starterCta: "See the workflow",
     proCta: "Join early access",
@@ -115,23 +110,6 @@ export const PricingComparison = () => {
       starter: copy.rows[4][1],
       pro: copy.rows[4][2],
       enterprise: copy.rows[4][3],
-    },
-    {
-      category: copy.rows[5][0],
-      starter: copy.rows[5][1],
-      pro: copy.rows[5][2],
-      enterprise: copy.rows[5][3],
-    },
-    {
-      category: copy.rows[6][0],
-      starter: copy.rows[6][1],
-      pro: copy.rows[6][2],
-      enterprise: (
-        <span className="flex items-center gap-2">
-          <Shield size={16} className="text-amber-500/80 shrink-0" />
-          {copy.rows[6][3]}
-        </span>
-      ),
     },
   ];
 

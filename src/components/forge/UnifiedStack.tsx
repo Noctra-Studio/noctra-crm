@@ -12,40 +12,40 @@ import { useLocale } from "next-intl";
 
 const UNIFIED_STACK_COPY = {
   es: {
-    title: "Cómo funciona el uso de IA",
+    title: "Cómo funciona la ayuda inteligente dentro del sistema",
     description:
-      "Cada plan incluye capacidad de uso de IA. Noctra la utiliza cuando resume conversaciones, sugiere acciones o detecta información útil dentro del flujo de trabajo.",
-    profitabilityTitle: "Los tokens son capacidad de IA incluida",
+      "Cada plan incluye capacidad de ayuda inteligente que el propio sistema utiliza. Noctra la usa para resumir conversaciones, organizar información del cliente, sugerir follow-ups e identificar oportunidades sin sacar al equipo de su operación.",
+    profitabilityTitle: "Los tokens son trabajo útil dentro del sistema",
     profitabilityDescription:
-      "Piensa en los tokens como la capacidad de trabajo de IA incluida en tu plan. No se consumen por tener la función visible, solo cuando el sistema ejecuta tareas útiles como resúmenes, sugerencias o insights.",
+      "Piensa en los tokens como la capacidad de trabajo incluida en tu plan. No se consumen por ver una función, sino cuando Noctra ejecuta trabajo útil sobre el contexto compartido, como resúmenes, organización de información, sugerencias o detección de oportunidades.",
     projectMargin: "Cobertura útil de IA",
-    signatureTitle: "Eficiencia de IA por diseño",
-    signatureDescription: "Noctra prioriza tareas importantes, evita solicitudes innecesarias y busca sacar más valor de cada interacción de IA.",
-    signatureBadge: "Uso priorizado",
-    accountingTitle: "Acceso por roles",
+    signatureTitle: "Uso visible de IA",
+    signatureDescription: "La ayuda inteligente trabaja dentro del sistema y su uso puede entenderse con claridad. No se activa por estar disponible, sino cuando aporta valor en el trabajo diario.",
+    signatureBadge: "Consumo claro",
+    accountingTitle: "Permisos por rol",
     accountingDescription: "Cada persona ve lo necesario para su trabajo, sin abrir más información de la cuenta de la que realmente necesita.",
-    marketingTitle: "Inteligencia de equipo y protección de datos",
+    marketingTitle: "Datos con contexto y cuidado",
     marketingDescription:
-      "El sistema aprende del historial compartido, mantiene continuidad entre personas y protege el contexto sensible dentro de la operación.",
-    protocol: "Uso transparente por diseño",
+      "La ayuda inteligente trabaja sobre el historial compartido, mantiene continuidad entre personas y respeta los permisos del sistema para proteger el contexto sensible.",
+    protocol: "Transparente por diseño",
   },
   en: {
-    title: "How AI usage works",
+    title: "How intelligent assistance works inside the system",
     description:
-      "Every plan includes AI usage capacity. Noctra uses it when the system summarizes conversations, suggests actions, or surfaces useful insights inside the workflow.",
-    profitabilityTitle: "Tokens are included AI capacity",
+      "Every plan includes intelligent-assistance capacity that the system itself uses. Noctra uses it to summarize conversations, organize client information, suggest follow-ups, and identify opportunities without pushing the team out of its workflow.",
+    profitabilityTitle: "Tokens are useful work inside the system",
     profitabilityDescription:
-      "Think of tokens as the amount of AI work included in your plan. They are not consumed because a feature exists, only when the system performs useful work such as summaries, suggestions, or insights.",
+      "Think of tokens as the amount of work included in your plan. They are not consumed because a feature exists, only when Noctra performs useful work on shared context such as summaries, information organization, suggestions, or opportunity signals.",
     projectMargin: "Useful AI coverage",
-    signatureTitle: "AI efficiency by design",
-    signatureDescription: "Noctra prioritizes important tasks, avoids unnecessary requests, and tries to get more value from every AI interaction.",
-    signatureBadge: "Prioritized usage",
-    accountingTitle: "Role-based access",
+    signatureTitle: "Visible AI usage",
+    signatureDescription: "Intelligent assistance works inside the system and its usage should be easy to understand. It is not consumed because it exists, only when it adds value to daily work.",
+    signatureBadge: "Clear usage",
+    accountingTitle: "Role-based permissions",
     accountingDescription: "Each person sees the information they need for their role without opening up more account context than necessary.",
-    marketingTitle: "Team intelligence and data protection",
+    marketingTitle: "Data handled with context and care",
     marketingDescription:
-      "The system learns from shared history, keeps continuity across people, and protects sensitive context inside daily operations.",
-    protocol: "Transparent usage by design",
+      "Intelligent assistance works from shared history, keeps continuity across people, and respects system permissions to protect sensitive context.",
+    protocol: "Transparent by design",
   },
 } as const;
 
