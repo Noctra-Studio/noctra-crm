@@ -800,27 +800,72 @@ export default function ForgeLanding() {
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white text-center mb-16">
             {copy.audienceTitle}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
-            {audiences.map((item) => (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {audiences.map((item, index) => (
               <div
                 key={item.title}
-                className="border border-white/5 rounded-3xl p-6 bg-white/[0.02] hover:bg-white/[0.04] hover:border-[#10b981]/20 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-5">
-                  <DynamicIcon
-                    name={item.icon}
-                    size={22}
-                    className="text-white/60"
-                  />
+                className={cn(
+                  "group relative overflow-hidden border border-white/5 rounded-3xl bg-white/[0.02] hover:bg-white/[0.04] hover:border-[#10b981]/20 transition-all",
+                  index === audiences.length - 1
+                    ? "lg:col-span-2 p-6 md:p-7 lg:p-8"
+                    : "p-6 md:p-7 min-h-[320px]",
+                )}>
+                <div
+                  className={cn(
+                    "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br pointer-events-none",
+                    index === 0
+                      ? "from-emerald-500/10 via-transparent to-transparent"
+                      : index === 1
+                        ? "from-white/[0.07] via-transparent to-transparent"
+                        : index === 2
+                          ? "from-cyan-500/10 via-transparent to-transparent"
+                          : index === 3
+                            ? "from-amber-500/10 via-transparent to-transparent"
+                            : "from-fuchsia-500/10 via-transparent to-transparent",
+                  )}
+                />
+                <div
+                  className={cn(
+                    "relative z-10 h-full",
+                    index === audiences.length - 1
+                      ? "grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end"
+                      : "flex h-full flex-col",
+                  )}>
+                  <div className={cn(index === audiences.length - 1 ? "lg:max-w-sm" : "")}>
+                    <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-5">
+                      <DynamicIcon
+                        name={item.icon}
+                        size={22}
+                        className="text-white/60"
+                      />
+                    </div>
+                    <h3
+                      className={cn(
+                        "font-bold text-white mb-3 text-balance",
+                        index === audiences.length - 1 ? "text-2xl md:text-3xl" : "text-xl md:text-2xl",
+                      )}>
+                      {item.title}
+                    </h3>
+                    <p className="text-[10px] uppercase tracking-[0.24em] text-white/35 font-bold mb-3">
+                      {locale === "es" ? "Reto común" : "Common challenge"}
+                    </p>
+                    <p className="text-neutral-400 leading-relaxed text-sm md:text-base max-w-[34rem]">
+                      {item.challenge}
+                    </p>
+                  </div>
+                  <div
+                    className={cn(
+                      "border-t border-white/5 pt-5",
+                      index === audiences.length - 1 ? "lg:pt-0 lg:pl-8 lg:border-t-0 lg:border-l" : "mt-auto",
+                    )}>
+                    <p className="text-[10px] uppercase tracking-[0.24em] text-[#10b981] font-bold mb-3">
+                      {locale === "es" ? "Cómo ayuda Noctra" : "How Noctra helps"}
+                    </p>
+                    <p className="text-neutral-200 leading-relaxed text-sm md:text-base max-w-[42rem]">
+                      {item.outcome}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-white mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-neutral-400 leading-relaxed mb-4">
-                  {item.challenge}
-                </p>
-                <p className="text-sm text-neutral-300 leading-relaxed">
-                  {item.outcome}
-                </p>
               </div>
             ))}
           </div>
