@@ -15,15 +15,16 @@ const UNIFIED_STACK_COPY = {
     title: "Cómo funciona el uso de IA",
     description:
       "Cada plan incluye capacidad de uso de IA. Noctra la utiliza cuando resume conversaciones, sugiere acciones o detecta información útil dentro del flujo de trabajo.",
-    profitabilityTitle: "Capacidad de IA incluida con claridad",
+    profitabilityTitle: "Los tokens son capacidad de IA incluida",
     profitabilityDescription:
-      "Piensa en los tokens como la capacidad de trabajo de IA incluida en tu plan. No se gastan por tener la función visible, solo cuando el sistema ejecuta tareas útiles para el equipo.",
-    projectMargin: "Uso útil de IA",
-    signatureTitle: "Eficiencia en el consumo",
+      "Piensa en los tokens como la capacidad de trabajo de IA incluida en tu plan. No se consumen por tener la función visible, solo cuando el sistema ejecuta tareas útiles como resúmenes, sugerencias o insights.",
+    projectMargin: "Cobertura útil de IA",
+    signatureTitle: "Eficiencia de IA por diseño",
     signatureDescription: "Noctra prioriza tareas importantes, evita solicitudes innecesarias y busca sacar más valor de cada interacción de IA.",
+    signatureBadge: "Uso priorizado",
     accountingTitle: "Acceso por roles",
     accountingDescription: "Cada persona ve lo necesario para su trabajo, sin abrir más información de la cuenta de la que realmente necesita.",
-    marketingTitle: "Inteligencia de equipo",
+    marketingTitle: "Inteligencia de equipo y protección de datos",
     marketingDescription:
       "El sistema aprende del historial compartido, mantiene continuidad entre personas y protege el contexto sensible dentro de la operación.",
     protocol: "Uso transparente por diseño",
@@ -32,15 +33,16 @@ const UNIFIED_STACK_COPY = {
     title: "How AI usage works",
     description:
       "Every plan includes AI usage capacity. Noctra uses it when the system summarizes conversations, suggests actions, or surfaces useful insights inside the workflow.",
-    profitabilityTitle: "Included AI capacity, explained clearly",
+    profitabilityTitle: "Tokens are included AI capacity",
     profitabilityDescription:
-      "Think of tokens as the amount of AI work included in your plan. They are not consumed because a feature exists, only when the system performs useful AI tasks for the team.",
+      "Think of tokens as the amount of AI work included in your plan. They are not consumed because a feature exists, only when the system performs useful work such as summaries, suggestions, or insights.",
     projectMargin: "Useful AI coverage",
-    signatureTitle: "Efficient by default",
+    signatureTitle: "AI efficiency by design",
     signatureDescription: "Noctra prioritizes important tasks, avoids unnecessary requests, and tries to get more value from every AI interaction.",
+    signatureBadge: "Prioritized usage",
     accountingTitle: "Role-based access",
     accountingDescription: "Each person sees the information they need for their role without opening up more account context than necessary.",
-    marketingTitle: "Team intelligence",
+    marketingTitle: "Team intelligence and data protection",
     marketingDescription:
       "The system learns from shared history, keeps continuity across people, and protects sensitive context inside daily operations.",
     protocol: "Transparent usage by design",
@@ -151,7 +153,7 @@ export const UnifiedStack = () => {
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <span className="bg-white/10 border border-white/10 text-white/60 text-[10px] font-black px-3 py-1.5 rounded-full flex items-center gap-2">
-                ⚖️ ESIGN Compliant
+                {copy.signatureBadge}
               </span>
             </div>
           </m.div>

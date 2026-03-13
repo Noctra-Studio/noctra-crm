@@ -8,12 +8,12 @@ import { useLocale } from "next-intl";
 
 const FOOTER_COPY = {
   es: {
-    tagline: "Sistema AI-native para la operación con clientes.",
+    tagline: "Sistema AI-native para ventas, clientes y operación.",
     platform: "Plataforma",
     demo: "Demo",
     pricing: "Precios",
     signIn: "Iniciar sesión",
-    createAccount: "Unirme a la lista",
+    createAccount: "Unirme al acceso anticipado",
     resources: "Recursos",
     migrationCenter: "Centro de Migración",
     studio: "Noctra Studio",
@@ -26,12 +26,12 @@ const FOOTER_COPY = {
     designedIn: "Diseñado en Querétaro con ☕",
   },
   en: {
-    tagline: "AI-native system for client operations.",
+    tagline: "AI-native system for sales, clients, and operations.",
     platform: "Platform",
     demo: "Demo",
     pricing: "Pricing",
     signIn: "Sign in",
-    createAccount: "Join waitlist",
+    createAccount: "Join early access",
     resources: "Resources",
     migrationCenter: "Migration Center",
     studio: "Noctra Studio",

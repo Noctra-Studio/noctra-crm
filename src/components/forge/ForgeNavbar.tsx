@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { ExternalLink } from "lucide-react";
+import { createClient } from "@/utils/supabase/client";
 
 const NAVBAR_COPY = {
   es: {
@@ -27,6 +28,8 @@ const NAVBAR_COPY = {
     resources: "Recursos",
     support: "Soporte",
     version: "Noctra Forge v1.0",
+    signIn: "Iniciar sesión",
+    goToDashboard: "Ir a Dashboard",
   },
   en: {
     product: "Product",
@@ -35,6 +38,8 @@ const NAVBAR_COPY = {
     resources: "Resources",
     support: "Support",
     version: "Noctra Forge v1.0",
+    signIn: "Sign in",
+    goToDashboard: "Go to Dashboard",
   },
 } as const;
 
@@ -46,9 +51,11 @@ export function ForgeNavbar() {
   const t = useTranslations("forge.navbar");
   const navigationT = useTranslations("Navigation");
   const copy = NAVBAR_COPY[locale as "es" | "en"] ?? NAVBAR_COPY.es;
+  const [supabase] = React.useState(() => createClient());
 
   const [isOpen, setIsOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [hasSession, setHasSession] = React.useState(false);
   const { scrollY } = useScroll();
   const headerRef = React.useRef<HTMLDivElement>(null);
 
@@ -59,6 +66,27 @@ export function ForgeNavbar() {
   React.useEffect(() => {
     setMounted(true);
   }, []);
+
+  React.useEffect(() => {
+    let isMounted = true;
+
+    supabase.auth.getSession().then(({ data }) => {
+      if (!isMounted) return;
+      setHasSession(Boolean(data.session));
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!isMounted) return;
+      setHasSession(Boolean(session));
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, [supabase]);
 
   // Prevent flash before intro check
   const isHomePage =
@@ -166,6 +194,9 @@ export function ForgeNavbar() {
     </div>
   );
 
+  const authHref = hasSession ? "/" : "/login";
+  const authLabel = hasSession ? copy.goToDashboard : copy.signIn;
+
   return createPortal(
     <LazyMotion features={domAnimation}>
       {/*
@@ -270,9 +301,9 @@ export function ForgeNavbar() {
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.15 }}>
                   <Link
-                    href="/login"
+                    href={authHref}
                     className="flex items-center justify-center px-8 py-2.5 bg-white text-black rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors shadow-[0_10px_30px_rgba(255,255,255,0.1)]">
-                    {t("sign_in", { defaultValue: "Ingresar" })}
+                    {authLabel}
                   </Link>
                 </m.div>
 
