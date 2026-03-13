@@ -34,7 +34,7 @@ const COMPARISON_COPY = {
       "La diferencia real no está en una función aislada. Está en si el equipo opera con herramientas fragmentadas, con un CRM lleno de add-ons o con un sistema AI-native para la relación con clientes.",
     recommended: "AI-native",
     starterCta: "Ver el flujo",
-    proCta: "Unirme al acceso anticipado",
+    proCta: "Solicitar acceso",
     enterpriseCta: "Ver precios",
     starterLabel: "Proceso fragmentado",
     proLabel: "Noctra CRM",
