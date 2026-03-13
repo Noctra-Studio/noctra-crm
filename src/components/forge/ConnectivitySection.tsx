@@ -8,9 +8,9 @@ import { useLocale } from "next-intl";
 
 const CONNECTIVITY_COPY = {
   es: {
-    eyebrow: "Asistencia inteligente",
-    title: "La ayuda inteligente está dentro del sistema, no separada del trabajo diario.",
-    radarTitle: "El sistema ayuda al equipo con el contexto correcto.",
+    eyebrow: "Asistencia nativa en IA",
+    title: "La ayuda inteligente opera dentro del sistema, no separada del trabajo diario.",
+    radarTitle: "El sistema ayuda con el contexto correcto del cliente.",
     radarDescription:
       "Noctra resume conversaciones, detecta oportunidades, sugiere follow-ups y ordena información del cliente usando el mismo historial, pipeline y actividad que ve tu equipo.",
     chat:
@@ -22,18 +22,18 @@ const CONNECTIVITY_COPY = {
     highRoi: "Claro",
     orchestratedAction: "Siguiente paso sugerido",
     generateContract: "Preparar seguimiento",
-    hubTitle: "Built for teams, designed for security",
+    hubTitle: "Visibilidad compartida con control de acceso",
     hubDescription:
-      "Noctra CRM ayuda a los equipos a trabajar sobre una misma operación sin perder control. El sistema aprende de la actividad del equipo, permite definir roles y permisos, y mantiene protegida la información sensible para que cada persona vea solo lo que necesita.",
-    syncDocs: "Inteligencia de equipo",
+      "Noctra CRM da a los equipos una vista operativa compartida sin perder control. El sistema usa la actividad del equipo y los permisos por rol para que cada persona vea el contexto correcto, el siguiente paso correcto y solo la información que necesita.",
+    syncDocs: "Contexto compartido",
     contractSigned: "Acceso por rol",
     newInvoice: "Protección de datos",
     createTask: "Siguiente paso claro",
   },
   en: {
-    eyebrow: "Intelligent assistance",
-    title: "Intelligent help lives inside the system, not outside daily work.",
-    radarTitle: "The system helps the team with the right context.",
+    eyebrow: "AI-native assistance",
+    title: "Intelligent assistance works inside the system, not beside daily work.",
+    radarTitle: "The system helps with the right client context.",
     radarDescription:
       "Noctra summarizes conversations, identifies opportunities, suggests follow-ups, and organizes client information using the same history, pipeline, and activity your team already sees.",
     chat:
@@ -45,10 +45,10 @@ const CONNECTIVITY_COPY = {
     highRoi: "Clear",
     orchestratedAction: "Suggested next step",
     generateContract: "Prepare follow-up",
-    hubTitle: "Built for teams, designed for security",
+    hubTitle: "Shared visibility with controlled access",
     hubDescription:
-      "Noctra CRM helps teams work from the same operating view without losing control. The system learns from team activity, lets organizations define roles and permissions, and keeps sensitive information protected so each person sees only what they need.",
-    syncDocs: "Team intelligence",
+      "Noctra CRM gives teams a shared operating view without losing control. The system uses team activity and role-based permissions so each person sees the right context, the right next step, and only the information they need.",
+    syncDocs: "Shared context",
     contractSigned: "Role-based access",
     newInvoice: "Data protection",
     createTask: "Clear next step",

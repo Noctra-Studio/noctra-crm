@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut, X } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   getForgeAccountNav,
   getForgePrimaryNav,
@@ -14,6 +14,7 @@ import {
   type ForgeNavItem,
   useForgeNavBadges,
 } from "@/components/forge/forge-navigation";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { SheetClose, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/client";
@@ -28,6 +29,7 @@ export function ForgeMobileNav({
   onOpenChange,
 }: ForgeMobileNavProps) {
   const pathname = usePathname();
+  const locale = useLocale();
   const t = useTranslations("forge.nav");
   const [supabase] = useState(() => createClient(false));
   const [userEmail, setUserEmail] = useState("");
@@ -38,6 +40,11 @@ export function ForgeMobileNav({
   const navGroups = getForgePrimaryNav(t);
   const secondaryNav = getForgeSecondaryNav(t);
   const accountNav = getForgeAccountNav();
+  const languageHeading = locale === "en" ? "Language" : "Idioma";
+  const languageDescription =
+    locale === "en"
+      ? "Switch the CRM between English and Spanish."
+      : "Cambia el CRM entre inglés y español.";
 
   useEffect(() => {
     if (!open) return;
@@ -156,6 +163,20 @@ export function ForgeMobileNav({
               Acceso directo a la navegación principal y a los ajustes de tu cuenta.
             </p>
           </div>
+
+          <section className="mb-5 rounded-2xl border border-white/8 bg-white/[0.02] px-4 py-4">
+            <p className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/35">
+              {languageHeading}
+            </p>
+            <p className="mt-2 text-sm text-white/65">{languageDescription}</p>
+            <div className="mt-4 inline-flex rounded-full border border-white/10 bg-white/[0.03] px-3 py-2">
+              <LanguageSwitcher
+                className="gap-1.5 text-[11px] font-mono font-bold uppercase tracking-[0.24em]"
+                inactiveClassName="text-white/45 hover:text-white/80"
+                separatorClassName="text-white/20"
+              />
+            </div>
+          </section>
 
           <div className="space-y-5">
             {navGroups.map((group) => (

@@ -15,23 +15,23 @@ import { useLocale } from "next-intl";
 const PRICING_COPY = {
   es: {
     eyebrow: "Precios transparentes",
-    title: "Precios claros para un Client Operations System desde antes del lanzamiento.",
+    title: "Precios claros para un sistema de operaciones con clientes nativo en IA desde antes del lanzamiento.",
     description:
-      "Noctra CRM está diseñado para que cada negocio entienda qué incluye su plan, cómo funciona la ayuda inteligente, cuándo se consume esa capacidad y qué puede esperar del sistema desde el inicio. Sin letras pequeñas ni capas ocultas.",
+      "Noctra CRM está diseñado para que cada negocio entienda qué incluye cada plan en estructura, visibilidad y ayuda inteligente, cómo funciona esa capacidad y qué puede esperar del sistema desde el inicio. Sin letras pequeñas ni capas ocultas.",
     starterPeriod: "/usuario/mes",
     starterDescription:
-      "Para profesionales y operaciones pequeñas que necesitan estructura desde el inicio.",
+      "Para profesionales y operaciones pequeñas que necesitan estructura y visibilidad desde el inicio.",
     starterFeatures: [
       "Lead management y pipeline estructurado",
       "Historial centralizado por cliente",
       "50,000 tokens de IA / mes con uso visible",
-      "Resúmenes y sugerencias dentro del CRM",
+      "Resúmenes y sugerencias dentro del sistema",
       "Soporte por email",
     ],
     starterCta: "Unirme al acceso anticipado",
     popular: "Pensado para equipos",
     proPeriod: "/usuario/mes",
-    proDescription: "Para equipos en crecimiento que necesitan más visibilidad, seguimiento y automatización.",
+    proDescription: "Para equipos en crecimiento que necesitan más visibilidad, seguimiento coordinado y ayuda inteligente.",
     proIncludes: "Todo en Starter, más:",
     proFeatures: [
       "200,000 tokens de IA / mes con uso visible",
@@ -43,7 +43,7 @@ const PRICING_COPY = {
     proCta: "Unirme al acceso anticipado",
     enterprisePrice: "Custom",
     enterpriseDescription:
-      "Para organizaciones que requieren seguridad, control y volumen a mayor escala.",
+      "Para organizaciones que requieren más control, visibilidad y volumen de ayuda inteligente.",
     enterpriseIncludes: "Todo en Pro, más:",
     fairUse:
       "Sujeto a una política de uso responsable explicada con claridad para prevenir abuso automatizado y proteger la calidad del sistema.",
@@ -57,23 +57,23 @@ const PRICING_COPY = {
   },
   en: {
     eyebrow: "Transparent pricing",
-    title: "Clear pricing for a Client Operations System before launch.",
+    title: "Clear pricing for an AI-native client operations system before launch.",
     description:
-      "Noctra CRM is designed so businesses can understand plan scope, how intelligent assistance works, when that capacity is consumed, and what they can expect from the system from the start. No small print and no hidden layers.",
+      "Noctra CRM is designed so businesses can understand what each plan includes in structure, visibility, and intelligent assistance, how that capacity works, and what they can expect from the system from day one. No small print and no hidden layers.",
     starterPeriod: "/user/mo",
     starterDescription:
-      "For professionals and small operations that need structure from the beginning.",
+      "For professionals and small operations that need structure and visibility from the beginning.",
     starterFeatures: [
       "Structured lead management and pipeline",
       "Centralized client history",
       "50,000 AI tokens / month with visible usage",
-      "Summaries and suggestions inside the CRM",
+      "Summaries and suggestions inside the system",
       "Email support",
     ],
     starterCta: "Join early access",
     popular: "Built for teams",
     proPeriod: "/user/mo",
-    proDescription: "For growing teams that need more visibility, follow-through, and automation.",
+    proDescription: "For growing teams that need more visibility, coordinated follow-through, and intelligent assistance.",
     proIncludes: "Everything in Starter, plus:",
     proFeatures: [
       "200,000 AI tokens / month with visible usage",
@@ -85,7 +85,7 @@ const PRICING_COPY = {
     proCta: "Join early access",
     enterprisePrice: "Custom",
     enterpriseDescription:
-      "For organizations that need more security, control, and higher-volume usage.",
+      "For organizations that need broader visibility, stronger controls, and higher-volume intelligent assistance.",
     enterpriseIncludes: "Everything in Pro, plus:",
     fairUse:
       "Subject to a clearly explained responsible-use policy to prevent automated abuse and protect system quality.",

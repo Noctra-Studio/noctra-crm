@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { useTranslations } from "next-intl";
 import { SearchBar } from "@/components/forge/SearchBar";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { NotificationsDropdown } from "@/components/forge/NotificationsDropdown";
 import { AvatarDropdown } from "@/components/forge/modals/AvatarDropdown";
 import { PerfilModal } from "@/components/forge/modals/PerfilModal";
@@ -68,6 +69,13 @@ export function ForgeTopBar() {
 
         {/* Right Col: Notifications & Avatar */}
         <div className="flex items-center gap-4 justify-end">
+          <div className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2">
+            <LanguageSwitcher
+              className="gap-1.5 text-[11px] font-mono font-bold uppercase tracking-[0.24em]"
+              inactiveClassName="text-white/45 hover:text-white/80"
+              separatorClassName="text-white/20"
+            />
+          </div>
           <NotificationsDropdown leads={[]} proposals={[]} />
 
           <AvatarDropdown
