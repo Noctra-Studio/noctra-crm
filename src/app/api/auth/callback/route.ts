@@ -4,14 +4,22 @@ import { NextRequest, NextResponse } from "next/server";
 import { resend } from "@/lib/resend";
 import { welcomeTemplate } from "@/lib/email-templates/welcome";
 import { isEarlyAccessAvailable } from "@/lib/subscriptions";
+import {
+  DEFAULT_APP_LOCALE,
+  extractLocaleFromPath,
+  resolvePostAuthRedirect,
+} from "@/lib/auth-redirect";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const token_hash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/en/studio";
-  const nextLocale = (next.split("/")[1] || "es") as "es" | "en";
+  const requestedNext = searchParams.get("next");
+  const fallbackLocale =
+    extractLocaleFromPath(requestedNext ?? "") ?? DEFAULT_APP_LOCALE;
+  const next = resolvePostAuthRedirect(requestedNext, fallbackLocale);
+  const nextLocale = extractLocaleFromPath(next) ?? fallbackLocale;
 
   // Create a mutable array to hold cookies that need to be set
   const cookiesToSet: { name: string; value: string; options: any }[] = [];

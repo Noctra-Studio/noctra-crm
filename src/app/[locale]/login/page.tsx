@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { DEFAULT_AUTHENTICATED_ROUTE } from "@/lib/auth-redirect";
 
 function AuthForms() {
   const router = useRouter();
@@ -48,26 +49,9 @@ function AuthForms() {
   const [mfaError, setMfaError] = useState<string | null>(null);
   const [shake, setShake] = useState(false);
 
-  const getPostLoginDestination = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      return "/";
-    }
-
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .maybeSingle();
-
-    if (profile?.role === "client") {
-      return "/dashboard";
-    }
-
-    return "/projects";
+  const redirectToAuthenticatedHome = () => {
+    router.replace(DEFAULT_AUTHENTICATED_ROUTE);
+    router.refresh();
   };
 
   // Función auxiliar para verificar si se requiere MFA (Login)
@@ -95,7 +79,9 @@ function AuthForms() {
         } = await supabase.auth.getSession();
         if (session) {
           const requiresMfa = await checkMfaRequirement();
-          // If no MFA required, we could theoretically redirect, but keeping logic as was
+          if (!requiresMfa) {
+            redirectToAuthenticatedHome();
+          }
         }
       } catch (err) {
         console.error("Session check error on login", err);
@@ -124,7 +110,7 @@ function AuthForms() {
       const requiresMfa = await checkMfaRequirement();
       if (!requiresMfa) {
         sessionStorage.setItem("session_start", Date.now().toString());
-        router.push(await getPostLoginDestination());
+        redirectToAuthenticatedHome();
       } else {
         setLoading(false);
       }
@@ -151,7 +137,7 @@ function AuthForms() {
       if (error) throw error;
 
       sessionStorage.setItem("session_start", Date.now().toString());
-      router.push(await getPostLoginDestination());
+      redirectToAuthenticatedHome();
     } catch (err: any) {
       console.error("MFA verification error", err);
       setMfaError(t("error_mfa_invalid_code"));
@@ -250,7 +236,7 @@ function AuthForms() {
       if (linkError) throw linkError;
 
       sessionStorage.setItem("session_start", Date.now().toString());
-      router.push("/projects");
+      redirectToAuthenticatedHome();
     } catch (err: any) {
       console.error(err);
       setError(
@@ -263,7 +249,7 @@ function AuthForms() {
 
   if (showMFA) {
     return (
-      <div className="w-full max-w-[360px] animate-in fade-in slide-in-from-bottom-4 duration-700 text-left">
+      <div className="w-full max-w-[360px] min-w-0 animate-in fade-in slide-in-from-bottom-4 duration-700 text-left">
         <div className="mb-10">
           <div className="w-10 h-10 bg-white/[0.03] border border-white/5 rounded-lg flex items-center justify-center mb-6 text-white/50">
             <svg
@@ -295,7 +281,7 @@ function AuthForms() {
 
           <div
             className={cn(
-              "flex justify-between gap-2 mb-8",
+              "flex justify-between gap-1.5 sm:gap-2 mb-8",
               shake && "animate-shake",
             )}>
             {otpCode.map((digit, index) => (
@@ -331,7 +317,7 @@ function AuthForms() {
                   }
                 }}
                 className={cn(
-                  "w-12 h-14 bg-white/[0.02] border rounded-lg text-center text-xl font-bold text-white transition-all outline-none",
+                  "h-14 w-10 sm:w-12 bg-white/[0.02] border rounded-lg text-center text-xl font-bold text-white transition-all outline-none",
                   digit
                     ? "border-white/20 bg-white/[0.04]"
                     : "border-white/10 focus:border-white/20 focus:bg-white/[0.04]",
@@ -376,7 +362,7 @@ function AuthForms() {
   }
 
   return (
-    <div className="w-full max-w-[360px] animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="w-full max-w-[360px] min-w-0 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="mb-10 text-left">
         <Link href="/" className="inline-block group mb-8">
           <BrandLogo className="w-10 h-10 text-white group-hover:scale-105 transition-transform duration-300" />
@@ -539,7 +525,7 @@ function AuthForms() {
 export default function ForgeUnifiedAuthPage() {
   const t = useTranslations("forge.auth");
   return (
-    <div className="min-h-screen bg-black flex w-full relative overflow-hidden">
+    <div className="min-h-dvh bg-black flex w-full relative overflow-hidden">
       {/* LEFT PANEL - CINEMATIC IMAGE */}
       <div className="hidden lg:flex w-[50%] relative overflow-hidden flex-col items-center justify-center">
         <Image
@@ -588,7 +574,7 @@ export default function ForgeUnifiedAuthPage() {
       </div>
 
       {/* RIGHT PANEL - MINIMALIST FORM */}
-      <div className="w-full lg:w-[50%] relative z-10 flex flex-col items-center justify-center p-6 md:p-12 bg-black">
+      <div className="mobile-safe-x w-full lg:w-[50%] relative z-10 flex min-w-0 flex-col items-center justify-center py-8 md:px-12 md:py-12 bg-black">
         <Suspense
           fallback={
             <div className="flex flex-col items-center justify-center h-full">

@@ -109,7 +109,7 @@ export default function ForgeLayoutClient({
       ) : (
         <>
           {/* DESKTOP LAYOUT - STRICT FLEX */}
-          <div className="hidden md:flex h-dvh overflow-hidden bg-[#050505] text-white">
+          <div className="hidden md:flex h-dvh min-w-0 overflow-hidden bg-[#050505] text-white">
             <aside className="border-r border-white/5 shrink-0 flex flex-col">
               <ForgeSidebar workspace={workspace} enabled={!!hasSession} />
             </aside>
@@ -121,17 +121,20 @@ export default function ForgeLayoutClient({
           </div>
 
           {/* MOBILE LAYOUT & FAB */}
-          <div className="md:hidden flex flex-col h-dvh overflow-hidden bg-[#050505] text-white relative">
+          <div className="md:hidden flex min-w-0 flex-col h-dvh overflow-hidden bg-[#050505] text-white relative">
             <ForgeMobileHeader />
-            <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden pb-32 forge-scroll flex flex-col relative">
+            <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden pb-[calc(env(safe-area-inset-bottom)+7rem)] forge-scroll flex flex-col relative">
               <ForgeContentWrapper>{children}</ForgeContentWrapper>
             </main>
 
             {/* Floating Action Button (FAB) */}
             <button
               onClick={() => setCommandBarOpen(true)}
-              style={{ bottom: "calc(env(safe-area-inset-bottom) + 1.5rem)" }}
-              className="fixed right-6 w-14 h-14 bg-emerald-500 text-black rounded-full flex items-center justify-center shadow-[0_4px_25px_rgba(16,185,129,0.4)] hover:bg-emerald-400 transition-all active:scale-90 z-40"
+              style={{
+                right: "calc(env(safe-area-inset-right) + 1rem)",
+                bottom: "calc(env(safe-area-inset-bottom) + 1.5rem)",
+              }}
+              className="fixed w-14 h-14 bg-emerald-500 text-black rounded-full flex items-center justify-center shadow-[0_4px_25px_rgba(16,185,129,0.4)] hover:bg-emerald-400 transition-all active:scale-90 z-40"
               aria-label="Menú de creación rápida">
               <Plus className="w-8 h-8" strokeWidth={2.5} />
             </button>

@@ -181,16 +181,20 @@ export function ForgeNavbar() {
       </m.div>
 
       {/* Layer 2: Mobile Controls (Z-[60]) - Always fixed, same as Header.tsx */}
-      <div className="fixed top-6 left-6 z-[60] h-12 flex items-center md:hidden mix-blend-difference">
-        <Link href="/" className="flex items-center gap-2">
-          <BrandLogo className="w-[100px] h-auto text-white" />
-          <span className="text-white font-mono text-[9px] mt-0.5 border-l border-white/20 pl-2 opacity-80 uppercase tracking-widest">
+      <div
+        className="fixed top-4 z-[60] h-12 flex items-center md:hidden mix-blend-difference min-w-0"
+        style={{ left: "var(--mobile-safe-x-start)" }}>
+        <Link href="/" className="flex min-w-0 max-w-[calc(100vw-6rem)] items-center gap-2">
+          <BrandLogo className="h-auto w-[84px] min-[380px]:w-[100px] shrink-0 text-white" />
+          <span className="hidden min-[380px]:inline text-white font-mono text-[9px] mt-0.5 border-l border-white/20 pl-2 opacity-80 uppercase tracking-widest">
             FORGE
           </span>
         </Link>
       </div>
 
-      <div className="fixed top-6 right-6 z-[60] h-12 flex items-center md:hidden mix-blend-difference">
+      <div
+        className="fixed top-4 z-[60] h-12 flex items-center md:hidden mix-blend-difference"
+        style={{ right: "var(--mobile-safe-x-end)" }}>
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -384,7 +388,7 @@ export function ForgeNavbar() {
             variants={mobileOverlayVariants}
             className="fixed inset-0 z-[50] bg-[#050505]/95 backdrop-blur-2xl border-b border-white/10 flex flex-col pointer-events-auto overflow-hidden touch-none"
             style={{ overscrollBehavior: "none" }}>
-            <div className="flex-1 flex flex-col justify-between w-full px-6 pb-24 pt-24">
+            <div className="flex-1 flex flex-col justify-between w-full px-6 pb-24 pt-[max(6rem,calc(env(safe-area-inset-top)+4.75rem))]">
               <div className="flex-1 flex flex-col items-center justify-center gap-10">
                 <a
                   href="#features"

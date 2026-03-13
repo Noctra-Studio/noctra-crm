@@ -143,12 +143,12 @@ export default function ForgotPasswordPage() {
   const showSuccessCard = status === "email-sent" || status === "password-updated";
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      <div className="relative isolate flex min-h-screen items-center justify-center overflow-hidden px-6 py-16">
+    <main className="min-h-dvh bg-black text-white">
+      <div className="mobile-safe-x relative isolate flex min-h-dvh items-center justify-center overflow-hidden py-16">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.04),_transparent_40%)]" />
         <div className="absolute inset-x-0 top-0 h-px bg-white/10" />
 
-        <div className="relative z-10 w-full max-w-md rounded-[28px] border border-white/10 bg-white/[0.03] p-8 shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+        <div className="relative z-10 w-full max-w-md min-w-0 rounded-[28px] border border-white/10 bg-white/[0.03] p-6 sm:p-8 shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
           <Link
             href="/login"
             className="mb-8 inline-flex items-center gap-3 text-sm font-medium text-neutral-400 transition-colors hover:text-white">

@@ -24,8 +24,8 @@ export function ForgeContentWrapper({
   return (
     <div
       ref={ref}
-      className="forge-page-enter"
-      style={{ minHeight: "100%", width: "100%" }}>
+      className="forge-page-enter min-w-0 w-full overflow-x-clip"
+      style={{ minHeight: "100%" }}>
       {children}
     </div>
   );

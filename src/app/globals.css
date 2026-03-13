@@ -48,6 +48,8 @@
 
 :root {
   --radius: 0.625rem;
+  --mobile-safe-x-start: max(1rem, env(safe-area-inset-left));
+  --mobile-safe-x-end: max(1rem, env(safe-area-inset-right));
   --background: #0a0a0a; /* Deep Obsidian */
   --foreground: #ededed; /* Soft White */
   --card: #171717;
@@ -85,6 +87,7 @@
   html {
     scroll-behavior: smooth;
     height: 100%;
+    overflow-x: clip;
   }
 
   * {
@@ -94,7 +97,21 @@
   body {
     @apply bg-background text-foreground select-none;
     min-height: 100%;
-    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .mobile-safe-x {
+    padding-inline-start: var(--mobile-safe-x-start);
+    padding-inline-end: var(--mobile-safe-x-end);
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --mobile-safe-x-start: max(1.25rem, env(safe-area-inset-left));
+      --mobile-safe-x-end: max(1.25rem, env(safe-area-inset-right));
+    }
   }
 
   /* Ocultar scrollbar nativo en el dashboard manteniendo funcionalidad */

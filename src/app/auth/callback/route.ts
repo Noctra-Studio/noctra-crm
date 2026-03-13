@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import {
+  DEFAULT_APP_LOCALE,
+  resolvePostAuthRedirect,
+} from "@/lib/auth-redirect";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/dashboard";
+  const next = resolvePostAuthRedirect(
+    searchParams.get("next"),
+    DEFAULT_APP_LOCALE,
+  );
 
   if (code) {
     const supabase = await createClient();
@@ -15,5 +22,7 @@ export async function GET(request: Request) {
   }
 
   // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/login?error=Could not authenticate user`);
+  return NextResponse.redirect(
+    `${origin}/${DEFAULT_APP_LOCALE}/login?error=Could not authenticate user`,
+  );
 }

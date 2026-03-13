@@ -3,27 +3,19 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { createClient } from "@/utils/supabase/client";
-import { useFollowUps } from "@/hooks/useFollowUps";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
-  LayoutDashboard,
-  Users,
-  Kanban,
-  BarChart3,
-  StickyNote,
-  Send,
-  UserCheck,
-  Home,
   BookOpen,
   ChevronLeft,
   ChevronRight,
-  User,
-  Shuffle,
-  FileSignature,
-  Megaphone,
 } from "lucide-react";
+import {
+  getForgePrimaryNav,
+  getForgeSecondaryNav,
+  isForgeNavItemActive,
+  useForgeNavBadges,
+} from "@/components/forge/forge-navigation";
 
 export interface ForgeSidebarProps {
   workspace?: {
@@ -36,12 +28,8 @@ export interface ForgeSidebarProps {
 
 export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
   const pathname = usePathname();
-  const router = useRouter();
-  const supabase = createClient();
-  const { suggestions } = useFollowUps(enabled);
   const t = useTranslations("forge.nav");
-
-  const [alertCount, setAlertCount] = useState(0);
+  const { alertCount, suggestionCount } = useForgeNavBadges(enabled);
 
   // Collapsible state handling
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -55,68 +43,14 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
     }
   }, []);
 
-  useEffect(() => {
-    if (!enabled) return;
-
-    const fetchAlerts = async () => {
-      const { data, error } = await supabase.rpc("get_leads_needing_attention");
-      if (!error && data) {
-        setAlertCount(data.length);
-      }
-    };
-    fetchAlerts();
-
-    const interval = setInterval(fetchAlerts, 5 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, [supabase]);
-
   const toggleCollapse = () => {
     const newState = !isCollapsed;
     setIsCollapsed(newState);
     localStorage.setItem("forge-sidebar-collapsed", String(newState));
   };
 
-  const navGroups = [
-    {
-      group: "Main",
-      items: [
-        { label: t("inicio"), href: "/", icon: Home },
-        {
-          label: t("projects"),
-          href: "/projects",
-          icon: LayoutDashboard,
-        },
-        { label: t("pipeline"), href: "/pipeline", icon: Kanban },
-      ],
-    },
-    {
-      group: "CRM",
-      items: [
-        { label: t("propuestas"), href: "/proposals", icon: StickyNote },
-        { label: t("contratos"), href: "/contracts", icon: Send },
-        { label: "Documentos", href: "/documents", icon: FileSignature },
-        { label: t("clientes"), href: "/clients", icon: UserCheck },
-        { label: t("leads"), href: "/leads", icon: Users },
-      ],
-    },
-    {
-      group: "Tools",
-      items: [
-        { label: "Migración", href: "/migration", icon: Shuffle },
-        { label: t("metricas"), href: "/metrics", icon: BarChart3 },
-      ],
-    },
-    {
-      group: "Configuración",
-      items: [
-        {
-          label: "Marketing",
-          href: "/settings/marketing",
-          icon: Megaphone,
-        },
-      ],
-    },
-  ];
+  const navGroups = getForgePrimaryNav(t);
+  const secondaryNav = getForgeSecondaryNav(t);
 
   if (!isMounted) return null; // Prevent hydration mismatch to visual flicker
 
@@ -200,10 +134,13 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
                 {groupIdx > 0 && <hr className="border-white/5 my-2 mx-2" />}
 
                 {group.items.map((item) => {
-                  const isActive =
-                    item.href === "/"
-                      ? pathname === "/"
-                      : pathname.includes(item.href);
+                  const isActive = isForgeNavItemActive(pathname, item.href);
+                  const badgeValue =
+                    item.badgeKey === "pipelineAlerts"
+                      ? alertCount
+                      : item.badgeKey === "proposalSuggestions"
+                        ? suggestionCount
+                        : 0;
 
                   return (
                     <Link
@@ -224,23 +161,23 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
                         <span className="truncate">{item.label}</span>
                       )}
 
-                      {item.label === t("pipeline") &&
-                        alertCount > 0 &&
+                      {item.badgeKey === "pipelineAlerts" &&
+                        badgeValue > 0 &&
                         (isCollapsed ? (
                           <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                         ) : (
                           <span className="ml-auto w-4 h-4 rounded-full bg-red-500 text-black text-[9px] font-black flex items-center justify-center animate-pulse">
-                            {alertCount}
+                            {badgeValue}
                           </span>
                         ))}
 
-                      {item.label === t("propuestas") &&
-                        suggestions.length > 0 &&
+                      {item.badgeKey === "proposalSuggestions" &&
+                        badgeValue > 0 &&
                         (isCollapsed ? (
                           <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
                         ) : (
                           <span className="ml-auto w-4 h-4 rounded-full bg-amber-500 text-black text-[9px] font-black flex items-center justify-center animate-pulse">
-                            {suggestions.length}
+                            {badgeValue}
                           </span>
                         ))}
 
@@ -261,47 +198,37 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
         {/* Footer Area - Documentación */}
         <div
           className={`p-4 border-t border-white/5 ${isCollapsed ? "flex justify-center" : ""}`}>
-          <Link
-            href="/docs"
-            title={isCollapsed ? t("documentacion") : undefined}
-            className={`flex items-center ${isCollapsed ? "justify-center p-2" : "gap-3 px-3 py-2.5"} rounded-md transition-all duration-150 text-sm font-medium group relative ${
-              pathname.includes("/docs")
-                ? isCollapsed
-                  ? "text-emerald-500 border-l-2 border-emerald-500 bg-white/[0.05]"
-                  : "bg-white/[0.05] text-white"
-                : "text-neutral-400 hover:text-white hover:bg-white/[0.02]"
-            }`}>
-            <BookOpen
-              className={`w-4 h-4 flex-none ${pathname.includes("/docs") ? "text-emerald-400" : ""}`}
-              strokeWidth={1.5}
-            />
-            {!isCollapsed && (
-              <span className="truncate">{t("documentacion")}</span>
-            )}
-            {/* Tooltip */}
-            {isCollapsed && (
-              <div className="absolute left-full ml-4 hidden group-hover:block bg-neutral-800 text-white text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded shadow-xl whitespace-nowrap z-50">
-                {t("documentacion")}
-              </div>
-            )}
-          </Link>
+          {secondaryNav.map((item) => {
+            const isActive = isForgeNavItemActive(pathname, item.href);
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                title={isCollapsed ? item.label : undefined}
+                className={`flex items-center ${isCollapsed ? "justify-center p-2" : "gap-3 px-3 py-2.5"} rounded-md transition-all duration-150 text-sm font-medium group relative ${
+                  isActive
+                    ? isCollapsed
+                      ? "text-emerald-500 border-l-2 border-emerald-500 bg-white/[0.05]"
+                      : "bg-white/[0.05] text-white"
+                    : "text-neutral-400 hover:text-white hover:bg-white/[0.02]"
+                }`}>
+                <BookOpen
+                  className={`w-4 h-4 flex-none ${isActive ? "text-emerald-400" : ""}`}
+                  strokeWidth={1.5}
+                />
+                {!isCollapsed && <span className="truncate">{item.label}</span>}
+                {isCollapsed && (
+                  <div className="absolute left-full ml-4 hidden group-hover:block bg-neutral-800 text-white text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded shadow-xl whitespace-nowrap z-50">
+                    {item.label}
+                  </div>
+                )}
+              </Link>
+            );
+          })}
         </div>
       </div>
 
-      {/* MOBILE TOP HEADER */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-40 h-14 w-full bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#1f1f1f] flex items-center justify-between px-4">
-        <div className="w-8" /> {/* Placeholder for balance/alignment */}
-        <div className="flex justify-center items-center flex-1">
-          <img
-            src="/images/noctra-logo-white.png"
-            alt="Noctra Studio"
-            className="h-5 w-auto"
-          />
-        </div>
-        <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-          <User className="w-4 h-4 text-white/50" strokeWidth={1.5} />
-        </div>
-      </header>
     </>
   );
 }

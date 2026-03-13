@@ -104,7 +104,7 @@ export default function DashboardClient({
   return (
     <div className="flex flex-col flex-1 min-w-0 transition-all duration-200 min-h-full relative w-full">
       {/* Main Content Area */}
-      <div className="px-8 py-6 space-y-8 w-full flex-1">
+      <div className="mobile-safe-x w-full flex-1 space-y-8 py-6 sm:px-6 lg:px-8 overflow-x-clip">
         {/* Follow-up Smart Suggestions */}
         {suggestions.length > 0 && (
           <div className="bg-yellow-500/5 border border-yellow-500/20 p-4 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in slide-in-from-top-2 duration-300">

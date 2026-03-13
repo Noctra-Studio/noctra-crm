@@ -47,15 +47,15 @@ export default function DashboardLayoutClient({
         }}
       />
 
-      <div className="flex h-screen w-screen overflow-hidden text-white relative z-10 bg-black">
+      <div className="relative z-10 flex h-dvh min-w-0 w-full max-w-full overflow-hidden bg-black text-white">
         <Sidebar
           isCollapsed={isCollapsed}
           setIsCollapsed={setIsCollapsed}
           userEmail={profile?.full_name || profile?.company_name}
         />
 
-        <main className="flex-1 h-full overflow-hidden flex flex-col relative z-20">
-          <div className="flex-1 overflow-y-auto p-6 scroll-smooth">
+        <main className="relative z-20 flex h-full min-w-0 flex-1 flex-col overflow-hidden">
+          <div className="mobile-safe-x flex-1 overflow-y-auto py-4 sm:px-6 sm:py-6 scroll-smooth">
             {children}
           </div>
 

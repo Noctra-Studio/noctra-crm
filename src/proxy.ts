@@ -3,14 +3,33 @@ import { routing } from "./i18n/routing";
 import { updateSession } from "./utils/supabase/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import {
+  extractLocaleFromPath,
+  getDefaultAuthenticatedRoute,
+} from "./lib/auth-redirect";
 
 const intlMiddleware = createMiddleware(routing);
 
 const MAIN_DOMAINS = ["noctra.studio", "www.noctra.studio", "localhost:3000"];
+const CRM_HOME_RE = /^\/(en|es)?\/?$/;
+
+function isPublicSiteReferrer(referer: string | null) {
+  if (!referer) return false;
+
+  try {
+    const { host } = new URL(referer);
+    return MAIN_DOMAINS.includes(host);
+  } catch {
+    return false;
+  }
+}
 
 export default async function proxy(request: NextRequest) {
   const host = request.headers.get("host") || "";
+  const referer = request.headers.get("referer");
   const { pathname } = request.nextUrl;
+  const locale = extractLocaleFromPath(pathname);
+  const isPublicSiteEntry = isPublicSiteReferrer(referer);
   
   // 0. Custom Domain & Subdomain Persistence Logic
   let resolvedWorkspace = null;
@@ -63,13 +82,14 @@ export default async function proxy(request: NextRequest) {
     const isLandingPage = /^\/(es|en)?\/?$/.test(pathname);
     
     // Protected routes: projects, pipeline, proposals, contracts, clients, leads, metrics, settings, docs, search
-    const protectedRoutes = ['/projects', '/pipeline', '/proposals', '/contracts', '/clients', '/leads', '/metrics', '/settings', '/docs', '/search'];
+    const protectedRoutes = ['/dashboard', '/projects', '/pipeline', '/proposals', '/contracts', '/clients', '/leads', '/metrics', '/settings', '/docs', '/search'];
     const isProtectedRoute = protectedRoutes.some(route => pathname.includes(route));
+    const requiresMfa =
+      aal?.nextLevel === 'aal2' && aal?.currentLevel !== 'aal2';
 
     if (isProtectedRoute && !user) {
       const loginUrl = request.nextUrl.clone();
-      if (pathname.startsWith('/en/') || pathname.startsWith('/es/')) {
-        const locale = pathname.split('/')[1];
+      if (locale) {
         loginUrl.pathname = `/${locale}/login`;
       } else {
         loginUrl.pathname = '/login';
@@ -78,10 +98,9 @@ export default async function proxy(request: NextRequest) {
     }
 
     // MFA check for protected routes
-    if (isProtectedRoute && aal?.nextLevel === 'aal2' && aal?.currentLevel !== 'aal2') {
+    if (isProtectedRoute && requiresMfa) {
       const loginUrl = request.nextUrl.clone();
-      if (pathname.startsWith('/en/') || pathname.startsWith('/es/')) {
-        const locale = pathname.split('/')[1];
+      if (locale) {
         loginUrl.pathname = `/${locale}/login`;
       } else {
         loginUrl.pathname = '/login';
@@ -89,8 +108,25 @@ export default async function proxy(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
 
-    // Allow the login page to render even when a stale or partial session exists.
-    // The page itself decides where to send the user after a successful sign-in.
+    if (
+      isPublicSiteEntry &&
+      user &&
+      !requiresMfa &&
+      isProtectedRoute &&
+      !CRM_HOME_RE.test(pathname)
+    ) {
+      const dashboardUrl = request.nextUrl.clone();
+      dashboardUrl.pathname = getDefaultAuthenticatedRoute(locale);
+      dashboardUrl.search = "";
+      return NextResponse.redirect(dashboardUrl);
+    }
+
+    if (isLoginPage && user && !requiresMfa) {
+      const dashboardUrl = request.nextUrl.clone();
+      dashboardUrl.pathname = getDefaultAuthenticatedRoute(locale);
+      dashboardUrl.search = "";
+      return NextResponse.redirect(dashboardUrl);
+    }
   } catch (error) {
     console.error("Proxy error:", error);
   }
