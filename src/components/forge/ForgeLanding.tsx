@@ -40,13 +40,13 @@ import { useLocale } from "next-intl";
 const LANDING_COPY = {
   es: {
     badge: "Acceso anticipado previsto entre finales de 2026 e inicios de 2027",
-    heroTitle: "Más que un CRM: un sistema de operaciones con clientes nativo en IA",
+    heroTitle: "El sistema que pone orden en leads, clientes y proyectos.",
     personaFreelancer: "Trabajo por mi cuenta",
     personaAgency: "Lidero un equipo",
     proDescription:
-      "Para profesionales que necesitan operar leads, seguimiento y relaciones con clientes con estructura, visibilidad y ayuda inteligente, sin complejidad innecesaria.",
+      "Noctra CRM te ayuda a centralizar leads, clientes, proyectos y follow-ups en un solo flujo, con contexto claro y sin la complejidad de los CRMs tradicionales.",
     agencyDescription:
-      "Cuando la relación con clientes se reparte entre mensajes, notas y hojas sueltas, la operación pierde estructura y visibilidad. Noctra CRM reúne contexto, seguimiento y siguientes pasos en un sistema nativo en IA para que el equipo trabaje con más orden.",
+      "Centraliza leads, clientes, proyectos e interacciones en un solo flujo compartido, con seguimiento y contexto visibles para el equipo sin sumar complejidad operativa.",
     startFree: "Unirme al acceso anticipado",
     watchDemo: "Ver el sistema",
     trustIndicators: ["Sistema de operaciones con clientes nativo en IA", "Visibilidad compartida", "Asistencia útil"],
@@ -370,7 +370,7 @@ export default function ForgeLanding() {
             {copy.badge}
           </span>
         </div>
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tighter max-w-5xl mb-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tighter max-w-[16ch] md:max-w-5xl mb-6 leading-[0.94] md:leading-[0.96] animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 text-balance">
           {copy.heroTitle}
         </h1>
 
@@ -398,7 +398,7 @@ export default function ForgeLanding() {
           </button>
         </div>
 
-        <div className="min-h-[80px] mb-10 flex items-center justify-center">
+        <div className="min-h-[96px] sm:min-h-[80px] mb-8 md:mb-10 flex items-center justify-center">
           <AnimatePresence mode="wait">
             <m.p
               key={userType}
@@ -406,7 +406,7 @@ export default function ForgeLanding() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
-              className="text-lg md:text-xl text-neutral-400 max-w-2xl leading-relaxed text-balance">
+              className="text-base sm:text-lg md:text-xl text-neutral-400 max-w-[34rem] md:max-w-2xl leading-relaxed text-balance">
               {userType === "pro"
                 ? copy.proDescription
                 : copy.agencyDescription}

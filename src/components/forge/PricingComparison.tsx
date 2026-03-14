@@ -164,11 +164,13 @@ const COMPARISON_COPY = {
   },
 } as const;
 
+const comparisonTableClass = "w-max min-w-[780px] md:min-w-0 md:w-full";
+
 const comparisonGridClass =
-  "grid min-w-[780px] grid-cols-[minmax(9.5rem,1.05fr)_minmax(12.5rem,1fr)_minmax(12.5rem,1fr)_minmax(13rem,1fr)] md:min-w-0 md:grid-cols-4";
+  "grid grid-cols-[minmax(9.5rem,1.05fr)_minmax(12.5rem,1fr)_minmax(12.5rem,1fr)_minmax(13rem,1fr)] md:grid-cols-4";
 
 const stickyColumnClass =
-  "sticky left-0 z-20 shadow-[16px_0_28px_rgba(5,5,5,0.92)] md:static md:shadow-none";
+  "sticky left-0 z-20 bg-[#050505] shadow-[16px_0_28px_rgba(5,5,5,0.92)] md:static md:bg-transparent md:shadow-none";
 
 export const PricingComparison = () => {
   const locale = useLocale();
@@ -244,7 +246,7 @@ export const PricingComparison = () => {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-black relative border-t border-white/5 overflow-hidden">
+    <section className="py-24 md:py-32 bg-black relative border-t border-white/5 overflow-x-clip overflow-y-visible">
       {/* Background radial accent */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -289,12 +291,13 @@ export const PricingComparison = () => {
           </div>
           <div className="absolute -inset-1 bg-gradient-to-b from-white/5 to-transparent rounded-3xl blur opacity-30 pointer-events-none" />
           <div className="relative bg-[#050505] border border-white/5 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl">
-            <div className="relative">
-              <div className="pointer-events-none absolute inset-y-0 left-0 z-30 w-4 bg-gradient-to-r from-[#050505] to-transparent md:hidden" />
+            <div className="relative px-3 pb-2 md:px-0 md:pb-0">
+              <div className="pointer-events-none absolute inset-y-0 left-3 z-30 w-4 bg-gradient-to-r from-[#050505] to-transparent md:hidden" />
               <div className="pointer-events-none absolute inset-y-0 right-0 z-30 w-14 bg-gradient-to-l from-[#050505] via-[#050505]/92 to-transparent md:hidden" />
               <div
-                className="overflow-x-auto overscroll-x-contain scroll-smooth touch-pan-x px-3 pb-2 pr-8 md:px-0 md:pb-0 md:pr-0 [-webkit-overflow-scrolling:touch]"
+                className="w-full max-w-full overflow-x-auto overflow-y-visible overscroll-x-contain scroll-smooth touch-pan-x md:overflow-visible [-webkit-overflow-scrolling:touch]"
                 aria-label={copy.title}>
+              <div className={comparisonTableClass}>
               {/* Table Header (Grid) */}
               <div
                 className={`${comparisonGridClass} border-b border-white/10 bg-white/[0.02]`}>
@@ -350,7 +353,7 @@ export const PricingComparison = () => {
                     className={`${comparisonGridClass} group/row hover:bg-white/[0.01] transition-colors`}>
                     {/* Category */}
                     <div
-                      className={`${stickyColumnClass} min-h-[8.5rem] bg-[#050505] group-hover/row:bg-[#080808] md:min-h-0 md:bg-transparent md:group-hover/row:bg-transparent p-5 md:p-8 flex items-center md:border-r border-white/5`}>
+                      className={`${stickyColumnClass} min-h-[8.5rem] group-hover/row:bg-[#080808] md:min-h-0 md:bg-transparent md:group-hover/row:bg-transparent p-5 md:p-8 flex items-center md:border-r border-white/5`}>
                       <span className="text-sm font-bold text-neutral-300 leading-snug">
                         <span className="md:hidden">{row.mobileCategory}</span>
                         <span className="hidden md:inline">{row.category}</span>
@@ -429,6 +432,7 @@ export const PricingComparison = () => {
                     {copy.proCta} <ArrowRight size={16} />
                   </Link>
                 </div>
+              </div>
               </div>
             </div>
             </div>
