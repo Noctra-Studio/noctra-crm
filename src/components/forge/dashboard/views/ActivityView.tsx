@@ -60,8 +60,7 @@ export default function ActivityView() {
   };
 
   return (
-    <div className="h-full flex flex-col">
-      {/* Header */}
+    <div className="flex h-full flex-col">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-white mb-1">
           Project Event Log
@@ -71,8 +70,7 @@ export default function ActivityView() {
         </p>
       </div>
 
-      {/* Activity Timeline */}
-      <div className="bg-gradient-to-b from-zinc-900 to-black border border-white/5 rounded-lg p-6 flex-1 overflow-y-auto">
+      <div className="flex-1 rounded-[1.75rem] border border-white/6 bg-gradient-to-b from-zinc-900 to-black p-5 sm:p-6">
         <div className="space-y-6">
           {MOCK_ACTIVITY.map((event, i) => {
             const Icon = event.icon;
@@ -84,13 +82,12 @@ export default function ActivityView() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.3 }}
-                className="relative flex gap-4">
-                {/* Timeline Line */}
+                className="relative flex gap-4"
+              >
                 {i !== MOCK_ACTIVITY.length - 1 && (
                   <div className="absolute left-[11px] top-8 bottom-0 w-px bg-zinc-800" />
                 )}
 
-                {/* Icon/Dot */}
                 <div className="relative flex-shrink-0">
                   <div
                     className={`w-6 h-6 rounded-full flex items-center justify-center bg-zinc-900 border-2 ${
@@ -100,9 +97,8 @@ export default function ActivityView() {
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="flex-1 pb-4">
-                  <div className="flex items-start justify-between mb-1">
+                  <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
                     <h3 className="text-sm font-medium text-white">
                       {event.action}
                     </h3>

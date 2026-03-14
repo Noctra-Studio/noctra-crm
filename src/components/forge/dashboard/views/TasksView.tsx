@@ -58,8 +58,8 @@ interface TaskColumnProps {
 
 function TaskColumn({ title, tasks, icon, color }: TaskColumnProps) {
   return (
-    <div className="flex-1 min-w-0">
-      <div className={`flex items-center gap-2 mb-4 pb-3 border-b ${color}`}>
+    <section className="min-w-0 rounded-[1.75rem] border border-white/6 bg-neutral-950/65 p-4 sm:p-5">
+      <div className={`mb-4 flex items-center gap-2 border-b pb-3 ${color}`}>
         {icon}
         <h3 className="font-semibold text-white">{title}</h3>
         <span className="ml-auto text-sm text-neutral-300">{tasks.length}</span>
@@ -68,11 +68,12 @@ function TaskColumn({ title, tasks, icon, color }: TaskColumnProps) {
         {tasks.map((task) => (
           <div
             key={task.id}
-            className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 hover:border-zinc-700 transition-colors cursor-pointer group">
+            className="group cursor-pointer rounded-2xl border border-zinc-800 bg-zinc-900 p-4 transition-colors hover:border-zinc-700"
+          >
             <p className="text-sm font-medium text-white mb-2 group-hover:text-blue-400 transition-colors">
               {task.title}
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span
                 className={`text-xs px-2 py-1 rounded border ${
                   priorityColors[task.priority as keyof typeof priorityColors]
@@ -86,15 +87,18 @@ function TaskColumn({ title, tasks, icon, color }: TaskColumnProps) {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 
 export default function TasksView() {
+  const totalTasks =
+    MOCK_TASKS.todo.length + MOCK_TASKS.inProgress.length + MOCK_TASKS.review.length;
+
   return (
-    <div className="h-full overflow-y-auto">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
+    <div className="h-full">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-6">
           <div className="flex items-center gap-3 mb-2">
             <ListTodo className="w-6 h-6 text-white" />
             <h2 className="text-2xl font-bold text-white">Tasks</h2>
@@ -104,7 +108,36 @@ export default function TasksView() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="rounded-2xl border border-white/6 bg-white/[0.03] p-4">
+            <p className="text-[10px] uppercase tracking-[0.24em] text-white/35">
+              Total
+            </p>
+            <p className="mt-2 text-2xl font-semibold text-white">{totalTasks}</p>
+          </div>
+          <div className="rounded-2xl border border-white/6 bg-white/[0.03] p-4">
+            <p className="text-[10px] uppercase tracking-[0.24em] text-white/35">
+              Client Action
+            </p>
+            <p className="mt-2 text-2xl font-semibold text-white">
+              {
+                [...MOCK_TASKS.todo, ...MOCK_TASKS.review].filter(
+                  (task) => task.assignee === "Client",
+                ).length
+              }
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/6 bg-white/[0.03] p-4">
+            <p className="text-[10px] uppercase tracking-[0.24em] text-white/35">
+              In Progress
+            </p>
+            <p className="mt-2 text-2xl font-semibold text-white">
+              {MOCK_TASKS.inProgress.length}
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
           <TaskColumn
             title="To Do"
             tasks={MOCK_TASKS.todo}

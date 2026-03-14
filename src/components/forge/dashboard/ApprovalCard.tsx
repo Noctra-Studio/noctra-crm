@@ -63,13 +63,10 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
   }
 
   return (
-    <div className="group bg-gradient-to-b from-zinc-900 to-black border border-white/5 hover:border-white/20 rounded-lg overflow-hidden h-full flex flex-col transition-colors duration-500">
-      {/* Two Column Layout - No padding, flush layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 flex-1 min-h-0 items-stretch">
-        {/* Left Column: Actions */}
-        <div className="flex flex-col h-full p-6">
-          {/* Header - Now inside Left Column */}
-          <div className="flex-shrink-0 pb-4">
+    <div className="group flex h-full flex-col overflow-hidden rounded-[1.9rem] border border-white/6 bg-gradient-to-b from-zinc-900 to-black transition-colors duration-500 hover:border-white/18">
+      <div className="grid flex-1 min-h-0 grid-cols-1 items-stretch lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+        <div className="order-2 flex h-full flex-col p-5 sm:p-6 lg:order-1">
+          <div className="shrink-0 pb-4">
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h3 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-1">
@@ -93,27 +90,26 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
             ))}
           </div>
 
-          {/* Updates Trigger Button */}
-          <div className="flex-shrink-0 py-4">
+          <div className="shrink-0 py-4">
             <button
               onClick={() => setIsUpdatesModalOpen(true)}
-              className="text-sm text-zinc-400 hover:text-white underline decoration-zinc-700 underline-offset-4 cursor-pointer transition-colors flex items-center gap-2">
+              className="flex items-center gap-2 text-sm text-zinc-400 underline decoration-zinc-700 underline-offset-4 transition-colors hover:text-white"
+            >
               <ListChecks className="w-4 h-4" />
               View {deliverable.version_updates.length} updates in this version
             </button>
           </div>
 
-          {/* Feedback Trigger - Moved Up */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <button
               onClick={() => setIsFeedbackOpen(!isFeedbackOpen)}
-              className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-2 py-2">
+              className="flex items-center gap-2 py-2 text-sm text-neutral-400 transition-colors hover:text-white"
+            >
               <Plus className="w-4 h-4" />
               Add specific feedback/notes
             </button>
           </div>
 
-          {/* Flex-1 Spacer / Textarea Container - "Fill the Void" */}
           <AnimatePresence mode="wait">
             {status === "pending" && (
               <motion.div
@@ -135,7 +131,7 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
                         opacity: 0,
                         transition: { duration: 0.2 },
                       }}
-                      className="h-full flex flex-col">
+                      className="flex h-full flex-col">
                       <div className="flex items-center justify-between mb-2">
                         <label className="text-sm text-neutral-400 block">
                           Feedback
@@ -150,7 +146,7 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
                         value={feedback}
                         onChange={(e) => setFeedback(e.target.value)}
                         placeholder="Add your feedback here..."
-                        className="w-full h-full bg-zinc-950/50 border border-zinc-800 rounded-lg p-4 text-white placeholder:text-neutral-700 focus:ring-1 focus:ring-white/50 focus:border-white/50 outline-none transition-all resize-none"
+                        className="h-44 w-full resize-none rounded-2xl border border-zinc-800 bg-zinc-950/50 p-4 text-white outline-none transition-all placeholder:text-neutral-700 focus:border-white/50 focus:ring-1 focus:ring-white/50 sm:h-full"
                         autoFocus
                       />
                     </motion.div>
@@ -160,7 +156,6 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
             )}
           </AnimatePresence>
 
-          {/* Action Buttons - Pinned to Bottom */}
           <AnimatePresence mode="wait">
             {status === "pending" && (
               <motion.div
@@ -168,8 +163,8 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="flex-shrink-0">
-                <div className="flex items-center gap-3">
+                className="shrink-0">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                   <motion.button
                     onClick={handleApprove}
                     disabled={isSubmitting || showSuccess}
@@ -178,7 +173,8 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
                       scale: showSuccess ? 1.05 : 1,
                     }}
                     transition={{ duration: 0.3 }}
-                    className="bg-white text-black px-4 py-2 rounded-md font-medium flex items-center gap-2 hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="flex items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3 font-medium text-black transition-colors hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
                     {isSubmitting && !showSuccess ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : showSuccess ? (
@@ -198,7 +194,8 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
                   </motion.button>
                   <button
                     onClick={handleRequestChanges}
-                    className="border border-zinc-700 text-zinc-300 px-4 py-2 rounded-md font-medium hover:bg-zinc-800 transition-colors">
+                    className="rounded-2xl border border-zinc-700 px-4 py-3 font-medium text-zinc-300 transition-colors hover:bg-zinc-800"
+                  >
                     Request Changes
                   </button>
                 </div>
@@ -213,7 +210,7 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
                 key="approved"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-green-500/10 border border-green-500/20 rounded-lg p-6 text-center flex-shrink-0">
+                className="shrink-0 rounded-3xl border border-green-500/20 bg-green-500/10 p-6 text-center">
                 <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
                   <Check className="w-8 h-8 text-green-400" />
                 </div>
@@ -231,8 +228,8 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
                 key="changes"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="space-y-4 flex-shrink-0">
-                <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
+                className="shrink-0 space-y-4">
+                <div className="rounded-3xl border border-yellow-500/20 bg-yellow-500/10 p-4">
                   <p className="text-sm font-medium text-yellow-400 mb-2">
                     Changes Requested
                   </p>
@@ -253,18 +250,15 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
           </AnimatePresence>
         </div>
 
-        {/* Right Column: Live Preview - FULL HEIGHT with Padding */}
-        <div className="relative h-full w-full overflow-hidden min-h-[400px] lg:min-h-0 p-2">
-          <div className="relative w-full h-full rounded-lg overflow-hidden group bg-neutral-900">
-            {/* Phase Indicator -> Status Badge */}
-            <div className="absolute top-4 right-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/50 bg-transparent backdrop-blur-sm">
+        <div className="order-1 min-h-[320px] p-2 sm:min-h-[420px] lg:order-2 lg:min-h-0">
+          <div className="group relative h-full w-full overflow-hidden rounded-[1.5rem] bg-neutral-900">
+            <div className="absolute right-4 top-4 z-20 flex items-center gap-2 rounded-full border border-amber-500/50 bg-black/25 px-3 py-1.5 backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
               <span className="text-sm text-amber-500 font-medium">
                 Pending Review
               </span>
             </div>
 
-            {/* Preview Image */}
             <Image
               src={deliverable.preview_image_url}
               alt="Live Preview"
@@ -272,13 +266,13 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
 
-            {/* Hover Overlay */}
-            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+            <div className="absolute inset-0 z-10 flex items-end justify-center bg-gradient-to-t from-black via-black/20 to-transparent p-5 sm:items-center sm:bg-black/60 sm:opacity-0 sm:transition-opacity sm:duration-300 sm:group-hover:opacity-100">
               <a
                 href="https://staging.noctra.studio"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-3 px-6 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:scale-105 transition-transform transform translate-y-4 group-hover:translate-y-0 duration-300">
+                className="flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-transform duration-300 hover:scale-105 sm:translate-y-4 sm:transform sm:group-hover:translate-y-0"
+              >
                 <ExternalLink className="w-4 h-4" />
                 Open Live Preview
               </a>
@@ -307,7 +301,7 @@ export default function ApprovalCard({ deliverable }: ApprovalCardProps) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ duration: 0.2 }}
-                className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl w-full max-w-md relative"
+                className="relative w-full max-w-md rounded-3xl border border-zinc-800 bg-zinc-900 p-6"
                 onClick={(e) => e.stopPropagation()}>
                 {/* Header */}
                 <div className="mb-4">

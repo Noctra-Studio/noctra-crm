@@ -182,6 +182,7 @@ export async function deleteProjectAction(
   }
 
   revalidatePath("/[locale]/projects", "page");
+  revalidatePath("/[locale]/clients", "page");
   revalidatePath("/[locale]", "page");
 
   const publicRevalidation = await revalidatePublicProjectContent(project.slug);

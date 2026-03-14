@@ -121,8 +121,18 @@ export default function WorkspaceDashboard({
 }) {
   const t = useTranslations("forge.dashboard");
   const { suggestions } = useFollowUps();
-  const [widgets, setWidgets] = useState(() =>
-    normalizeDashboardWidgetState(initialData.widgetPreferences),
+  const initialWidgets = normalizeDashboardWidgetState(
+    initialData.widgetPreferences,
+  );
+  const [widgets, setWidgets] = useState(() => initialWidgets);
+  const [recentActivityPreferences, setRecentActivityPreferences] = useState(() =>
+    getRecentActivityPreferences(initialWidgets),
+  );
+  const [metricsTimeframe, setMetricsTimeframe] = useState(() =>
+    getMetricsTimeframePreference(initialWidgets),
+  );
+  const [pipelineFilter, setPipelineFilter] = useState(() =>
+    getPipelineFilterPreference(initialWidgets),
   );
   const [isCustomizeMode, setIsCustomizeMode] = useState(false);
   const [saveState, setSaveState] = useState<
@@ -131,11 +141,6 @@ export default function WorkspaceDashboard({
   const [isPending, startTransition] = useTransition();
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastCommittedRef = useRef(serializeWidgetState(initialData.widgetPreferences));
-
-  useEffect(() => {
-    setWidgets(normalizeDashboardWidgetState(initialData.widgetPreferences));
-    lastCommittedRef.current = serializeWidgetState(initialData.widgetPreferences);
-  }, [initialData.widgetPreferences]);
 
   useEffect(() => {
     const signature = serializeWidgetState(widgets);
@@ -274,6 +279,11 @@ export default function WorkspaceDashboard({
       sort: "newest" | "oldest";
     }>,
   ) => {
+    setRecentActivityPreferences((current) => {
+      const next = { ...current, ...partial };
+      return next;
+    });
+
     updateWidget(widgetKey, (widget) => ({
       ...widget,
       preferences: {
@@ -293,6 +303,8 @@ export default function WorkspaceDashboard({
     widgetKey: "metrics",
     timeframe: DashboardMetricsTimeframe,
   ) => {
+    setMetricsTimeframe(timeframe);
+
     updateWidget(widgetKey, (widget) => ({
       ...widget,
       preferences: {
@@ -306,6 +318,8 @@ export default function WorkspaceDashboard({
     widgetKey: "pipeline_snapshot",
     filter: DashboardPipelineFilter,
   ) => {
+    setPipelineFilter(filter);
+
     updateWidget(widgetKey, (widget) => ({
       ...widget,
       preferences: {
@@ -316,12 +330,20 @@ export default function WorkspaceDashboard({
   };
 
   const applyPresetLocally = (presetKey: DashboardPresetKey) => {
-    setWidgets(getPresetWidgetState(presetKey));
+    const presetWidgets = getPresetWidgetState(presetKey);
+    setWidgets(presetWidgets);
+    setRecentActivityPreferences(getRecentActivityPreferences(presetWidgets));
+    setMetricsTimeframe(getMetricsTimeframePreference(presetWidgets));
+    setPipelineFilter(getPipelineFilterPreference(presetWidgets));
     setIsCustomizeMode(true);
   };
 
   const restoreDefaultLocally = () => {
-    setWidgets(getPresetWidgetState(PRODUCT_DEFAULT_PRESET));
+    const defaultWidgets = getPresetWidgetState(PRODUCT_DEFAULT_PRESET);
+    setWidgets(defaultWidgets);
+    setRecentActivityPreferences(getRecentActivityPreferences(defaultWidgets));
+    setMetricsTimeframe(getMetricsTimeframePreference(defaultWidgets));
+    setPipelineFilter(getPipelineFilterPreference(defaultWidgets));
     setIsCustomizeMode(true);
   };
 
@@ -366,10 +388,7 @@ export default function WorkspaceDashboard({
         return (
           <RecentActivityWidget
             activityFeed={initialData.activityFeed}
-            preferences={widget.preferences as {
-              type: ActivityFilterValue;
-              sort: "newest" | "oldest";
-            }}
+            preferences={recentActivityPreferences}
             onChange={(partial) =>
               handleActivityPreferenceChange("recent_activity", partial)
             }
@@ -380,8 +399,7 @@ export default function WorkspaceDashboard({
         return (
           <MetricsWidget
             data={initialData}
-            timeframe={(widget.preferences as { timeframe: DashboardMetricsTimeframe })
-              .timeframe}
+            timeframe={metricsTimeframe}
             onTimeframeChange={(timeframe) =>
               handleMetricsTimeframeChange("metrics", timeframe)
             }
@@ -392,7 +410,7 @@ export default function WorkspaceDashboard({
         return (
           <PipelineSnapshotWidget
             leads={initialData.leads}
-            filter={(widget.preferences as { filter: DashboardPipelineFilter }).filter}
+            filter={pipelineFilter}
             onFilterChange={(filter) =>
               handlePipelineFilterChange("pipeline_snapshot", filter)
             }
@@ -941,26 +959,20 @@ function RecentActivityWidget({
   ) => void;
   t: ReturnType<typeof useTranslations<"forge.dashboard">>;
 }) {
-  const [localPreferences, setLocalPreferences] = useState(preferences);
-
-  useEffect(() => {
-    setLocalPreferences(preferences);
-  }, [preferences]);
-
   const filteredFeed = useMemo(() => {
     const byType =
-      localPreferences.type === "all"
+      preferences.type === "all"
         ? activityFeed
-        : activityFeed.filter((item) => item.entityType === localPreferences.type);
+        : activityFeed.filter((item) => item.entityType === preferences.type);
 
     return [...byType].sort((left, right) => {
       const leftDate = new Date(left.createdAt).getTime();
       const rightDate = new Date(right.createdAt).getTime();
-      return localPreferences.sort === "newest"
+      return preferences.sort === "newest"
         ? rightDate - leftDate
         : leftDate - rightDate;
     });
-  }, [activityFeed, localPreferences.sort, localPreferences.type]);
+  }, [activityFeed, preferences.sort, preferences.type]);
 
   return (
     <div className="bg-[#111111] border border-neutral-900 flex flex-col h-full rounded-xl">
@@ -975,18 +987,14 @@ function RecentActivityWidget({
                 <button
                   key={option.value}
                   type="button"
-                  onClick={() => {
-                    setLocalPreferences((current) => ({
-                      ...current,
-                      type: option.value,
-                    }));
+                  onClick={() =>
                     onChange({
                       type: option.value,
-                    });
-                  }}
+                    })
+                  }
                   className={cn(
                     "rounded-full px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] transition",
-                    localPreferences.type === option.value
+                    preferences.type === option.value
                       ? "bg-white text-black"
                       : "text-neutral-400 hover:text-white",
                   )}
@@ -997,20 +1005,14 @@ function RecentActivityWidget({
             </div>
             <button
               type="button"
-              onClick={() => {
-                const nextSort =
-                  localPreferences.sort === "newest" ? "oldest" : "newest";
-                setLocalPreferences((current) => ({
-                  ...current,
-                  sort: nextSort,
-                }));
+              onClick={() =>
                 onChange({
-                  sort: nextSort,
-                });
-              }}
+                  sort: preferences.sort === "newest" ? "oldest" : "newest",
+                })
+              }
               className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-[10px] font-mono uppercase tracking-[0.18em] text-neutral-300 transition hover:border-white/20 hover:text-white"
             >
-              {localPreferences.sort === "newest"
+              {preferences.sort === "newest"
                 ? t("sortNewest")
                 : t("sortOldest")}
             </button>
@@ -1093,18 +1095,12 @@ function MetricsWidget({
   onTimeframeChange: (timeframe: DashboardMetricsTimeframe) => void;
   t: ReturnType<typeof useTranslations<"forge.dashboard">>;
 }) {
-  const [localTimeframe, setLocalTimeframe] = useState(timeframe);
-
-  useEffect(() => {
-    setLocalTimeframe(timeframe);
-  }, [timeframe]);
-
   const metrics = useMemo(() => {
     const now = new Date();
     const windowStart =
-      localTimeframe === "7d"
+      timeframe === "7d"
         ? subDays(now, 7)
-        : localTimeframe === "30d"
+        : timeframe === "30d"
           ? subDays(now, 30)
           : subDays(now, 90);
 
@@ -1143,7 +1139,7 @@ function MetricsWidget({
       activeProjects,
       winRate,
     };
-  }, [data.leads, data.projects, data.proposals, localTimeframe]);
+  }, [data.leads, data.projects, data.proposals, timeframe]);
 
   return (
     <div className="bg-[#111111] border border-neutral-900 rounded-xl h-full flex flex-col">
@@ -1160,15 +1156,12 @@ function MetricsWidget({
               <button
                 key={option.value}
                 type="button"
-                onClick={() => {
-                  const nextTimeframe =
-                    option.value as DashboardMetricsTimeframe;
-                  setLocalTimeframe(nextTimeframe);
-                  onTimeframeChange(nextTimeframe);
-                }}
+                onClick={() =>
+                  onTimeframeChange(option.value as DashboardMetricsTimeframe)
+                }
                 className={cn(
                   "rounded-full px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] transition",
-                  localTimeframe === option.value
+                  timeframe === option.value
                     ? "bg-white text-black"
                     : "text-neutral-400 hover:text-white",
                 )}
@@ -1230,22 +1223,16 @@ function PipelineSnapshotWidget({
   onFilterChange: (filter: DashboardPipelineFilter) => void;
   t: ReturnType<typeof useTranslations<"forge.dashboard">>;
 }) {
-  const [localFilter, setLocalFilter] = useState(filter);
-
-  useEffect(() => {
-    setLocalFilter(filter);
-  }, [filter]);
-
   const filteredLeads = useMemo(() => {
     const activeLeads = leads.filter(
       (lead) => !isResolvedPipelineStatus(lead.pipeline_status),
     );
 
-    if (localFilter === "all") {
+    if (filter === "all") {
       return activeLeads;
     }
 
-    if (localFilter === "early") {
+    if (filter === "early") {
       return activeLeads.filter((lead) =>
         matchesAnyStage(lead.pipeline_status, ["nuevo", "contactado", "calificado"]),
       );
@@ -1260,7 +1247,7 @@ function PipelineSnapshotWidget({
         "viewed",
       ]),
     );
-  }, [localFilter, leads]);
+  }, [filter, leads]);
 
   const stages = useMemo(() => {
     const preferredStages = [
@@ -1321,14 +1308,12 @@ function PipelineSnapshotWidget({
               <button
                 key={option.value}
                 type="button"
-                onClick={() => {
-                  const nextFilter = option.value as DashboardPipelineFilter;
-                  setLocalFilter(nextFilter);
-                  onFilterChange(nextFilter);
-                }}
+                onClick={() =>
+                  onFilterChange(option.value as DashboardPipelineFilter)
+                }
                 className={cn(
                   "rounded-full px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] transition",
-                  localFilter === option.value
+                  filter === option.value
                     ? "bg-white text-black"
                     : "text-neutral-400 hover:text-white",
                 )}
@@ -1775,6 +1760,40 @@ function reorderList<T>(items: T[], startIndex: number, endIndex: number) {
   const [removed] = next.splice(startIndex, 1);
   next.splice(endIndex, 0, removed);
   return next;
+}
+
+function getRecentActivityPreferences(widgets: DashboardWidgetState[]) {
+  const widget = widgets.find(
+    (item) => item.widgetKey === "recent_activity",
+  );
+
+  return (widget?.preferences as {
+    type: ActivityFilterValue;
+    sort: "newest" | "oldest";
+  }) ?? {
+    type: "all",
+    sort: "newest",
+  };
+}
+
+function getMetricsTimeframePreference(widgets: DashboardWidgetState[]) {
+  const widget = widgets.find((item) => item.widgetKey === "metrics");
+
+  return (
+    (widget?.preferences as { timeframe: DashboardMetricsTimeframe } | undefined)
+      ?.timeframe ?? "30d"
+  );
+}
+
+function getPipelineFilterPreference(widgets: DashboardWidgetState[]) {
+  const widget = widgets.find(
+    (item) => item.widgetKey === "pipeline_snapshot",
+  );
+
+  return (
+    (widget?.preferences as { filter: DashboardPipelineFilter } | undefined)
+      ?.filter ?? "all"
+  );
 }
 
 function serializeWidgetState(widgets: DashboardWidgetState[]) {

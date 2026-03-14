@@ -14,8 +14,8 @@ export default function SettingsView() {
   };
 
   return (
-    <div className="h-full overflow-y-auto pb-20">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="h-full pb-28 md:pb-20">
+      <div className="mx-auto max-w-4xl space-y-8">
         <div>
           <h2 className="text-2xl font-bold text-white mb-2">Settings</h2>
           <p className="text-neutral-300">
@@ -24,7 +24,7 @@ export default function SettingsView() {
         </div>
 
         {/* Profile Section */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <div className="rounded-[1.75rem] border border-neutral-800 bg-neutral-900 p-5 sm:p-6">
           <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
             <User className="w-5 h-5" />
             Profile
@@ -36,8 +36,8 @@ export default function SettingsView() {
               <label className="block text-sm font-medium text-neutral-400 mb-2">
                 Company Logo / Profile Photo
               </label>
-              <div className="flex items-center gap-6">
-                <div className="w-24 h-24 rounded-full bg-neutral-800 border-2 border-neutral-700 border-dashed flex items-center justify-center group hover:border-neutral-600 transition-colors cursor-pointer relative overflow-hidden">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+                <div className="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-neutral-700 bg-neutral-800 transition-colors group hover:border-neutral-600">
                   <input
                     type="file"
                     className="absolute inset-0 opacity-0 cursor-pointer"
@@ -86,7 +86,7 @@ export default function SettingsView() {
         </div>
 
         {/* Account Security */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <div className="rounded-[1.75rem] border border-neutral-800 bg-neutral-900 p-5 sm:p-6">
           <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
             <Lock className="w-5 h-5" />
             Account Security
@@ -125,7 +125,7 @@ export default function SettingsView() {
         </div>
 
         {/* Preferences */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <div className="rounded-[1.75rem] border border-neutral-800 bg-neutral-900 p-5 sm:p-6">
           <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
             <Globe className="w-5 h-5" />
             Preferences
@@ -137,7 +137,7 @@ export default function SettingsView() {
               <label className="block text-sm font-medium text-neutral-400 mb-3">
                 Language
               </label>
-              <div className="flex gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <button
                   onClick={() => setLanguage("en")}
                   className={`px-6 py-3 rounded-lg font-medium transition-all ${
@@ -162,11 +162,11 @@ export default function SettingsView() {
         </div>
       </div>
 
-      {/* Floating Save Button */}
-      <div className="fixed bottom-6 right-6">
+      <div className="mobile-safe-x fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+5.5rem)] md:inset-x-auto md:bottom-6 md:right-6">
         <button
           onClick={handleSaveChanges}
-          className="px-6 py-3 rounded-lg bg-white text-black font-medium hover:bg-neutral-200 transition-colors shadow-2xl">
+          className="w-full rounded-2xl bg-white px-6 py-3 font-medium text-black shadow-2xl transition-colors hover:bg-neutral-200 md:w-auto"
+        >
           Save Changes
         </button>
       </div>

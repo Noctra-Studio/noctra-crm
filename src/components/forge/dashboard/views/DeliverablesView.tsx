@@ -42,8 +42,8 @@ const deliverables = [
 
 export default function DeliverablesView() {
   return (
-    <div className="h-full overflow-y-auto">
-      <div className="max-w-6xl mx-auto">
+    <div className="h-full">
+      <div className="mx-auto max-w-6xl">
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-white mb-2">Deliverables</h2>
           <p className="text-neutral-300">
@@ -51,14 +51,15 @@ export default function DeliverablesView() {
           </p>
         </div>
 
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <div className="rounded-[1.75rem] border border-neutral-800 bg-neutral-900 p-4 sm:p-6">
           <div className="space-y-3">
             {deliverables.map((item, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between p-4 rounded-lg bg-neutral-950/50 border border-neutral-800 hover:border-neutral-700 transition-colors group">
-                <div className="flex items-center gap-4 flex-1">
-                  <div className="p-2 rounded-lg bg-neutral-900 text-neutral-400 group-hover:text-white transition-colors">
+                className="group flex flex-col gap-4 rounded-[1.35rem] border border-neutral-800 bg-neutral-950/50 p-4 transition-colors hover:border-neutral-700 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="flex flex-1 items-start gap-4">
+                  <div className="rounded-2xl bg-neutral-900 p-2 text-neutral-400 transition-colors group-hover:text-white">
                     <Rocket className="w-5 h-5" />
                   </div>
                   <div className="flex-1">
@@ -68,12 +69,12 @@ export default function DeliverablesView() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="text-right hidden md:block">
+                <div className="flex flex-wrap items-center gap-3 sm:justify-end">
+                  <div className="sm:text-right">
                     <p className="text-xs text-neutral-300">{item.date}</p>
                   </div>
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
+                    className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium ${
                       item.status === "Approved" || item.status === "Completed"
                         ? "bg-green-500/10 text-green-400"
                         : item.status === "In Review"
@@ -93,7 +94,13 @@ export default function DeliverablesView() {
                       </span>
                     )}
                   </span>
-                  <ExternalLink className="w-4 h-4 text-neutral-400 group-hover:text-white transition-colors" />
+                  <button
+                    type="button"
+                    className="flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-xs font-medium text-white/70 transition-colors hover:border-white/20 hover:text-white"
+                  >
+                    Open
+                    <ExternalLink className="h-4 w-4 text-neutral-400 transition-colors group-hover:text-white" />
+                  </button>
                 </div>
               </div>
             ))}

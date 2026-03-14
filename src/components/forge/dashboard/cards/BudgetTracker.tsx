@@ -26,10 +26,10 @@ export default function BudgetTracker({
   };
 
   return (
-    <div className="group bg-gradient-to-b from-zinc-900 to-black border border-white/5 hover:border-white/20 rounded-lg p-6 transition-colors duration-500">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 rounded-md bg-zinc-800 flex items-center justify-center">
-          <DollarSign className="w-5 h-5 text-zinc-400" />
+    <div className="group rounded-[1.75rem] border border-white/6 bg-gradient-to-b from-zinc-900 to-black p-5 transition-colors duration-500 hover:border-white/18 sm:p-6">
+      <div className="mb-6 flex items-center gap-3">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-zinc-800">
+          <DollarSign className="h-5 w-5 text-zinc-400" />
         </div>
         <div>
           <h3 className="text-sm font-sans tracking-tight text-white font-semibold">
@@ -41,13 +41,12 @@ export default function BudgetTracker({
         </div>
       </div>
 
-      {/* Main Metrics */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
         <div>
           <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-1">
             Total Budget
           </p>
-          <p className="text-2xl font-mono font-bold text-white tracking-tight">
+          <p className="text-xl font-mono font-bold tracking-tight text-white sm:text-2xl">
             ${totalBudget.toLocaleString()}
           </p>
         </div>
@@ -55,7 +54,7 @@ export default function BudgetTracker({
           <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-1">
             Spent
           </p>
-          <p className="text-2xl font-mono font-bold text-zinc-500 tracking-tight">
+          <p className="text-xl font-mono font-bold tracking-tight text-zinc-500 sm:text-2xl">
             ${totalSpent.toLocaleString()}
           </p>
         </div>
@@ -63,7 +62,7 @@ export default function BudgetTracker({
           <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-1">
             Remaining
           </p>
-          <p className="text-2xl font-mono font-bold text-white tracking-tight">
+          <p className="text-xl font-mono font-bold tracking-tight text-white sm:text-2xl">
             ${remaining.toLocaleString()}
           </p>
         </div>
@@ -98,11 +97,11 @@ export default function BudgetTracker({
           const percentage = (item.budget_spent / item.budget_allocated) * 100;
           return (
             <div key={i} className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <span className="text-[10px] uppercase tracking-widest text-zinc-500">
                   {item.name}
                 </span>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 sm:justify-end">
                   <span className="text-xs font-mono text-zinc-400">
                     ${item.budget_spent.toLocaleString()} / $
                     {item.budget_allocated.toLocaleString()}

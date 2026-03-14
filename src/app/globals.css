@@ -50,6 +50,8 @@
   --radius: 0.625rem;
   --mobile-safe-x-start: max(1rem, env(safe-area-inset-left));
   --mobile-safe-x-end: max(1rem, env(safe-area-inset-right));
+  --mobile-safe-y-start: max(0.75rem, env(safe-area-inset-top));
+  --mobile-safe-y-end: max(0.75rem, env(safe-area-inset-bottom));
   --background: #0a0a0a; /* Deep Obsidian */
   --foreground: #ededed; /* Soft White */
   --card: #171717;
@@ -107,10 +109,20 @@
     padding-inline-end: var(--mobile-safe-x-end);
   }
 
+  .mobile-safe-top {
+    padding-top: var(--mobile-safe-y-start);
+  }
+
+  .mobile-safe-bottom {
+    padding-bottom: var(--mobile-safe-y-end);
+  }
+
   @media (min-width: 640px) {
     :root {
       --mobile-safe-x-start: max(1.25rem, env(safe-area-inset-left));
       --mobile-safe-x-end: max(1.25rem, env(safe-area-inset-right));
+      --mobile-safe-y-start: max(1rem, env(safe-area-inset-top));
+      --mobile-safe-y-end: max(1rem, env(safe-area-inset-bottom));
     }
   }
 

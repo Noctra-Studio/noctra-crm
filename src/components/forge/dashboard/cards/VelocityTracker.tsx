@@ -19,10 +19,10 @@ export default function VelocityTracker({ services }: VelocityTrackerProps) {
   const offset = circumference - (overallProgress / 100) * circumference;
 
   return (
-    <div className="group bg-gradient-to-b from-zinc-900 to-black border border-white/5 hover:border-white/20 rounded-lg p-6 transition-colors duration-500">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 rounded-md bg-zinc-800 flex items-center justify-center">
-          <TrendingUp className="w-5 h-5 text-zinc-400" />
+    <div className="group rounded-[1.75rem] border border-white/6 bg-gradient-to-b from-zinc-900 to-black p-5 transition-colors duration-500 hover:border-white/18 sm:p-6">
+      <div className="mb-6 flex items-center gap-3">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-zinc-800">
+          <TrendingUp className="h-5 w-5 text-zinc-400" />
         </div>
         <div>
           <h3 className="text-sm font-sans tracking-tight text-white font-semibold">
@@ -34,7 +34,6 @@ export default function VelocityTracker({ services }: VelocityTrackerProps) {
         </div>
       </div>
 
-      {/* Circular Progress */}
       <div className="flex items-center justify-center mb-6">
         <div className="relative w-32 h-32">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
@@ -84,8 +83,11 @@ export default function VelocityTracker({ services }: VelocityTrackerProps) {
           Sub-Tracks
         </p>
         {services.map((track, i) => (
-          <div key={i} className="flex items-center justify-between">
-            <div className="flex items-center gap-3 flex-1">
+          <div
+            key={i}
+            className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div className="flex min-w-0 items-center gap-3 sm:flex-1">
               <div
                 className={`w-1.5 h-1.5 rounded-full ${
                   track.progress_percentage >= 80
@@ -95,12 +97,12 @@ export default function VelocityTracker({ services }: VelocityTrackerProps) {
                     : "bg-zinc-600"
                 }`}
               />
-              <span className="text-[10px] uppercase tracking-widest text-zinc-500">
+              <span className="truncate text-[10px] uppercase tracking-widest text-zinc-500">
                 {track.name}
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-24 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+            <div className="flex items-center gap-3 sm:justify-end">
+              <div className="h-1.5 w-full max-w-40 rounded-full bg-zinc-800 overflow-hidden sm:w-24">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${track.progress_percentage}%` }}

@@ -1,0 +1,724 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic:
+    - generic:
+      - generic: Domina tu flujo.
+  - generic [ref=e13]:
+    - complementary [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - img "Noctra Studio" [ref=e18]
+          - button "Contraer menú" [ref=e19]:
+            - img [ref=e20]
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - link "Inicio" [ref=e25] [cursor=pointer]:
+              - /url: /es
+              - img [ref=e26]
+              - generic [ref=e29]: Inicio
+            - link "Proyectos" [ref=e30] [cursor=pointer]:
+              - /url: /es/projects
+              - img [ref=e31]
+              - generic [ref=e36]: Proyectos
+            - link "Pipeline" [ref=e37] [cursor=pointer]:
+              - /url: /es/pipeline
+              - img [ref=e38]
+              - generic [ref=e39]: Pipeline
+          - generic [ref=e40]:
+            - separator [ref=e41]
+            - link "Propuestas" [ref=e42] [cursor=pointer]:
+              - /url: /es/proposals
+              - img [ref=e43]
+              - generic [ref=e46]: Propuestas
+            - link "Contratos" [ref=e47] [cursor=pointer]:
+              - /url: /es/contracts
+              - img [ref=e48]
+              - generic [ref=e51]: Contratos
+            - link "Documentos" [ref=e52] [cursor=pointer]:
+              - /url: /es/documents
+              - img [ref=e53]
+              - generic [ref=e56]: Documentos
+            - link "Clientes" [ref=e57] [cursor=pointer]:
+              - /url: /es/clients
+              - img [ref=e58]
+              - generic [ref=e62]: Clientes
+            - link "Leads" [ref=e63] [cursor=pointer]:
+              - /url: /es/leads
+              - img [ref=e64]
+              - generic [ref=e69]: Leads
+          - generic [ref=e70]:
+            - separator [ref=e71]
+            - link "Migración" [ref=e72] [cursor=pointer]:
+              - /url: /es/migration
+              - img [ref=e73]
+              - generic [ref=e79]: Migración
+            - link "Métricas" [ref=e80] [cursor=pointer]:
+              - /url: /es/metrics
+              - img [ref=e81]
+              - generic [ref=e83]: Métricas
+          - generic [ref=e84]:
+            - separator [ref=e85]
+            - link "Marketing" [ref=e86] [cursor=pointer]:
+              - /url: /es/settings/marketing
+              - img [ref=e87]
+              - generic [ref=e90]: Marketing
+        - link "Documentación" [ref=e92] [cursor=pointer]:
+          - /url: /es/docs
+          - img [ref=e93]
+          - generic [ref=e95]: Documentación
+    - main [ref=e96]:
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - heading "Buenas noches, Manu." [level=1] [ref=e99]
+          - generic [ref=e100]: ·
+          - paragraph [ref=e101]: sábado, 14 de marzo de 2026
+        - button "Buscar... ⌘K" [ref=e104]:
+          - img [ref=e105]
+          - generic [ref=e108]: Buscar...
+          - generic [ref=e109]: ⌘K
+        - generic [ref=e110]:
+          - button "Crear" [ref=e111]:
+            - img [ref=e112]
+            - text: Crear
+          - generic [ref=e114]:
+            - button "EN" [ref=e115]
+            - generic [ref=e116]: /
+            - button "ES" [pressed] [ref=e117]
+          - button [ref=e119]:
+            - img [ref=e120]
+          - button "Manu Admin" [ref=e124]:
+            - img [ref=e126]
+            - generic [ref=e129]:
+              - generic [ref=e130]: Manu
+              - generic [ref=e131]: Admin
+            - img [ref=e132]
+      - generic [ref=e136]:
+        - generic [ref=e137]:
+          - generic [ref=e140]: Acceso anticipado previsto entre finales de 2026 e inicios de 2027
+          - heading "El sistema que pone orden en leads, clientes y proyectos." [level=1] [ref=e141]
+          - generic [ref=e142]:
+            - button "Trabajo por mi cuenta" [ref=e143]
+            - button "Lidero un equipo" [ref=e144]
+          - paragraph [ref=e146]: Centraliza leads, clientes, proyectos e interacciones en un solo flujo compartido, con seguimiento y contexto visibles para el equipo sin sumar complejidad operativa.
+          - generic [ref=e147]:
+            - generic [ref=e148]:
+              - link "Unirme al acceso anticipado" [ref=e149] [cursor=pointer]:
+                - /url: /es/lista-de-espera
+                - text: Unirme al acceso anticipado
+                - img [ref=e150]
+              - link "Ver el sistema" [ref=e152] [cursor=pointer]:
+                - /url: "#demo"
+                - text: Ver el sistema
+                - img [ref=e153]
+            - generic [ref=e155]:
+              - generic [ref=e156]:
+                - img [ref=e157]
+                - text: Sistema de operaciones con clientes nativo en IA
+              - generic [ref=e159]: ·
+              - generic [ref=e160]:
+                - img [ref=e161]
+                - text: Visibilidad compartida
+              - generic [ref=e163]: ·
+              - generic [ref=e164]:
+                - img [ref=e165]
+                - text: Asistencia útil
+          - generic [ref=e167]:
+            - paragraph [ref=e168]: ✨ Creado a partir de operaciones reales en Noctra Studio
+            - paragraph [ref=e169]: Noctra CRM nace del trabajo de Noctra Studio diseñando operaciones comerciales y de servicio donde la estructura, la visibilidad y el seguimiento diario realmente importan.
+        - generic [ref=e171]:
+          - paragraph [ref=e172]: El problema
+          - heading "El problema de gestionar clientes sin un sistema" [level=2] [ref=e173]
+          - generic [ref=e174]:
+            - generic [ref=e175]:
+              - img [ref=e177]
+              - paragraph [ref=e180]: Los leads llegan por distintos canales y algunos se pierden antes del primer seguimiento
+              - paragraph [ref=e181]: ✓ Captura cada lead en un solo lugar desde el primer contacto
+            - generic [ref=e182]:
+              - img [ref=e184]
+              - paragraph [ref=e189]: Los seguimientos dependen de la memoria y las oportunidades se enfrían
+              - paragraph [ref=e190]: ✓ Mantén recordatorios y próximos pasos visibles para que nadie quede olvidado
+            - generic [ref=e191]:
+              - img [ref=e193]
+              - paragraph [ref=e196]: La información del cliente se reparte entre chats, notas y hojas de cálculo
+              - paragraph [ref=e197]: ✓ Reúne conversaciones, historial y decisiones en un solo sistema
+            - generic [ref=e198]:
+              - img [ref=e200]
+              - paragraph [ref=e204]: El pipeline no se entiende con claridad y cada persona lo interpreta distinto
+              - paragraph [ref=e205]: ✓ Ordena cada oportunidad por etapa, prioridad y siguiente acción
+            - generic [ref=e206]:
+              - img [ref=e208]
+              - paragraph [ref=e216]: El equipo trabaja sin visibilidad compartida y los traspasos se vuelven confusos
+              - paragraph [ref=e217]: ✓ Dale a ventas, operación y liderazgo la misma vista de clientes y actividad
+            - generic [ref=e218]:
+              - img [ref=e220]
+              - paragraph [ref=e221]: Los líderes pierden tiempo pidiendo actualizaciones en lugar de ver el estado real
+              - paragraph [ref=e222]: ✓ Noctra CRM da visibilidad compartida de pipeline, historial y siguientes pasos en un mismo sistema
+        - generic [ref=e224]:
+          - paragraph [ref=e225]: Sistema de operaciones con clientes nativo en IA
+          - heading "Una operación con clientes más estructurada y visible" [level=2] [ref=e226]
+          - paragraph [ref=e227]: Noctra CRM no se limita a guardar contactos. Organiza pipeline, interacciones, historial y siguientes pasos en un solo sistema para que el equipo sepa qué está pasando, qué sigue y dónde intervenir.
+          - generic [ref=e228]:
+            - generic [ref=e234]: noctra.studio/forge
+            - img "Noctra CRM dashboard preview" [ref=e235]
+        - generic [ref=e238]:
+          - paragraph [ref=e239]: Cómo funciona
+          - heading "Cómo funciona el sistema" [level=2] [ref=e240]
+          - generic [ref=e241]:
+            - generic [ref=e242]:
+              - generic [ref=e244]:
+                - generic [ref=e245]: "01"
+                - img [ref=e246]
+              - generic [ref=e249]:
+                - heading "Captura leads" [level=3] [ref=e250]
+                - paragraph [ref=e251]: Reúne cada nuevo contacto en un solo lugar desde el inicio para que ninguna oportunidad se pierda entre mensajes, formularios o referencias.
+            - generic [ref=e252]:
+              - generic [ref=e254]:
+                - generic [ref=e255]: "02"
+                - img [ref=e256]
+              - generic [ref=e260]:
+                - heading "Organiza oportunidades" [level=3] [ref=e261]
+                - paragraph [ref=e262]: Ordena cada oportunidad por etapa, prioridad y responsable para que el equipo sepa qué está avanzando y qué necesita atención.
+            - generic [ref=e263]:
+              - generic [ref=e265]:
+                - generic [ref=e266]: "03"
+                - img [ref=e267]
+              - generic [ref=e270]:
+                - heading "Da seguimiento a las interacciones" [level=3] [ref=e271]
+                - paragraph [ref=e272]: Guarda conversaciones, notas, archivos y acuerdos en un historial compartido para que cualquier persona entienda la relación con el cliente.
+            - generic [ref=e273]:
+              - generic [ref=e275]:
+                - generic [ref=e276]: "04"
+                - img [ref=e277]
+              - generic [ref=e285]:
+                - heading "Automatiza follow-ups" [level=3] [ref=e286]
+                - paragraph [ref=e287]: Mantén visibles los siguientes pasos con recordatorios y sugerencias para que el seguimiento no dependa solo de la memoria del equipo.
+            - generic [ref=e288]:
+              - generic [ref=e290]:
+                - generic [ref=e291]: "05"
+                - img [ref=e292]
+              - generic [ref=e293]:
+                - heading "Cierra oportunidades" [level=3] [ref=e294]
+                - paragraph [ref=e295]: Llega al cierre con una vista clara del contexto, la actividad y el estado real de la oportunidad para decidir con más seguridad.
+        - generic [ref=e297]:
+          - paragraph [ref=e298]: Capacidades
+          - heading "Diseñado para operar relaciones con clientes con estructura, visibilidad y ayuda inteligente." [level=2] [ref=e299]
+          - generic [ref=e300]:
+            - generic [ref=e301]:
+              - generic [ref=e302]:
+                - img [ref=e304]
+                - heading "Sistema de operaciones con clientes nativo en IA" [level=3] [ref=e307]
+                - paragraph [ref=e308]: Noctra reúne pipeline, interacciones, historial y ayuda inteligente dentro de un mismo sistema para que la operación con clientes sea más clara y operable.
+              - generic [ref=e309]:
+                - img [ref=e311]
+                - heading "Asistencia inteligente" [level=3] [ref=e319]
+                - paragraph [ref=e320]: Resume, organiza, sugiere siguientes pasos y ayuda a detectar oportunidades dentro del mismo flujo de trabajo.
+              - generic [ref=e321]:
+                - img [ref=e323]
+                - heading "Permisos claros" [level=3] [ref=e325]
+                - paragraph [ref=e326]: Cada persona ve solo la información que necesita para su trabajo, con acceso definido por rol.
+            - generic [ref=e327]:
+              - generic [ref=e328]:
+                - img [ref=e330]
+                - heading "Pipeline estructurado" [level=3] [ref=e333]
+                - paragraph [ref=e334]: Captura, clasifica y prioriza oportunidades desde el primer contacto para que el pipeline avance con más orden.
+              - generic [ref=e335]:
+                - img [ref=e337]
+                - heading "Visibilidad clara" [level=3] [ref=e338]
+                - paragraph [ref=e339]: Ordena etapas, responsables y siguiente acción para que el equipo entienda qué está avanzando y qué necesita atención.
+              - generic [ref=e340]:
+                - img [ref=e342]
+                - heading "Interacciones organizadas" [level=3] [ref=e347]
+                - paragraph [ref=e348]: Conserva conversaciones, notas, archivos y acuerdos en una historia única que cualquier persona puede entender.
+            - generic [ref=e349]:
+              - generic [ref=e350]:
+                - img [ref=e352]
+                - heading "Seguimiento visible" [level=3] [ref=e355]
+                - paragraph [ref=e356]: Muestra qué se movió, qué está detenido y dónde hace falta intervenir para decidir mejor.
+              - generic [ref=e357]:
+                - img [ref=e359]
+                - heading "Colaboración bilingüe" [level=3] [ref=e362]
+                - paragraph [ref=e363]: Funciona en español e inglés para mantener alineación entre personas, áreas y sedes.
+              - generic [ref=e364]:
+                - img [ref=e366]
+                - heading "Continuidad móvil" [level=3] [ref=e368]
+                - paragraph [ref=e369]: Consulta pipeline, clientes y actividad desde desktop o móvil sin perder el hilo del trabajo.
+        - generic [ref=e371]:
+          - generic [ref=e372]:
+            - heading "Menos herramientas sueltas. Más estructura y visibilidad." [level=2] [ref=e373]
+            - paragraph [ref=e374]: Muchos negocios sostienen la operación de clientes entre inbox, hojas de cálculo y tableros. Noctra reúne contexto, responsables, siguientes pasos y ayuda inteligente dentro de un mismo sistema operativo.
+          - generic [ref=e375]:
+            - generic [ref=e376]:
+              - generic [ref=e377]: Flujo desconectado
+              - generic [ref=e378]:
+                - generic [ref=e379]:
+                  - generic [ref=e380]:
+                    - generic [ref=e381]: Inbox y chats
+                    - generic [ref=e382]: Comunicación
+                  - generic [ref=e383]: $12
+                - generic [ref=e384]:
+                  - generic [ref=e385]:
+                    - generic [ref=e386]: Hojas de cálculo
+                    - generic [ref=e387]: Contexto
+                  - generic [ref=e388]: $10
+                - generic [ref=e389]:
+                  - generic [ref=e390]:
+                    - generic [ref=e391]: Tablero de tareas
+                    - generic [ref=e392]: Seguimiento
+                  - generic [ref=e393]: $15
+                - generic [ref=e394]:
+                  - generic [ref=e395]:
+                    - generic [ref=e396]: CRM con add-ons
+                    - generic [ref=e397]: Pipeline + automatización
+                  - generic [ref=e398]: $25
+              - generic [ref=e399]:
+                - generic [ref=e400]: Stack mensual típico
+                - generic [ref=e401]: ~$62 /mo
+            - generic [ref=e404]:
+              - img "Noctra CRM" [ref=e406]
+              - heading "Noctra CRM" [level=3] [ref=e407]
+              - paragraph [ref=e408]: Un sistema de operaciones con clientes nativo en IA donde pipeline, historial, interacciones y siguientes pasos viven dentro de una sola operación clara.
+              - generic [ref=e409]:
+                - generic [ref=e410]: $39/mes
+                - generic [ref=e411]: precios planeados visibles y fáciles de entender antes del lanzamiento
+                - generic [ref=e412]: Un solo sistema claro
+        - generic [ref=e414]:
+          - generic [ref=e415]:
+            - generic [ref=e416]: Comparativa
+            - heading "Compara modelos operativos, no solo listas de funciones." [level=2] [ref=e417]
+            - paragraph [ref=e418]: La diferencia real no está en tener más funciones. Está en si la IA vive fuera del flujo o si forma parte del sistema que estructura y hace visible la operación con clientes.
+          - generic "Compara modelos operativos, no solo listas de funciones." [ref=e422]:
+            - generic [ref=e423]:
+              - generic [ref=e424]:
+                - generic [ref=e426]:
+                  - generic [ref=e427]: Flujo fragmentado
+                  - generic [ref=e428]: Spreadsheets
+                - generic [ref=e429]:
+                  - generic [ref=e431]:
+                    - img [ref=e432]
+                    - text: CRM tradicional
+                  - generic [ref=e436]: Add-on model
+                - generic [ref=e437]:
+                  - generic [ref=e439]: AI-native
+                  - generic [ref=e440]: Noctra CRM
+                  - generic [ref=e441]: Client Ops
+              - generic [ref=e442]:
+                - generic [ref=e443]:
+                  - generic [ref=e445]: Modelo del sistema
+                  - generic [ref=e447]: El trabajo vive entre herramientas separadas y sin contexto compartido
+                  - generic [ref=e449]: El CRM registra la operación, pero la IA y el proceso viven en capas aparte
+                  - generic [ref=e450]:
+                    - img [ref=e451]
+                    - generic [ref=e454]: Pipeline, historial, siguientes pasos y ayuda inteligente viven en una misma capa operativa
+                - generic [ref=e455]:
+                  - generic [ref=e457]: Estructura
+                  - generic [ref=e459]: El trabajo depende de memoria, chats y hojas de cálculo
+                  - generic [ref=e461]: Hay pipeline, pero el contexto se reparte entre módulos y registros
+                  - generic [ref=e462]:
+                    - img [ref=e463]
+                    - generic [ref=e466]:
+                      - img [ref=e467]
+                      - text: Las relaciones con clientes siguen un flujo estructurado desde el primer contacto hasta el seguimiento
+                - generic [ref=e475]:
+                  - generic [ref=e477]: Visibilidad
+                  - generic [ref=e479]: Es difícil ver qué avanza, qué se detiene y quién es responsable
+                  - generic [ref=e481]: Hay reportes, pero la imagen real sigue fragmentada
+                  - generic [ref=e482]:
+                    - img [ref=e483]
+                    - generic [ref=e486]:
+                      - img [ref=e487]
+                      - text: El equipo comparte una vista clara de estado, responsables y siguiente acción
+                - generic [ref=e489]:
+                  - generic [ref=e491]: Asistencia inteligente
+                  - generic [ref=e493]: Los recordatorios y seguimientos se hacen manualmente
+                  - generic [ref=e495]: Las automatizaciones siguen reglas, pero entienden poco del contexto de la relación
+                  - generic [ref=e496]:
+                    - img [ref=e497]
+                    - generic [ref=e500]:
+                      - img [ref=e501]
+                      - text: El sistema resume, organiza y sugiere acciones usando el contexto real del cliente
+                - generic [ref=e503]:
+                  - generic [ref=e505]: Adopción operativa
+                  - generic [ref=e507]: Es fácil empezar, pero difícil operar con consistencia
+                  - generic [ref=e509]: Requiere configuración, campos y administración antes de que el equipo lo adopte
+                  - generic [ref=e510]:
+                    - img [ref=e511]
+                    - generic [ref=e513]: Está pensado para entenderse rápido y operar con estructura desde el inicio
+              - generic [ref=e514]:
+                - link "Ver el flujo" [ref=e517] [cursor=pointer]:
+                  - /url: "#features"
+                - link "Ver precios" [ref=e519] [cursor=pointer]:
+                  - /url: "#pricing"
+                  - text: Ver precios
+                  - img [ref=e521]
+                - link "Solicitar acceso" [ref=e524] [cursor=pointer]:
+                  - /url: /es/lista-de-espera
+                  - text: Solicitar acceso
+                  - img [ref=e525]
+        - generic [ref=e528]:
+          - generic [ref=e529]:
+            - heading "Cómo funciona la ayuda inteligente dentro de un sistema de operaciones con clientes nativo en IA" [level=2] [ref=e530]
+            - paragraph [ref=e531]: Cada plan incluye capacidad de ayuda inteligente que el propio sistema utiliza sobre el contexto real del cliente. Noctra la usa para resumir conversaciones, organizar información, sugerir follow-ups e identificar oportunidades sin sacar al equipo de su operación.
+          - generic [ref=e532]:
+            - generic [ref=e533]:
+              - generic [ref=e534]:
+                - img [ref=e536]
+                - heading "Los tokens representan trabajo útil dentro del sistema" [level=3] [ref=e548]
+                - paragraph [ref=e549]: Piensa en los tokens como la capacidad de trabajo incluida en tu plan. No se consumen por ver una función, sino cuando Noctra ejecuta trabajo útil sobre el contexto compartido, como resúmenes, organización de información, sugerencias o detección de oportunidades.
+              - generic [ref=e551]:
+                - generic [ref=e552]: Cobertura útil de IA
+                - generic [ref=e553]: 82%
+            - generic [ref=e555]:
+              - generic [ref=e556]:
+                - img [ref=e558]
+                - heading "Uso visible de IA" [level=3] [ref=e561]
+                - paragraph [ref=e562]: La ayuda inteligente trabaja dentro del sistema y su uso puede entenderse con claridad. No se activa por estar disponible, sino cuando aporta valor en el trabajo diario.
+              - generic [ref=e564]: Consumo claro
+            - generic [ref=e565]:
+              - img [ref=e567]
+              - heading "Visibilidad por rol" [level=3] [ref=e572]
+              - paragraph [ref=e573]: Cada persona ve lo necesario para su trabajo, con una vista compartida de la operación sin abrir más información de la que realmente necesita.
+            - generic [ref=e575]:
+              - img [ref=e577]
+              - heading "Contexto compartido con cuidado" [level=3] [ref=e580]
+              - paragraph [ref=e581]: La ayuda inteligente trabaja sobre el historial compartido, mantiene continuidad entre personas y respeta los permisos del sistema para proteger el contexto sensible del cliente.
+          - generic [ref=e584]: Transparente por diseño
+        - generic [ref=e587]:
+          - generic [ref=e588]:
+            - generic [ref=e589]: Asistencia nativa en IA
+            - heading "La ayuda inteligente opera dentro del sistema, no separada del trabajo diario." [level=2] [ref=e590]
+          - generic [ref=e591]:
+            - generic [ref=e592]:
+              - generic [ref=e593]:
+                - heading "El sistema ayuda con el contexto correcto del cliente." [level=3] [ref=e594]
+                - paragraph [ref=e595]: Noctra resume conversaciones, detecta oportunidades, sugiere follow-ups y ordena información del cliente usando el mismo historial, pipeline y actividad que ve tu equipo.
+              - generic [ref=e596]:
+                - generic [ref=e600]: "\"Nos interesa avanzar. ¿Puedes resumirme lo pendiente y sugerir el siguiente paso para no retrasarnos?\""
+                - generic [ref=e601]:
+                  - generic [ref=e602]:
+                    - img [ref=e605]
+                    - generic [ref=e618]:
+                      - generic [ref=e619]: Noctra Brain
+                      - generic [ref=e620]: Orchestrator v2.0
+                  - generic [ref=e621]:
+                    - generic [ref=e622]:
+                      - generic [ref=e623]: Tarea actual
+                      - generic [ref=e624]:
+                        - img [ref=e625]
+                        - text: Ruta eficiente
+                    - generic [ref=e627]:
+                      - generic [ref=e628]: Uso visible
+                      - generic [ref=e629]: Claro
+                    - generic [ref=e630]:
+                      - generic [ref=e631]: Siguiente paso sugerido
+                      - button "Preparar seguimiento" [ref=e632]:
+                        - text: Preparar seguimiento
+                        - img [ref=e633]
+            - generic [ref=e636]:
+              - generic [ref=e637]:
+                - heading "Visibilidad compartida con control de acceso" [level=3] [ref=e638]
+                - paragraph [ref=e639]: Noctra CRM da a los equipos una vista operativa compartida sin perder control. El sistema usa la actividad del equipo y los permisos por rol para que cada persona vea el contexto correcto, el siguiente paso correcto y solo la información que necesita.
+              - generic [ref=e640]:
+                - generic [ref=e642]: "N"
+                - generic [ref=e643]:
+                  - img
+                  - generic [ref=e644]:
+                    - generic [ref=e646]: "N"
+                    - generic [ref=e647]: Contexto compartido
+                  - generic [ref=e648]:
+                    - img [ref=e650]
+                    - generic [ref=e652]: Acceso por rol
+                  - generic [ref=e653]:
+                    - img [ref=e655]
+                    - generic [ref=e657]: Protección de datos
+                  - generic [ref=e658]:
+                    - img [ref=e660]
+                    - generic [ref=e663]: Siguiente paso claro
+        - generic [ref=e665]:
+          - generic [ref=e666]:
+            - generic [ref=e667]: Precios transparentes
+            - heading "Precios claros para un sistema de operaciones con clientes nativo en IA desde antes del lanzamiento." [level=2] [ref=e668]
+            - paragraph [ref=e669]: Noctra CRM está diseñado para que cada negocio entienda qué incluye cada plan en estructura, visibilidad y ayuda inteligente, cómo funciona esa capacidad y qué puede esperar del sistema desde el inicio. Sin letras pequeñas ni capas ocultas.
+          - generic [ref=e670]:
+            - generic [ref=e671]:
+              - generic [ref=e672]:
+                - generic [ref=e673]:
+                  - img [ref=e675]
+                  - heading "Starter" [level=3] [ref=e678]
+                - generic [ref=e679]:
+                  - generic [ref=e680]: $9
+                  - generic [ref=e681]: /usuario/mes
+                - paragraph [ref=e682]: Para profesionales y operaciones pequeñas que necesitan estructura y visibilidad desde el inicio.
+              - generic [ref=e683]:
+                - generic [ref=e684]:
+                  - img [ref=e686]
+                  - generic [ref=e688]: Lead management y pipeline estructurado
+                - generic [ref=e689]:
+                  - img [ref=e691]
+                  - generic [ref=e693]: Historial centralizado por cliente
+                - generic [ref=e694]:
+                  - img [ref=e696]
+                  - generic [ref=e698]: 50,000 tokens de IA / mes con uso visible
+                - generic [ref=e699]:
+                  - img [ref=e701]
+                  - generic [ref=e703]: Resúmenes y sugerencias dentro del sistema
+                - generic [ref=e704]:
+                  - img [ref=e706]
+                  - generic [ref=e708]: Soporte por email
+              - link "Unirme al acceso anticipado" [ref=e709] [cursor=pointer]:
+                - /url: /es/lista-de-espera
+            - generic [ref=e710]:
+              - generic [ref=e711]: Pensado para equipos
+              - generic [ref=e712]:
+                - generic [ref=e713]:
+                  - img [ref=e715]
+                  - heading "Forge Pro" [level=3] [ref=e718]
+                - generic [ref=e719]:
+                  - generic [ref=e720]: $29
+                  - generic [ref=e721]: /usuario/mes
+                - paragraph [ref=e722]: Para equipos en crecimiento que necesitan más visibilidad, seguimiento coordinado y ayuda inteligente.
+              - generic [ref=e723]:
+                - generic [ref=e724]: "Todo en Starter, más:"
+                - generic [ref=e725]:
+                  - img [ref=e727]
+                  - generic [ref=e729]: 200,000 tokens de IA / mes con uso visible
+                - generic [ref=e730]:
+                  - img [ref=e732]
+                  - generic [ref=e734]: Follow-ups sugeridos y señales de oportunidad
+                - generic [ref=e735]:
+                  - img [ref=e737]
+                  - generic [ref=e739]: Mayor visibilidad operativa por equipo
+                - generic [ref=e740]:
+                  - img [ref=e742]
+                  - generic [ref=e744]: Más capacidad para historiales y actividad
+                - generic [ref=e745]:
+                  - img [ref=e747]
+                  - generic [ref=e749]: Soporte prioritario
+              - link "Unirme al acceso anticipado" [ref=e751] [cursor=pointer]:
+                - /url: /es/lista-de-espera
+                - text: Unirme al acceso anticipado
+                - img [ref=e752]
+            - generic [ref=e754]:
+              - generic [ref=e755]:
+                - generic [ref=e756]:
+                  - img [ref=e758]
+                  - heading "Enterprise" [level=3] [ref=e762]
+                - generic [ref=e764]: Custom
+                - paragraph [ref=e765]: Para organizaciones que requieren más control, visibilidad y volumen de ayuda inteligente.
+              - generic [ref=e766]:
+                - generic [ref=e767]: "Todo en Pro, más:"
+                - generic [ref=e768]:
+                  - img [ref=e770]
+                  - generic [ref=e773]:
+                    - text: IA Ilimitada*
+                    - img [ref=e774]
+                    - generic: Sujeto a una política de uso responsable explicada con claridad para prevenir abuso automatizado y proteger la calidad del sistema.
+                - generic [ref=e776]:
+                  - img [ref=e778]
+                  - generic [ref=e780]: Mayores volúmenes de uso de IA
+                - generic [ref=e781]:
+                  - img [ref=e783]
+                  - generic [ref=e785]: Controles avanzados de acceso
+                - generic [ref=e786]:
+                  - img [ref=e788]
+                  - generic [ref=e790]: Opciones adicionales para manejo de datos
+                - generic [ref=e791]:
+                  - img [ref=e793]
+                  - generic [ref=e795]: Acompañamiento dedicado
+              - link "Hablar con nosotros" [ref=e797] [cursor=pointer]:
+                - /url: mailto:ventas@noctra.studio?subject=Consulta%20Plan%20Enterprise
+                - text: Hablar con nosotros
+                - img [ref=e799]
+        - generic [ref=e802]:
+          - paragraph [ref=e803]: Para quién es
+          - heading "Quién puede usar Noctra CRM como sistema de operaciones con clientes" [level=2] [ref=e804]
+          - generic [ref=e805]:
+            - generic [ref=e807]:
+              - generic [ref=e808]:
+                - img [ref=e810]
+                - heading "Profesionales" [level=3] [ref=e813]
+                - paragraph [ref=e814]: Reto común
+                - paragraph [ref=e815]: Necesitan seguimiento confiable sin convertirse en administradores de herramientas.
+              - generic [ref=e816]:
+                - paragraph [ref=e817]: Cómo ayuda Noctra
+                - paragraph [ref=e818]: Noctra concentra clientes, actividad y próximos pasos en un mismo lugar.
+            - generic [ref=e820]:
+              - generic [ref=e821]:
+                - img [ref=e823]
+                - heading "PyMES" [level=3] [ref=e827]
+                - paragraph [ref=e828]: Reto común
+                - paragraph [ref=e829]: Superan rápido las hojas de cálculo pero no necesitan complejidad empresarial.
+              - generic [ref=e830]:
+                - paragraph [ref=e831]: Cómo ayuda Noctra
+                - paragraph [ref=e832]: Noctra aporta estructura, visibilidad y ayuda inteligente sin inflar la operación.
+            - generic [ref=e834]:
+              - generic [ref=e835]:
+                - img [ref=e837]
+                - heading "Escuelas e instituciones educativas" [level=3] [ref=e842]
+                - paragraph [ref=e843]: Reto común
+                - paragraph [ref=e844]: Coordinan admisiones, seguimiento y comunicación entre varias personas.
+              - generic [ref=e845]:
+                - paragraph [ref=e846]: Cómo ayuda Noctra
+                - paragraph [ref=e847]: Noctra centraliza el historial y aclara responsabilidades en cada etapa.
+            - generic [ref=e849]:
+              - generic [ref=e850]:
+                - img [ref=e852]
+                - heading "Startups" [level=3] [ref=e860]
+                - paragraph [ref=e861]: Reto común
+                - paragraph [ref=e862]: Necesitan velocidad comercial sin construir procesos frágiles.
+              - generic [ref=e863]:
+                - paragraph [ref=e864]: Cómo ayuda Noctra
+                - paragraph [ref=e865]: Noctra conecta contexto, pipeline y acción para que el equipo avance con orden.
+            - generic [ref=e867]:
+              - generic [ref=e868]:
+                - img [ref=e870]
+                - heading "Agencias inmobiliarias" [level=3] [ref=e871]
+                - paragraph [ref=e872]: Reto común
+                - paragraph [ref=e873]: Gestionan muchos leads, seguimiento repetitivo y oportunidades sensibles al tiempo.
+              - generic [ref=e874]:
+                - paragraph [ref=e875]: Cómo ayuda Noctra
+                - paragraph [ref=e876]: Noctra organiza interacciones, recordatorios y movimiento del pipeline con claridad.
+        - generic [ref=e878]:
+          - paragraph [ref=e879]: Capacidades centrales
+          - heading "Tres capacidades que sostienen la operación" [level=2] [ref=e880]
+          - generic [ref=e881]:
+            - generic [ref=e882]:
+              - img [ref=e884]
+              - heading "Estructura" [level=3] [ref=e889]
+              - paragraph [ref=e890]: Centraliza pipeline, historial, responsables y siguientes pasos para que la operación no dependa de memoria ni herramientas sueltas.
+            - generic [ref=e891]:
+              - img [ref=e893]
+              - heading "Visibilidad" [level=3] [ref=e896]
+              - paragraph [ref=e897]: Da a ventas, operación y liderazgo una vista compartida de lo que avanza, lo que se detiene y lo que requiere atención.
+            - generic [ref=e898]:
+              - img [ref=e900]
+              - heading "Asistencia inteligente" [level=3] [ref=e902]
+              - paragraph [ref=e903]: La IA trabaja dentro del sistema para resumir, organizar, sugerir y señalar oportunidades usando el contexto real del cliente.
+        - generic [ref=e905]:
+          - paragraph [ref=e906]: Por qué construimos Noctra CRM
+          - heading "Por qué construimos Noctra CRM" [level=2] [ref=e907]
+          - paragraph [ref=e908]: "La idea de Noctra CRM nace de una frustración real con CRMs que funcionan como bases de datos o como capas de automatización aisladas. Eran difíciles de adoptar, pedían demasiada administración manual y dejaban la ayuda inteligente fuera del flujo real de trabajo. Por eso Noctra se está construyendo como un sistema de operaciones con clientes nativo en IA: un sistema donde la estructura, la visibilidad y la asistencia inteligente forman parte de la misma operación. El producto sigue en una etapa temprana y todavía no ha sido usado ampliamente por clientes externos, pero se está diseñando con cuidado para ayudar a los equipos a operar relaciones con clientes con más claridad y menos fricción."
+        - generic [ref=e910]:
+          - paragraph [ref=e911]: Preguntas
+          - heading "Lo que los equipos suelen preguntar antes de unirse al acceso anticipado." [level=2] [ref=e912]
+          - generic [ref=e913]:
+            - button "¿Cuándo está previsto el lanzamiento?" [ref=e915]:
+              - generic [ref=e916]: ¿Cuándo está previsto el lanzamiento?
+              - img [ref=e917]
+            - button "¿Es solo un CRM?" [ref=e919]:
+              - generic [ref=e920]: ¿Es solo un CRM?
+              - img [ref=e921]
+            - button "¿Cómo funciona el uso de IA?" [ref=e923]:
+              - generic [ref=e924]: ¿Cómo funciona el uso de IA?
+              - img [ref=e925]
+            - button "¿Qué significan los tokens?" [ref=e927]:
+              - generic [ref=e928]: ¿Qué significan los tokens?
+              - img [ref=e929]
+            - button "¿Cómo funciona el acceso para equipos?" [ref=e931]:
+              - generic [ref=e932]: ¿Cómo funciona el acceso para equipos?
+              - img [ref=e933]
+            - button "¿Qué recibe alguien que se une al acceso anticipado?" [ref=e935]:
+              - generic [ref=e936]: ¿Qué recibe alguien que se une al acceso anticipado?
+              - img [ref=e937]
+            - button "¿La estructura de precios será transparente?" [ref=e939]:
+              - generic [ref=e940]: ¿La estructura de precios será transparente?
+              - img [ref=e941]
+        - generic [ref=e943]:
+          - heading "Sé de las primeras empresas en operar con Noctra CRM" [level=2] [ref=e944]
+          - paragraph [ref=e945]: Abriremos el acceso de forma gradual mientras afinamos la estructura, la visibilidad y la ayuda inteligente del sistema.
+          - link "Unirme a la lista de espera" [ref=e946] [cursor=pointer]:
+            - /url: /es/lista-de-espera
+            - text: Unirme a la lista de espera
+            - img [ref=e947]
+          - paragraph [ref=e949]: "Ventana estimada de lanzamiento: finales de 2026 a inicios de 2027."
+        - generic [ref=e951]:
+          - generic [ref=e952]:
+            - generic [ref=e953]:
+              - link "Noctra CRM Noctra CRM" [ref=e954] [cursor=pointer]:
+                - /url: /es
+                - generic [ref=e955]:
+                  - img "Noctra CRM" [ref=e956]
+                  - generic [ref=e957]: Noctra CRM
+              - paragraph [ref=e958]: Client Operations System para ventas, relaciones con clientes y operación.
+            - generic [ref=e959]:
+              - generic [ref=e960]:
+                - heading "Plataforma" [level=4] [ref=e961]
+                - list [ref=e962]:
+                  - listitem [ref=e963]:
+                    - link "Demo" [ref=e964] [cursor=pointer]:
+                      - /url: "#demo"
+                  - listitem [ref=e965]:
+                    - link "Precios" [ref=e966] [cursor=pointer]:
+                      - /url: "#pricing"
+                  - listitem [ref=e967]:
+                    - link "Iniciar sesión" [ref=e968] [cursor=pointer]:
+                      - /url: /es/login
+                  - listitem [ref=e969]:
+                    - link "Unirme al acceso anticipado" [ref=e970] [cursor=pointer]:
+                      - /url: /es/lista-de-espera
+              - generic [ref=e971]:
+                - heading "Recursos" [level=4] [ref=e972]
+                - list [ref=e973]:
+                  - listitem [ref=e974]:
+                    - link "Centro de Migración" [ref=e975] [cursor=pointer]:
+                      - /url: /es/docs/migracion
+                  - listitem [ref=e976]:
+                    - link "Noctra Studio" [ref=e977] [cursor=pointer]:
+                      - /url: /es
+              - generic [ref=e978]:
+                - heading "Legal" [level=4] [ref=e979]
+                - list [ref=e980]:
+                  - listitem [ref=e981]:
+                    - link "Términos de Servicio" [ref=e982] [cursor=pointer]:
+                      - /url: /es/terminos-y-condiciones
+                  - listitem [ref=e983]:
+                    - link "Política de Privacidad" [ref=e984] [cursor=pointer]:
+                      - /url: /es/aviso-de-privacidad
+          - generic [ref=e986]:
+            - generic [ref=e987]:
+              - generic [ref=e988]:
+                - generic [ref=e989]: © 2026 Noctra Studio
+                - generic [ref=e990]: •
+                - generic [ref=e991]: Todos los derechos reservados
+              - generic [ref=e993]:
+                - generic [ref=e996]: Sistemas
+                - generic [ref=e998]: Operativos
+            - paragraph [ref=e1000]: Diseñado en Querétaro con ☕
+            - generic [ref=e1001]:
+              - link "Instagram" [ref=e1002] [cursor=pointer]:
+                - /url: https://instagram.com/noctra_studio
+                - img [ref=e1003]
+              - link "X (Twitter)" [ref=e1006] [cursor=pointer]:
+                - /url: https://x.com/NoctraStudio
+                - img [ref=e1007]
+  - banner:
+    - generic [ref=e1011]:
+      - link "FORGE" [ref=e1012] [cursor=pointer]:
+        - /url: /es
+        - img [ref=e1014]
+        - generic [ref=e1023]: FORGE
+      - generic [ref=e1024]:
+        - generic [ref=e1025]:
+          - button "EN" [ref=e1026]
+          - generic [ref=e1027]: /
+          - button "ES" [pressed] [ref=e1028]
+        - link "Iniciar sesión" [ref=e1030] [cursor=pointer]:
+          - /url: /es/login
+        - button "Open menu" [ref=e1031] [cursor=pointer]:
+          - generic [ref=e1032]: Menú
+  - banner:
+    - generic [ref=e1040]:
+      - link "FORGE" [ref=e1041] [cursor=pointer]:
+        - /url: /es
+        - img [ref=e1043]
+        - generic [ref=e1052]: FORGE
+      - generic [ref=e1053]:
+        - generic [ref=e1054]:
+          - button "EN" [ref=e1055]
+          - generic [ref=e1056]: /
+          - button "ES" [pressed] [ref=e1057]
+        - link "Iniciar sesión" [ref=e1059] [cursor=pointer]:
+          - /url: /es/login
+        - button "Open menu" [ref=e1060] [cursor=pointer]:
+          - generic [ref=e1061]: Menú

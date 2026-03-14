@@ -2,6 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import { ClientsClient } from "./ClientsClient";
 import { getRequiredWorkspace } from "@/lib/workspace";
 
+export const dynamic = "force-dynamic";
+
 export default async function ForgeClientsPage({
   params,
 }: {
@@ -11,55 +13,67 @@ export default async function ForgeClientsPage({
   const supabase = await createClient();
   const ctx = await getRequiredWorkspace(locale);
 
-  // Source 1: Projects (primary source)
-  const { data: projectClients, error: projectsError } = await supabase
-    .from("projects")
-    .select(
-      `
-      id,
-      name,
-      status,
-      service_type,
-      created_at,
-      client_name,
-      client_email,
-      client_company,
-      lead_id,
-      contract_id
-    `,
-    )
-    .eq("workspace_id", ctx.workspaceId)
-    .not("status", "eq", "cancelled")
-    .order("created_at", { ascending: false });
+  const [
+    { data: projectClients, error: projectsError },
+    { data: contractClients, error: contractsError },
+  ] = await Promise.all([
+    supabase
+      .from("projects")
+      .select(
+        `
+        id,
+        name,
+        status,
+        service_type,
+        created_at,
+        client_name,
+        client_email,
+        client_company,
+        lead_id,
+        contract_id
+      `,
+      )
+      .eq("workspace_id", ctx.workspaceId)
+      .not("status", "eq", "cancelled")
+      .order("created_at", { ascending: false }),
+    supabase
+      .from("contracts")
+      .select(
+        `
+        id,
+        contract_number,
+        client_name,
+        client_email,
+        client_company,
+        service_type,
+        total_price,
+        client_signed_at,
+        created_at
+      `,
+      )
+      .eq("workspace_id", ctx.workspaceId)
+      .eq("signed_by_client", true)
+      .eq("status", "signed")
+      .is("project_id", null)
+      .order("created_at", { ascending: false }),
+  ]);
 
   if (projectsError) {
-    console.error("Error fetching projects for clients view:", projectsError);
+    console.error("Error fetching projects for clients view:", {
+      message: projectsError.message,
+      details: projectsError.details,
+      hint: projectsError.hint,
+      code: projectsError.code,
+    });
   }
 
-  // Source 2: Signed contracts without projects yet
-  const { data: contractClients, error: contractsError } = await supabase
-    .from("contracts")
-    .select(
-      `
-      id,
-      contract_number,
-      client_name,
-      client_email,
-      client_company,
-      service_type,
-      total_price,
-      client_signed_at,
-      created_at
-    `,
-    )
-    .eq("workspace_id", ctx.workspaceId)
-    .eq("signed_by_client", true)
-    .eq("status", "signed")
-    .is("project_id", null) // Avoid duplicates if project was already created
-    .order("created_at", { ascending: false });
-
   if (contractsError) {
-    console.error("Error fetching contracts for clients view:", contractsError);
+    console.error("Error fetching contracts for clients view:", {
+      message: contractsError.message,
+      details: contractsError.details,
+      hint: contractsError.hint,
+      code: contractsError.code,
+    });
   }
 
   // Merge and deduplicate by email
