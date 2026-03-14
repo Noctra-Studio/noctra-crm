@@ -6,6 +6,7 @@ import {
   X,
   Search,
   ArrowRight,
+  ChevronRight,
   Globe,
   ShoppingCart,
   Code2,
@@ -16,6 +17,7 @@ import {
 import { useRouter } from "next/navigation";
 import { createProposalAction } from "@/app/actions/proposals";
 import { UpgradeLimitModal } from "@/components/forge/modals/UpgradeLimitModal";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 type Lead = {
   id: string;
@@ -116,6 +118,7 @@ export function NewProposalModal({
     company: "",
   });
   const [isCreating, setIsCreating] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const supabase = createClient();
   const router = useRouter();
@@ -127,6 +130,7 @@ export function NewProposalModal({
       setStep(1);
       setSelectedLead(null);
       setSearch("");
+      setErrorMessage(null);
     }
   }, [isOpen]);
 
@@ -147,6 +151,7 @@ export function NewProposalModal({
 
   const handleCreate = async (serviceId: string) => {
     setIsCreating(true);
+    setErrorMessage(null);
     const service = SERVICES.find((s) => s.id === serviceId);
 
     try {
@@ -166,7 +171,9 @@ export function NewProposalModal({
         },
       });
 
+      onClose();
       router.push(`/proposals/${result.id}/edit`);
+      router.refresh();
     } catch (err: any) {
       console.error("Proposal creation failed:", err);
       if (err.message === "TRIAL_LIMIT_REACHED") {
@@ -174,7 +181,7 @@ export function NewProposalModal({
         return;
       }
       const detail = err?.message || "Error desconocido";
-      alert(`Error al crear propuesta: ${detail}`);
+      setErrorMessage(`Error al crear propuesta: ${detail}`);
     } finally {
       setIsCreating(false);
     }
@@ -253,9 +260,29 @@ export function NewProposalModal({
                         </button>
                       ))}
                       {filteredLeads.length === 0 && (
-                        <p className="text-center py-4 text-neutral-700 font-mono text-[10px] uppercase">
-                          No hay leads recientes
-                        </p>
+                        <ForgeEmptyState
+                          icon={leads.length === 0 ? "users" : "search"}
+                          eyebrow="Propuestas"
+                          title={
+                            leads.length === 0
+                              ? "Todavía no hay leads para vincular"
+                              : "No encontramos leads con esa búsqueda"
+                          }
+                          description={
+                            leads.length === 0
+                              ? "Puedes seguir con entrada manual y preparar la propuesta aunque el lead aún no exista en el CRM."
+                              : "Prueba con otro nombre o email, o continúa por entrada manual si todavía no quieres asociar un lead."
+                          }
+                          size="compact"
+                          primaryAction={
+                            search
+                              ? {
+                                  label: "Limpiar búsqueda",
+                                  onClick: () => setSearch(""),
+                                }
+                              : undefined
+                          }
+                        />
                       )}
                     </div>
                   </div>
@@ -310,6 +337,7 @@ export function NewProposalModal({
                       />
                     </div>
                   </div>
+
                 </div>
               ) : (
                 <div className="p-8 grid grid-cols-1 gap-4 overflow-y-auto">
@@ -341,6 +369,14 @@ export function NewProposalModal({
                 </div>
               )}
             </div>
+
+            {errorMessage && (
+              <div className="border-t border-white/5 px-6 py-4">
+                <div className="rounded-2xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                  {errorMessage}
+                </div>
+              </div>
+            )}
 
             {/* Footer */}
             {step === 1 && (
@@ -377,20 +413,5 @@ export function NewProposalModal({
         </div>
       )}
     </>
-  );
-}
-
-function ChevronRight({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round">
-      <path d="m9 18 6-6-6-6" />
-    </svg>
   );
 }

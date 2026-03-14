@@ -1,62 +1,90 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import type { ComponentType } from "react";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 import { createClient } from "@/utils/supabase/client";
+import { localizeForgeHref } from "@/components/forge/forge-navigation";
 import {
   FileText,
   Users,
   Briefcase,
   UserPlus,
+  FileSignature,
   LayoutDashboard,
   KanbanSquare,
   BarChart,
   BookOpen,
+  Send,
   Search,
   Loader2,
 } from "lucide-react";
 
-interface Action {
+export type QuickCreateActionId =
+  | "new-lead"
+  | "new-proposal"
+  | "new-project"
+  | "new-contract";
+
+type CommandAction = {
   id: string;
   label: string;
-  sublabel?: string; // Optional for search results
-  href: string;
-  icon: any;
+  sublabel?: string;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
   category: string;
-}
+} & (
+  | {
+      kind: "create";
+      createActionId: QuickCreateActionId;
+    }
+  | {
+      kind: "navigate";
+      href: string;
+    }
+);
 
-const QUICK_ACTIONS: Action[] = [
+const QUICK_ACTIONS: CommandAction[] = [
   {
     id: "new-proposal",
     label: "Nueva Propuesta",
-    href: "/propuestas/nueva",
+    sublabel: "Crear borrador comercial",
+    kind: "create",
+    createActionId: "new-proposal",
     icon: FileText,
-    category: "ACCIONES RÁPIDAS",
+    category: "CREAR",
   },
   {
     id: "new-lead",
     label: "Nuevo Lead",
-    href: "/leads/nuevo",
+    sublabel: "Agregar prospecto manualmente",
+    kind: "create",
+    createActionId: "new-lead",
     icon: Users,
-    category: "ACCIONES RÁPIDAS",
+    category: "CREAR",
   },
   {
     id: "new-project",
     label: "Nuevo Proyecto",
-    href: "/projects/nuevo",
+    sublabel: "Abrir proyecto operativo",
+    kind: "create",
+    createActionId: "new-project",
     icon: Briefcase,
-    category: "ACCIONES RÁPIDAS",
+    category: "CREAR",
   },
   {
-    id: "new-client",
-    label: "Nuevo Cliente",
-    href: "/clientes/nuevo",
-    icon: UserPlus,
-    category: "ACCIONES RÁPIDAS",
+    id: "new-contract",
+    label: "Nuevo Contrato",
+    sublabel: "Preparar acuerdo manual",
+    kind: "create",
+    createActionId: "new-contract",
+    icon: FileSignature,
+    category: "CREAR",
   },
   {
     id: "nav-dashboard",
     label: "Ir a Dashboard",
+    kind: "navigate",
     href: "/",
     icon: LayoutDashboard,
     category: "NAVEGACIÓN",
@@ -64,6 +92,7 @@ const QUICK_ACTIONS: Action[] = [
   {
     id: "nav-pipeline",
     label: "Ir a Pipeline",
+    kind: "navigate",
     href: "/pipeline",
     icon: KanbanSquare,
     category: "NAVEGACIÓN",
@@ -71,13 +100,31 @@ const QUICK_ACTIONS: Action[] = [
   {
     id: "nav-metrics",
     label: "Ir a Métricas",
-    href: "/metricas",
+    kind: "navigate",
+    href: "/metrics",
     icon: BarChart,
+    category: "NAVEGACIÓN",
+  },
+  {
+    id: "nav-contracts",
+    label: "Ir a Contratos",
+    kind: "navigate",
+    href: "/contracts",
+    icon: Send,
+    category: "NAVEGACIÓN",
+  },
+  {
+    id: "nav-documents",
+    label: "Ir a Documentos",
+    kind: "navigate",
+    href: "/documents",
+    icon: FileSignature,
     category: "NAVEGACIÓN",
   },
   {
     id: "nav-docs",
     label: "Ir a Docs",
+    kind: "navigate",
     href: "/docs",
     icon: BookOpen,
     category: "NAVEGACIÓN",
@@ -87,11 +134,14 @@ const QUICK_ACTIONS: Action[] = [
 export function CommandBar({
   isOpen,
   onClose,
+  onSelectCreateAction,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  onSelectCreateAction: (actionId: QuickCreateActionId) => void;
 }) {
   const router = useRouter();
+  const locale = useLocale();
   const supabase = createClient();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -99,15 +149,16 @@ export function CommandBar({
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // Search state
-  const [searchResults, setSearchResults] = useState<Action[]>([]);
+  const [searchResults, setSearchResults] = useState<CommandAction[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
-  // If query is short, we filter QUICK_ACTIONS. If >= 3, we use searchResults.
   const displayItems =
-    query.length >= 3
+    query.trim().length >= 2
       ? searchResults
       : QUICK_ACTIONS.filter((action) =>
-          action.label.toLowerCase().includes(query.toLowerCase()),
+          `${action.label} ${action.sublabel || ""}`
+            .toLowerCase()
+            .includes(query.toLowerCase()),
         );
 
   // Reset state on open
@@ -128,7 +179,7 @@ export function CommandBar({
 
   // Debounced Supabase search
   useEffect(() => {
-    if (query.length < 3) {
+    if (query.trim().length < 2) {
       setSearchResults([]);
       setIsSearching(false);
       return;
@@ -138,67 +189,82 @@ export function CommandBar({
 
     const timeoutId = setTimeout(async () => {
       try {
-        const [projectsRes, prospectsRes, proposalsRes, clientsRes] =
+        const [projectsRes, leadsRes, proposalsRes, contractsRes] =
           await Promise.all([
             supabase
               .from("projects")
-              .select("id, name")
-              .ilike("name", `%${query}%`)
+              .select("id, name, status")
+              .or(`name.ilike.%${query}%,slug.ilike.%${query}%`)
               .limit(3),
             supabase
-              .from("prospects")
-              .select("id, name, company_name")
-              .or(`name.ilike.%${query}%,company_name.ilike.%${query}%`)
+              .from("contact_submissions")
+              .select("id, name, email, request_id")
+              .or(
+                `name.ilike.%${query}%,email.ilike.%${query}%,request_id.ilike.%${query}%`,
+              )
               .limit(3),
             supabase
               .from("proposals")
-              .select("id, title, public_uuid")
-              .ilike("title", `%${query}%`)
+              .select("id, title, proposal_number")
+              .or(`title.ilike.%${query}%,proposal_number.ilike.%${query}%`)
               .limit(3),
             supabase
-              .from("profiles")
-              .select("id, email, company_name")
-              .eq("role", "client")
-              .or(`company_name.ilike.%${query}%,email.ilike.%${query}%`)
+              .from("contracts")
+              .select("id, client_name, client_company, contract_number")
+              .or(
+                `client_name.ilike.%${query}%,client_company.ilike.%${query}%,contract_number.ilike.%${query}%`,
+              )
               .limit(3),
           ]);
 
-        const newResults: Action[] = [];
+        const newResults: CommandAction[] = [];
 
         if (proposalsRes.data) {
           proposalsRes.data.forEach((p) => {
             newResults.push({
               id: `prop-${p.id}`,
+              kind: "navigate",
               label: `Propuesta - ${p.title}`,
-              sublabel: p.public_uuid.split("-")[0].toUpperCase(),
-              href: `/proposals/${p.id}`,
+              sublabel: p.proposal_number || "Sin folio",
+              href: `/proposals/${p.id}/edit`,
               icon: FileText,
               category: "PROPUESTAS",
             });
           });
         }
 
-        if (clientsRes.data) {
-          clientsRes.data.forEach((c) => {
+        if (contractsRes.data) {
+          contractsRes.data.forEach((c) => {
             newResults.push({
-              id: `cli-${c.id}`,
-              // Provide a fallback name if company_name is null
-              label: c.company_name || c.email.split("@")[0],
-              sublabel: c.email,
+              id: `contract-${c.id}`,
+              kind: "navigate",
+              label: c.client_name || "Contrato sin cliente",
+              sublabel:
+                c.contract_number || c.client_company || "Contrato activo",
+              href: `/contracts/${c.id}/edit`,
+              icon: Send,
+              category: "CONTRATOS",
+            });
+            newResults.push({
+              id: `client-${c.id}`,
+              kind: "navigate",
+              label: `Cliente - ${c.client_name || "Sin nombre"}`,
+              sublabel: c.client_company || c.contract_number || "Expediente",
               href: `/clients/${c.id}`,
-              icon: Users,
+              icon: UserPlus,
               category: "CLIENTES",
             });
           });
         }
 
-        if (prospectsRes.data) {
-          prospectsRes.data.forEach((p) => {
+        if (leadsRes.data) {
+          leadsRes.data.forEach((p) => {
             newResults.push({
               id: `lead-${p.id}`,
+              kind: "navigate",
               label: p.name,
-              sublabel: p.company_name || "Sin empresa",
-              href: `/leads/${p.id}`,
+              sublabel: p.request_id || p.email || "Lead reciente",
+              href: `/leads?leadId=${p.id}`,
               icon: UserPlus,
               category: "LEADS",
             });
@@ -209,8 +275,10 @@ export function CommandBar({
           projectsRes.data.forEach((p) => {
             newResults.push({
               id: `proj-${p.id}`,
+              kind: "navigate",
               label: p.name,
-              href: `/projects/${p.id}`,
+              sublabel: p.status || "Proyecto",
+              href: `/projects?projectId=${p.id}`,
               icon: Briefcase,
               category: "PROYECTOS",
             });
@@ -223,7 +291,7 @@ export function CommandBar({
       } finally {
         setIsSearching(false);
       }
-    }, 300);
+    }, 220);
 
     return () => clearTimeout(timeoutId);
   }, [query, supabase]);
@@ -232,6 +300,7 @@ export function CommandBar({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
+      if (displayItems.length === 0 && e.key !== "Escape") return;
 
       if (e.key === "ArrowDown") {
         e.preventDefault();
@@ -256,8 +325,14 @@ export function CommandBar({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, displayItems, selectedIndex, onClose]);
 
-  const handleSelect = (action: Action) => {
-    router.push(action.href);
+  const handleSelect = (action: CommandAction) => {
+    if (action.kind === "create") {
+      onSelectCreateAction(action.createActionId);
+      onClose();
+      return;
+    }
+
+    router.push(localizeForgeHref(locale, action.href));
     onClose();
   };
 
@@ -299,7 +374,7 @@ export function CommandBar({
             ref={inputRef}
             type="text"
             className="w-full py-4 bg-transparent text-white placeholder:text-white/20 text-sm focus:outline-none"
-            placeholder="Buscar proyectos, clientes, propuestas o leads..."
+            placeholder="Crear algo o buscar leads, propuestas, contratos y proyectos..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -307,7 +382,7 @@ export function CommandBar({
 
         {/* Results List */}
         <div className="p-2 overflow-y-auto forge-scroll">
-          {query.length >= 3 && displayItems.length === 0 && !isSearching ? (
+          {query.trim().length >= 2 && displayItems.length === 0 && !isSearching ? (
             <div className="py-8 text-center">
               <p className="text-white/20 text-sm">
                 Sin resultados para '{query}'
@@ -316,7 +391,7 @@ export function CommandBar({
           ) : displayItems.length === 0 && !isSearching ? (
             <div className="py-8 text-center">
               <p className="text-white/20 text-sm">
-                Escribe al menos 3 caracteres para buscar globalmente.
+                No hay acciones disponibles.
               </p>
             </div>
           ) : (
@@ -361,7 +436,7 @@ export function CommandBar({
                           </div>
                           <span
                             className={`text-[10px] font-mono shrink-0 transition-opacity duration-200 ${active ? "text-white/40 opacity-100" : "opacity-0"}`}>
-                            ↵ ir
+                            {action.kind === "create" ? "↵ abrir" : "↵ ir"}
                           </span>
                         </button>
                       );

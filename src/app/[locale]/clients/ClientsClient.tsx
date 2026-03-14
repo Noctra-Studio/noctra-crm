@@ -6,16 +6,13 @@ import {
   UserCheck,
   ExternalLink,
   Calendar,
-  DollarSign,
-  ShieldCheck,
   ChevronRight,
   Filter,
-  UserPlus,
-  AlertCircle,
 } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 type ClientCardData = {
   id: string;
@@ -200,13 +197,44 @@ export function ClientsClient({
           ))}
 
           {filteredClients.length === 0 && (
-            <div className="col-span-full border border-dashed border-white/5 rounded-lg py-20 flex flex-col items-center justify-center text-center">
-              <div className="w-12 h-12 bg-white/[0.02] rounded-full flex items-center justify-center mb-4">
-                <Search className="w-6 h-6 text-neutral-700" />
-              </div>
-              <p className="text-[11px] font-mono text-neutral-300 uppercase tracking-widest">
-                No se encontraron clientes activos
-              </p>
+            <div className="col-span-full">
+              <ForgeEmptyState
+                icon={initialClients.length === 0 ? "user-check" : "search"}
+                eyebrow="Clientes"
+                title={
+                  initialClients.length === 0
+                    ? "Aún no hay clientes activos"
+                    : "No encontramos clientes con ese filtro"
+                }
+                description={
+                  initialClients.length === 0
+                    ? "Esta vista se alimenta cuando una relación comercial ya tiene contrato firmado o proyecto operativo. Es el frente de cuentas activas, no un registro independiente."
+                    : "Prueba con otro nombre, empresa o email. Si esperabas ver una cuenta aquí, revisa si ya existe contrato firmado o proyecto activo."
+                }
+                guidance={
+                  initialClients.length === 0
+                    ? ["Contrato firmado", "Proyecto activo", "Expediente"]
+                    : undefined
+                }
+                primaryAction={
+                  initialClients.length === 0
+                    ? {
+                        label: "Crear propuesta",
+                        href: "/proposals?new=proposal",
+                        icon: "plus",
+                      }
+                    : undefined
+                }
+                secondaryAction={
+                  initialClients.length === 0
+                    ? {
+                        label: "Revisar contratos",
+                        href: "/contracts",
+                        icon: "arrow-right",
+                      }
+                    : undefined
+                }
+              />
             </div>
           )}
         </div>

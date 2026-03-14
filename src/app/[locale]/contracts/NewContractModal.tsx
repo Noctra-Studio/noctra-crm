@@ -85,6 +85,7 @@ export function NewContractModal({
     company: "",
   });
   const [isCreating, setIsCreating] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const supabase = createClient();
   const router = useRouter();
 
@@ -95,6 +96,7 @@ export function NewContractModal({
       setStep(1);
       setSelectedLead(null);
       setSearch("");
+      setErrorMessage(null);
     }
   }, [isOpen]);
 
@@ -115,6 +117,7 @@ export function NewContractModal({
 
   const handleCreate = async (serviceId: string) => {
     setIsCreating(true);
+    setErrorMessage(null);
     const service = SERVICES.find((s) => s.id === serviceId);
 
     try {
@@ -126,10 +129,12 @@ export function NewContractModal({
         items: service?.items || [],
       });
 
+      onClose();
       router.push(`/contracts/${contract.id}/edit`);
+      router.refresh();
     } catch (err) {
       console.error(err);
-      alert("Error al crear contrato");
+      setErrorMessage("Error al crear contrato");
     } finally {
       setIsCreating(false);
     }
@@ -280,6 +285,14 @@ export function NewContractModal({
             </div>
           )}
         </div>
+
+        {errorMessage && (
+          <div className="border-t border-white/5 px-6 py-4">
+            <div className="rounded-2xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+              {errorMessage}
+            </div>
+          </div>
+        )}
 
         {step === 1 && (
           <div className="p-6 border-t border-white/5 flex justify-end">

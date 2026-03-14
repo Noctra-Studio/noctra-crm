@@ -1,15 +1,14 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 import {
   BarChart3,
   TrendingUp,
   DollarSign,
   Clock,
-  ArrowRight,
   Users,
   Frown,
-  CheckCircle2,
 } from "lucide-react";
 import {
   startOfMonth,
@@ -20,13 +19,13 @@ import {
   format,
   differenceInDays,
 } from "date-fns";
-import { ForgeSidebar } from "@/components/forge/ForgeSidebar";
 import { useState, useEffect } from "react";
 import { RevenueForecast, getRevenueForecast } from "@/app/actions/metrics";
 import { MonthSelector } from "@/components/forge/metrics/MonthSelector";
 import { ForecastCard } from "@/components/forge/metrics/ForecastCard";
 import { RevenueTrendChart } from "@/components/forge/metrics/RevenueTrendChart";
 import { ForecastBreakdownTable } from "@/components/forge/metrics/ForecastBreakdownTable";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 type Lead = {
   id: string;
@@ -178,6 +177,30 @@ export default function MetricsClient({
       }).format(val) + " MXN"
     );
   };
+
+  if (leads.length === 0) {
+    return (
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-6 py-8">
+        <ForgeEmptyState
+          icon="bar-chart"
+          eyebrow="Métricas"
+          title="Las métricas aparecerán cuando haya actividad comercial"
+          description="Este módulo resume conversión, valor en pipeline y tendencias. Si hoy está vacío, normalmente significa que todavía no hay leads cargados o no se ha movido el primer ciclo comercial."
+          guidance={["Conversión", "Pipeline", "Forecast"]}
+          primaryAction={{
+            label: "Crear lead",
+            href: "/leads?new=lead",
+            icon: "plus",
+          }}
+          secondaryAction={{
+            label: "Importar datos",
+            href: "/migration",
+            icon: "upload",
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -415,10 +438,19 @@ export default function MetricsClient({
             </h3>
           </div>
           {stats.lostLeads.length === 0 ? (
-            <div className="p-12 text-center">
-              <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-700">
-                No hay leads perdidos aún
-              </p>
+            <div className="p-6">
+              <ForgeEmptyState
+                icon="check-circle"
+                eyebrow="Métricas"
+                title="Todavía no hay leads perdidos"
+                description="Cuando cierres oportunidades como perdidas, aquí podrás detectar patrones de objeciones, razones de fuga y servicios que necesitan ajuste comercial."
+                size="compact"
+                primaryAction={{
+                  label: "Revisar pipeline",
+                  href: "/pipeline",
+                  icon: "arrow-right",
+                }}
+              />
             </div>
           ) : (
             <div className="overflow-x-auto">

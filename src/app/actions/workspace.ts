@@ -55,16 +55,16 @@ export async function updateWorkspaceConfigAction(data: {
 
   if (!ctx) throw new Error("Unauthorized");
 
-  // Note: This logic assumes workspace_config table has a workspace_id unique constraint
-  // or that we're updating by workspace_id.
   const { error } = await supabase
     .from("workspace_config")
-    .update({
+    .upsert({
+      workspace_id: ctx.workspaceId,
       service_types: data.serviceTypes,
       pipeline_stages: data.pipelineStages,
       updated_at: new Date().toISOString()
-    })
-    .eq("workspace_id", ctx.workspaceId);
+    }, {
+      onConflict: "workspace_id",
+    });
 
   if (error) throw error;
 

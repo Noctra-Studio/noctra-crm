@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { getWorkspace } from "@/lib/workspace";
+import { recordWorkspaceActivity } from "@/lib/activity";
 
 export async function createProposalAction(data: {
   lead_id?: string;
@@ -67,7 +68,22 @@ export async function createProposalAction(data: {
 
   if (proposalError) throw proposalError;
 
+  await recordWorkspaceActivity(supabase, {
+    workspaceId: ctx.workspaceId,
+    entityType: "proposal",
+    entityId: proposal.id,
+    eventType: "proposal.created",
+    title: "Propuesta creada",
+    description: `Se creó un borrador para ${data.service.name}.`,
+    metadata: {
+      leadId: leadId,
+      serviceName: data.service.name,
+      total: data.service.basePrice || 0,
+    },
+  });
+
   revalidatePath("/proposals");
+  revalidatePath("/[locale]/proposals", "page");
   return { id: proposal.id };
 }
 

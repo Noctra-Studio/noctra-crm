@@ -29,16 +29,19 @@ export default async function PipelinePage({
     );
   }
 
-  const { data: config } = await supabase
+  const { data: config, error: configError } = await supabase
     .from("workspace_config")
     .select("*")
     .eq("workspace_id", ctx.workspaceId)
-    .single();
+    .maybeSingle();
+
+  if (configError) {
+    console.error("[PipelinePage] workspace_config lookup failed:", configError);
+  }
 
   return (
     <PipelineClient
       initialLeads={leads || []}
-      workspaceId={ctx.workspaceId}
       config={config}
     />
   );

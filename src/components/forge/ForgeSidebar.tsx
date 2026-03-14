@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   BookOpen,
   ChevronLeft,
@@ -14,6 +14,7 @@ import {
   getForgePrimaryNav,
   getForgeSecondaryNav,
   isForgeNavItemActive,
+  localizeForgeHref,
   useForgeNavBadges,
 } from "@/components/forge/forge-navigation";
 
@@ -28,6 +29,7 @@ export interface ForgeSidebarProps {
 
 export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
   const pathname = usePathname();
+  const locale = useLocale();
   const t = useTranslations("forge.nav");
   const { alertCount, suggestionCount } = useForgeNavBadges(enabled);
 
@@ -61,68 +63,61 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
         className={`hidden md:flex flex-col h-full bg-[#0a0a0a] transition-all duration-200 ease-in-out ${
           isCollapsed ? "w-16" : "w-64"
         }`}>
-        <div className="px-6 border-b border-white/5 flex items-center relative h-16 shrink-0 overflow-hidden">
-          {/* Logo container area */}
-          <div className="flex-1 relative h-8 flex items-center">
-            {/* Full Logo (Visible when NOT collapsed) */}
-            <div
-              className={`absolute left-0 flex items-center gap-3 overflow-hidden transition-opacity duration-300 ${
-                isCollapsed ? "opacity-0 pointer-events-none" : "opacity-100"
-              }`}>
-              <img
-                src="/images/noctra-logo-white.png"
-                alt="Noctra Studio"
-                className="h-6 w-auto flex-none"
-              />
-              {workspace && workspace.name !== "Noctra Studio" && (
-                <>
-                  <div className="h-4 w-px bg-neutral-800 flex-none" />
-                  <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest truncate">
-                    {workspace.name}
-                  </span>
-                </>
-              )}
-            </div>
+        <div
+          className={`border-b border-white/5 flex items-center h-16 shrink-0 overflow-hidden ${
+            isCollapsed ? "px-3 justify-between gap-2" : "px-6"
+          }`}>
+          {isCollapsed ? (
+            <>
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.03] ring-1 ring-white/5">
+                <Image
+                  src="/favicon-light.svg"
+                  alt="Noctra"
+                  width={22}
+                  height={22}
+                  className="object-contain"
+                />
+              </div>
 
-            {/* Icon Logo (Visible when collapsed) */}
-            <div
-              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
-                isCollapsed ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}>
-              <Image
-                src="/favicon-light.svg"
-                alt="Noctra"
-                width={28}
-                height={28}
-                className="object-contain"
-              />
-            </div>
-          </div>
+              <button
+                type="button"
+                onClick={toggleCollapse}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.04] text-neutral-300 transition-all duration-200 hover:bg-white/[0.08] hover:text-white"
+                title="Expandir menú"
+                aria-label="Expandir menú">
+                <ChevronRight className="w-4 h-4" strokeWidth={1.8} />
+              </button>
+            </>
+          ) : (
+            <>
+              {/* Logo container area */}
+              <div className="flex flex-1 items-center gap-3 overflow-hidden">
+                <img
+                  src="/images/noctra-logo-white.png"
+                  alt="Noctra Studio"
+                  className="h-6 w-auto flex-none"
+                />
+                {workspace && workspace.name !== "Noctra Studio" && (
+                  <>
+                    <div className="h-4 w-px bg-neutral-800 flex-none" />
+                    <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest truncate">
+                      {workspace.name}
+                    </span>
+                  </>
+                )}
+              </div>
 
-          {/* Collapse Button */}
-          <button
-            onClick={toggleCollapse}
-            className={`p-1 rounded hover:bg-white/5 text-neutral-400 hover:text-white transition-all duration-300 flex-none absolute right-4 bg-[#0a0a0a] z-10 ${
-              isCollapsed
-                ? "opacity-0 pointer-events-none translate-x-4"
-                : "opacity-100 translate-x-0"
-            }`}
-            title="Contraer menú">
-            <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
-          </button>
+              <button
+                type="button"
+                onClick={toggleCollapse}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-all duration-200 hover:bg-white/5 hover:text-white"
+                title="Contraer menú"
+                aria-label="Contraer menú">
+                <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
+              </button>
+            </>
+          )}
         </div>
-
-        {/* Floating Expand Button when collapsed */}
-        {isCollapsed && (
-          <div className="flex justify-center mt-4">
-            <button
-              onClick={toggleCollapse}
-              className="p-1 rounded bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white transition-colors"
-              title="Expandir menú">
-              <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
-            </button>
-          </div>
-        )}
 
         <div
           className={`flex-1 overflow-y-auto custom-scrollbar ${isCollapsed ? "py-4" : "p-4"} space-y-2`}>
@@ -135,6 +130,7 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
 
                 {group.items.map((item) => {
                   const isActive = isForgeNavItemActive(pathname, item.href);
+                  const localizedHref = localizeForgeHref(locale, item.href);
                   const badgeValue =
                     item.badgeKey === "pipelineAlerts"
                       ? alertCount
@@ -145,7 +141,7 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
                   return (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      href={localizedHref}
                       title={isCollapsed ? item.label : undefined}
                       className={`flex items-center ${isCollapsed ? "justify-center p-2" : "gap-3 px-3 py-2.5"} rounded-md transition-all duration-150 text-sm font-medium group relative border-l-2 ${
                         isActive
@@ -200,11 +196,12 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
           className={`p-4 border-t border-white/5 ${isCollapsed ? "flex justify-center" : ""}`}>
           {secondaryNav.map((item) => {
             const isActive = isForgeNavItemActive(pathname, item.href);
+            const localizedHref = localizeForgeHref(locale, item.href);
 
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={localizedHref}
                 title={isCollapsed ? item.label : undefined}
                 className={`flex items-center ${isCollapsed ? "justify-center p-2" : "gap-3 px-3 py-2.5"} rounded-md transition-all duration-150 text-sm font-medium group relative ${
                   isActive

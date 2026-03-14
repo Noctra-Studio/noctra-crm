@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { format, addWeeks, differenceInDays } from "date-fns";
 import { createAdminClient } from "@/utils/supabase/admin";
+import { recordWorkspaceActivity } from "@/lib/activity";
 import {
   Check,
   Download,
@@ -68,6 +69,19 @@ export default async function ClientProposalPage({
         status: "viewed",
       })
       .eq("id", proposal.id);
+
+    await recordWorkspaceActivity(supabase, {
+      workspaceId: proposal.workspace_id,
+      entityType: "proposal",
+      entityId: proposal.id,
+      eventType: "proposal.viewed",
+      title: "Propuesta vista",
+      description: `${proposal.lead?.name || "Un cliente"} abrió la propuesta ${proposal.proposal_number || proposal.title || ""}.`,
+      metadata: {
+        proposalNumber: proposal.proposal_number || "",
+        leadName: proposal.lead?.name || "",
+      },
+    });
   } else if (proposal.status === "viewed") {
     await supabase
       .from("proposals")

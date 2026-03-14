@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { ForgeSidebar } from "@/components/forge/ForgeSidebar";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { format } from "date-fns";
 import {
   Mail,
@@ -14,6 +15,8 @@ import {
   Clock,
 } from "lucide-react";
 import { LeadScoreBadge } from "@/components/forge/LeadScoreBadge";
+import { NewLeadModal } from "./NewLeadModal";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 type Lead = {
   id: string;
@@ -41,11 +44,17 @@ export default function ForgeLeadsClient({
   config: any;
 }) {
   const [leads, setLeads] = useState<Lead[]>(initialLeads);
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [selectedLeadId, setSelectedLeadId] = useState<string | null>(
     initialLeads[0]?.id || null,
   );
   const [isRetrying, setIsRetrying] = useState(false);
   const [sortOrder, setSortOrder] = useState<"date" | "score">("score");
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const selectedLeadFromQuery = searchParams.get("leadId");
+  const shouldOpenCreateModal = searchParams.get("new") === "lead";
 
   const sortedLeads = [...leads].sort((a, b) => {
     if (sortOrder === "score") {
@@ -57,6 +66,28 @@ export default function ForgeLeadsClient({
   });
 
   const selectedLead = leads.find((l) => l.id === selectedLeadId);
+
+  useEffect(() => {
+    if (shouldOpenCreateModal) {
+      setIsCreateModalOpen(true);
+    } else {
+      setIsCreateModalOpen(false);
+    }
+  }, [shouldOpenCreateModal]);
+
+  useEffect(() => {
+    if (!selectedLeadFromQuery) return;
+    if (leads.some((lead) => lead.id === selectedLeadFromQuery)) {
+      setSelectedLeadId(selectedLeadFromQuery);
+    }
+  }, [leads, selectedLeadFromQuery]);
+
+  const closeCreateModal = () => {
+    setIsCreateModalOpen(false);
+    const nextParams = new URLSearchParams(searchParams.toString());
+    nextParams.delete("new");
+    router.replace(nextParams.toString() ? `/leads?${nextParams}` : "/leads");
+  };
 
   const handleRetry = async (submissionId: string) => {
     setIsRetrying(true);
@@ -94,6 +125,7 @@ export default function ForgeLeadsClient({
 
   return (
     <div className="flex flex-col md:flex-row min-h-full">
+      <NewLeadModal isOpen={isCreateModalOpen} onClose={closeCreateModal} />
       <aside className="w-full md:w-[320px] bg-[#080808] border-r border-neutral-900 flex flex-col shrink-0">
         <div className="p-6 border-b border-neutral-900">
           <h2 className="text-[10px] font-mono uppercase tracking-widest text-neutral-300">
@@ -121,52 +153,111 @@ export default function ForgeLeadsClient({
           </div>
         </div>
         <div className="px-2 py-4 space-y-1">
-          {sortedLeads.map((lead) => (
-            <button
-              key={lead.id}
-              onClick={() => setSelectedLeadId(lead.id)}
-              className={`w-full text-left p-4 rounded-md transition-all flex flex-col gap-1 ${
-                selectedLeadId === lead.id
-                  ? "bg-white/[0.05] border-l-2 border-emerald-500"
-                  : "hover:bg-white/[0.02] border-l-2 border-transparent"
-              }`}>
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[10px] font-mono text-neutral-400 bg-white/[0.03] px-1.5 py-0.5 border border-white/[0.05]">
-                  {lead.request_id || "NOC-XXXX"}
-                </span>
-                <span className="text-[9px] font-mono text-neutral-300 uppercase">
-                  {format(new Date(lead.created_at), "MMM d")}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-sm text-neutral-100 truncate pr-2">
-                  {lead.name}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-emerald-500 uppercase tracking-tighter truncate">
-                  {lead.service_interest}
-                </span>
-                {lead.locale && (
-                  <span className="text-[10px] text-neutral-400 font-mono uppercase">
-                    [{lead.locale}]
+          {sortedLeads.length === 0 ? (
+            <ForgeEmptyState
+              icon="inbox"
+              eyebrow="Leads"
+              title="Aquí aparecerán tus leads nuevos"
+              description="Esta bandeja recibe prospectos capturados desde formularios, migraciones o creación manual. Desde aquí priorizas y abres cada oportunidad para darle seguimiento."
+              guidance={["Forms", "Migraciones", "Captura manual"]}
+              size="compact"
+              className="mx-2"
+              primaryAction={{
+                label: "Crear lead",
+                onClick: () => setIsCreateModalOpen(true),
+                icon: "plus",
+              }}
+              secondaryAction={{
+                label: "Importar contactos",
+                href: "/migration/new",
+                icon: "upload",
+              }}
+            />
+          ) : (
+            sortedLeads.map((lead) => (
+              <button
+                key={lead.id}
+                onClick={() => setSelectedLeadId(lead.id)}
+                className={`w-full text-left p-4 rounded-md transition-all flex flex-col gap-1 ${
+                  selectedLeadId === lead.id
+                    ? "bg-white/[0.05] border-l-2 border-emerald-500"
+                    : "hover:bg-white/[0.02] border-l-2 border-transparent"
+                }`}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] font-mono text-neutral-400 bg-white/[0.03] px-1.5 py-0.5 border border-white/[0.05]">
+                    {lead.request_id || "NOC-XXXX"}
                   </span>
-                )}
-              </div>
-              {lead.lead_score !== undefined && (
-                <div className="mt-1">
-                  <LeadScoreBadge score={lead.lead_score} />
+                  <span className="text-[9px] font-mono text-neutral-300 uppercase">
+                    {format(new Date(lead.created_at), "MMM d")}
+                  </span>
                 </div>
-              )}
-            </button>
-          ))}
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-sm text-neutral-100 truncate pr-2">
+                    {lead.name}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono text-emerald-500 uppercase tracking-tighter truncate">
+                    {lead.service_interest}
+                  </span>
+                  {lead.locale && (
+                    <span className="text-[10px] text-neutral-400 font-mono uppercase">
+                      [{lead.locale}]
+                    </span>
+                  )}
+                </div>
+                {lead.lead_score !== undefined && (
+                  <div className="mt-1">
+                    <LeadScoreBadge score={lead.lead_score} />
+                  </div>
+                )}
+              </button>
+            ))
+          )}
         </div>
       </aside>
 
       <div className="flex-1 bg-[#050505] pb-24 md:pb-0">
         {!selectedLead ? (
-          <div className="h-full flex items-center justify-center text-neutral-400 font-mono text-xs uppercase tracking-widest">
-            Select a lead to view details
+          <div className="h-full flex items-center justify-center px-6">
+            <div className="w-full max-w-xl">
+              <ForgeEmptyState
+                icon={sortedLeads.length > 0 ? "users" : "inbox"}
+                eyebrow="Leads"
+                title="Selecciona un lead para trabajar su contexto"
+                description="Desde aquí puedes revisar origen, mensaje, scoring y preparar el siguiente seguimiento sin cambiar de módulo."
+                guidance={
+                  sortedLeads.length > 0
+                    ? ["Origen", "Scoring", "Seguimiento"]
+                    : ["Captura", "Calificación", "Pipeline"]
+                }
+                primaryAction={
+                  sortedLeads.length > 0
+                    ? {
+                        label: "Abrir primer lead",
+                        onClick: () => setSelectedLeadId(sortedLeads[0]?.id ?? null),
+                      }
+                    : {
+                        label: "Crear lead manual",
+                        onClick: () => setIsCreateModalOpen(true),
+                        icon: "plus",
+                      }
+                }
+                secondaryAction={
+                  sortedLeads.length > 0
+                    ? {
+                        label: "Ir al pipeline",
+                        href: "/pipeline",
+                        icon: "arrow-right",
+                      }
+                    : {
+                        label: "Importar contactos",
+                        href: "/migration/new",
+                        icon: "upload",
+                      }
+                }
+              />
+            </div>
           </div>
         ) : (
           <div className="max-w-4xl mx-auto p-8 md:p-16 space-y-16">

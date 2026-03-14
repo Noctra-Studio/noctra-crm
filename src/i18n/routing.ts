@@ -43,6 +43,7 @@ export const routing = defineRouting({
     '/pipeline': '/pipeline',
     '/proposals': '/proposals',
     '/contracts': '/contracts',
+    '/documents': '/documents',
     '/clients': '/clients',
     '/leads': '/leads',
     '/metrics': '/metrics',

@@ -10,6 +10,7 @@ import {
   getForgePrimaryNav,
   getForgeSecondaryNav,
   isForgeNavItemActive,
+  localizeForgeHref,
   type ForgeNavBadgeKey,
   type ForgeNavItem,
   useForgeNavBadges,
@@ -78,13 +79,14 @@ export function ForgeMobileNav({
 
   const renderNavLink = (item: ForgeNavItem, isPrimary = false) => {
     const isActive = isForgeNavItemActive(pathname, item.href);
+    const localizedHref = localizeForgeHref(locale, item.href);
     const badgeValue = getBadgeValue(item.badgeKey);
 
     return (
       <SheetClose asChild key={item.href}>
         <Link
           ref={isPrimary ? firstNavLinkRef : undefined}
-          href={item.href}
+          href={localizedHref}
           aria-current={isActive ? "page" : undefined}
           className={cn(
             "flex items-center gap-4 rounded-2xl border px-4 py-3.5 text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70",

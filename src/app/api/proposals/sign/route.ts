@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createAdminClient } from "@/utils/supabase/admin";
+import { recordWorkspaceActivity } from "@/lib/activity";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -59,6 +60,20 @@ export async function POST(req: Request) {
          .update({ pipeline_status: 'cerrado' })
          .eq("id", proposal.lead_id);
     }
+
+    await recordWorkspaceActivity(supabase, {
+      workspaceId: proposal.workspace_id,
+      entityType: "proposal",
+      entityId: proposal.id,
+      eventType: "proposal.accepted",
+      title: "Propuesta aceptada",
+      description: `${signed_name} firmó ${proposal.proposal_number || proposal.title || "la propuesta"}.`,
+      metadata: {
+        proposalNumber: proposal.proposal_number || "",
+        leadId: proposal.lead_id || null,
+        signedName: signed_name,
+      },
+    });
 
     // 5. Trigger Notifications (Resend)
     // Email to Client

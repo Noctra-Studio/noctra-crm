@@ -1,6 +1,7 @@
 "use client";
 
 import { ForecastItem } from "@/app/actions/metrics";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 interface ForecastBreakdownTableProps {
   items: ForecastItem[];
@@ -58,10 +59,19 @@ export function ForecastBreakdownTable({ items }: ForecastBreakdownTableProps) {
           <tbody className="divide-y divide-white/5">
             {sortedItems.length === 0 ? (
               <tr>
-                <td
-                  colSpan={5}
-                  className="py-12 text-center text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
-                  No hay items para este periodo
+                <td colSpan={5} className="p-6">
+                  <ForgeEmptyState
+                    icon="bar-chart"
+                    eyebrow="Métricas"
+                    title="No hay items para este periodo"
+                    description="Cuando existan propuestas activas, contratos o proyectos con impacto en forecast, aquí verás qué registros están moviendo tu proyección."
+                    size="compact"
+                    primaryAction={{
+                      label: "Revisar propuestas",
+                      href: "/proposals",
+                      icon: "arrow-right",
+                    }}
+                  />
                 </td>
               </tr>
             ) : (

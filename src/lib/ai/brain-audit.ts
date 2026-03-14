@@ -18,6 +18,15 @@ type BrainAuditPayload = {
   metadata?: Record<string, unknown>;
 };
 
+function isMissingAuditTableError(error: unknown) {
+  return (
+    !!error &&
+    typeof error === "object" &&
+    "code" in error &&
+    error.code === "PGRST205"
+  );
+}
+
 export async function logBrainAuditEvent(payload: BrainAuditPayload) {
   if (!payload.workspaceId) return;
 
@@ -40,10 +49,13 @@ export async function logBrainAuditEvent(payload: BrainAuditPayload) {
     });
 
     if (error) {
+      if (isMissingAuditTableError(error)) {
+        return;
+      }
+
       console.error("[CentralBrain] audit insert failed:", error);
     }
   } catch (error) {
     console.error("[CentralBrain] audit logging error:", error);
   }
 }
-

@@ -11,25 +11,11 @@ import {
 const intlMiddleware = createMiddleware(routing);
 
 const MAIN_DOMAINS = ["noctra.studio", "www.noctra.studio", "localhost:3000"];
-const CRM_HOME_RE = /^\/(en|es)?\/?$/;
-
-function isPublicSiteReferrer(referer: string | null) {
-  if (!referer) return false;
-
-  try {
-    const { host } = new URL(referer);
-    return MAIN_DOMAINS.includes(host);
-  } catch {
-    return false;
-  }
-}
 
 export default async function proxy(request: NextRequest) {
   const host = request.headers.get("host") || "";
-  const referer = request.headers.get("referer");
   const { pathname } = request.nextUrl;
   const locale = extractLocaleFromPath(pathname);
-  const isPublicSiteEntry = isPublicSiteReferrer(referer);
   
   // 0. Custom Domain & Subdomain Persistence Logic
   let resolvedWorkspace = null;
@@ -82,7 +68,7 @@ export default async function proxy(request: NextRequest) {
     const isLandingPage = /^\/(es|en)?\/?$/.test(pathname);
     
     // Protected routes: projects, pipeline, proposals, contracts, clients, leads, metrics, settings, docs, search
-    const protectedRoutes = ['/dashboard', '/projects', '/pipeline', '/proposals', '/contracts', '/clients', '/leads', '/metrics', '/settings', '/docs', '/search'];
+    const protectedRoutes = ['/dashboard', '/projects', '/pipeline', '/proposals', '/contracts', '/documents', '/clients', '/leads', '/metrics', '/settings', '/docs', '/search'];
     const isProtectedRoute = protectedRoutes.some(route => pathname.includes(route));
     const requiresMfa =
       aal?.nextLevel === 'aal2' && aal?.currentLevel !== 'aal2';
@@ -106,19 +92,6 @@ export default async function proxy(request: NextRequest) {
         loginUrl.pathname = '/login';
       }
       return NextResponse.redirect(loginUrl);
-    }
-
-    if (
-      isPublicSiteEntry &&
-      user &&
-      !requiresMfa &&
-      isProtectedRoute &&
-      !CRM_HOME_RE.test(pathname)
-    ) {
-      const dashboardUrl = request.nextUrl.clone();
-      dashboardUrl.pathname = getDefaultAuthenticatedRoute(locale);
-      dashboardUrl.search = "";
-      return NextResponse.redirect(dashboardUrl);
     }
 
     if (isLoginPage && user && !requiresMfa) {

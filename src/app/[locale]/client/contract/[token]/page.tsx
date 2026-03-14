@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/utils/supabase/admin";
 import { FileText } from "lucide-react";
+import { recordWorkspaceActivity } from "@/lib/activity";
 import { ClientContractClient } from "./ClientContractClient";
 
 export const dynamic = "force-dynamic";
@@ -46,6 +47,19 @@ export default async function ClientContractPage({
       .from("contracts")
       .update({ status: "viewed", updated_at: new Date().toISOString() })
       .eq("id", contract.id);
+
+    await recordWorkspaceActivity(supabase, {
+      workspaceId: contract.workspace_id,
+      entityType: "contract",
+      entityId: contract.id,
+      eventType: "contract.viewed",
+      title: "Contrato visto",
+      description: `${contract.client_name || "El cliente"} abrió ${contract.contract_number || "el contrato"}.`,
+      metadata: {
+        contractNumber: contract.contract_number || "",
+        clientName: contract.client_name || "",
+      },
+    });
   }
 
   return <ClientContractClient contract={contract} params={params} />;

@@ -1,23 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { ForgeSidebar } from "@/components/forge/ForgeSidebar";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import {
   Plus,
   Search,
-  MoreHorizontal,
-  Send,
-  Eye,
   Edit3,
-  FileText,
-  ExternalLink,
-  ChevronRight,
   Shield,
   UserCheck,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { NewContractModal } from "./NewContractModal";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 type Contract = {
   id: string;
@@ -42,6 +37,15 @@ export default function ContractsClient({
   const [contracts] = useState<Contract[]>(initialContracts);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const shouldOpenCreateModal = searchParams.get("new") === "contract";
+
+  useEffect(() => {
+    if (shouldOpenCreateModal) {
+      setIsModalOpen(true);
+    }
+  }, [shouldOpenCreateModal]);
 
   const filteredContracts = contracts.filter(
     (c) =>
@@ -64,6 +68,15 @@ export default function ContractsClient({
       default:
         return "text-neutral-300 bg-neutral-500/10 border-neutral-500/20";
     }
+  };
+
+  const closeCreateModal = () => {
+    setIsModalOpen(false);
+    const nextParams = new URLSearchParams(searchParams.toString());
+    nextParams.delete("new");
+    router.replace(
+      nextParams.toString() ? `/contracts?${nextParams}` : "/contracts",
+    );
   };
 
   return (
@@ -89,10 +102,7 @@ export default function ContractsClient({
         </button>
       </header>
 
-      <NewContractModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <NewContractModal isOpen={isModalOpen} onClose={closeCreateModal} />
 
       {/* Toolbar */}
       <div className="px-8 py-4 border-b border-white/5 flex items-center gap-4 shrink-0 overflow-x-auto bg-[#050505]">
@@ -151,8 +161,44 @@ export default function ContractsClient({
             {filteredContracts.length === 0 ? (
               <tr>
                 <td colSpan={8} className="py-20 text-center">
-                  <div className="text-neutral-400 font-mono text-[10px] uppercase tracking-[0.2em] mb-4">
-                    No se encontraron contratos
+                  <div className="mx-auto max-w-2xl px-4">
+                    <ForgeEmptyState
+                      icon={contracts.length === 0 ? "file-signature" : "search"}
+                      eyebrow="Contratos"
+                      title={
+                        contracts.length === 0
+                          ? "Aún no hay contratos en este workspace"
+                          : "No encontramos contratos con ese filtro"
+                      }
+                      description={
+                        contracts.length === 0
+                          ? "Este módulo concentra acuerdos listos para firma, seguimiento legal y arranque operativo una vez que el trato avanza."
+                          : "Prueba con otro folio, cliente o empresa. Si el acuerdo todavía no existe, puedes prepararlo desde aquí."
+                      }
+                      guidance={
+                        contracts.length === 0
+                          ? ["Firma", "Seguimiento", "Arranque"]
+                          : undefined
+                      }
+                      primaryAction={
+                        contracts.length === 0
+                          ? {
+                              label: "Crear contrato",
+                              onClick: () => setIsModalOpen(true),
+                              icon: "plus",
+                            }
+                          : undefined
+                      }
+                      secondaryAction={
+                        contracts.length === 0
+                          ? {
+                              label: "Ver propuestas",
+                              href: "/proposals",
+                              icon: "arrow-right",
+                            }
+                          : undefined
+                      }
+                    />
                   </div>
                 </td>
               </tr>

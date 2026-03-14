@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { LeadScoreBadge } from "@/components/forge/LeadScoreBadge";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { NewProposalModal } from "./NewProposalModal";
 import { useFollowUps } from "@/hooks/useFollowUps";
@@ -26,6 +26,7 @@ import { FollowUpModal } from "@/components/forge/FollowUpModal";
 import { FollowUpSuggestion } from "@/app/actions/followup";
 import { createContractFromProposalAction } from "@/app/actions/contracts";
 import { deleteProposalAction } from "@/app/actions/proposals";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 import { createPortal } from "react-dom";
 
@@ -178,8 +179,10 @@ export default function ProposalsClient({
     useState<FollowUpSuggestion | null>(null);
   const { suggestions, dismiss, refresh } = useFollowUps();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
   const menuRef = useRef<HTMLDivElement>(null);
+  const shouldOpenCreateModal = searchParams.get("new") === "proposal";
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -191,6 +194,12 @@ export default function ProposalsClient({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (shouldOpenCreateModal) {
+      setIsModalOpen(true);
+    }
+  }, [shouldOpenCreateModal]);
 
   const proposalSuggestions = suggestions.filter(
     (s) => s.type === "proposal_viewed_3d" || s.type === "proposal_sent_5d",
@@ -220,6 +229,15 @@ export default function ProposalsClient({
       console.error(err);
       alert("Error al eliminar: " + (err.message || "Error desconocido"));
     }
+  };
+
+  const closeCreateModal = () => {
+    setIsModalOpen(false);
+    const nextParams = new URLSearchParams(searchParams.toString());
+    nextParams.delete("new");
+    router.replace(
+      nextParams.toString() ? `/proposals?${nextParams}` : "/proposals",
+    );
   };
 
   const filteredProposals = proposals.filter(
@@ -310,29 +328,23 @@ export default function ProposalsClient({
       {/* Content Area */}
       {proposals.length === 0 ? (
         <div className="px-5 md:px-8 py-10">
-          <div className="flex flex-col items-center justify-center text-center py-24 px-6 bg-[#111111] border border-dashed border-neutral-800 rounded-2xl relative overflow-hidden">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none" />
-
-            <div className="w-16 h-16 bg-white/[0.03] border border-white/5 rounded-2xl flex items-center justify-center mb-6 relative z-10 shadow-xl shadow-black/50">
-              <FileText className="w-8 h-8 text-emerald-500" />
-            </div>
-
-            <h3 className="text-xl font-bold text-white mb-3 relative z-10">
-              No tienes propuestas
-            </h3>
-
-            <p className="text-neutral-400 text-sm max-w-sm mx-auto mb-8 relative z-10">
-              Crea propuestas de diseño, desarrollo o marketing para tus leads y
-              empieza a cerrar tratos.
-            </p>
-
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="relative z-10 flex items-center gap-2 px-6 py-3 min-h-[44px] bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-all shadow-lg hover:-translate-y-0.5 mt-2">
-              <Plus className="w-4 h-4" />
-              Nueva Propuesta
-            </button>
-          </div>
+          <ForgeEmptyState
+            icon="file-text"
+            eyebrow="Propuestas"
+            title="Todavía no has preparado propuestas"
+            description="Aquí conviertes oportunidades en documentos comerciales listos para negociar, enviar y convertir después en contrato."
+            guidance={["Borradores", "Pricing", "Cierre comercial"]}
+            primaryAction={{
+              label: "Nueva propuesta",
+              onClick: () => setIsModalOpen(true),
+              icon: "plus",
+            }}
+            secondaryAction={{
+              label: "Ir a leads",
+              href: "/leads",
+              icon: "arrow-right",
+            }}
+          />
         </div>
       ) : (
         <div className="px-5 md:px-8 py-6 forge-scroll">
@@ -366,8 +378,14 @@ export default function ProposalsClient({
                 {filteredProposals.length === 0 ? (
                   <tr>
                     <td colSpan={7} className="py-20 text-center">
-                      <div className="text-neutral-400 font-mono text-[10px] uppercase tracking-[0.2em] mb-4">
-                        No se encontraron propuestas
+                      <div className="mx-auto max-w-xl px-4">
+                        <ForgeEmptyState
+                          icon="search"
+                          size="compact"
+                          eyebrow="Búsqueda"
+                          title="No encontramos propuestas con ese filtro"
+                          description="Prueba con otro folio, nombre del cliente o título del documento."
+                        />
                       </div>
                     </td>
                   </tr>
@@ -460,8 +478,14 @@ export default function ProposalsClient({
           {/* MOBILE CARDS LIST */}
           <div className="grid md:hidden gap-4 pb-8">
             {filteredProposals.length === 0 ? (
-              <div className="py-20 text-center text-neutral-400 font-mono text-[10px] uppercase tracking-[0.2em] border border-dashed border-white/5 rounded-2xl">
-                No se encontraron propuestas
+              <div className="py-4">
+                <ForgeEmptyState
+                  icon="search"
+                  size="compact"
+                  eyebrow="Búsqueda"
+                  title="No encontramos propuestas con ese filtro"
+                  description="Prueba con otro folio, nombre del cliente o título del documento."
+                />
               </div>
             ) : (
               filteredProposals.map((proposal) => (
@@ -532,7 +556,7 @@ export default function ProposalsClient({
 
       <NewProposalModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={closeCreateModal}
       />
 
       {selectedFollowUp && (

@@ -8,11 +8,18 @@ import { ForgeSidebar } from "@/components/forge/ForgeSidebar";
 import { ForgeTopBar } from "@/components/forge/ForgeTopBar";
 import { ForgeContentWrapper } from "@/components/forge/ForgeContentWrapper";
 import { ForgeMobileHeader } from "@/components/forge/ForgeMobileHeader";
-import { CommandBar } from "@/components/forge/CommandBar";
+import {
+  CommandBar,
+  type QuickCreateActionId,
+} from "@/components/forge/CommandBar";
 import { Plus } from "lucide-react";
 import { OnboardingWizard } from "@/components/forge/OnboardingWizard";
 import { ChatWidget } from "@/components/ui/ChatWidget";
 import { canAccessCentralBrainRole } from "@/lib/ai/brain-access";
+import { NewLeadModal } from "./leads/NewLeadModal";
+import { NewProposalModal } from "./proposals/NewProposalModal";
+import { NewContractModal } from "./contracts/NewContractModal";
+import { NewProjectModal } from "@/components/forge/NewProjectModal";
 
 export default function ForgeLayoutClient({
   children,
@@ -33,6 +40,8 @@ export default function ForgeLayoutClient({
   const [isReady, setIsReady] = useState(false);
   const [needsOnboarding, setNeedsOnboarding] = useState(false);
   const [commandBarOpen, setCommandBarOpen] = useState(false);
+  const [activeQuickAction, setActiveQuickAction] =
+    useState<QuickCreateActionId | null>(null);
 
   const isLoginPage = pathname.includes("/login");
   const isSignupPage = pathname.includes("/signup");
@@ -85,6 +94,15 @@ export default function ForgeLayoutClient({
   const minutes = Math.floor(timeLeft / 60000);
   const seconds = Math.floor((timeLeft % 60000) / 1000);
 
+  const closeQuickActionModal = () => {
+    setActiveQuickAction(null);
+  };
+
+  const openQuickAction = (actionId: QuickCreateActionId) => {
+    setCommandBarOpen(false);
+    setActiveQuickAction(actionId);
+  };
+
   return (
     <>
       {showWarning && (
@@ -115,7 +133,7 @@ export default function ForgeLayoutClient({
             </aside>
 
             <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden forge-scroll flex flex-col">
-              <ForgeTopBar />
+              <ForgeTopBar onOpenQuickActions={() => setCommandBarOpen(true)} />
               <ForgeContentWrapper>{children}</ForgeContentWrapper>
             </main>
           </div>
@@ -144,6 +162,24 @@ export default function ForgeLayoutClient({
           <CommandBar
             isOpen={commandBarOpen}
             onClose={() => setCommandBarOpen(false)}
+            onSelectCreateAction={openQuickAction}
+          />
+
+          <NewLeadModal
+            isOpen={activeQuickAction === "new-lead"}
+            onClose={closeQuickActionModal}
+          />
+          <NewProposalModal
+            isOpen={activeQuickAction === "new-proposal"}
+            onClose={closeQuickActionModal}
+          />
+          <NewProjectModal
+            isOpen={activeQuickAction === "new-project"}
+            onClose={closeQuickActionModal}
+          />
+          <NewContractModal
+            isOpen={activeQuickAction === "new-contract"}
+            onClose={closeQuickActionModal}
           />
 
           {/* Onboarding Wizard (Rendered Conditionally over the UI) */}

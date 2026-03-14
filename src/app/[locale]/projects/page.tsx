@@ -26,6 +26,9 @@ export default async function ForgeProjectsPage({
   }
 
   return (
-    <ForgeProjectsClient initialProjects={(projects as Project[]) || []} />
+    <ForgeProjectsClient
+      initialProjects={(projects as Project[]) || []}
+      workspaceId={ctx.workspaceId}
+    />
   );
 }

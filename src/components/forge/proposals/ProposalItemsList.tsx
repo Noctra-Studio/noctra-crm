@@ -4,10 +4,8 @@ import {
   Plus,
   Trash2,
   GripVertical,
-  ChevronDown,
-  ChevronUp,
-  FileText,
 } from "lucide-react";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 type Item = {
   id?: string;
@@ -44,12 +42,18 @@ export function ProposalItemsList({
   return (
     <div className="space-y-4">
       {items.length === 0 && (
-        <div className="py-12 border border-dashed border-white/5 rounded-lg flex flex-col items-center justify-center gap-3 bg-white/[0.01]">
-          <FileText className="w-5 h-5 text-neutral-600 stroke-[1.5]" />
-          <p className="text-xs font-light text-neutral-500 tracking-wide">
-            Sin servicios agregados aún
-          </p>
-        </div>
+        <ForgeEmptyState
+          icon="file-text"
+          eyebrow="Propuesta"
+          title="Todavía no has agregado servicios"
+          description="Empieza con el primer entregable o servicio para construir el alcance, el precio y el valor total de la propuesta."
+          size="compact"
+          primaryAction={{
+            label: "Agregar primer servicio",
+            onClick: addItem,
+            icon: "plus",
+          }}
+        />
       )}
 
       {items.map((item, index) => (

@@ -1,5 +1,6 @@
 "use server";
 
+import { DEFAULT_PIPELINE_STAGES } from "@/lib/workspace-config";
 import { createClient } from "@/utils/supabase/server";
 import { startOfMonth, endOfMonth, subMonths, format, isWithinInterval } from "date-fns";
 import { getWorkspace } from "@/lib/workspace";
@@ -81,13 +82,17 @@ export async function getRevenueForecast(monthDate: Date = new Date()): Promise<
     .eq("status", "sent");
 
   // Get workspace config to find the correct stage name
-  const { data: config } = await supabase
+  const { data: config, error: configError } = await supabase
     .from("workspace_config")
     .select("pipeline_stages")
     .eq("workspace_id", ctx.workspaceId)
-    .single();
+    .maybeSingle();
 
-  const proposalSentStage = (config?.pipeline_stages || []).find((s: string) => 
+  if (configError) {
+    console.error("[getRevenueForecast] workspace_config lookup failed:", configError);
+  }
+
+  const proposalSentStage = (config?.pipeline_stages || DEFAULT_PIPELINE_STAGES).find((s: string) => 
     s.toLowerCase().includes("propuesta") || s.toLowerCase().includes("enviada")
   ) || "propuesta_enviada";
 

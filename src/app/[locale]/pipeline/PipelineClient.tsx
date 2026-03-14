@@ -13,14 +13,11 @@ import {
   Clock,
   ChevronRight,
   Search,
-  Plus,
   Filter,
   AlertCircle,
-  Kanban,
 } from "lucide-react";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
-import { ForgeSidebar } from "@/components/forge/ForgeSidebar";
 import { LeadDetailPanel } from "@/components/forge/LeadDetailPanel";
 import { updateLeadStatusWithScoring } from "@/app/actions/leads";
 import { LeadScoreBadge } from "@/components/forge/LeadScoreBadge";
@@ -28,6 +25,7 @@ import { useFollowUps } from "@/hooks/useFollowUps";
 import { FollowUpBanner } from "@/components/forge/FollowUpBanner";
 import { FollowUpModal } from "@/components/forge/FollowUpModal";
 import { FollowUpSuggestion } from "@/app/actions/followup";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 type Lead = {
   id: string;
@@ -82,11 +80,9 @@ const getStageColor = (stageId: string) => {
 
 export default function PipelineClient({
   initialLeads,
-  workspaceId,
   config,
 }: {
   initialLeads: Lead[];
-  workspaceId: string;
   config: any;
 }) {
   const STAGES = (
@@ -106,7 +102,11 @@ export default function PipelineClient({
   const [searchTerm, setSearchTerm] = useState("");
   const [lostPromptId, setLostPromptId] = useState<string | null>(null);
   const [lostReason, setLostReason] = useState("");
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [pendingLeadId, setPendingLeadId] = useState<string | null>(null);
+  const [feedback, setFeedback] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
   const [alerts, setAlerts] = useState<
     { id: string; name: string; days_inactive: number }[]
   >([]);
@@ -119,6 +119,12 @@ export default function PipelineClient({
   );
 
   const supabase = createClient();
+
+  useEffect(() => {
+    if (!feedback) return;
+    const timeout = window.setTimeout(() => setFeedback(null), 2800);
+    return () => window.clearTimeout(timeout);
+  }, [feedback]);
 
   useEffect(() => {
     const fetchAlerts = async () => {
@@ -194,13 +200,26 @@ export default function PipelineClient({
     status: string,
     lostReasonText?: string,
   ) => {
-    setIsUpdating(true);
-    try {
-      const updates: any = { pipeline_status: status };
-      if (status === "cerrado") updates.closed_at = new Date().toISOString();
-      if (status === "perdido" && lostReasonText)
-        updates.lost_reason = lostReasonText;
+    const previousLead = leads.find((lead) => lead.id === leadId);
+    if (!previousLead) return;
 
+    setPendingLeadId(leadId);
+    const optimisticLead = {
+      ...previousLead,
+      pipeline_status: status,
+      closed_at:
+        status === "cerrado"
+          ? previousLead.closed_at || new Date().toISOString()
+          : previousLead.closed_at,
+      lost_reason:
+        status === "perdido" ? lostReasonText || previousLead.lost_reason : undefined,
+    };
+
+    setLeads((prev) =>
+      prev.map((lead) => (lead.id === leadId ? optimisticLead : lead)),
+    );
+
+    try {
       const result = await updateLeadStatusWithScoring(
         leadId,
         status,
@@ -210,23 +229,28 @@ export default function PipelineClient({
       if (!result.success)
         throw new Error((result as any).error || "Unknown error");
 
-      // Log activity
-      await supabase.from("lead_activities").insert({
-        lead_id: leadId,
-        workspace_id: workspaceId,
-        type: "status_change",
-        content: `Status changed to ${status}${lostReasonText ? `. Reason: ${lostReasonText}` : ""}`,
+      if ((result as any).lead) {
+        setLeads((prev) =>
+          prev.map((lead) =>
+            lead.id === leadId ? ((result as any).lead as Lead) : lead,
+          ),
+        );
+      }
+      setFeedback({
+        message: `Lead movido a ${getStageLabel(status).toLowerCase()}`,
+        type: "success",
       });
-
-      // Update local state
-      setLeads((prev) =>
-        prev.map((l) => (l.id === leadId ? { ...l, ...updates } : l)),
-      );
     } catch (err) {
       console.error("Error updating lead status:", err);
-      alert("Error updating status");
+      setLeads((prev) =>
+        prev.map((lead) => (lead.id === leadId ? previousLead : lead)),
+      );
+      setFeedback({
+        message: "No pudimos guardar el cambio de etapa.",
+        type: "error",
+      });
     } finally {
-      setIsUpdating(false);
+      setPendingLeadId(null);
       setLostPromptId(null);
       setLostReason("");
     }
@@ -239,6 +263,18 @@ export default function PipelineClient({
 
   return (
     <>
+      {feedback && (
+        <div
+          className={`fixed bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] left-1/2 z-[120] -translate-x-1/2 rounded-2xl border px-4 py-3 text-xs font-mono uppercase tracking-widest ${
+            feedback.type === "success"
+              ? "border-emerald-500/30 bg-black text-emerald-400"
+              : "border-red-500/30 bg-black text-red-400"
+          }`}
+        >
+          {feedback.message}
+        </div>
+      )}
+
       {/* Sub-Header */}
       <header className="p-6 border-b border-neutral-900 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#080808]">
         <div className="flex items-center gap-4">
@@ -306,29 +342,42 @@ export default function PipelineClient({
       {/* Kanban Board */}
       {leads.length === 0 ? (
         <div className="px-6 py-10">
-          <div className="flex flex-col items-center justify-center text-center py-24 px-6 bg-[#111111] border border-dashed border-neutral-800 rounded-2xl relative overflow-hidden">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none" />
-
-            <div className="w-16 h-16 bg-white/[0.03] border border-white/5 rounded-2xl flex items-center justify-center mb-6 relative z-10 shadow-xl shadow-black/50">
-              <Kanban className="w-8 h-8 text-emerald-500" />
-            </div>
-
-            <h3 className="text-xl font-bold text-white mb-3 relative z-10">
-              Pipeline vacío
-            </h3>
-
-            <p className="text-neutral-400 text-sm max-w-sm mx-auto mb-8 relative z-10">
-              Aún no tienes leads en tu pipeline. Agrega prospectos desde la
-              sección de Leads o importando tus contactos.
-            </p>
-
-            <Link
-              href="/leads"
-              className="relative z-10 flex items-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-all shadow-lg hover:-translate-y-0.5 mt-2">
-              <Plus className="w-4 h-4" />
-              Nuevo Lead
-            </Link>
-          </div>
+          <ForgeEmptyState
+            icon="kanban"
+            eyebrow="Pipeline"
+            title="Tu pipeline todavía no tiene leads"
+            description="Aquí priorizas oportunidades, detectas bloqueos y mueves cada prospecto hasta cierre o pérdida. Para activarlo, agrega tu primer lead o importa contactos existentes."
+            guidance={["Captura", "Seguimiento", "Cierre"]}
+            primaryAction={{
+              label: "Nuevo lead",
+              href: "/leads?new=lead",
+              icon: "plus",
+            }}
+            secondaryAction={{
+              label: "Importar contactos",
+              href: "/migration/new",
+              icon: "upload",
+            }}
+          />
+        </div>
+      ) : filteredLeads.length === 0 ? (
+        <div className="px-6 py-10">
+          <ForgeEmptyState
+            icon="search"
+            eyebrow="Pipeline"
+            title="No encontramos leads con esa búsqueda"
+            description="Prueba con otro nombre, email o folio. Si necesitas revisar el flujo completo, puedes limpiar el filtro y volver al tablero."
+            size="compact"
+            primaryAction={{
+              label: "Limpiar búsqueda",
+              onClick: () => setSearchTerm(""),
+            }}
+            secondaryAction={{
+              label: "Ver leads",
+              href: "/leads",
+              icon: "arrow-right",
+            }}
+          />
         </div>
       ) : (
         <div className="overflow-x-auto p-6 bg-[#050505] forge-scroll">
@@ -362,7 +411,7 @@ export default function PipelineClient({
                             <div
                               {...provided.droppableProps}
                               ref={provided.innerRef}
-                              className={`flex-1 min-h-[200px] p-3 space-y-3 transition-colors forge-scroll ${snapshot.isDraggingOver ? "bg-emerald-500/5" : ""}`}>
+                              className={`flex-1 min-h-[200px] p-3 space-y-3 transition-all forge-scroll ${snapshot.isDraggingOver ? "bg-emerald-500/8 ring-1 ring-inset ring-emerald-500/30" : ""}`}>
                               <div className="text-[8px] font-mono text-neutral-800 uppercase tracking-widest text-center mb-2 border-b border-neutral-900 pb-2">
                                 WON / CERRADO
                               </div>
@@ -373,6 +422,7 @@ export default function PipelineClient({
                                     key={lead.id}
                                     lead={lead}
                                     index={index}
+                                    isPending={pendingLeadId === lead.id}
                                     onClick={() => setSelectedLeadId(lead.id)}
                                   />
                                 ))}
@@ -387,7 +437,7 @@ export default function PipelineClient({
                             <div
                               {...provided.droppableProps}
                               ref={provided.innerRef}
-                              className={`h-[40%] min-h-[150px] border-t border-neutral-900 p-3 space-y-3 transition-colors forge-scroll ${snapshot.isDraggingOver ? "bg-red-500/5" : ""}`}>
+                              className={`h-[40%] min-h-[150px] border-t border-neutral-900 p-3 space-y-3 transition-all forge-scroll ${snapshot.isDraggingOver ? "bg-red-500/8 ring-1 ring-inset ring-red-500/30" : ""}`}>
                               <div className="text-[8px] font-mono text-neutral-800 uppercase tracking-widest text-center mb-2 border-b border-neutral-900 pb-2">
                                 LOST / PERDIDO
                               </div>
@@ -398,6 +448,7 @@ export default function PipelineClient({
                                     key={lead.id}
                                     lead={lead}
                                     index={index}
+                                    isPending={pendingLeadId === lead.id}
                                     onClick={() => setSelectedLeadId(lead.id)}
                                   />
                                 ))}
@@ -412,12 +463,17 @@ export default function PipelineClient({
                           <div
                             {...provided.droppableProps}
                             ref={provided.innerRef}
-                            className={`flex-1 min-h-[400px] p-3 space-y-3 transition-colors forge-scroll ${snapshot.isDraggingOver ? "bg-white/[0.02]" : ""}`}>
+                            className={`flex-1 min-h-[400px] p-3 space-y-3 transition-all forge-scroll ${
+                              snapshot.isDraggingOver
+                                ? "bg-white/[0.03] ring-1 ring-inset ring-white/10"
+                                : ""
+                            }`}>
                             {getLeadsByStage(stage.id).map((lead, index) => (
                               <LeadCard
                                 key={lead.id}
                                 lead={lead}
                                 index={index}
+                                isPending={pendingLeadId === lead.id}
                                 onClick={() => setSelectedLeadId(lead.id)}
                               />
                             ))}
@@ -494,10 +550,12 @@ export default function PipelineClient({
 function LeadCard({
   lead,
   index,
+  isPending,
   onClick,
 }: {
   lead: Lead;
   index: number;
+  isPending: boolean;
   onClick: () => void;
 }) {
   const isOverdue = (date: string) => {
@@ -506,14 +564,21 @@ function LeadCard({
   };
 
   return (
-    <Draggable draggableId={lead.id} index={index}>
+    <Draggable draggableId={lead.id} index={index} isDragDisabled={isPending}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           onClick={onClick}
-          className={`bg-[#111111] border border-[#1f1f1f] p-4 flex flex-col gap-3 transition-all hover:border-[#333333] cursor-pointer group relative ${snapshot.isDragging ? "opacity-80 scale-95 shadow-2xl z-[60]" : ""}`}>
+          className={`bg-[#111111] border border-[#1f1f1f] p-4 flex flex-col gap-3 transition-all hover:border-[#333333] cursor-pointer group relative ${
+            snapshot.isDragging
+              ? "z-[60] -rotate-[1.5deg] scale-[1.02] border-emerald-500/30 shadow-[0_24px_70px_rgba(0,0,0,0.45)] ring-1 ring-emerald-500/20"
+              : "shadow-[0_0_0_rgba(0,0,0,0)]"
+          } ${isPending ? "opacity-70" : ""}`}>
+          {snapshot.isDragging && (
+            <div className="pointer-events-none absolute inset-x-4 -bottom-2 h-4 rounded-full bg-black/40 blur-md" />
+          )}
           {/* Activity Dot */}
           {!lead.closed_at &&
             formatDistanceToNow(new Date(lead.created_at)).includes("days") &&

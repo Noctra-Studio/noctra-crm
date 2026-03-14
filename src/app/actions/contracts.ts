@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { getWorkspace } from "@/lib/workspace";
+import { recordWorkspaceActivity } from "@/lib/activity";
 
 export async function createContractFromProposalAction(proposalId: string) {
   const supabase = await createClient();
@@ -44,7 +45,22 @@ export async function createContractFromProposalAction(proposalId: string) {
 
   if (contractError) throw contractError;
 
+  await recordWorkspaceActivity(supabase, {
+    workspaceId: fullProposal.workspace_id,
+    entityType: "contract",
+    entityId: contract.id,
+    eventType: "contract.created",
+    title: "Contrato creado",
+    description: `Se generó un contrato a partir de ${fullProposal.proposal_number || "una propuesta aceptada"}.`,
+    metadata: {
+      proposalId: fullProposal.id,
+      clientName: fullProposal.lead?.name || "",
+      total: fullProposal.total || 0,
+    },
+  });
+
   revalidatePath("/contracts");
+  revalidatePath("/[locale]/contracts", "page");
   revalidatePath("/proposals");
   
   return { id: contract.id };
@@ -82,6 +98,20 @@ export async function createManualContractAction(data: {
     throw error;
   }
 
+  await recordWorkspaceActivity(supabase, {
+    workspaceId: ctx.workspaceId,
+    entityType: "contract",
+    entityId: contract.id,
+    eventType: "contract.created",
+    title: "Contrato creado",
+    description: `Se preparó un contrato para ${data.client_name}.`,
+    metadata: {
+      clientName: data.client_name,
+      total: data.total_price,
+    },
+  });
+
   revalidatePath("/contracts");
+  revalidatePath("/[locale]/contracts", "page");
   return { id: contract.id };
 }

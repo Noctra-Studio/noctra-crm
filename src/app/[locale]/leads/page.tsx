@@ -19,11 +19,15 @@ export default async function ForgeLeadsPage({
     .eq("workspace_id", ctx.workspaceId)
     .order("created_at", { ascending: false });
 
-  const { data: config } = await supabase
+  const { data: config, error: configError } = await supabase
     .from("workspace_config")
     .select("*")
     .eq("workspace_id", ctx.workspaceId)
-    .single();
+    .maybeSingle();
+
+  if (configError) {
+    console.error("[ForgeLeadsPage] workspace_config lookup failed:", configError);
+  }
 
   return <ForgeLeadsClient initialLeads={leads || []} config={config} />;
 }

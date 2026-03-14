@@ -1,26 +1,25 @@
 import { createClient } from "@/utils/supabase/server";
 import MetricsClient from "./MetricsClient";
-import { redirect } from "next/navigation";
+import { getRequiredWorkspace } from "@/lib/workspace";
 import { getRevenueForecast, getRevenueTrend } from "@/app/actions/metrics";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 60; // Revalidate every 60 seconds
 
-export default async function MetricsPage() {
+export default async function MetricsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const supabase = await createClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) {
-    redirect("/login");
-  }
+  const ctx = await getRequiredWorkspace(locale);
 
   // Fetch all leads for metrics calculation
   const { data: leads, error } = await supabase
     .from("contact_submissions")
     .select("*")
+    .eq("workspace_id", ctx.workspaceId)
     .order("created_at", { ascending: false });
 
   if (error) {

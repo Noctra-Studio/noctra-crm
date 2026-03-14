@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
-import Link from "next/link";
 import {
   Download,
   RotateCcw,
@@ -10,9 +9,8 @@ import {
   AlertCircle,
   Clock,
   MoreVertical,
-  UploadCloud,
-  Plus,
 } from "lucide-react";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 export function MigrationHistoryTable({
   workspaceId,
@@ -77,30 +75,23 @@ export function MigrationHistoryTable({
 
   if (migrations.length === 0)
     return (
-      <div className="flex flex-col items-center justify-center text-center py-24 px-6 bg-[#111111] border border-dashed border-neutral-800 rounded-2xl relative overflow-hidden">
-        {/* Subtle background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none" />
-
-        <div className="w-16 h-16 bg-white/[0.03] border border-white/5 rounded-2xl flex items-center justify-center mb-6 relative z-10 shadow-xl shadow-black/50">
-          <UploadCloud className="w-8 h-8 text-emerald-500" />
-        </div>
-
-        <h3 className="text-xl font-bold text-white mb-3 relative z-10">
-          Aún no hay migraciones
-        </h3>
-
-        <p className="text-neutral-400 text-sm max-w-sm mx-auto mb-8 relative z-10">
-          Importa tus contactos, clientes o proyectos desde HubSpot, Pipedrive o
-          un archivo CSV.
-        </p>
-
-        <Link
-          href="/migration/new"
-          className="relative z-10 flex items-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-all shadow-lg hover:-translate-y-0.5 mt-2">
-          <Plus className="w-4 h-4" />
-          Nueva Migración
-        </Link>
-      </div>
+      <ForgeEmptyState
+        icon="upload"
+        eyebrow="Migración"
+        title="Aún no hay migraciones"
+        description="Este historial te ayuda a traer datos históricos a Noctra y monitorear su progreso. Puedes importar leads, clientes o proyectos desde un CRM externo o un archivo CSV."
+        guidance={["CSV", "HubSpot", "Pipedrive"]}
+        primaryAction={{
+          label: "Nueva migración",
+          href: "/migration/new",
+          icon: "upload",
+        }}
+        secondaryAction={{
+          label: "Ver leads",
+          href: "/leads",
+          icon: "arrow-right",
+        }}
+      />
     );
 
   return (

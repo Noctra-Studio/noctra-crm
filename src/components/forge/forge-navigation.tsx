@@ -104,6 +104,11 @@ export function normalizeForgePathname(pathname: string) {
   return normalized.length > 0 ? normalized : "/";
 }
 
+export function localizeForgeHref(locale: string, href: string) {
+  if (!locale) return href;
+  return href === "/" ? `/${locale}` : `/${locale}${href}`;
+}
+
 export function isForgeNavItemActive(pathname: string, href: string) {
   const normalizedPathname = normalizeForgePathname(pathname);
 

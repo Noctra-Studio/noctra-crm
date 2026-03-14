@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import type { Project } from "@/lib/projects";
+import { recordWorkspaceActivity } from "@/lib/activity";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { populateProjectTasks } from "@/lib/populate-tasks";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 import {
   Trash2,
   Plus,
@@ -37,8 +40,8 @@ import {
   revalidatePublicProjectContentAction,
 } from "@/app/actions/projects";
 import type { Deliverable } from "@/app/actions/deliverables";
-import { populateProjectTasks } from "@/lib/populate-tasks";
 import { AIProfitabilityDashboard } from "@/components/forge/projects/AIProfitabilityDashboard";
+import { NewProjectModal } from "@/components/forge/NewProjectModal";
 
 type StatusHistory = {
   id: string;
@@ -76,8 +79,10 @@ export type ProjectTask = {
 
 export default function ForgeProjectsClient({
   initialProjects,
+  workspaceId,
 }: {
   initialProjects: Project[];
+  workspaceId: string;
 }) {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -96,16 +101,6 @@ export default function ForgeProjectsClient({
   const [histories, setHistories] = useState<Record<string, StatusHistory[]>>(
     {},
   );
-
-  const [newProject, setNewProject] = useState<Partial<Project>>({
-    name: "",
-    slug: "",
-    industry: "",
-    service_type: "web_presence",
-    status: "discovery",
-    launch_date: "",
-    start_date: "",
-  });
 
   const [tasks, setTasks] = useState<Record<string, ProjectTask[]>>({});
 
@@ -138,7 +133,10 @@ export default function ForgeProjectsClient({
   });
 
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
+  const selectedProjectFromQuery = searchParams.get("projectId");
+  const shouldOpenCreatePanel = searchParams.get("new") === "project";
 
   const showToast = (
     message: string,
@@ -206,6 +204,31 @@ export default function ForgeProjectsClient({
     }
   }, [selectedId]);
 
+  useEffect(() => {
+    if (selectedProjectFromQuery && projects.some((p) => p.id === selectedProjectFromQuery)) {
+      setSelectedId(selectedProjectFromQuery);
+      return;
+    }
+
+    if (!selectedId && projects[0]) {
+      setSelectedId(projects[0].id);
+    }
+  }, [projects, selectedId, selectedProjectFromQuery]);
+
+  useEffect(() => {
+    if (shouldOpenCreatePanel) {
+      setIsCreating(true);
+    }
+  }, [shouldOpenCreatePanel]);
+
+  const clearCreateQueryParam = () => {
+    const nextParams = new URLSearchParams(searchParams.toString());
+    nextParams.delete("new");
+    router.replace(
+      nextParams.toString() ? `/projects?${nextParams}` : "/projects",
+    );
+  };
+
   const fetchDeliverables = async (id: string) => {
     try {
       const data = await getProjectDeliverablesAction(id);
@@ -244,6 +267,7 @@ export default function ForgeProjectsClient({
 
   const handleStatusChange = async (project: Project, newStatus: string) => {
     if (project.status === newStatus) return;
+    const previousStatus = project.status;
 
     // Optimistic update
     setProjects((prev) =>
@@ -263,9 +287,28 @@ export default function ForgeProjectsClient({
         .from("project_status_history")
         .insert({ project_id: project.id, status: newStatus });
 
+      await recordWorkspaceActivity(supabase, {
+        workspaceId,
+        entityType: "project",
+        entityId: project.id,
+        eventType: "project.status_changed",
+        title: "Estado de proyecto actualizado",
+        description: `${project.name} pasó de ${previousStatus} a ${newStatus}.`,
+        metadata: {
+          projectName: project.name,
+          previousStatus,
+          nextStatus: newStatus,
+        },
+      });
+
       showToast(`Status updated to ${newStatus}`);
       fetchHistory(project.id);
     } catch (err: any) {
+      setProjects((prev) =>
+        prev.map((p) =>
+          p.id === project.id ? { ...p, status: previousStatus as any } : p,
+        ),
+      );
       showToast(err.message, "error");
     }
   };
@@ -317,6 +360,19 @@ export default function ForgeProjectsClient({
 
       if (error) throw error;
 
+      await recordWorkspaceActivity(supabase, {
+        workspaceId,
+        entityType: "project",
+        entityId: project.id,
+        eventType: "project.updated",
+        title: "Proyecto actualizado",
+        description: `Se guardaron cambios en ${project.name}.`,
+        metadata: {
+          projectName: project.name,
+          slug: project.slug,
+        },
+      });
+
       const revalidation = await revalidatePublicProjectContentAction(
         project.slug,
       );
@@ -353,82 +409,6 @@ export default function ForgeProjectsClient({
       );
     } catch (err: any) {
       showToast(err.message, "error");
-    }
-  };
-
-  const handleCreateProject = async () => {
-    if (!newProject.name || !newProject.slug)
-      return showToast("Name and slug required", "error");
-
-    setSavingGlobal(true);
-    try {
-      const sort_order =
-        projects.length > 0
-          ? Math.max(...projects.map((p) => p.sort_order || 0)) + 10
-          : 10;
-
-      const { data, error } = await supabase
-        .from("projects")
-        .insert({
-          name: newProject.name,
-          slug: newProject.slug,
-          industry: newProject.industry,
-          status: newProject.status,
-          start_date: newProject.start_date,
-          launch_date: newProject.launch_date,
-          sort_order,
-          visible: true,
-          has_ai_form: false,
-          case_study_enabled: false,
-          metrics: [],
-          gallery: [],
-          budget: 0,
-          hourly_rate: 800,
-          total_hours: 0,
-          total_expenses: 0,
-          service_type: newProject.service_type || "web_presence",
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      // Auto-populate tasks
-      await populateProjectTasks(
-        supabase,
-        data.id,
-        newProject.service_type || "web_presence",
-      );
-
-      await supabase
-        .from("project_status_history")
-        .insert({ project_id: data.id, status: data.status });
-
-      setProjects((prev) =>
-        [...prev, data as Project].sort((a, b) => a.sort_order - b.sort_order),
-      );
-      const revalidation = await revalidatePublicProjectContentAction(data.slug);
-      showToast(
-        revalidation.success
-          ? "Project created"
-          : "Project created in CRM, but the public site cache could not be refreshed.",
-        revalidation.success ? "success" : "error",
-      );
-      setIsCreating(false);
-      setSelectedId(data.id);
-      setNewProject({
-        name: "",
-        slug: "",
-        industry: "",
-        service_type: "web_presence",
-        status: "discovery",
-        launch_date: "",
-        start_date: "",
-      });
-    } catch (err: any) {
-      showToast(err.message, "error");
-    } finally {
-      setSavingGlobal(false);
     }
   };
 
@@ -518,8 +498,37 @@ export default function ForgeProjectsClient({
       {/* Main Detail Panel */}
       <div className="relative flex min-w-0 flex-1 flex-col pb-24 outline-none md:pb-0">
         {!selectedProject ? (
-          <div className="flex-1 flex items-center justify-center text-neutral-400 font-mono text-xs uppercase tracking-widest">
-            Select a project
+          <div className="flex flex-1 items-center justify-center px-6">
+            <ForgeEmptyState
+              icon="briefcase"
+              eyebrow="Proyectos"
+              title={
+                projects.length === 0
+                  ? "Todavía no tienes proyectos activos"
+                  : "Selecciona un proyecto para continuar"
+              }
+              description={
+                projects.length === 0
+                  ? "Este módulo concentra la operación después del cierre comercial: fechas, rentabilidad, tareas, entregables y reportes del trabajo en curso."
+                  : "Desde aquí puedes gestionar la ejecución del servicio sin salir del expediente del cliente."
+              }
+              guidance={
+                projects.length === 0
+                  ? ["Operación", "Rentabilidad", "Entregables"]
+                  : ["Editar contexto", "Coordinar tareas", "Compartir avances"]
+              }
+              primaryAction={{
+                label: "Crear proyecto",
+                onClick: () => setIsCreating(true),
+                icon: "plus",
+              }}
+              secondaryAction={{
+                label: "Revisar contratos",
+                onClick: () => router.push("/contracts"),
+                icon: "arrow-right",
+              }}
+              className="w-full max-w-xl"
+            />
           </div>
         ) : (
           <div className="mobile-safe-x w-full max-w-3xl mx-auto space-y-16 py-8 pb-32 md:px-12 md:py-12">
@@ -617,6 +626,7 @@ export default function ForgeProjectsClient({
                 }
                 supabase={supabase}
                 showToast={showToast}
+                fetchTasks={fetchTasks}
               />
             )}
 
@@ -1203,136 +1213,13 @@ export default function ForgeProjectsClient({
         )}
       </div>
 
-      {/* New Project Modal */}
-      {isCreating && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0a0a0a] border border-neutral-800 w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto p-5 sm:p-8 space-y-8">
-            <div className="flex items-center justify-between gap-4 border-b border-neutral-900 pb-4">
-              <h2 className="text-sm font-mono uppercase tracking-widest text-neutral-300">
-                New Project
-              </h2>
-              <button
-                onClick={() => setIsCreating(false)}
-                className="text-neutral-300 hover:text-white">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-[10px] font-mono uppercase tracking-widest text-neutral-300">
-                  Name *
-                </label>
-                <input
-                  autoFocus
-                  type="text"
-                  value={newProject.name}
-                  onChange={(e) => {
-                    const name = e.target.value;
-                    const slug = name
-                      .toLowerCase()
-                      .replace(/[^a-z0-9]+/g, "-")
-                      .replace(/(^-|-$)+/g, "");
-                    setNewProject({ ...newProject, name, slug });
-                  }}
-                  className="w-full bg-transparent border-b border-neutral-800 px-0 py-2 text-white focus:outline-none focus:border-white text-sm"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-mono uppercase tracking-widest text-neutral-300">
-                  Slug *
-                </label>
-                <input
-                  type="text"
-                  value={newProject.slug}
-                  onChange={(e) =>
-                    setNewProject({ ...newProject, slug: e.target.value })
-                  }
-                  className="w-full bg-transparent border-b border-neutral-800 px-0 py-2 text-white focus:outline-none focus:border-white text-sm"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-mono uppercase tracking-widest text-neutral-300">
-                  Industry
-                </label>
-                <input
-                  type="text"
-                  value={newProject.industry}
-                  onChange={(e) =>
-                    setNewProject({ ...newProject, industry: e.target.value })
-                  }
-                  className="w-full bg-transparent border-b border-neutral-800 px-0 py-2 text-white focus:outline-none focus:border-white text-sm"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-mono uppercase tracking-widest text-neutral-300">
-                  Tipo de Servicio
-                </label>
-                <select
-                  value={newProject.service_type || "web_presence"}
-                  onChange={(e) =>
-                    setNewProject({
-                      ...newProject,
-                      service_type: e.target.value as any,
-                    })
-                  }
-                  className="w-full bg-transparent border-b border-neutral-800 px-0 py-2 text-white focus:outline-none focus:border-white text-sm">
-                  <option value="web_presence" className="bg-[#111]">
-                    Web Presence
-                  </option>
-                  <option value="ecommerce" className="bg-[#111]">
-                    E-commerce
-                  </option>
-                  <option value="custom_system" className="bg-[#111]">
-                    Custom System
-                  </option>
-                </select>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-mono uppercase tracking-widest text-neutral-300">
-                    Start Date
-                  </label>
-                  <input
-                    type="date"
-                    value={newProject.start_date || ""}
-                    onChange={(e) =>
-                      setNewProject({
-                        ...newProject,
-                        start_date: e.target.value,
-                      })
-                    }
-                    className="w-full bg-transparent border-b border-neutral-800 px-0 py-2 text-white focus:outline-none focus:border-white text-sm [color-scheme:dark]"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-mono uppercase tracking-widest text-neutral-300">
-                    Launch Date
-                  </label>
-                  <input
-                    type="text"
-                    value={newProject.launch_date}
-                    onChange={(e) =>
-                      setNewProject({
-                        ...newProject,
-                        launch_date: e.target.value,
-                      })
-                    }
-                    className="w-full bg-transparent border-b border-neutral-800 px-0 py-2 text-white focus:outline-none focus:border-white text-sm"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="pt-4 flex justify-end">
-              <button
-                disabled={savingGlobal}
-                onClick={handleCreateProject}
-                className="px-6 py-3 bg-white text-black text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors disabled:opacity-50">
-                {savingGlobal ? "Creating..." : "Create Project"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <NewProjectModal
+        isOpen={isCreating}
+        onClose={() => {
+          setIsCreating(false);
+          clearCreateQueryParam();
+        }}
+      />
     </div>
   );
 }
@@ -1621,10 +1508,15 @@ function RentabilidadTab({
             <tbody className="divide-y divide-neutral-900">
               {timeLogs.length === 0 ? (
                 <tr>
-                  <td
-                    colSpan={4}
-                    className="p-4 text-xs font-mono text-neutral-600 text-center">
-                    No hay horas registradas
+                  <td colSpan={4} className="p-4">
+                    <ForgeEmptyState
+                      icon="activity"
+                      size="compact"
+                      eyebrow="Horas"
+                      title="Todavía no has registrado tiempo"
+                      description="Usa el formulario superior para empezar a medir esfuerzo real y desbloquear la lectura de margen del proyecto."
+                      guidance={["Tiempo real", "Costo", "Margen"]}
+                    />
                   </td>
                 </tr>
               ) : (
@@ -1714,10 +1606,15 @@ function RentabilidadTab({
             <tbody className="divide-y divide-neutral-900">
               {expenses.length === 0 ? (
                 <tr>
-                  <td
-                    colSpan={4}
-                    className="p-4 text-xs font-mono text-neutral-600 text-center">
-                    No hay gastos registrados
+                  <td colSpan={4} className="p-4">
+                    <ForgeEmptyState
+                      icon="bar-chart"
+                      size="compact"
+                      eyebrow="Gastos"
+                      title="Aún no hay costos cargados"
+                      description="Captura herramientas, dominios o gastos externos para que la rentabilidad refleje el costo real del servicio."
+                      guidance={["Costos", "Rentabilidad", "Control"]}
+                    />
                   </td>
                 </tr>
               ) : (
@@ -1803,7 +1700,14 @@ function RentabilidadTab({
 // ----------------------------------------------------------------------------------
 // TAREAS TAB
 // ----------------------------------------------------------------------------------
-function TareasTab({ project, tasks, setTasks, supabase, showToast }: any) {
+function TareasTab({
+  project,
+  tasks,
+  setTasks,
+  supabase,
+  showToast,
+  fetchTasks,
+}: any) {
   const [newTasks, setNewTasks] = useState<Record<string, string>>({});
   const [newPhase, setNewPhase] = useState("");
 
@@ -1917,33 +1821,22 @@ function TareasTab({ project, tasks, setTasks, supabase, showToast }: any) {
     <div className="space-y-12">
       {/* OVERALL PROGRESS */}
       {totalTasks === 0 ? (
-        <div className="bg-[#111111] border border-neutral-900 p-8 sm:p-12 flex flex-col items-center justify-center gap-6 text-center">
-          <div className="space-y-2">
-            <p className="text-neutral-500 text-sm font-mono uppercase tracking-widest">
-              No hay tareas en este proyecto
-            </p>
-            <p className="text-neutral-700 text-[10px] font-mono uppercase tracking-widest">
-              ¿Deseas cargar la plantilla estándar para {project.service_type}?
-            </p>
-          </div>
-          <button
-            onClick={async () => {
-              await populateProjectTasks(
-                supabase,
-                project.id,
-                project.service_type,
-              );
-              // Simple way to refresh: call parent's fetchTasks or just use the local state update
-              // Since we are in TareasTab, we'd need to re-fetch.
-              // We'll pass fetchTasks as a prop or just let the user re-select the project for now.
-              // Actually, better to pass fetchTasks.
-              // But looking at the code, it's safer to just trigger a re-mount or similar.
-              window.location.reload(); // Quick fix for now to ensure data sync
-            }}
-            className="px-6 py-3 bg-white text-black text-[10px] font-black uppercase tracking-widest hover:bg-neutral-200 transition-colors">
-            Cargar tareas del proyecto
-          </button>
-        </div>
+        <ForgeEmptyState
+          icon="check-circle"
+          size="compact"
+          eyebrow="Tareas"
+          title="Este proyecto aún no tiene checklist operativo"
+          description="Carga una plantilla base para arrancar por fases según el tipo de servicio, o crea tu primera fase manualmente más abajo."
+          guidance={["Plantilla", "Fases", "Seguimiento"]}
+          primaryAction={{
+            label: "Cargar plantilla",
+            onClick: async () => {
+              await populateProjectTasks(supabase, project.id, project.service_type);
+              await fetchTasks(project.id);
+            },
+            icon: "plus",
+          }}
+        />
       ) : (
         <div className="bg-[#111111] border border-neutral-900 p-6 flex flex-col gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3 text-[10px] font-mono uppercase tracking-widest text-neutral-300">
@@ -2225,9 +2118,14 @@ function EntregablesTab({
         </h3>
         <div className="space-y-4">
           {deliverables.length === 0 ? (
-            <p className="text-xs font-mono text-neutral-600 text-center py-12 italic">
-              No hay entregables registrados para este proyecto.
-            </p>
+            <ForgeEmptyState
+              icon="file-signature"
+              size="compact"
+              eyebrow="Entregables"
+              title="Este proyecto todavía no tiene entregables compartidos"
+              description="Agrega el primer recurso con una liga a Figma, Drive o Vercel para abrir revisión y seguimiento desde este mismo expediente."
+              guidance={["Portal cliente", "Revisión", "Seguimiento"]}
+            />
           ) : (
             deliverables.map((d: any) => (
               <div

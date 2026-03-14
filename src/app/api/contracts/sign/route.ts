@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { populateProjectTasks } from "@/lib/populate-tasks";
 import { createAdminClient } from "@/utils/supabase/admin";
+import { recordWorkspaceActivity } from "@/lib/activity";
+import { createProjectRecord } from "@/lib/projects";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -72,20 +73,33 @@ export async function POST(req: Request) {
 
     if (profile) {
       const projectName = `${contract.client_name} — ${contract.service_type || 'Nuevo Proyecto'}`;
-      const { data: newProject, error: projectError } = await supabase
-        .from("projects")
-        .insert({
+      try {
+        const newProject = await createProjectRecord(supabase, {
+          workspaceId: contract.workspace_id,
           client_id: profile.id,
-          workspace_id: contract.workspace_id,
+          contract_id: contract.id,
+          lead_id: contract.proposal?.lead_id || null,
           name: projectName,
-          status: 'discovery',
-          service_type: contract.service_type || 'web_presence'
-        })
-        .select()
-        .single();
+          service_type: contract.service_type || "web_presence",
+          client_name: contract.client_name,
+          client_email: contract.client_email,
+          client_company: contract.client_company,
+        });
 
-      if (!projectError && newProject) {
-        await populateProjectTasks(supabase, newProject.id, contract.service_type);
+        await recordWorkspaceActivity(supabase, {
+          workspaceId: contract.workspace_id,
+          entityType: "project",
+          entityId: newProject.id,
+          eventType: "project.created",
+          title: "Proyecto creado",
+          description: `${projectName} se abrió automáticamente al firmar el contrato.`,
+          metadata: {
+            contractId: contract.id,
+            clientName: contract.client_name || "",
+          },
+        });
+      } catch (projectError) {
+        console.error("Failed to auto-create project from signed contract:", projectError);
       }
     } else {
       console.warn(`No profile found for ${contract.client_email}. Skipping project creation.`);
@@ -99,6 +113,20 @@ export async function POST(req: Request) {
         .update({ pipeline_status: 'cerrado' })
         .eq("id", contract.proposal.lead_id);
     }
+
+    await recordWorkspaceActivity(supabase, {
+      workspaceId: contract.workspace_id,
+      entityType: "contract",
+      entityId: contract.id,
+      eventType: "contract.signed",
+      title: "Contrato firmado",
+      description: `${signed_name} firmó ${contract.contract_number || "el contrato"}.`,
+      metadata: {
+        contractNumber: contract.contract_number || "",
+        proposalId: contract.proposal_id || null,
+        signedName: signed_name,
+      },
+    });
 
     // 7. Trigger Notifications (Resend)
     // Email to Client

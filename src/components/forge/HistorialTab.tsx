@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { getUnifiedTimeline, TimelineEvent } from "@/app/actions/timeline";
 import { createClient } from "@/utils/supabase/client";
+import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 
 interface HistorialTabProps {
   leadId: string;
@@ -155,9 +156,14 @@ export function HistorialTab({ leadId, onActivityAdded }: HistorialTabProps) {
             Cargando historial completo...
           </div>
         ) : events.length === 0 ? (
-          <div className="py-12 text-center text-[10px] font-mono uppercase tracking-widest text-neutral-500">
-            No hay eventos registrados
-          </div>
+          <ForgeEmptyState
+            icon="activity"
+            eyebrow="Historial"
+            title="Todavía no hay eventos registrados"
+            description="Agrega una nota, llamada, email o reunión para empezar a construir la trazabilidad de este lead y dejar claro el siguiente paso comercial."
+            guidance={["Notas", "Llamadas", "Emails", "Reuniones"]}
+            size="compact"
+          />
         ) : (
           events.map((event, index) => (
             <div

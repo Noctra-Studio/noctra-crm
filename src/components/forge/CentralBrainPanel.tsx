@@ -111,159 +111,209 @@ export function CentralBrainPanel() {
     })();
   };
 
+  const insights = payload?.insights ?? [];
+  const hasInsights = insights.length > 0;
+  const stateLabel =
+    payload?.state === "migration"
+      ? "Modo migracion"
+      : payload?.state === "empty"
+        ? "Modo inicial"
+        : "Modo activo";
+
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-emerald-500/15 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.12),transparent_32%),linear-gradient(180deg,rgba(7,16,14,0.96),rgba(4,7,7,0.98))] p-6">
+    <div className="relative overflow-hidden rounded-2xl border border-emerald-500/15 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.12),transparent_32%),linear-gradient(180deg,rgba(7,16,14,0.96),rgba(4,7,7,0.98))] p-6 md:p-7 xl:p-8">
       <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-emerald-500/10 blur-[120px]" />
 
-      <div className="relative z-10 space-y-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="space-y-2">
+      <div className="relative z-10 grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)] xl:gap-8">
+        <section className="flex h-full flex-col gap-6">
+          <div className="space-y-3">
             <div className="flex items-center gap-2 text-emerald-400">
               <Sparkles className="h-4 w-4" />
               <span className="text-[11px] font-mono uppercase tracking-[0.28em]">
                 Cerebro Central
               </span>
             </div>
-            <h2 className="max-w-2xl text-2xl font-semibold text-white">
-              IA operativa nativa para entender el estado del CRM y decidir la
-              siguiente mejor acción.
+            <h2 className="max-w-3xl text-xl font-semibold leading-tight text-white md:text-[1.9rem] md:leading-[1.15]">
+              IA operativa para entender el CRM y decidir qué sigue.
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-white/60">
+            <p className="max-w-3xl text-sm leading-6 text-white/60 md:text-base">
               {payload?.overview ||
                 "Analiza leads, propuestas, proyectos y migraciones para sugerir acciones accionables desde el primer momento."}
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <MetricBadge label="Leads" value={payload?.counts.leads ?? "—"} />
-            <MetricBadge
-              label="Propuestas"
-              value={payload?.counts.proposals ?? "—"}
-            />
-            <MetricBadge
-              label="Proyectos"
-              value={payload?.counts.projects ?? "—"}
-            />
-            <button
-              type="button"
-              onClick={fetchInsights}
-              disabled={loadingInsights}
-              className="inline-flex h-10 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-xs font-semibold text-white/70 transition hover:border-white/20 hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50">
+          <div className="grid flex-1 gap-5 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-stretch xl:gap-6">
+            <section className="flex h-full flex-col gap-4">
+              <div className="flex items-center gap-2 text-white">
+                <Brain className="h-4 w-4 text-emerald-400" />
+                <h3 className="text-sm font-semibold">Sugerencias accionables</h3>
+              </div>
+
               {loadingInsights ? (
-                <Loader2 className="h-3.5 w-3.5 animate-spin" />
-              ) : (
-                <RefreshCw className="h-3.5 w-3.5" />
-              )}
-              Actualizar
-            </button>
-          </div>
-        </div>
-
-        <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-          <section className="space-y-4">
-            <div className="flex items-center gap-2 text-white">
-              <Brain className="h-4 w-4 text-emerald-400" />
-              <h3 className="text-sm font-semibold">Sugerencias accionables</h3>
-            </div>
-
-            {loadingInsights ? (
-              <div className="grid gap-3 md:grid-cols-2">
-                {[1, 2, 3, 4].map((item) => (
-                  <div
-                    key={item}
-                    className="h-40 animate-pulse rounded-2xl border border-white/5 bg-white/[0.03]"
-                  />
-                ))}
-              </div>
-            ) : payload?.insights?.length ? (
-              <div className="grid gap-3 md:grid-cols-2">
-                {payload.insights.map((insight) => (
-                  <article
-                    key={insight.id}
-                    className="group flex h-full flex-col justify-between rounded-2xl border border-white/8 bg-black/30 p-5 transition hover:border-emerald-500/25 hover:bg-black/40">
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between gap-3">
-                        <span
-                          className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] ${
-                            insight.severity === "high"
-                              ? "bg-red-500/10 text-red-300"
-                              : insight.severity === "medium"
-                                ? "bg-amber-500/10 text-amber-300"
-                                : "bg-white/10 text-white/65"
-                          }`}>
-                          {insight.severity}
-                        </span>
-                        {insight.dueLabel ? (
-                          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-white/35">
-                            {insight.dueLabel}
-                          </span>
-                        ) : null}
-                      </div>
-                      <div className="space-y-2">
-                        <h4 className="text-base font-semibold text-white">
-                          {insight.title}
-                        </h4>
-                        <p className="text-sm leading-6 text-white/65">
-                          {insight.mensaje}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-5">
-                      {insight.href ? (
-                        <Link
-                          href={insight.href}
-                          className="inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-black transition hover:bg-emerald-400">
-                          {insight.accion_label}
-                          <ChevronRight className="h-3.5 w-3.5" />
-                        </Link>
-                      ) : (
-                        <span className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-xs font-semibold text-white/65">
-                          {insight.accion_label}
-                        </span>
-                      )}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-2xl border border-dashed border-white/10 bg-black/20 p-6 text-sm text-white/55">
-                No hay alertas activas. El CRM luce estable.
-              </div>
-            )}
-          </section>
-
-          <section className="rounded-2xl border border-white/8 bg-black/35 p-5">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <div>
-                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-white/45">
-                  Consulta natural
-                </p>
-                <h3 className="mt-1 text-lg font-semibold text-white">
-                  Pídele contexto, prioridades o redacción.
-                </h3>
-              </div>
-
-              {routeMeta?.provider ? (
-                <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-white/65">
-                  {providerLabel[routeMeta.provider] || routeMeta.provider}
+                <div className="grid gap-3 2xl:grid-cols-2">
+                  {[1, 2, 3].map((item) => (
+                    <div
+                      key={item}
+                      className="h-44 animate-pulse rounded-2xl border border-white/5 bg-white/[0.03]"
+                    />
+                  ))}
                 </div>
-              ) : null}
+              ) : hasInsights ? (
+                <div
+                  className={`grid flex-1 auto-rows-fr gap-4 ${
+                    insights.length > 1 ? "2xl:grid-cols-2" : ""
+                  }`}>
+                  {insights.map((insight) => (
+                    <article
+                      key={insight.id}
+                      className="group flex h-full min-h-[260px] flex-col justify-between rounded-[28px] border border-white/8 bg-black/30 p-5 transition hover:border-emerald-500/25 hover:bg-black/40 md:min-h-[320px] md:p-6">
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between gap-3">
+                          <span
+                            className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] ${
+                              insight.severity === "high"
+                                ? "bg-red-500/10 text-red-300"
+                                : insight.severity === "medium"
+                                  ? "bg-amber-500/10 text-amber-300"
+                                  : "bg-white/10 text-white/65"
+                            }`}>
+                            {insight.severity}
+                          </span>
+                          {insight.dueLabel ? (
+                            <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-white/35">
+                              {insight.dueLabel}
+                            </span>
+                          ) : null}
+                        </div>
+                        <div className="space-y-3">
+                          <h4 className="max-w-xl text-[1.65rem] font-semibold leading-tight text-white">
+                            {insight.title}
+                          </h4>
+                          <p className="max-w-2xl text-base leading-8 text-white/65">
+                            {insight.mensaje}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-6">
+                        {insight.href ? (
+                          <Link
+                            href={insight.href}
+                            className="inline-flex items-center gap-2 rounded-2xl bg-emerald-500 px-5 py-3 text-xs font-black uppercase tracking-[0.16em] text-black transition hover:bg-emerald-400">
+                            {insight.accion_label}
+                            <ChevronRight className="h-3.5 w-3.5" />
+                          </Link>
+                        ) : (
+                          <span className="inline-flex items-center gap-2 rounded-2xl border border-white/10 px-5 py-3 text-xs font-semibold text-white/65">
+                            {insight.accion_label}
+                          </span>
+                        )}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-[28px] border border-dashed border-white/10 bg-black/20 p-6 text-sm text-white/55">
+                  No hay alertas activas. El CRM luce estable.
+                </div>
+              )}
+            </section>
+
+            <aside className="space-y-4 rounded-[28px] border border-white/8 bg-white/[0.03] p-4 md:p-5">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-white/45">
+                    Pulso operativo
+                  </p>
+                  <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-white/55">
+                    {stateLabel}
+                  </span>
+                </div>
+                <p className="text-sm leading-6 text-white/60">
+                  Señales en vivo para decidir qué atender ahora sin perder el
+                  contexto del workspace.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <MetricBadge label="Leads" value={payload?.counts.leads ?? "—"} />
+                <MetricBadge
+                  label="Propuestas"
+                  value={payload?.counts.proposals ?? "—"}
+                />
+                <MetricBadge
+                  label="Proyectos"
+                  value={payload?.counts.projects ?? "—"}
+                />
+                <MetricBadge
+                  label="Migraciones"
+                  value={payload?.counts.migrations ?? "—"}
+                />
+              </div>
+
+              <div className="rounded-2xl border border-emerald-500/10 bg-emerald-500/[0.03] p-4">
+                <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-emerald-300/75">
+                  Prioridad sugerida
+                </p>
+                <p className="mt-2 text-sm leading-6 text-white/70">
+                  {hasInsights
+                    ? "Empieza por la alerta de mayor severidad y luego usa la consulta natural para pedir el siguiente paso."
+                    : "No hay fricciones detectadas. Usa la consulta natural para explorar pipeline, seguimiento o riesgos."}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={fetchInsights}
+                disabled={loadingInsights}
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 text-xs font-semibold text-white/75 transition hover:border-white/20 hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50">
+                {loadingInsights ? (
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                ) : (
+                  <RefreshCw className="h-3.5 w-3.5" />
+                )}
+                Actualizar señales
+              </button>
+            </aside>
+          </div>
+        </section>
+
+        <section className="rounded-[28px] border border-white/8 bg-black/35 p-5 md:p-6">
+          <div className="mb-5 flex items-start justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-white/45">
+                Consulta natural
+              </p>
+              <h3 className="mt-2 max-w-md text-[1.9rem] font-semibold leading-tight text-white">
+                Pídele contexto, prioridades o redacción.
+              </h3>
             </div>
 
-            <form
-              onSubmit={(event) => {
-                event.preventDefault();
-                submitPrompt(input);
-              }}
-              className="space-y-3">
-              <textarea
-                value={input}
-                onChange={(event) => setInput(event.target.value)}
-                placeholder="Ej. Prioriza los leads que debo contactar hoy y redacta el primer mensaje para el más urgente."
-                rows={5}
-                className="w-full resize-none rounded-2xl border border-white/10 bg-[#060908] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-emerald-500/35"
-              />
+            {routeMeta?.provider ? (
+              <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-white/65">
+                {providerLabel[routeMeta.provider] || routeMeta.provider}
+              </div>
+            ) : null}
+          </div>
+
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              submitPrompt(input);
+            }}
+            className="space-y-4">
+            <textarea
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              placeholder="Ej. Prioriza los leads que debo contactar hoy y redacta el primer mensaje para el más urgente."
+              rows={4}
+              className="min-h-[152px] w-full resize-none rounded-[24px] border border-white/10 bg-[#060908] px-4 py-3 text-sm leading-7 text-white outline-none transition placeholder:text-white/25 focus:border-emerald-500/35"
+            />
+
+            <div className="space-y-3">
+              <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/35">
+                Atajos sugeridos
+              </p>
               <div className="flex flex-wrap gap-2">
                 {quickPrompts.map((prompt) => (
                   <button
@@ -273,70 +323,70 @@ export function CentralBrainPanel() {
                       setInput(prompt);
                       submitPrompt(prompt);
                     }}
-                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/65 transition hover:border-white/20 hover:bg-white/10 hover:text-white">
+                    className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/65 transition hover:border-white/20 hover:bg-white/10 hover:text-white">
                     {prompt}
                   </button>
                 ))}
               </div>
-              <button
-                type="submit"
-                disabled={isRunningPrompt || !input.trim()}
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-xs font-black uppercase tracking-[0.18em] text-black transition hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-40">
-                {isRunningPrompt ? (
-                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                ) : (
-                  <Send className="h-3.5 w-3.5" />
-                )}
-                Ejecutar consulta
-              </button>
-            </form>
-
-            <div className="mt-5 rounded-2xl border border-white/8 bg-[#050505] p-4">
-              <div className="mb-3 flex items-center justify-between gap-3">
-                <span className="text-[11px] font-mono uppercase tracking-[0.22em] text-white/40">
-                  Respuesta del cerebro
-                </span>
-                {routeMeta?.complexity ? (
-                  <span
-                    className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] ${
-                      routeMeta.mode === "clarification"
-                        ? "bg-amber-500/10 text-amber-300"
-                        : "bg-emerald-500/10 text-emerald-300"
-                    }`}>
-                    {routeMeta.mode === "clarification"
-                      ? "Necesita aclaración"
-                      : routeMeta.complexity}
-                  </span>
-                ) : null}
-              </div>
-
-              {answer ? (
-                <div
-                  className={`whitespace-pre-wrap text-sm leading-6 ${
-                    routeMeta?.mode === "clarification"
-                      ? "text-amber-100/85"
-                      : "text-white/75"
-                  }`}>
-                  {routeMeta?.mode === "clarification" ? (
-                    <div className="mb-3 flex items-center gap-2 text-amber-300">
-                      <AlertTriangle className="h-4 w-4" />
-                      <span className="text-xs font-semibold uppercase tracking-[0.18em]">
-                        Antes de responder
-                      </span>
-                    </div>
-                  ) : null}
-                  {answer}
-                </div>
-              ) : (
-                <p className="text-sm leading-6 text-white/35">
-                  Aquí verás la respuesta contextual del CRM. Si la petición no
-                  es clara, la IA pedirá precisión antes de generar una
-                  recomendación.
-                </p>
-              )}
             </div>
-          </section>
-        </div>
+
+            <button
+              type="submit"
+              disabled={isRunningPrompt || !input.trim()}
+              className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-xs font-black uppercase tracking-[0.18em] text-black transition hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-40">
+              {isRunningPrompt ? (
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+              ) : (
+                <Send className="h-3.5 w-3.5" />
+              )}
+              Ejecutar consulta
+            </button>
+          </form>
+
+          <div className="mt-5 rounded-[24px] border border-white/8 bg-[#050505] p-4 md:p-5">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <span className="text-[11px] font-mono uppercase tracking-[0.22em] text-white/40">
+                Respuesta del cerebro
+              </span>
+              {routeMeta?.complexity ? (
+                <span
+                  className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] ${
+                    routeMeta.mode === "clarification"
+                      ? "bg-amber-500/10 text-amber-300"
+                      : "bg-emerald-500/10 text-emerald-300"
+                  }`}>
+                  {routeMeta.mode === "clarification"
+                    ? "Necesita aclaración"
+                    : routeMeta.complexity}
+                </span>
+              ) : null}
+            </div>
+
+            {answer ? (
+              <div
+                className={`whitespace-pre-wrap text-sm leading-7 ${
+                  routeMeta?.mode === "clarification"
+                    ? "text-amber-100/85"
+                    : "text-white/75"
+                }`}>
+                {routeMeta?.mode === "clarification" ? (
+                  <div className="mb-3 flex items-center gap-2 text-amber-300">
+                    <AlertTriangle className="h-4 w-4" />
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em]">
+                      Antes de responder
+                    </span>
+                  </div>
+                ) : null}
+                {answer}
+              </div>
+            ) : (
+              <p className="text-sm leading-7 text-white/35">
+                Aquí verás la respuesta contextual del CRM. Si la petición no es
+                clara, la IA pedirá precisión antes de generar una recomendación.
+              </p>
+            )}
+          </div>
+        </section>
       </div>
     </div>
   );
@@ -350,11 +400,13 @@ function MetricBadge({
   value: number | string;
 }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">
+    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left">
       <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-white/35">
         {label}
       </div>
-      <div className="mt-1 text-sm font-semibold text-white">{value}</div>
+      <div className="mt-2 text-2xl font-semibold leading-none text-white">
+        {value}
+      </div>
     </div>
   );
 }

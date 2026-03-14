@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { useTranslations } from "next-intl";
+import { Plus } from "lucide-react";
 import { SearchBar } from "@/components/forge/SearchBar";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { NotificationsDropdown } from "@/components/forge/NotificationsDropdown";
@@ -13,7 +14,11 @@ import { SuscripcionModal } from "@/components/forge/modals/SuscripcionModal";
 import { ConfiguracionesModal } from "@/components/forge/modals/ConfiguracionesModal";
 import { createClient } from "@/utils/supabase/client";
 
-export function ForgeTopBar() {
+export function ForgeTopBar({
+  onOpenQuickActions,
+}: {
+  onOpenQuickActions: () => void;
+}) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [profileOpen, setProfileOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -69,6 +74,14 @@ export function ForgeTopBar() {
 
         {/* Right Col: Notifications & Avatar */}
         <div className="flex items-center gap-4 justify-end">
+          <button
+            type="button"
+            onClick={onOpenQuickActions}
+            className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-2 text-[11px] font-mono font-bold uppercase tracking-[0.22em] text-emerald-400 transition-colors hover:bg-emerald-500/15 hover:text-emerald-300"
+          >
+            <Plus className="h-3.5 w-3.5" />
+            Crear
+          </button>
           <div className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2">
             <LanguageSwitcher
               className="gap-1.5 text-[11px] font-mono font-bold uppercase tracking-[0.24em]"
