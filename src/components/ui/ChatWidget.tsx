@@ -18,7 +18,11 @@ const providerLabel: Record<string, string> = {
   openai: "OpenAI",
 };
 
-export function ChatWidget() {
+export function ChatWidget({
+  variant = "floating",
+}: {
+  variant?: "floating" | "headerAction";
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<
     Array<{ id: string; role: string; content: string }>
@@ -110,8 +114,32 @@ export function ChatWidget() {
     scrollToBottom();
   }, [messages]);
 
+  const TriggerButton =
+    variant === "headerAction" ? (
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/70 transition-colors hover:bg-white/5 hover:text-white shrink-0"
+        aria-label="Abrir Asistente AI">
+        <Sparkles className="w-5 h-5" />
+      </button>
+    ) : (
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-12 h-12 rounded-full bg-emerald-500 text-black flex items-center justify-center shadow-[0_4px_25px_rgba(16,185,129,0.3)] hover:bg-emerald-400 transition-colors z-[9000]">
+        {isOpen ? <X size={20} strokeWidth={2.5} /> : <Sparkles size={20} strokeWidth={2.5} />}
+      </motion.button>
+    );
+
   return (
-    <div className="fixed bottom-4 right-4 z-[9000] flex flex-col items-end font-mono">
+    <div
+      className={
+        variant === "headerAction"
+          ? "relative flex items-center justify-center"
+          : "fixed bottom-4 right-4 z-[9000] hidden md:flex flex-col items-end font-mono"
+      }>
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -119,7 +147,7 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-4 right-4 w-[calc(100vw-2rem)] h-[70vh] max-w-[400px] max-h-[600px] rounded-xl bg-[#050505] border border-white/5 shadow-2xl flex flex-col overflow-hidden text-sm z-[9000]">
+            className={`fixed ${variant === "floating" ? "bottom-[4.5rem] right-4" : "top-16 left-4 right-4"} w-[calc(100vw-2rem)] h-[70vh] md:max-w-[400px] max-h-[600px] mx-auto rounded-xl bg-[#050505] border border-white/5 shadow-2xl flex flex-col overflow-hidden text-sm z-[9000]`}>
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-white/5 bg-gradient-to-r from-emerald-500/10 to-blue-500/10">
               <div className="flex items-center gap-3">
@@ -216,17 +244,17 @@ export function ChatWidget() {
             {/* Input */}
             <form
               onSubmit={handleSubmit}
-              className="p-3 border-t border-neutral-800 bg-black flex gap-2">
+              className="p-3 border-t border-neutral-800 bg-black flex gap-2 shrink-0">
               <input
-                className="flex-1 bg-transparent text-white placeholder-neutral-700 focus:outline-none text-sm font-mono"
+                className="flex-1 bg-transparent text-white placeholder-neutral-700 focus:outline-none text-sm font-mono min-w-0"
                 value={input || ""}
                 onChange={handleInputChange}
-                placeholder="Pregunta por leads, proyectos o siguiente acción..."
+                placeholder="Pregunta o pide ayuda..."
               />
               <button
                 type="submit"
                 disabled={isLoading || !(input || "").trim()}
-                className="text-neutral-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+                className="text-neutral-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors shrink-0">
                 <Send size={14} />
               </button>
             </form>
@@ -235,13 +263,7 @@ export function ChatWidget() {
       </AnimatePresence>
 
       {/* Launcher */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:bg-neutral-200 transition-colors z-[9000]">
-        {isOpen ? <X size={20} /> : <Terminal size={20} />}
-      </motion.button>
+      {TriggerButton}
     </div>
   );
 }

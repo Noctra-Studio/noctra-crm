@@ -92,7 +92,7 @@ export interface DashboardPreferenceRow {
   visible: boolean | null;
   order_index: number | null;
   size_variant: string | null;
-  widget_preferences: unknown;
+  filters: unknown;
 }
 
 type DashboardPresetEntry = Omit<DashboardWidgetState, "orderIndex">;
@@ -610,7 +610,7 @@ export function mergeDashboardPreferenceRows(
       orderIndex:
         typeof row.order_index === "number" ? row.order_index : index,
       sizeVariant: sanitizeSizeVariant(widgetKey, row.size_variant),
-      preferences: sanitizeWidgetPreferences(widgetKey, row.widget_preferences),
+      preferences: sanitizeWidgetPreferences(widgetKey, row.filters),
     } satisfies DashboardWidgetState;
   }).sort((left, right) => {
     if (left.orderIndex !== right.orderIndex) {

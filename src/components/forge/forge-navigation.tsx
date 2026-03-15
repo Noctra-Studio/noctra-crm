@@ -62,7 +62,7 @@ export function getForgePrimaryNav(t: ForgeTranslator): ForgeNavGroup[] {
           badgeKey: "proposalSuggestions",
         },
         { label: t("contratos"), href: "/contracts", icon: Send },
-        { label: "Documentos", href: "/documents", icon: FileSignature },
+        { label: t("documentos"), href: "/documents", icon: FileSignature },
         { label: t("clientes"), href: "/clients", icon: UserCheck },
         { label: t("leads"), href: "/leads", icon: Users },
       ],
@@ -70,15 +70,15 @@ export function getForgePrimaryNav(t: ForgeTranslator): ForgeNavGroup[] {
     {
       group: "Tools",
       items: [
-        { label: "Migración", href: "/migration", icon: Shuffle },
+        { label: t("migration"), href: "/migration", icon: Shuffle },
         { label: t("metricas"), href: "/metrics", icon: BarChart3 },
       ],
     },
     {
-      group: "Configuración",
+      group: t("configuracion"),
       items: [
         {
-          label: "Marketing",
+          label: t("marketing"),
           href: "/settings/marketing",
           icon: Megaphone,
         },
@@ -91,11 +91,11 @@ export function getForgeSecondaryNav(t: ForgeTranslator): ForgeNavItem[] {
   return [{ label: t("documentacion"), href: "/docs", icon: BookOpen }];
 }
 
-export function getForgeAccountNav(): ForgeNavItem[] {
+export function getForgeAccountNav(t: ForgeTranslator): ForgeNavItem[] {
   return [
-    { label: "Configuración", href: "/settings/security", icon: Settings },
-    { label: "Facturación y planes", href: "/settings/billing", icon: CreditCard },
-    { label: "Soporte", href: "/support", icon: LifeBuoy },
+    { label: t("configuracion"), href: "/settings/security", icon: Settings },
+    { label: t("facturacion"), href: "/settings/billing", icon: CreditCard },
+    { label: t("soporte"), href: "mailto:hola@noctra.studio", icon: LifeBuoy },
   ];
 }
 

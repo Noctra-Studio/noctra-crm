@@ -40,7 +40,7 @@ export function ForgeMobileNav({
 
   const navGroups = getForgePrimaryNav(t);
   const secondaryNav = getForgeSecondaryNav(t);
-  const accountNav = getForgeAccountNav();
+  const accountNav = getForgeAccountNav(t);
   const languageHeading = locale === "en" ? "Language" : "Idioma";
   const languageDescription =
     locale === "en"

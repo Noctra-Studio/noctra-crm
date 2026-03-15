@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import { v4 as uuidv4 } from "uuid";
+import { recordWorkspaceActivity } from "@/lib/activity";
 
 interface SignHistoryEntry {
   ip: string;
@@ -164,6 +165,24 @@ export async function stampDocumentSignature(
     .eq("id", envelopeId);
 
   if (updateError) throw new Error(updateError.message);
+
+  const { data: envDetails } = await supabase
+    .from("document_envelopes")
+    .select("organization_id, contract_id")
+    .eq("id", envelopeId)
+    .single();
+
+  if (envDetails?.organization_id && envDetails?.contract_id) {
+    await recordWorkspaceActivity(supabase, {
+      workspaceId: envDetails.organization_id,
+      entityType: "contract",
+      entityId: envDetails.contract_id,
+      eventType: "contract.signed",
+      title: "Contrato firmado",
+      description: `${auditData.name} acaba de firmar el documento mediante Noctra Sign.`,
+      metadata: { signerEmail: auditData.email, ip: auditData.ip },
+    });
+  }
 
   return { success: true, timestamp };
 }

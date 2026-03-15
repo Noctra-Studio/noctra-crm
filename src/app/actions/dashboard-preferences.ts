@@ -48,7 +48,7 @@ async function writeDashboardPreferences(
   const { supabase, userId, workspaceId } = await getDashboardPreferenceContext();
   const normalized = normalizeDashboardWidgetState(widgets);
 
-  const { error } = await supabase.from("user_dashboard_preferences").upsert(
+  const { error } = await supabase.from("dashboard_preferences").upsert(
     normalized.map((widget) => ({
       workspace_id: workspaceId,
       user_id: userId,
@@ -56,7 +56,8 @@ async function writeDashboardPreferences(
       visible: widget.visible,
       order_index: widget.orderIndex,
       size_variant: widget.sizeVariant,
-      widget_preferences: widget.preferences,
+      filters: widget.preferences,
+      updated_at: new Date().toISOString(),
     })),
     {
       onConflict: "workspace_id,user_id,widget_key",
@@ -80,9 +81,9 @@ export async function getUserDashboardPreferences() {
   const { supabase, userId, workspaceId } = await getDashboardPreferenceContext();
 
   const { data, error } = await supabase
-    .from("user_dashboard_preferences")
+    .from("dashboard_preferences")
     .select(
-      "widget_key, visible, order_index, size_variant, widget_preferences",
+      "widget_key, visible, order_index, size_variant, filters",
     )
     .eq("workspace_id", workspaceId)
     .eq("user_id", userId)
@@ -99,13 +100,73 @@ export async function getUserDashboardPreferences() {
     return getPresetWidgetState(PRODUCT_DEFAULT_PRESET);
   }
 
-  return mergeDashboardPreferenceRows(data);
+  return mergeDashboardPreferenceRows(data as any);
 }
 
 export async function saveDashboardPreferences(input: {
   widgets: DashboardWidgetState[];
 }) {
   return writeDashboardPreferences(input.widgets);
+}
+
+/**
+ * Saves a single dashboard widget preference
+ */
+export async function saveDashboardPreference(input: {
+  widgetKey: string;
+  visible: boolean;
+  orderIndex: number;
+  sizeVariant: string;
+  preferences: any;
+}) {
+  const { supabase, userId, workspaceId } = await getDashboardPreferenceContext();
+
+  const { error } = await supabase.from("dashboard_preferences").upsert(
+    {
+      workspace_id: workspaceId,
+      user_id: userId,
+      widget_key: input.widgetKey,
+      visible: input.visible,
+      order_index: input.orderIndex,
+      size_variant: input.sizeVariant,
+      filters: input.preferences,
+      updated_at: new Date().toISOString(),
+    },
+    {
+      onConflict: "workspace_id,user_id,widget_key",
+    },
+  );
+
+  if (error) throw new Error(error.message);
+  return { success: true };
+}
+
+/**
+ * Saves a specific user dashboard filter
+ */
+export async function saveUserDashboardFilter(input: {
+  widgetKey: string;
+  filterKey: string;
+  filterValue: any;
+}) {
+  const { supabase, userId, workspaceId } = await getDashboardPreferenceContext();
+
+  const { error } = await supabase.from("user_dashboard_filters").upsert(
+    {
+      workspace_id: workspaceId,
+      user_id: userId,
+      widget_key: input.widgetKey,
+      filter_key: input.filterKey,
+      filter_value: input.filterValue,
+      updated_at: new Date().toISOString(),
+    },
+    {
+      onConflict: "workspace_id,user_id,widget_key,filter_key",
+    },
+  );
+
+  if (error) throw new Error(error.message);
+  return { success: true };
 }
 
 export async function applyDashboardPreset(input: {

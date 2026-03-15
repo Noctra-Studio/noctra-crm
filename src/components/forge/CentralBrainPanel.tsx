@@ -1,18 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import {
   AlertTriangle,
   Brain,
+  Calendar,
+  Check,
+  ChevronDown,
   ChevronRight,
+  ExternalLink,
   Loader2,
+  PhoneCall,
   RefreshCw,
   Send,
   Sparkles,
+  XCircle,
 } from "lucide-react";
 import { readNoctraResponse } from "@/lib/ai/read-noctra-response";
 import type { BrainInsight } from "@/lib/ai/central-brain";
+import {
+  markLeadContacted,
+  markProposalLost,
+  scheduleLeadFollowUp,
+} from "@/app/actions/brain-actions";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type InsightsPayload = {
   state: "empty" | "migration" | "active";
@@ -195,20 +213,10 @@ export function CentralBrainPanel() {
                         </div>
                       </div>
 
-                      <div className="mt-6">
-                        {insight.href ? (
-                          <Link
-                            href={insight.href}
-                            className="inline-flex items-center gap-2 rounded-2xl bg-emerald-500 px-5 py-3 text-xs font-black uppercase tracking-[0.16em] text-black transition hover:bg-emerald-400">
-                            {insight.accion_label}
-                            <ChevronRight className="h-3.5 w-3.5" />
-                          </Link>
-                        ) : (
-                          <span className="inline-flex items-center gap-2 rounded-2xl border border-white/10 px-5 py-3 text-xs font-semibold text-white/65">
-                            {insight.accion_label}
-                          </span>
-                        )}
-                      </div>
+                      <InsightActions
+                        insight={insight}
+                        onActionComplete={fetchInsights}
+                      />
                     </article>
                   ))}
                 </div>
@@ -388,6 +396,161 @@ export function CentralBrainPanel() {
           </div>
         </section>
       </div>
+    </div>
+  );
+}
+
+type InsightActionDef = {
+  label: string;
+  icon: typeof ChevronRight;
+  handler: "navigate" | "markContacted" | "scheduleFollowUp" | "markLost";
+  href?: string;
+};
+
+function getInsightActions(insight: BrainInsight): InsightActionDef[] {
+  const { accion_tipo, entityType, href } = insight;
+
+  if (entityType === "lead" && accion_tipo === "contact_lead") {
+    return [
+      { label: "Contactar lead", icon: PhoneCall, handler: "markContacted" },
+      { label: "Programar seguimiento", icon: Calendar, handler: "scheduleFollowUp" },
+      { label: "Ver en pipeline", icon: ExternalLink, handler: "navigate", href: "/pipeline" },
+    ];
+  }
+
+  if (entityType === "lead" && accion_tipo === "follow_up") {
+    return [
+      { label: "Ver en pipeline", icon: ExternalLink, handler: "navigate", href: "/pipeline" },
+      { label: "Marcar contactado", icon: Check, handler: "markContacted" },
+      { label: "Programar seguimiento", icon: Calendar, handler: "scheduleFollowUp" },
+    ];
+  }
+
+  if (entityType === "proposal" && accion_tipo === "follow_up") {
+    return [
+      { label: "Abrir propuesta", icon: ExternalLink, handler: "navigate", href: "/proposals" },
+      { label: "Programar recordatorio", icon: Calendar, handler: "scheduleFollowUp" },
+      { label: "Marcar como perdida", icon: XCircle, handler: "markLost" },
+    ];
+  }
+
+  if (entityType === "project") {
+    return [
+      { label: "Revisar proyecto", icon: ExternalLink, handler: "navigate", href: "/projects" },
+    ];
+  }
+
+  if (href) {
+    return [{ label: insight.accion_label, icon: ChevronRight, handler: "navigate", href }];
+  }
+
+  return [];
+}
+
+function InsightActions({
+  insight,
+  onActionComplete,
+}: {
+  insight: BrainInsight;
+  onActionComplete: () => void;
+}) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [completedAction, setCompletedAction] = useState<string | null>(null);
+
+  const actions = getInsightActions(insight);
+  if (actions.length === 0) {
+    return (
+      <div className="mt-6">
+        <span className="inline-flex items-center gap-2 rounded-2xl border border-white/10 px-5 py-3 text-xs font-semibold text-white/65">
+          {insight.accion_label}
+        </span>
+      </div>
+    );
+  }
+
+  const [primary, ...secondary] = actions;
+
+  const executeAction = (action: InsightActionDef) => {
+    if (action.handler === "navigate") {
+      router.push(action.href || insight.href || "/");
+      return;
+    }
+
+    startTransition(async () => {
+      let result: { success: boolean } = { success: false };
+
+      if (action.handler === "markContacted" && insight.entityId) {
+        result = await markLeadContacted(insight.entityId);
+      } else if (action.handler === "scheduleFollowUp" && insight.entityId) {
+        result = await scheduleLeadFollowUp(insight.entityId, 1);
+      } else if (action.handler === "markLost" && insight.entityId) {
+        result = await markProposalLost(insight.entityId);
+      }
+
+      if (result.success) {
+        setCompletedAction(action.label);
+        setTimeout(() => {
+          setCompletedAction(null);
+          onActionComplete();
+        }, 1500);
+      }
+    });
+  };
+
+  if (completedAction) {
+    return (
+      <div className="mt-6">
+        <span className="inline-flex items-center gap-2 rounded-2xl bg-emerald-500/15 border border-emerald-500/25 px-5 py-3 text-xs font-semibold text-emerald-300">
+          <Check className="h-3.5 w-3.5" />
+          {completedAction}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-6 flex items-center gap-2">
+      <button
+        type="button"
+        onClick={() => executeAction(primary)}
+        disabled={isPending}
+        className="inline-flex items-center gap-2 rounded-2xl bg-emerald-500 px-5 py-3 text-xs font-black uppercase tracking-[0.16em] text-black transition hover:bg-emerald-400 disabled:opacity-50">
+        {isPending ? (
+          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+        ) : (
+          <primary.icon className="h-3.5 w-3.5" />
+        )}
+        {primary.label}
+      </button>
+
+      {secondary.length > 0 && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              disabled={isPending}
+              className="inline-flex h-[42px] w-[42px] items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/65 transition hover:border-white/20 hover:bg-white/10 hover:text-white disabled:opacity-50">
+              <ChevronDown className="h-4 w-4" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="end"
+            className="min-w-[200px] rounded-xl border border-white/10 bg-[#111111] p-1"
+          >
+            {secondary.map((action) => (
+              <DropdownMenuItem
+                key={action.label}
+                onClick={() => executeAction(action)}
+                className="flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-2.5 text-xs text-white/75 hover:bg-white/5 hover:text-white focus:bg-white/5 focus:text-white"
+              >
+                <action.icon className="h-3.5 w-3.5 text-white/45" />
+                {action.label}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
     </div>
   );
 }

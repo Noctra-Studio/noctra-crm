@@ -6,6 +6,7 @@ import { getUserDashboardPreferences } from "@/app/actions/dashboard-preferences
 import { getWorkspaceActivityFeed } from "@/lib/activity-feed";
 import { getWorkspace } from "@/lib/workspace";
 import { canAccessCentralBrainRole } from "@/lib/ai/brain-access";
+import { DEFAULT_PIPELINE_STAGES } from "@/lib/workspace-config";
 import type { WorkspaceDashboardData } from "@/types/forge-dashboard";
 
 export default async function ForgeIndexPage({
@@ -28,15 +29,30 @@ export default async function ForgeIndexPage({
     { data: proposals },
     { data: contracts },
     { data: projects },
+    { data: workspaceConfig },
     activityFeed,
   ] = await Promise.all([
     supabase
       .from("contact_submissions")
-      .select("*")
+      .select("id, name, request_id, pipeline_status, estimated_value, created_at, next_action_date, next_action_notes, closed_at")
       .eq("workspace_id", ctx.workspaceId),
-    supabase.from("proposals").select("*").eq("workspace_id", ctx.workspaceId),
-    supabase.from("contracts").select("*").eq("workspace_id", ctx.workspaceId),
-    supabase.from("projects").select("*").eq("workspace_id", ctx.workspaceId),
+    supabase
+      .from("proposals")
+      .select("id, title, status, total, updated_at, created_at")
+      .eq("workspace_id", ctx.workspaceId),
+    supabase
+      .from("contracts")
+      .select("id, client_name, status, total_price, created_at")
+      .eq("workspace_id", ctx.workspaceId),
+    supabase
+      .from("projects")
+      .select("id, name, status, created_at, updated_at")
+      .eq("workspace_id", ctx.workspaceId),
+    supabase
+      .from("workspace_config")
+      .select("pipeline_stages")
+      .eq("workspace_id", ctx.workspaceId)
+      .maybeSingle(),
     getWorkspaceActivityFeed(ctx.workspaceId),
   ]);
 
@@ -58,6 +74,8 @@ export default async function ForgeIndexPage({
     isTrial,
     canUseCentralBrain: canAccessCentralBrainRole(ctx.role),
     widgetPreferences,
+    currency: ctx.workspace.currency || "MXN",
+    pipelineStages: workspaceConfig?.pipeline_stages || DEFAULT_PIPELINE_STAGES,
   };
 
   return (

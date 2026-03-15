@@ -27,7 +27,11 @@
       "Bash(timeout 10 git:*)",
       "Bash(timeout 30 git update-index:*)",
       "Bash(echo:*)",
-      "Bash(timeout 60 git:*)"
+      "Bash(timeout 60 git:*)",
+      "Bash(xargs:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(wc:*)"
     ],
     "deny": [],
     "ask": []

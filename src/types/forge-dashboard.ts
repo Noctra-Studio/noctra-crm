@@ -50,4 +50,6 @@ export interface WorkspaceDashboardData {
   isTrial: boolean;
   canUseCentralBrain: boolean;
   widgetPreferences: DashboardWidgetState[];
+  currency: string;
+  pipelineStages: string[];
 }

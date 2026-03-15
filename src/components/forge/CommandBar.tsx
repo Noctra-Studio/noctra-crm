@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { createClient } from "@/utils/supabase/client";
 import { localizeForgeHref } from "@/components/forge/forge-navigation";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   FileText,
   Users,
@@ -144,6 +145,7 @@ export function CommandBar({
   const locale = useLocale();
   const supabase = createClient();
   const inputRef = useRef<HTMLInputElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -336,8 +338,6 @@ export function CommandBar({
     onClose();
   };
 
-  if (!isOpen) return null;
-
   // Extract unique categories in exact appearance order
   const getCategories = () => {
     const cats: string[] = [];
@@ -349,16 +349,53 @@ export function CommandBar({
 
   const categories = getCategories();
 
-  return (
-    <div className="fixed inset-0 z-[200]">
-      {/* Background Overlay */}
-      <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={onClose}
-      />
+  // Animation variants
+  const overlayVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
 
-      {/* Panel */}
-      <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-[#0f0f0f] border border-white/10 rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col max-h-[60vh] animate-in fade-in zoom-in-95 duration-200">
+  const paletteVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: shouldReduceMotion ? 1 : 0.96, 
+      y: shouldReduceMotion ? "-50%" : "calc(-50% - 6px)",
+      x: "-50%" 
+    },
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      y: "-50%",
+      x: "-50%" 
+    },
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[200]">
+          {/* Background Overlay */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={overlayVariants}
+            transition={{ duration: 0.12, ease: "linear" }}
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={onClose}
+          />
+
+          {/* Panel */}
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={paletteVariants}
+            transition={{ 
+              duration: 0.16, 
+              ease: [0.16, 1, 0.3, 1] 
+            }}
+            className="fixed top-1/3 left-1/2 w-full max-w-lg bg-[#0f0f0f] border border-white/10 rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col max-h-[60vh]">
         {/* Input */}
         <div className="flex items-center px-4 border-b border-white/10 shrink-0 relative">
           {isSearching ? (
@@ -474,7 +511,9 @@ export function CommandBar({
             Cerrar
           </span>
         </div>
-      </div>
+      </motion.div>
     </div>
+    )}
+    </AnimatePresence>
   );
 }

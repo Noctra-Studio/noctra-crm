@@ -94,7 +94,13 @@ export async function updateProposalAction(proposalId: string, data: any) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("No autenticado");
 
-  const { error } = await supabase
+  const { data: previousProposal } = await supabase
+    .from("proposals")
+    .select("status, title")
+    .eq("id", proposalId)
+    .single();
+
+  const { error, data: updatedProposal } = await supabase
     .from("proposals")
     .update({
       title: data.title,
@@ -103,11 +109,40 @@ export async function updateProposalAction(proposalId: string, data: any) {
       estimated_duration: data.estimated_duration,
       subtotal: data.subtotal,
       total: data.total,
+      status: data.status,
       updated_at: new Date().toISOString(),
     })
-    .eq("id", proposalId);
+    .eq("id", proposalId)
+    .select("workspace_id, status")
+    .single();
 
   if (error) throw error;
+
+  if (
+    updatedProposal &&
+    previousProposal &&
+    previousProposal.status !== updatedProposal.status
+  ) {
+    if (updatedProposal.status === "accepted") {
+      await recordWorkspaceActivity(supabase, {
+        workspaceId: updatedProposal.workspace_id,
+        entityType: "proposal",
+        entityId: proposalId,
+        eventType: "proposal.accepted",
+        title: "Propuesta aprobada",
+        description: `El cliente ha aceptado ${data.title || previousProposal.title}.`,
+      });
+    } else if (updatedProposal.status === "viewed") {
+      await recordWorkspaceActivity(supabase, {
+        workspaceId: updatedProposal.workspace_id,
+        entityType: "proposal",
+        entityId: proposalId,
+        eventType: "proposal.viewed",
+        title: "Propuesta visualizada",
+        description: `El cliente ha abierto ${data.title || previousProposal.title}.`,
+      });
+    }
+  }
 
   revalidatePath("/proposals");
   revalidatePath(`/proposals/${proposalId}/edit`);

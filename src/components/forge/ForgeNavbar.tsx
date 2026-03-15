@@ -24,8 +24,6 @@ const NAVBAR_COPY = {
   es: {
     product: "Producto",
     pricing: "Precios",
-    migration: "Migración",
-    resources: "Recursos",
     support: "Soporte",
     version: "Noctra Forge v1.0",
     signIn: "Iniciar sesión",
@@ -34,8 +32,6 @@ const NAVBAR_COPY = {
   en: {
     product: "Product",
     pricing: "Pricing",
-    migration: "Migration",
-    resources: "Resources",
     support: "Support",
     version: "Noctra Forge v1.0",
     signIn: "Sign in",
@@ -373,18 +369,6 @@ export function ForgeNavbar() {
                           onClick={() => setIsOpen(false)}>
                           {copy.pricing}
                         </a>
-                        <a
-                          href="#migracion"
-                          className="text-4xl font-bold text-white hover:text-emerald-500 transition-colors"
-                          onClick={() => setIsOpen(false)}>
-                          {copy.migration}
-                        </a>
-                        <Link
-                          href="/blog"
-                          className="text-4xl font-bold text-white hover:text-emerald-500 transition-colors"
-                          onClick={() => setIsOpen(false)}>
-                          {copy.resources}
-                        </Link>
                       </div>
                     </div>
                     <div className="space-y-8">
@@ -433,18 +417,6 @@ export function ForgeNavbar() {
                   onClick={() => setIsOpen(false)}>
                   {copy.pricing}
                 </a>
-                <a
-                  href="#migracion"
-                  className="text-4xl font-bold text-white"
-                  onClick={() => setIsOpen(false)}>
-                  {copy.migration}
-                </a>
-                <Link
-                  href="/blog"
-                  className="text-4xl font-bold text-white"
-                  onClick={() => setIsOpen(false)}>
-                  {copy.resources}
-                </Link>
 
                 <div className="w-12 h-px bg-white/10 my-4" />
 

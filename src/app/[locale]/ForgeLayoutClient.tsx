@@ -91,6 +91,19 @@ export default function ForgeLayoutClient({
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
+  useEffect(() => {
+    const handleQuickAction = (e: CustomEvent<{ actionId: QuickCreateActionId }>) => {
+      if (e.detail?.actionId) {
+        openQuickAction(e.detail.actionId);
+      }
+    };
+
+    window.addEventListener("open-quick-action", handleQuickAction as EventListener);
+    return () => {
+      window.removeEventListener("open-quick-action", handleQuickAction as EventListener);
+    };
+  }, []);
+
   const minutes = Math.floor(timeLeft / 60000);
   const seconds = Math.floor((timeLeft % 60000) / 1000);
 

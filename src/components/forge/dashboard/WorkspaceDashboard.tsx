@@ -35,6 +35,8 @@ import {
   Kanban,
   PenTool,
   Settings2,
+  MoreHorizontal,
+  Plus,
   TrendingUp,
   Users,
 } from "lucide-react";
@@ -214,6 +216,11 @@ export default function WorkspaceDashboard({
     [initialData],
   );
 
+  const widgetInsights = useMemo(
+    () => computeWidgetInsights(initialData, dashboardSummary, t),
+    [initialData, dashboardSummary, t],
+  );
+
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
@@ -303,30 +310,34 @@ export default function WorkspaceDashboard({
     widgetKey: "metrics",
     timeframe: DashboardMetricsTimeframe,
   ) => {
-    setMetricsTimeframe(timeframe);
+    startTransition(() => {
+      setMetricsTimeframe(timeframe);
 
-    updateWidget(widgetKey, (widget) => ({
-      ...widget,
-      preferences: {
-        ...(widget.preferences as { timeframe: DashboardMetricsTimeframe }),
-        timeframe,
-      } as { timeframe: DashboardMetricsTimeframe },
-    }));
+      updateWidget(widgetKey, (widget) => ({
+        ...widget,
+        preferences: {
+          ...(widget.preferences as { timeframe: DashboardMetricsTimeframe }),
+          timeframe,
+        } as { timeframe: DashboardMetricsTimeframe },
+      }));
+    });
   };
 
   const handlePipelineFilterChange = (
     widgetKey: "pipeline_snapshot",
     filter: DashboardPipelineFilter,
   ) => {
-    setPipelineFilter(filter);
+    startTransition(() => {
+      setPipelineFilter(filter);
 
-    updateWidget(widgetKey, (widget) => ({
-      ...widget,
-      preferences: {
-        ...(widget.preferences as { filter: DashboardPipelineFilter }),
-        filter,
-      } as { filter: DashboardPipelineFilter },
-    }));
+      updateWidget(widgetKey, (widget) => ({
+        ...widget,
+        preferences: {
+          ...(widget.preferences as { filter: DashboardPipelineFilter }),
+          filter,
+        } as { filter: DashboardPipelineFilter },
+      }));
+    });
   };
 
   const applyPresetLocally = (presetKey: DashboardPresetKey) => {
@@ -354,6 +365,7 @@ export default function WorkspaceDashboard({
           <LeadsThisMonthWidget
             summary={dashboardSummary}
             t={t}
+            insight={widgetInsights.leads_this_month}
           />
         );
       case "active_proposals":
@@ -361,6 +373,7 @@ export default function WorkspaceDashboard({
           <ActiveProposalsWidget
             summary={dashboardSummary}
             t={t}
+            insight={widgetInsights.active_proposals}
           />
         );
       case "projects_in_progress":
@@ -368,6 +381,7 @@ export default function WorkspaceDashboard({
           <ProjectsInProgressWidget
             summary={dashboardSummary}
             t={t}
+            insight={widgetInsights.projects_in_progress}
           />
         );
       case "revenue_forecast":
@@ -375,6 +389,7 @@ export default function WorkspaceDashboard({
           <RevenueForecastWidget
             summary={dashboardSummary}
             t={t}
+            insight={widgetInsights.revenue_forecast}
           />
         );
       case "ai_insights":
@@ -546,6 +561,7 @@ export default function WorkspaceDashboard({
                           style={dragProvided.draggableProps.style}
                           className={cn(
                             getWidgetGridClass(widget),
+                            "transition-transform duration-200",
                             snapshot.isDragging &&
                               "z-30 rotate-[0.6deg] scale-[1.01] opacity-95",
                           )}
@@ -794,12 +810,22 @@ function WidgetChrome({
   );
 }
 
+const dispatchQuickAction = (actionId: string) => {
+  window.dispatchEvent(
+    new CustomEvent("open-quick-action", {
+      detail: { actionId },
+    }),
+  );
+};
+
 function LeadsThisMonthWidget({
   summary,
   t,
+  insight,
 }: {
   summary: ReturnType<typeof buildDashboardSummary>;
   t: ReturnType<typeof useTranslations<"forge.dashboard">>;
+  insight?: WidgetInsight;
 }) {
   const leadDelta = summary.leadsThisMonth - summary.leadsLastMonth;
   return (
@@ -817,6 +843,19 @@ function LeadsThisMonthWidget({
       color={leadDelta >= 0 ? "#10b981" : "#ef4444"}
       link="/leads"
       sparklineData={summary.dummyTrendLeads}
+      insight={insight}
+      actions={[
+        {
+          label: t("verDetalles"),
+          icon: Users,
+          onClick: () => (window.location.href = "/leads"),
+        },
+        {
+          label: "Crear lead",
+          icon: Plus,
+          onClick: () => dispatchQuickAction("new-lead"),
+        },
+      ]}
     />
   );
 }
@@ -824,9 +863,11 @@ function LeadsThisMonthWidget({
 function ActiveProposalsWidget({
   summary,
   t,
+  insight,
 }: {
   summary: ReturnType<typeof buildDashboardSummary>;
   t: ReturnType<typeof useTranslations<"forge.dashboard">>;
+  insight?: WidgetInsight;
 }) {
   return (
     <KpiCard
@@ -836,6 +877,19 @@ function ActiveProposalsWidget({
       color="#10b981"
       link="/proposals"
       sparklineData={summary.dummyTrendProposals}
+      insight={insight}
+      actions={[
+        {
+          label: t("verDetalles"),
+          icon: PenTool,
+          onClick: () => (window.location.href = "/proposals"),
+        },
+        {
+          label: "Crear propuesta",
+          icon: Plus,
+          onClick: () => dispatchQuickAction("new-proposal"),
+        },
+      ]}
     />
   );
 }
@@ -843,57 +897,49 @@ function ActiveProposalsWidget({
 function ProjectsInProgressWidget({
   summary,
   t,
+  insight,
 }: {
   summary: ReturnType<typeof buildDashboardSummary>;
   t: ReturnType<typeof useTranslations<"forge.dashboard">>;
+  insight?: WidgetInsight;
 }) {
   return (
-    <div className="bg-[#111111] border border-neutral-900 hover:border-white/10 hover:bg-white/[0.03] transition-all duration-150 p-6 flex h-full flex-col justify-between relative group rounded-xl min-h-[180px]">
-      <span className="text-sm font-medium text-white/60 mb-2">
-        {t("proyectosEnCurso")}
-      </span>
-      <div className="text-3xl font-black text-white">
-        {summary.ongoingProjects.length}
-      </div>
-      <div className="text-xs text-neutral-500 mt-2">
-        {summary.ongoingProjects.length > 0
+    <KpiCard
+      label={t("proyectosEnCurso")}
+      value={summary.ongoingProjects.length.toString()}
+      subtext={
+        summary.ongoingProjects.length > 0
           ? t("projectLoadSummary", { count: summary.ongoingProjects.length })
-          : t("noProjectsInProgress")}
-      </div>
-
-      <div className="flex justify-end mt-auto pt-4">
-        <Link
-          href="/projects"
-          className="text-xs font-medium text-white/30 hover:text-white/60 transition-colors"
-        >
-          {t("verDetalles")} →
-        </Link>
-      </div>
-
-      <div className="absolute inset-0 bg-[#111111] p-4 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center overflow-hidden z-20 overflow-y-auto rounded-xl">
-        {summary.ongoingProjects.length === 0 ? (
-          <span className="text-xs text-neutral-500">{t("noProjectsInProgress")}</span>
-        ) : (
-          summary.ongoingProjects.map((project) => (
-            <p
-              key={project.id}
-              className="text-[10px] font-mono uppercase text-emerald-400 truncate w-full mb-1"
-            >
-              • {project.name || t("untitledProject")}
-            </p>
-          ))
-        )}
-      </div>
-    </div>
+          : t("noProjectsInProgress")
+      }
+      color="#3b82f6"
+      link="/projects"
+      sparklineData={summary.dummyTrendProjects || []}
+      insight={insight}
+      actions={[
+        {
+          label: t("verDetalles"),
+          icon: Briefcase,
+          onClick: () => (window.location.href = "/projects"),
+        },
+        {
+          label: "Crear proyecto",
+          icon: Plus,
+          onClick: () => dispatchQuickAction("new-project"),
+        },
+      ]}
+    />
   );
 }
 
 function RevenueForecastWidget({
   summary,
   t,
+  insight,
 }: {
   summary: ReturnType<typeof buildDashboardSummary>;
   t: ReturnType<typeof useTranslations<"forge.dashboard">>;
+  insight?: WidgetInsight;
 }) {
   return (
     <KpiCard
@@ -913,6 +959,7 @@ function RevenueForecastWidget({
         Math.max(summary.forecast.total, 5500),
       ]}
       isForecast
+      insight={insight}
     />
   );
 }
@@ -975,7 +1022,7 @@ function RecentActivityWidget({
   }, [activityFeed, preferences.sort, preferences.type]);
 
   return (
-    <div className="bg-[#111111] border border-neutral-900 flex flex-col h-full rounded-xl">
+    <div className="bg-[#111111] border border-neutral-900 flex flex-col h-full rounded-xl animate-in fade-in zoom-in-95 duration-200">
       <div className="p-6 md:p-8 flex-none border-b border-neutral-900 bg-[#0a0a0a] rounded-t-xl">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <h3 className="text-sm font-medium text-white/50">
@@ -993,10 +1040,10 @@ function RecentActivityWidget({
                     })
                   }
                   className={cn(
-                    "rounded-full px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] transition",
+                    "rounded-full px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] transition-all duration-300",
                     preferences.type === option.value
-                      ? "bg-white text-black"
-                      : "text-neutral-400 hover:text-white",
+                      ? "bg-white text-black scale-105 shadow-md"
+                      : "text-neutral-400 hover:text-white hover:bg-white/5",
                   )}
                 >
                   {t(option.label)}
@@ -1020,7 +1067,7 @@ function RecentActivityWidget({
         </div>
       </div>
 
-      <div className="max-h-[340px] overflow-y-auto p-4 md:p-6 flex flex-col forge-scroll">
+      <div key={preferences.type + preferences.sort} className="max-h-[340px] overflow-y-auto p-4 md:p-6 flex flex-col forge-scroll animate-in fade-in slide-in-from-bottom-2 duration-300 fill-mode-both">
         {filteredFeed.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center gap-3 py-10">
             <Activity className="w-6 h-6 text-white/10" />
@@ -1142,7 +1189,7 @@ function MetricsWidget({
   }, [data.leads, data.projects, data.proposals, timeframe]);
 
   return (
-    <div className="bg-[#111111] border border-neutral-900 rounded-xl h-full flex flex-col">
+    <div className="bg-[#111111] border border-neutral-900 rounded-xl h-full flex flex-col animate-in fade-in zoom-in-95 duration-200">
       <div className="border-b border-neutral-900 bg-[#0a0a0a] px-6 py-5 rounded-t-xl">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <div>
@@ -1173,7 +1220,7 @@ function MetricsWidget({
         </div>
       </div>
 
-      <div className="grid flex-1 grid-cols-1 gap-px bg-white/5 sm:grid-cols-2">
+      <div key={timeframe} className="grid flex-1 grid-cols-1 gap-px bg-white/5 sm:grid-cols-2 animate-in fade-in slide-in-from-bottom-2 duration-300 fill-mode-both">
         <MetricCell
           label={t("metricsWindowLeads")}
           value={metrics.leadsInWindow.length.toString()}
@@ -1271,10 +1318,13 @@ function PipelineSnapshotWidget({
 
   const activeLeadCount = filteredLeads.length;
 
-  const visibleStages = stages.length > 0 ? stages : ["nuevo", "contactado"];
+  const visibleStages = stages.length > 0 ? stages : 
+    filter === "early" ? ["nuevo", "contactado"] :
+    filter === "closing" ? ["propuesta_enviada", "en_negociacion"] :
+    ["nuevo", "contactado"];
 
   return (
-    <div className="bg-[#111111] border border-neutral-900 p-6 md:p-8 flex flex-col rounded-xl relative overflow-hidden">
+    <div className="bg-[#111111] border border-neutral-900 p-6 md:p-8 flex flex-col rounded-xl relative overflow-hidden animate-in fade-in zoom-in-95 duration-200">
       <div className="absolute top-0 left-0 right-0 h-1 bg-neutral-900 flex">
         {visibleStages.map((stage) => {
           const count = filteredLeads.filter(
@@ -1331,7 +1381,7 @@ function PipelineSnapshotWidget({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 md:flex-row w-full h-auto">
+      <div key={filter} className="flex flex-col gap-4 md:flex-row w-full h-auto animate-in fade-in slide-in-from-bottom-2 duration-300 fill-mode-both">
         {visibleStages.map((stage) => {
           const stageLeads = filteredLeads
             .filter(
@@ -1350,9 +1400,10 @@ function PipelineSnapshotWidget({
           const hasMore = stageLeads.length > 2;
 
           return (
-            <div
+            <Link
               key={stage}
-              className="flex-1 bg-white/[0.02] border border-white/5 p-4 rounded-xl flex flex-col min-w-0 hover:border-white/10 hover:bg-white/[0.03] transition-colors"
+              href={`/pipeline?stage=${stage}`}
+              className="flex-1 bg-white/[0.02] border border-white/5 p-4 rounded-xl flex flex-col min-w-0 hover:border-white/10 hover:bg-white/[0.03] transition-colors group/stage"
             >
               <div className="mb-3">
                 <span className="uppercase tracking-widest text-xs text-white/40 truncate block">
@@ -1373,9 +1424,10 @@ function PipelineSnapshotWidget({
               <div className="flex-1 flex flex-col gap-1 mt-2">
                 {displayLeads.length > 0 ? (
                   displayLeads.map((lead) => (
-                    <div
+                    <Link
                       key={lead.id}
-                      className="flex justify-between items-center text-xs text-white/50 py-1.5 border-b border-white/5 hover:text-white/70 transition-colors"
+                      href={`/leads?id=${lead.id}`}
+                      className="flex justify-between items-center text-xs text-white/50 py-1.5 border-b border-white/5 hover:text-white transition-colors relative z-10"
                     >
                       <span className="truncate pr-2">• {lead.name}</span>
                       <span className="shrink-0">
@@ -1383,7 +1435,7 @@ function PipelineSnapshotWidget({
                           ? formatDashboardCurrency(lead.estimated_value)
                           : "---"}
                       </span>
-                    </div>
+                    </Link>
                   ))
                 ) : (
                   <div className="flex-1 flex items-center py-2">
@@ -1402,7 +1454,7 @@ function PipelineSnapshotWidget({
                   </Link>
                 )}
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
@@ -1420,13 +1472,16 @@ function MetricCell({
   helper: string;
 }) {
   return (
-    <div className="bg-[#111111] px-6 py-5">
-      <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-neutral-500">
+    <Link 
+      href="/metrics"
+      className="bg-[#111111] px-6 py-5 hover:bg-white/[0.02] transition-colors group/metric block"
+    >
+      <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-neutral-500 group-hover/metric:text-neutral-400 transition-colors">
         {label}
       </p>
-      <p className="mt-3 text-3xl font-black text-white">{value}</p>
-      <p className="mt-2 text-xs text-neutral-500">{helper}</p>
-    </div>
+      <p className="mt-3 text-3xl font-black text-white group-hover/metric:text-white transition-colors">{value}</p>
+      <p className="mt-2 text-xs text-neutral-500 group-hover/metric:text-neutral-400 transition-colors">{helper}</p>
+    </Link>
   );
 }
 
@@ -1585,6 +1640,12 @@ function AlertsRow({
   );
 }
 
+interface KpiCardAction {
+  label: string;
+  icon?: any;
+  onClick: () => void;
+}
+
 function KpiCard({
   label,
   value,
@@ -1595,6 +1656,8 @@ function KpiCard({
   link,
   sparklineData,
   isForecast = false,
+  insight,
+  actions = [],
 }: {
   label: string;
   value: string;
@@ -1605,30 +1668,81 @@ function KpiCard({
   link: string;
   sparklineData: number[];
   isForecast?: boolean;
+  insight?: WidgetInsight | undefined;
+  actions?: KpiCardAction[];
 }) {
   const t = useTranslations("forge.dashboard");
   const containerClasses = isForecast
-    ? "bg-emerald-500/5 border border-emerald-500/15 shadow-[0_0_20px_rgba(0,255,136,0.04)]"
-    : "bg-[#111111] border border-neutral-900 hover:border-white/10 hover:bg-white/[0.03] transition-all duration-150";
+    ? "bg-emerald-500/5 border border-emerald-500/15 shadow-[0_0_20px_rgba(0,255,136,0.04)] animate-in fade-in zoom-in-[0.98] duration-300"
+    : "bg-[#111111] border border-neutral-900 hover:border-white/10 hover:bg-white/[0.03] animate-in fade-in zoom-in-[0.98] duration-300 transition-all hover:-translate-y-[2px] hover:shadow-lg";
 
   return (
-    <div className={`${containerClasses} p-6 flex h-full flex-col justify-between rounded-xl relative min-h-[180px]`}>
+    <div className={`${containerClasses} p-6 flex h-full flex-col justify-between rounded-xl relative min-h-[180px] group/card`}>
+      {actions.length > 0 && (
+        <div className="absolute top-4 right-4 opacity-0 group-hover/card:opacity-100 transition-opacity z-10">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="p-1.5 rounded-full hover:bg-white/10 text-white/40 hover:text-white transition-colors">
+                <MoreHorizontal className="w-4 h-4" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48 bg-[#111111] border-white/10">
+              {actions.map((action, i) => (
+                <DropdownMenuItem
+                  key={i}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    action.onClick();
+                  }}
+                  className="gap-2 text-white/70 focus:text-white focus:bg-white/5 cursor-pointer"
+                >
+                  {action.icon && <action.icon className="w-3.5 h-3.5" />}
+                  {action.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      )}
+
       <div className="flex-1">
         <span className="text-sm font-medium text-white/60 mb-2 block">
           {label}
         </span>
         <div className={`text-3xl font-black ${valueColor}`}>{value}</div>
         <div className={`text-xs font-medium mt-2 ${subtextColor}`}>{subtext}</div>
+        {insight && <InsightRow insight={insight} />}
         <SparkLine color={color} data={sparklineData} />
       </div>
       <div className="flex justify-end mt-auto pt-4">
         <Link
           href={link}
-          className="text-xs font-medium text-white/30 hover:text-white/60 transition-colors"
+          className="text-xs font-medium text-white/30 hover:text-white/60 transition-colors after:absolute after:inset-0 after:z-[1]"
         >
           {t("verDetalles")} →
         </Link>
       </div>
+    </div>
+  );
+}
+
+function InsightRow({ insight }: { insight: WidgetInsight }) {
+  const isWarning = insight.type === "warning";
+  return (
+    <div
+      className={cn(
+        "mt-2.5 flex items-start gap-1.5 text-[11px] leading-tight",
+        isWarning ? "text-amber-400/90" : "text-neutral-400",
+      )}
+    >
+      <span className="shrink-0 mt-px">
+        {isWarning ? (
+          <AlertTriangle className="h-3 w-3" />
+        ) : (
+          <AlertCircle className="h-3 w-3 opacity-60" />
+        )}
+      </span>
+      <span>{insight.message}</span>
     </div>
   );
 }
@@ -1640,6 +1754,8 @@ function SparkLine({
   data: number[];
   color: string;
 }) {
+  const t = useTranslations("forge.dashboard");
+
   if (data.length < 2) {
     return null;
   }
@@ -1660,10 +1776,11 @@ function SparkLine({
 
   return (
     <svg
-      className="mt-4 h-[30px] w-full overflow-visible"
+      className="mt-4 h-[30px] w-full overflow-visible group/sparkline"
       viewBox="0 -5 100 40"
       preserveAspectRatio="none"
     >
+      <title>{t("trendGraph", { count: data.length })}</title>
       <path
         d={path}
         fill="none"
@@ -1671,7 +1788,23 @@ function SparkLine({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className="transition-all duration-300 drop-shadow-sm group-hover/sparkline:drop-shadow-md"
       />
+      {points.map((pt, i) => {
+        const [x, y] = pt.split(",");
+        return (
+          <circle
+            key={i}
+            cx={x}
+            cy={y}
+            r="3"
+            fill={color}
+            className="opacity-0 group-hover/sparkline:opacity-100 transition-opacity duration-300 cursor-pointer"
+          >
+            <title>{data[i]}</title>
+          </circle>
+        );
+      })}
     </svg>
   );
 }
@@ -1720,7 +1853,147 @@ function buildDashboardSummary(data: WorkspaceDashboardData) {
       0,
       activeProposals.length > 0 ? 3000 : 0,
     ],
+    dummyTrendProjects: [
+      0,
+      1,
+      0,
+      3,
+      2,
+      1,
+      ongoingProjects.length > 0 ? ongoingProjects.length : 0,
+    ],
   };
+}
+
+interface WidgetInsight {
+  type: "warning" | "info";
+  message: string;
+}
+
+type WidgetInsightsMap = Partial<Record<DashboardWidgetKey, WidgetInsight>>;
+
+function computeWidgetInsights(
+  data: WorkspaceDashboardData,
+  summary: ReturnType<typeof buildDashboardSummary>,
+  t: ReturnType<typeof useTranslations<"forge.dashboard">>,
+): WidgetInsightsMap {
+  const now = new Date();
+  const threeDaysAgo = subDays(now, 3);
+  const sevenDaysAgo = subDays(now, 7);
+  const twoDaysAgo = subDays(now, 2);
+  const insights: WidgetInsightsMap = {};
+
+  // --- Leads insights ---
+  const staleLeads = data.leads.filter(
+    (lead) =>
+      matchesAnyStage(lead.pipeline_status, ["nuevo"]) &&
+      isBefore(new Date(lead.created_at), threeDaysAgo),
+  );
+  const overdueActions = data.leads.filter(
+    (lead) =>
+      lead.next_action_date &&
+      isBefore(new Date(lead.next_action_date), now) &&
+      !isResolvedPipelineStatus(lead.pipeline_status),
+  );
+
+  if (overdueActions.length > 0) {
+    insights.leads_this_month = {
+      type: "warning",
+      message: t("insightLeadsOverdue", { count: overdueActions.length }),
+    };
+  } else if (staleLeads.length > 0) {
+    insights.leads_this_month = {
+      type: "warning",
+      message: t("insightLeadsStale", { count: staleLeads.length }),
+    };
+  } else if (summary.leadsThisMonth === 0) {
+    insights.leads_this_month = {
+      type: "info",
+      message: t("insightLeadsZero"),
+    };
+  }
+
+  // --- Proposals insights ---
+  const noResponseProposals = summary.activeProposals.filter(
+    (proposal) =>
+      proposal.status === "sent" &&
+      isBefore(new Date(proposal.created_at), sevenDaysAgo),
+  );
+  const viewedNotSigned = summary.activeProposals.filter(
+    (proposal) =>
+      proposal.status === "viewed" &&
+      isBefore(
+        new Date(proposal.updated_at || proposal.created_at),
+        twoDaysAgo,
+      ),
+  );
+
+  if (noResponseProposals.length > 0) {
+    insights.active_proposals = {
+      type: "warning",
+      message: t("insightProposalNoResponse", {
+        count: noResponseProposals.length,
+      }),
+    };
+  } else if (viewedNotSigned.length > 0) {
+    insights.active_proposals = {
+      type: "warning",
+      message: t("insightProposalViewedNotSigned", {
+        count: viewedNotSigned.length,
+      }),
+    };
+  }
+
+  // --- Projects insights ---
+  const staleProjects = summary.ongoingProjects.filter(
+    (project) =>
+      project.updated_at &&
+      isBefore(new Date(project.updated_at), sevenDaysAgo),
+  );
+
+  if (staleProjects.length > 0) {
+    insights.projects_in_progress = {
+      type: "warning",
+      message: t("insightProjectStale", { count: staleProjects.length }),
+    };
+  } else if (summary.ongoingProjects.length > 0) {
+    const todayStart = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+    );
+    const projectsNeedingAttention = summary.ongoingProjects.filter(
+      (project) =>
+        !project.updated_at ||
+        isBefore(new Date(project.updated_at), todayStart),
+    );
+    if (projectsNeedingAttention.length > 0) {
+      insights.projects_in_progress = {
+        type: "info",
+        message: t("insightProjectFollowUp", {
+          count: projectsNeedingAttention.length,
+        }),
+      };
+    }
+  }
+
+  // --- Revenue forecast insights ---
+  const { confirmed, possible, total } = summary.forecast;
+  if (total > 0 && confirmed === 0) {
+    insights.revenue_forecast = {
+      type: "warning",
+      message: t("insightForecastNoneConfirmed"),
+    };
+  } else if (total > 0 && possible / total > 0.5) {
+    insights.revenue_forecast = {
+      type: "info",
+      message: t("insightForecastHighRisk", {
+        pct: Math.round((possible / total) * 100),
+      }),
+    };
+  }
+
+  return insights;
 }
 
 function getWidgetGridClass(widget: DashboardWidgetState) {
