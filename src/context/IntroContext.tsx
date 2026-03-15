@@ -15,17 +15,14 @@ const IntroContext = createContext<IntroContextType | undefined>(undefined);
 export function IntroProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Initialize with safe defaults to prevent hydration mismatch
-  const [isIntroComplete, setIsIntroComplete] = useState(true); // Start as complete to avoid flicker
+  // Safe SSR defaults: intro complete, nothing shown. These match on server
+  // AND client first render, so hydration is clean. The useEffect below will
+  // override them on the homepage when the intro hasn't been seen yet.
+  const [isIntroComplete, setIsIntroComplete] = useState(true);
   const [showIntro, setShowIntro] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [initialized, setInitialized] = useState(false);
 
-  // Handle mounting and intro logic in a single effect to avoid cascading renders
   useEffect(() => {
-    setMounted(true);
-
-    // Only run on homepage
     const isHomePage =
       pathname === "/" || pathname === "/en" || pathname === "/es";
 
@@ -36,7 +33,6 @@ export function IntroProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    // Check storage for intro preference
     const hasSeenIntro = sessionStorage.getItem("intro-played");
     if (hasSeenIntro) {
       setIsIntroComplete(true);
@@ -53,8 +49,6 @@ export function IntroProvider({ children }: { children: React.ReactNode }) {
     setShowIntro(false);
     sessionStorage.setItem("intro-played", "true");
   };
-
-  if (!mounted) return null;
 
   return (
     <IntroContext.Provider

@@ -41,6 +41,12 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
     const savedState = localStorage.getItem("forge-sidebar-collapsed");
     if (savedState) {
       setIsCollapsed(savedState === "true");
+    } else {
+      // Default to collapsed on tablet portrait (768px to 1024px approximately)
+      // We check window.innerWidth on mount
+      if (window.innerWidth >= 768 && window.innerWidth < 1024) {
+        setIsCollapsed(true);
+      }
     }
   }, []);
 
@@ -161,11 +167,11 @@ export function ForgeSidebar({ workspace, enabled = true }: ForgeSidebarProps) {
                       href={localizedHref}
                       title={isCollapsed ? item.label : undefined}
                       className={`flex items-center ${
-                        isCollapsed ? "justify-center p-2.5" : "gap-2.5 px-2.5 py-2"
-                      } rounded-lg transition-all duration-150 text-sm font-medium group relative ${
+                        isCollapsed ? "justify-center p-3.5" : "gap-3 px-3 py-2.5"
+                      } rounded-xl transition-all duration-200 text-sm font-medium group relative touch-manipulation ${
                         isActive
-                          ? "bg-white/[0.07] text-white"
-                          : "text-neutral-500 hover:text-neutral-200 hover:bg-white/[0.04]"
+                          ? "bg-white/[0.08] text-white shadow-lg shadow-black/20"
+                          : "text-neutral-500 hover:text-neutral-200 hover:bg-white/[0.05]"
                       }`}
                     >
                       {/* Active accent dot */}

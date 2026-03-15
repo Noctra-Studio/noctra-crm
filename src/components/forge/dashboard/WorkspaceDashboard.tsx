@@ -286,6 +286,9 @@ export default function WorkspaceDashboard({
       sort: "newest" | "oldest";
     }>,
   ) => {
+    if (process.env.NODE_ENV === "development") {
+      console.log("[Dashboard] Activity filter changed:", partial);
+    }
     setRecentActivityPreferences((current) => {
       const next = { ...current, ...partial };
       return next;
@@ -310,6 +313,9 @@ export default function WorkspaceDashboard({
     widgetKey: "metrics",
     timeframe: DashboardMetricsTimeframe,
   ) => {
+    if (process.env.NODE_ENV === "development") {
+      console.log("[Dashboard] Metrics timeframe changed:", timeframe);
+    }
     startTransition(() => {
       setMetricsTimeframe(timeframe);
 
@@ -327,6 +333,9 @@ export default function WorkspaceDashboard({
     widgetKey: "pipeline_snapshot",
     filter: DashboardPipelineFilter,
   ) => {
+    if (process.env.NODE_ENV === "development") {
+      console.log("[Dashboard] Pipeline filter changed:", filter);
+    }
     startTransition(() => {
       setPipelineFilter(filter);
 
@@ -439,7 +448,7 @@ export default function WorkspaceDashboard({
 
   return (
     <div className="flex flex-col flex-1 min-w-0 transition-all duration-200 min-h-full relative w-full">
-      <div className="mobile-safe-x w-full flex-1 space-y-6 py-6 sm:px-6 lg:px-8 overflow-x-clip">
+      <div className="mobile-safe-x w-full flex-1 space-y-4 py-6 sm:px-6 lg:px-8 overflow-x-clip">
         {suggestions.length > 0 && (
           <div className="bg-yellow-500/5 border border-yellow-500/20 p-4 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in slide-in-from-top-2 duration-300">
             <div className="flex items-center gap-3">
@@ -586,7 +595,7 @@ export default function WorkspaceDashboard({
             </Droppable>
           </DragDropContext>
         ) : (
-          <div className="grid grid-cols-1 gap-6 auto-rows-[minmax(180px,auto)] lg:grid-cols-6 xl:grid-cols-12">
+          <div className="grid grid-cols-1 gap-4 auto-rows-[minmax(140px,auto)] lg:grid-cols-6 xl:grid-cols-12">
             {visibleWidgets.map((widget) => (
               <div
                 key={widget.widgetKey}
@@ -644,7 +653,7 @@ function DashboardCustomizationBar({
   t: ReturnType<typeof useTranslations<"forge.dashboard">>;
 }) {
   return (
-    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
       <div>
         <h1 className="text-[10px] font-mono uppercase tracking-[0.38em] text-neutral-500">
           {t("workspaceOverviewEyebrow")}
@@ -661,91 +670,93 @@ function DashboardCustomizationBar({
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
-        {saveState === "saved" && (
-          <span className="text-[11px] font-mono uppercase tracking-[0.24em] text-emerald-400">
-            {t("layoutSaved")}
-          </span>
-        )}
-        {saveState === "error" && (
-          <span className="text-[11px] font-mono uppercase tracking-[0.24em] text-red-400">
-            {t("layoutSaveError")}
-          </span>
-        )}
+        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between mb-4">
+          <div className="flex flex-wrap items-center gap-2">
+            {saveState === "saved" && (
+              <span className="text-[10px] font-mono uppercase tracking-[0.24em] text-emerald-400 animate-in fade-in slide-in-from-right-2">
+                {t("layoutSaved")}
+              </span>
+            )}
+            {saveState === "error" && (
+              <span className="text-[10px] font-mono uppercase tracking-[0.24em] text-red-400">
+                {t("layoutSaveError")}
+              </span>
+            )}
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-medium text-white transition hover:border-white/20 hover:bg-white/[0.06]">
-              <Settings2 className="h-4 w-4" />
-              {t("manageWidgets")}
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-80 border-white/10 bg-[#111111] text-white shadow-2xl"
-            align="end"
-          >
-            <DropdownMenuLabel>{t("showHideWidgets")}</DropdownMenuLabel>
-            {widgets.map((widget) => (
-              <DropdownMenuCheckboxItem
-                key={widget.widgetKey}
-                checked={widget.visible}
-                onCheckedChange={(checked) =>
-                  onVisibilityChange(widget.widgetKey, checked === true)
-                }
-                className="focus:bg-white/5 focus:text-white"
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex-1 md:flex-none inline-flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.05] px-5 py-3 text-sm font-medium text-white transition hover:border-white/20 hover:bg-white/[0.08] active:scale-95">
+                  <Settings2 className="h-4.5 w-4.5" />
+                  {t("manageWidgets")}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                className="w-80 border-white/10 bg-[#111111] text-white shadow-2xl rounded-2xl p-2"
+                align="end"
               >
-                {labels[widget.widgetKey]}
-              </DropdownMenuCheckboxItem>
-            ))}
-            <DropdownMenuSeparator className="bg-white/10" />
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger className="focus:bg-white/5 focus:text-white">
-                {t("applyPreset")}
-              </DropdownMenuSubTrigger>
-              <DropdownMenuSubContent className="w-64 border-white/10 bg-[#111111] text-white">
-                {(
-                  Object.entries(DASHBOARD_PRESETS) as Array<
-                    [DashboardPresetKey, (typeof DASHBOARD_PRESETS)[DashboardPresetKey]]
+                <DropdownMenuLabel className="px-3 py-2 text-xs font-mono uppercase text-neutral-500 tracking-widest">{t("showHideWidgets")}</DropdownMenuLabel>
+                {widgets.map((widget) => (
+                  <DropdownMenuCheckboxItem
+                    key={widget.widgetKey}
+                    checked={widget.visible}
+                    onCheckedChange={(checked) =>
+                      onVisibilityChange(widget.widgetKey, checked === true)
+                    }
+                    className="rounded-lg py-2.5 focus:bg-white/10 focus:text-white"
                   >
-                ).map(([presetKey, preset]) => (
-                  <DropdownMenuItem
-                    key={presetKey}
-                    onSelect={() => onApplyPreset(presetKey)}
-                    className="focus:bg-white/5 focus:text-white"
-                  >
-                    <div className="flex flex-col">
-                      <span className="font-medium">{preset.label}</span>
-                      <span className="text-xs text-neutral-500">
-                        {preset.description}
-                      </span>
-                    </div>
-                  </DropdownMenuItem>
+                    {labels[widget.widgetKey]}
+                  </DropdownMenuCheckboxItem>
                 ))}
-              </DropdownMenuSubContent>
-            </DropdownMenuSub>
-            <DropdownMenuSeparator className="bg-white/10" />
-            <DropdownMenuItem
-              onSelect={onRestoreDefault}
-              className="focus:bg-white/5 focus:text-white"
-            >
-              {t("restoreDefault")}
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+                <DropdownMenuSeparator className="bg-white/10 my-2" />
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="rounded-lg py-2.5 focus:bg-white/10 focus:text-white">
+                    {t("applyPreset")}
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent className="w-64 border-white/10 bg-[#111111] text-white rounded-xl">
+                    {(
+                      Object.entries(DASHBOARD_PRESETS) as Array<
+                        [DashboardPresetKey, (typeof DASHBOARD_PRESETS)[DashboardPresetKey]]
+                      >
+                    ).map(([presetKey, preset]) => (
+                      <DropdownMenuItem
+                        key={presetKey}
+                        onSelect={() => onApplyPreset(presetKey)}
+                        className="rounded-lg py-3 focus:bg-white/10 focus:text-white"
+                      >
+                        <div className="flex flex-col gap-0.5">
+                          <span className="font-medium text-sm">{preset.label}</span>
+                          <span className="text-[10px] text-neutral-500 uppercase tracking-tight">
+                            {preset.description}
+                          </span>
+                        </div>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+                <DropdownMenuSeparator className="bg-white/10 my-2" />
+                <DropdownMenuItem
+                  onSelect={onRestoreDefault}
+                  className="rounded-lg py-2.5 focus:bg-white/5 focus:text-white text-neutral-400"
+                >
+                  {t("restoreDefault")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-        <button
-          onClick={onToggleCustomize}
-          className={cn(
-            "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition",
-            isCustomizeMode
-              ? "bg-white text-black hover:bg-neutral-100"
-              : "border border-white/10 bg-transparent text-white hover:border-white/20 hover:bg-white/[0.03]",
-          )}
-        >
-          <GripVertical className="h-4 w-4" />
-          {isCustomizeMode ? t("doneCustomizing") : t("customizeDashboard")}
-        </button>
-      </div>
+            <button
+              onClick={onToggleCustomize}
+              className={cn(
+                "flex-1 md:flex-none inline-flex items-center justify-center gap-2.5 rounded-xl px-5 py-3 text-sm font-bold transition active:scale-95",
+                isCustomizeMode
+                  ? "bg-white text-black shadow-2xl shadow-white/10"
+                  : "border border-white/10 bg-white/[0.02] text-white hover:border-white/20",
+              )}
+            >
+              <GripVertical className="h-4.5 w-4.5" />
+              {isCustomizeMode ? t("doneCustomizing") : t("customizeDashboard")}
+            </button>
+          </div>
+        </div>
     </div>
   );
 }
@@ -789,12 +800,15 @@ function WidgetChrome({
               {definition.supportedSizes.map((sizeVariant) => (
                 <button
                   key={sizeVariant}
+                  type="button"
+                  aria-pressed={widget.sizeVariant === sizeVariant}
                   onClick={() => onSizeChange(widget.widgetKey, sizeVariant)}
                   className={cn(
-                    "rounded-full px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.18em] transition",
+                    "cursor-pointer rounded-full px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.18em] transition-all duration-200",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40",
                     widget.sizeVariant === sizeVariant
                       ? "bg-white text-black"
-                      : "text-neutral-400 hover:bg-white/10 hover:text-white",
+                      : "text-neutral-400 hover:bg-white/10 hover:text-white active:scale-95",
                   )}
                 >
                   {t(sizeVariant)}
@@ -1029,21 +1043,27 @@ function RecentActivityWidget({
             {t("actividadReciente")}
           </h3>
           <div className="flex flex-wrap items-center gap-2">
-            <div className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] p-1">
+            <div
+              role="group"
+              aria-label={t("actividadReciente")}
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] p-1"
+            >
               {ACTIVITY_FILTER_OPTIONS.map((option) => (
                 <button
                   key={option.value}
                   type="button"
+                  aria-pressed={preferences.type === option.value}
                   onClick={() =>
                     onChange({
                       type: option.value,
                     })
                   }
                   className={cn(
-                    "rounded-full px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] transition-all duration-300",
+                    "cursor-pointer rounded-full px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.18em] transition-all duration-200",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-1 focus-visible:ring-offset-black",
                     preferences.type === option.value
-                      ? "bg-white text-black scale-105 shadow-md"
-                      : "text-neutral-400 hover:text-white hover:bg-white/5",
+                      ? "bg-white text-black shadow-sm"
+                      : "text-neutral-400 hover:text-white hover:bg-white/[0.08] active:bg-white/10 active:scale-95",
                   )}
                 >
                   {t(option.label)}
@@ -1052,12 +1072,17 @@ function RecentActivityWidget({
             </div>
             <button
               type="button"
+              aria-label={
+                preferences.sort === "newest"
+                  ? t("sortNewest")
+                  : t("sortOldest")
+              }
               onClick={() =>
                 onChange({
                   sort: preferences.sort === "newest" ? "oldest" : "newest",
                 })
               }
-              className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-[10px] font-mono uppercase tracking-[0.18em] text-neutral-300 transition hover:border-white/20 hover:text-white"
+              className="cursor-pointer rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-neutral-300 transition-all duration-200 hover:border-white/20 hover:bg-white/[0.06] hover:text-white active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-1 focus-visible:ring-offset-black"
             >
               {preferences.sort === "newest"
                 ? t("sortNewest")
@@ -1198,19 +1223,25 @@ function MetricsWidget({
               {t("metricsSubtitle")}
             </p>
           </div>
-          <div className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] p-1">
+          <div
+              role="group"
+              aria-label={t("metricsTitle")}
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] p-1"
+            >
             {TIMEFRAME_OPTIONS.map((option) => (
               <button
                 key={option.value}
                 type="button"
+                aria-pressed={timeframe === option.value}
                 onClick={() =>
                   onTimeframeChange(option.value as DashboardMetricsTimeframe)
                 }
                 className={cn(
-                  "rounded-full px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] transition",
+                  "cursor-pointer rounded-full px-4 py-2.5 text-[10px] font-mono uppercase tracking-[0.18em] transition-all duration-300",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-1 focus-visible:ring-offset-black",
                   timeframe === option.value
-                    ? "bg-white text-black"
-                    : "text-neutral-400 hover:text-white",
+                    ? "bg-white text-black shadow-xl scale-[1.02]"
+                    : "text-neutral-400 hover:text-white hover:bg-white/[0.08] active:scale-95",
                 )}
               >
                 {t(option.label)}
@@ -1353,19 +1384,25 @@ function PipelineSnapshotWidget({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <div className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] p-1">
+          <div
+            role="group"
+            aria-label={t("pipelineSnapshot")}
+            className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] p-1"
+          >
             {PIPELINE_FILTER_OPTIONS.map((option) => (
               <button
                 key={option.value}
                 type="button"
+                aria-pressed={filter === option.value}
                 onClick={() =>
                   onFilterChange(option.value as DashboardPipelineFilter)
                 }
                 className={cn(
-                  "rounded-full px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] transition",
+                  "cursor-pointer rounded-full px-4 py-2.5 text-[10px] font-mono uppercase tracking-[0.18em] transition-all duration-300",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-1 focus-visible:ring-offset-black",
                   filter === option.value
-                    ? "bg-white text-black"
-                    : "text-neutral-400 hover:text-white",
+                    ? "bg-white text-black shadow-xl scale-[1.02]"
+                    : "text-neutral-400 hover:text-white hover:bg-white/[0.08] active:scale-95",
                 )}
               >
                 {t(option.label)}
@@ -1373,8 +1410,8 @@ function PipelineSnapshotWidget({
             ))}
           </div>
           <Link
-            href="/pipeline"
-            className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-emerald-400 hover:text-white transition-colors border border-emerald-500/20 px-3 py-1.5 rounded-lg hover:bg-emerald-500/10"
+            href={filter !== "all" ? `/pipeline?stage=${filter}` : "/pipeline"}
+            className="cursor-pointer flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-emerald-400 hover:text-white transition-all duration-200 border border-emerald-500/20 px-3 py-1.5 rounded-lg hover:bg-emerald-500/10 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-1 focus-visible:ring-offset-black"
           >
             {t("verPipeline")} <ArrowRight className="w-4 h-4" />
           </Link>
@@ -1474,13 +1511,13 @@ function MetricCell({
   return (
     <Link 
       href="/metrics"
-      className="bg-[#111111] px-6 py-5 hover:bg-white/[0.02] transition-colors group/metric block"
+      className="bg-[#111111] px-5 py-6 md:py-8 hover:bg-white/[0.02] transition-colors group/metric block border-b border-r border-neutral-900 last:border-0 md:[&:nth-child(2)]:border-r-0 md:[&:nth-child(4)]:border-r-0"
     >
-      <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-neutral-500 group-hover/metric:text-neutral-400 transition-colors">
+      <p className="text-[9px] font-mono uppercase tracking-[0.22em] text-neutral-500 group-hover/metric:text-neutral-400 transition-colors">
         {label}
       </p>
-      <p className="mt-3 text-3xl font-black text-white group-hover/metric:text-white transition-colors">{value}</p>
-      <p className="mt-2 text-xs text-neutral-500 group-hover/metric:text-neutral-400 transition-colors">{helper}</p>
+      <p className="mt-3 text-2xl md:text-3xl font-black text-white group-hover/metric:text-white transition-colors tracking-tight">{value}</p>
+      <p className="mt-1.5 text-[10px] text-neutral-500 group-hover/metric:text-neutral-400 transition-colors uppercase font-medium">{helper}</p>
     </Link>
   );
 }
@@ -1620,16 +1657,16 @@ function AlertsRow({
           <Link
             key={`${alert.link}-${index}`}
             href={alert.link}
-            className={`flex-shrink-0 snap-start flex flex-col justify-center gap-2 p-4 pr-8 rounded-lg border transition-colors min-w-[220px] ${colors}`}
+            className={`flex-shrink-0 snap-start flex flex-col justify-center gap-1.5 p-3.5 pr-6 rounded-xl border transition-colors min-w-[200px] ${colors}`}
           >
             <div className="flex items-center gap-2">
-              <alert.icon className="w-4 h-4" />
-              <span className="text-[10px] font-mono uppercase tracking-widest leading-none mt-0.5">
+              <alert.icon className="w-3.5 h-3.5" />
+              <span className="text-[10px] font-bold uppercase tracking-widest leading-none mt-0.5">
                 {alert.text}
               </span>
             </div>
             {alert.linkText && (
-              <span className="text-xs font-bold pl-6 hover:underline">
+              <span className="text-[10px] font-medium pl-5 text-current/60 hover:underline">
                 {alert.linkText}
               </span>
             )}

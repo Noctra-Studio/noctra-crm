@@ -33,7 +33,8 @@
       "Bash(grep:*)",
       "Bash(wc:*)",
       "Bash(npx tsx:*)",
-      "Bash(head:*)"
+      "Bash(head:*)",
+      "Bash(git diff:*)"
     ],
     "deny": [],
     "ask": []

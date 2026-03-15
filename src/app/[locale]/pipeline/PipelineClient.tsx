@@ -16,9 +16,15 @@ import {
   Filter,
   AlertCircle,
 } from "lucide-react";
-import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 import { LeadDetailPanel } from "@/components/forge/LeadDetailPanel";
+import { 
+  Sheet, 
+  SheetContent, 
+  SheetHeader, 
+  SheetTitle, 
+  SheetTrigger 
+} from "@/components/ui/sheet";
 import { updateLeadStatusWithScoring } from "@/app/actions/leads";
 import { LeadScoreBadge } from "@/components/forge/LeadScoreBadge";
 import { useFollowUps } from "@/hooks/useFollowUps";
@@ -290,19 +296,50 @@ export default function PipelineClient({
           {feedback.message}
         </div>
       )}
-
+      
       {/* Sub-Header */}
-      <header className="p-6 border-b border-neutral-900 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#080808]">
-        <div className="flex items-center gap-4">
-          <h1 className="text-xl font-black tracking-tight flex items-center gap-3">
+      <header className="px-6 py-5 border-b border-neutral-900 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#080808]">
+        <div className="flex items-center justify-between w-full md:w-auto">
+          <h1 className="text-lg font-black tracking-tight flex items-center gap-3">
             PIPELINE
-            <span className="text-[10px] font-mono text-neutral-400 bg-white/[0.03] px-2 py-0.5 border border-white/[0.05]">
+            <span className="text-[9px] font-mono text-neutral-400 bg-white/[0.03] px-2 py-0.5 border border-white/[0.05] rounded-sm">
               {leads.length} LEADS
             </span>
           </h1>
+          
+          {/* Mobile Search/Filter Toggle */}
+          <div className="md:hidden flex items-center gap-2">
+            <Sheet>
+              <SheetTrigger asChild>
+                <button className="p-2.5 rounded-xl bg-white/[0.05] border border-white/10 text-neutral-400">
+                  <Filter className="w-4 h-4" />
+                </button>
+              </SheetTrigger>
+              <SheetContent side="bottom" className="bg-[#0a0a0a] border-white/10 p-6 rounded-t-3xl">
+                <SheetHeader className="mb-6">
+                  <SheetTitle className="text-white font-mono uppercase tracking-widest text-xs">Filtros de Pipeline</SheetTitle>
+                </SheetHeader>
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <p className="text-[9px] font-mono uppercase text-neutral-500">Buscar por nombre o ID</p>
+                    <div className="relative">
+                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
+                      <input
+                        type="text"
+                        placeholder="Nombre, email, folio..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full bg-white/[0.03] border border-white/10 text-sm text-neutral-300 rounded-xl px-12 py-4 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
             <input
@@ -313,9 +350,6 @@ export default function PipelineClient({
               className="bg-[#0b0b0b] border border-neutral-900 px-10 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500/50 transition-colors w-full md:w-64"
             />
           </div>
-          <button className="p-2.5 bg-[#0b0b0b] border border-neutral-900 text-neutral-400 hover:text-white transition-colors">
-            <Filter className="w-4 h-4" />
-          </button>
         </div>
       </header>
 
@@ -418,13 +452,13 @@ export default function PipelineClient({
                 {STAGES.map((stage: any) => (
                   <div
                     key={stage.id}
-                    className="w-[280px] flex flex-col shrink-0"
+                    className="w-[85vw] md:w-[280px] lg:w-[320px] flex flex-col shrink-0"
                   >
                     {/* Column Header */}
-                    <div className="flex flex-col mb-4 group px-2 border-b border-neutral-900 pb-2">
-                      <h3 className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-300 flex items-center gap-2">
+                    <div className="flex flex-col mb-4 group px-3 border-b border-neutral-900 pb-3">
+                      <h3 className="text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-300 flex items-center gap-2.5">
                         <span
-                          className={`w-1.5 h-1.5 rounded-full ${getStageColor(stage.id).split(" ")[0]}`}
+                          className={`w-2 h-2 rounded-full ${getStageColor(stage.id).split(" ")[0]}`}
                         />
                         {stage.label}
                       </h3>
@@ -447,7 +481,7 @@ export default function PipelineClient({
                     </div>
 
                     {/* Column Content */}
-                    <div className="bg-[#0d0d0d] border border-[#1f1f1f] flex flex-col rounded-sm">
+                    <div className="bg-[#0d0d0d] border border-[#1f1f1f] flex flex-col rounded-xl overflow-hidden shadow-inner">
                       {stage.id === "cerrado" ? (
                         <div className="flex flex-col">
                           {/* Won Drop Zone */}
@@ -456,9 +490,9 @@ export default function PipelineClient({
                               <div
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
-                                className={`p-3 space-y-3 transition-colors ${snapshot.isDraggingOver ? "bg-emerald-500/8 ring-1 ring-inset ring-emerald-500/30" : ""}`}
+                                className={`p-4 space-y-4 transition-colors ${snapshot.isDraggingOver ? "bg-emerald-500/10 ring-2 ring-inset ring-emerald-500/40" : ""}`}
                               >
-                                <div className="text-[8px] font-mono text-neutral-800 uppercase tracking-widest text-center mb-2 border-b border-neutral-900 pb-2">
+                                <div className="text-[9px] font-mono text-neutral-600 uppercase tracking-[0.3em] text-center mb-3 border-b border-neutral-900/50 pb-3 font-black">
                                   WON / CERRADO
                                 </div>
                                 {getLeadsByStage("cerrado")
@@ -476,16 +510,16 @@ export default function PipelineClient({
                               </div>
                             )}
                           </Droppable>
-
+ 
                           {/* Lost Drop Zone */}
                           <Droppable droppableId="resolution_perdido">
                             {(provided, snapshot) => (
                               <div
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
-                                className={`border-t border-neutral-900 p-3 space-y-3 transition-colors ${snapshot.isDraggingOver ? "bg-red-500/8 ring-1 ring-inset ring-red-500/30" : ""}`}
+                                className={`border-t border-neutral-900/50 p-4 space-y-4 transition-colors ${snapshot.isDraggingOver ? "bg-red-500/10 ring-2 ring-inset ring-red-500/40" : ""}`}
                               >
-                                <div className="text-[8px] font-mono text-neutral-800 uppercase tracking-widest text-center mb-2 border-b border-neutral-900 pb-2">
+                                <div className="text-[9px] font-mono text-neutral-600 uppercase tracking-[0.3em] text-center mb-3 border-b border-neutral-900/50 pb-3 font-black">
                                   LOST / PERDIDO
                                 </div>
                                 {getLeadsByStage("cerrado")
@@ -510,9 +544,9 @@ export default function PipelineClient({
                             <div
                               {...provided.droppableProps}
                               ref={provided.innerRef}
-                              className={`min-h-[150px] p-3 space-y-3 transition-colors ${
+                              className={`min-h-[200px] p-4 space-y-4 transition-colors ${
                                 snapshot.isDraggingOver
-                                  ? "bg-white/[0.03] ring-1 ring-inset ring-white/10"
+                                  ? "bg-white/[0.05] ring-2 ring-inset ring-white/10"
                                   : ""
                               }`}
                             >
@@ -629,9 +663,9 @@ function LeadCard({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           onClick={onClick}
-          className={`bg-[#111111] border border-[#1f1f1f] p-4 flex flex-col gap-3 transition-all hover:border-[#333333] cursor-pointer group relative ${
+          className={`bg-[#111111] border border-[#1f1f1f] p-5 md:p-6 flex flex-col gap-4 transition-all hover:border-[#333333] cursor-pointer group rounded-2xl relative active:scale-[0.98] ${
             snapshot.isDragging
-              ? "z-[60] -rotate-[1.5deg] scale-[1.02] border-emerald-500/30 shadow-[0_24px_70px_rgba(0,0,0,0.45)] ring-1 ring-emerald-500/20"
+              ? "z-[60] -rotate-1 scale-[1.05] border-emerald-500/40 shadow-[0_32px_80px_rgba(0,0,0,0.6)] ring-2 ring-emerald-500/30"
               : "shadow-[0_0_0_rgba(0,0,0,0)]"
           } ${isPending ? "opacity-70" : ""}`}
         >

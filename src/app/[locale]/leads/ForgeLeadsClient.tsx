@@ -23,8 +23,10 @@ import {
   DollarSign,
   Zap,
   MoreHorizontal,
-  Plus,
+  Filter,
+  ChevronLeft,
   Search,
+  Plus,
 } from "lucide-react";
 import { LeadScoreBadge } from "@/components/forge/LeadScoreBadge";
 import { NewLeadModal } from "./NewLeadModal";
@@ -32,6 +34,13 @@ import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
 import { ActivityTimeline } from "@/components/forge/ActivityTimeline";
 import { TasksPanel } from "@/components/forge/TasksPanel";
 import { createClient } from "@/utils/supabase/client";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from "@/components/ui/sheet";
 
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -310,17 +319,63 @@ export default function ForgeLeadsClient({
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-full">
+    <div className="flex flex-col md:flex-row min-h-full relative overflow-hidden">
       <NewLeadModal isOpen={isCreateModalOpen} onClose={closeCreateModal} />
 
       {/* LEFT SIDEBAR – Lead List */}
-      <aside className="w-full md:w-[320px] bg-[#080808] border-r border-neutral-900 flex flex-col shrink-0">
+      <aside className={`w-full md:w-[320px] lg:w-[380px] bg-[#080808] border-r border-neutral-900 flex flex-col shrink-0 transition-transform duration-300 ${
+        selectedLeadId ? "hidden md:flex" : "flex"
+      }`}>
         <div className="p-5 border-b border-neutral-900 space-y-4">
-          <h2 className="text-[10px] font-mono uppercase tracking-[0.3em] text-neutral-500 font-black">
-            Pipeline Intelligence
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-[10px] font-mono uppercase tracking-[0.3em] text-neutral-500 font-black">
+              Pipeline Intelligence
+            </h2>
+            
+            {/* Mobile Filter Trigger */}
+            <div className="md:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <button className="p-2 rounded-lg bg-white/[0.05] border border-white/10 text-neutral-400">
+                    <Filter className="w-3.5 h-3.5" />
+                  </button>
+                </SheetTrigger>
+                <SheetContent side="bottom" className="bg-[#0a0a0a] border-white/10 p-6 rounded-t-3xl">
+                  <SheetHeader className="mb-6">
+                    <SheetTitle className="text-white font-mono uppercase tracking-widest text-xs">Filtros Avanzados</SheetTitle>
+                  </SheetHeader>
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <p className="text-[9px] font-mono uppercase text-neutral-500">Etapa</p>
+                      <select
+                        value={stageFilter}
+                        onChange={(e) => setStageFilter(e.target.value)}
+                        className="w-full bg-white/[0.03] border border-white/10 text-sm text-neutral-300 rounded-xl px-4 py-3 focus:outline-none"
+                      >
+                        <option value="all">Todas las etapas</option>
+                        {PIPELINE_STAGES.map(s => <option key={s.key} value={s.key}>{s.label}</option>)}
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-[9px] font-mono uppercase text-neutral-500">Lead Score</p>
+                      <select
+                        value={scoreFilter}
+                        onChange={(e) => setScoreFilter(e.target.value)}
+                        className="w-full bg-white/[0.03] border border-white/10 text-sm text-neutral-300 rounded-xl px-4 py-3 focus:outline-none"
+                      >
+                        <option value="all">Todos los scores</option>
+                        <option value="hot">HOT (70+)</option>
+                        <option value="warm">WARM (30-70)</option>
+                        <option value="cold">{"COLD (<30)"}</option>
+                      </select>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+          </div>
           
-          <div className="space-y-4 pt-2">
+          <div className="hidden md:block space-y-4 pt-2">
             <div>
               <p className="text-[9px] font-mono uppercase text-neutral-600 mb-2 tracking-widest">Filtros Avanzados</p>
               <div className="grid grid-cols-2 gap-2">
@@ -341,14 +396,6 @@ export default function ForgeLeadsClient({
                   <option value="hot">HOT (70+)</option>
                   <option value="warm">WARM (30-70)</option>
                   <option value="cold">{"COLD (<30)"}</option>
-                </select>
-                <select
-                  value={serviceFilter}
-                  onChange={(e) => setServiceFilter(e.target.value)}
-                  className="bg-white/[0.03] border border-white/10 text-[10px] text-neutral-300 rounded px-2 py-1.5 focus:outline-none focus:border-emerald-500/50 col-span-2"
-                >
-                  <option value="all">Servicio: Todos</option>
-                  {services.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
             </div>
@@ -378,7 +425,7 @@ export default function ForgeLeadsClient({
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-2 py-3 space-y-1 forge-scroll">
+        <div className="flex-1 overflow-y-auto px-2 py-3 space-y-2 forge-scroll">
           {isLoading ? (
             <div className="space-y-2">
               <ForgeLeadListItemSkeleton />
@@ -402,49 +449,37 @@ export default function ForgeLeadsClient({
               }}
             />
           ) : (
-            sortedLeads.map((lead, idx) => {
-              const stage = PIPELINE_STAGES.find((s) => s.key === (lead.pipeline_status || "nuevo"));
-              const isFocused = idx === focusIndex;
+            sortedLeads.map((lead, index) => {
+              const isFocused = focusIndex === index;
+              const stage = PIPELINE_STAGES.find(s => s.key === lead.pipeline_status) || PIPELINE_STAGES[0];
               return (
                 <div
                   key={lead.id}
-                  role="button"
-                  tabIndex={0}
                   onClick={() => {
                     setSelectedLeadId(lead.id);
                     setActiveTab("PERFIL");
-                    setFocusIndex(idx);
                   }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setSelectedLeadId(lead.id);
-                      setActiveTab("PERFIL");
-                      setFocusIndex(idx);
-                    }
-                  }}
-                  onMouseEnter={() => setFocusIndex(idx)}
-                  className={`w-full text-left p-4 rounded-xl transition-all flex flex-col gap-3 group border relative overflow-hidden cursor-pointer ${
+                  className={`w-full text-left p-4 md:p-5 rounded-2xl transition-all flex flex-col gap-3 group border relative overflow-hidden cursor-pointer active:scale-[0.98] ${
                     selectedLeadId === lead.id
-                      ? "bg-white/[0.04] border-white/10"
+                      ? "bg-white/[0.08] border-white/20 shadow-2xl shadow-black/40"
                       : isFocused
-                        ? "bg-white/[0.02] border-white/5"
-                        : "bg-transparent border-transparent hover:bg-white/[0.01]"
+                        ? "bg-white/[0.04] border-white/10"
+                        : "bg-transparent border-transparent hover:bg-white/[0.02]"
                   }`}
                 >
-                  {/* Hover Quick Actions */}
-                  <div className="absolute top-2 right-2 flex gap-1 transform translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-150">
+                  {/* Hover Quick Actions - Hidden on touch, shown on hover/desktop */}
+                  <div className="absolute top-3 right-3 hidden md:flex gap-1.5 transform translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-200">
                     <button 
                       onClick={(e) => { e.stopPropagation(); toast.info("Email action coming soon"); }}
-                      className="p-1.5 rounded-lg bg-neutral-900 border border-white/10 text-white/40 hover:text-white hover:bg-neutral-800 transition-colors"
+                      className="p-2 rounded-xl bg-neutral-900 border border-white/10 text-white/40 hover:text-white hover:bg-neutral-800 transition-colors"
                     >
-                      <Mail className="w-3.5 h-3.5" />
+                      <Mail className="w-4 h-4" />
                     </button>
                     <button 
                       onClick={(e) => { e.stopPropagation(); window.location.href=`/proposals/new?leadId=${lead.id}`; }}
-                      className="p-1.5 rounded-lg bg-neutral-900 border border-white/10 text-white/40 hover:text-white hover:bg-neutral-800 transition-colors"
+                      className="p-2 rounded-xl bg-neutral-900 border border-white/10 text-white/40 hover:text-white hover:bg-neutral-800 transition-colors"
                     >
-                      <FileText className="w-3.5 h-3.5" />
+                      <FileText className="w-4 h-4" />
                     </button>
                   </div>
 
@@ -598,24 +633,32 @@ export default function ForgeLeadsClient({
                         Registrado el {format(new Date(selectedLead.created_at), "d 'de' MMMM, yyyy", { locale: es })}
                       </p>
                       {selectedLead.email_sent && (
-                        <span className="text-emerald-500/80">• Respuesta automática enviada</span>
+                        <span className="text-emerald-500/80 hidden md:inline">• Respuesta automática enviada</span>
                       )}
                     </div>
                   </div>
 
+                  {/* Back button for mobile/tablet */}
+                  <button 
+                    onClick={() => setSelectedLeadId(null)}
+                    className="md:hidden flex items-center justify-center p-3 rounded-full bg-white/[0.05] border border-white/10 text-white/70 active:scale-95 transition-all self-start mb-4"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+
                   {/* Quick Actions */}
-                  <div className="flex flex-wrap gap-2 shrink-0">
+                  <div className="flex flex-wrap gap-3 shrink-0">
                     <Link
                       href={`/proposals/new?leadId=${selectedLead.id}`}
-                      className="flex items-center gap-2 px-4 py-2.5 bg-white text-black text-[10px] font-black uppercase tracking-widest hover:bg-neutral-200 transition-all shadow-xl shadow-white/5"
+                      className="flex-1 md:flex-none flex items-center justify-center gap-2.5 px-6 py-4 bg-white text-black text-[11px] font-black uppercase tracking-widest hover:bg-neutral-200 transition-all shadow-xl shadow-white/5 rounded-xl"
                     >
-                      <FileText className="w-3.5 h-3.5" /> Crear Propuesta
+                      <FileText className="w-4 h-4" /> <span className="md:inline">Crear Propuesta</span>
                     </Link>
                     <a
                       href={`mailto:${selectedLead.email}`}
-                      className="flex items-center gap-2 px-4 py-2.5 bg-neutral-900 border border-white/10 text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
+                      className="flex-1 md:flex-none flex items-center justify-center gap-2.5 px-6 py-4 bg-neutral-900 border border-white/10 text-white text-[11px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all rounded-xl"
                     >
-                      <Mail className="w-3.5 h-3.5" /> Enviar Email
+                      <Mail className="w-4 h-4" /> <span className="md:inline">Email</span>
                     </a>
                   </div>
                 </div>

@@ -186,22 +186,25 @@ export default function ForgeLayoutClient({
 
           {/* MOBILE LAYOUT & FAB */}
           <div className="md:hidden flex min-w-0 flex-col h-dvh overflow-hidden bg-[#050505] text-white relative">
-            <EnvironmentBanner />
-            <ForgeMobileHeader />
-            <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden pb-[calc(env(safe-area-inset-bottom)+7rem)] forge-scroll flex flex-col relative">
+            <div className="sticky top-0 z-50 flex flex-col">
+              <EnvironmentBanner />
+              <ForgeMobileHeader />
+            </div>
+            
+            <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden pb-[calc(env(safe-area-inset-bottom)+5rem)] forge-scroll flex flex-col relative">
               <ForgeContentWrapper>{children}</ForgeContentWrapper>
             </main>
 
-            {/* Floating Action Button (FAB) */}
+            {/* Floating Action Button (FAB) - Touch optimized size */}
             <button
               onClick={() => setCommandBarOpen(true)}
               style={{
-                right: "calc(env(safe-area-inset-right) + 1rem)",
-                bottom: "calc(env(safe-area-inset-bottom) + 1.5rem)",
+                right: "calc(env(safe-area-inset-right) + 1.25rem)",
+                bottom: "calc(env(safe-area-inset-bottom) + 1.25rem)",
               }}
-              className="fixed w-14 h-14 bg-emerald-500 text-black rounded-full flex items-center justify-center shadow-[0_4px_25px_rgba(16,185,129,0.4)] hover:bg-emerald-400 transition-all active:scale-90 z-40"
+              className="fixed w-16 h-16 bg-emerald-500 text-black rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(16,185,129,0.5)] hover:bg-emerald-400 transition-all active:scale-95 z-40 touch-none"
               aria-label="Menú de creación rápida">
-              <Plus className="w-8 h-8" strokeWidth={2.5} />
+              <Plus className="w-8 h-8" strokeWidth={3} />
             </button>
           </div>
 
