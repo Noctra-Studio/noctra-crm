@@ -42,6 +42,7 @@ import {
 import type { Deliverable } from "@/app/actions/deliverables";
 import { AIProfitabilityDashboard } from "@/components/forge/projects/AIProfitabilityDashboard";
 import { NewProjectModal } from "@/components/forge/NewProjectModal";
+import { ActivityTimeline } from "@/components/forge/ActivityTimeline";
 
 type StatusHistory = {
   id: string;
@@ -87,7 +88,7 @@ export default function ForgeProjectsClient({
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<
-    "detalles" | "rentabilidad" | "tareas" | "entregables"
+    "detalles" | "rentabilidad" | "tareas" | "entregables" | "actividad"
   >("detalles");
   const [isCreating, setIsCreating] = useState(false);
   const [unsavedIds, setUnsavedIds] = useState<Set<string>>(new Set());
@@ -612,6 +613,11 @@ export default function ForgeProjectsClient({
                 className={`pb-2 md:pb-4 text-[10px] font-mono uppercase tracking-widest transition-colors border-b-2 ${activeTab === "entregables" ? "border-emerald-500 text-emerald-400" : "border-transparent text-neutral-500 hover:text-neutral-300"}`}>
                 Entregables
               </button>
+              <button
+                onClick={() => setActiveTab("actividad")}
+                className={`pb-2 md:pb-4 text-[10px] font-mono uppercase tracking-widest transition-colors border-b-2 ${activeTab === "actividad" ? "border-emerald-500 text-emerald-400" : "border-transparent text-neutral-500 hover:text-neutral-300"}`}>
+                Actividad
+              </button>
             </div>
 
             {activeTab === "tareas" && (
@@ -644,6 +650,19 @@ export default function ForgeProjectsClient({
                 newDeliverable={newDeliverable}
                 setNewDeliverable={setNewDeliverable}
               />
+            )}
+
+            {activeTab === "actividad" && (
+              <div className="space-y-6 py-4">
+                <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
+                  Bitácora de actividad del proyecto
+                </p>
+                <ActivityTimeline
+                  entityType="project"
+                  entityId={selectedProject.id}
+                  showAddForm={true}
+                />
+              </div>
             )}
 
             {activeTab === "rentabilidad" && (

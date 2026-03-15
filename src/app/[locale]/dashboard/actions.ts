@@ -109,3 +109,44 @@ export async function getDashboardData(locale: string = "en") {
     deliverable: deliverable.data,
   };
 }
+
+export async function getInsights() {
+  const supabase = await createClient();
+
+  const [
+    { data: idleLeads },
+    { data: viewedProposals },
+    { data: pendingContracts },
+    { data: pipelineData }
+  ] = await Promise.all([
+    // 1. Leads without activity for 5 days
+    supabase.from("contact_submissions")
+      .select("id, name, company, created_at")
+      .eq("status", "nuevo")
+      .lt("created_at", new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()),
+    
+    // 2. Proposals viewed but not signed/accepted
+    supabase.from("proposals")
+      .select("id, title, viewed_at, total")
+      .eq("status", "viewed")
+      .is("signed_at", null),
+
+    // 3. Contracts sent but not signed
+    supabase.from("contracts")
+      .select("id, contract_number, created_at")
+      .eq("status", "sent"),
+
+    // 4. Pipeline for forecast
+    supabase.from("contact_submissions")
+      .select("id, value, status")
+      .not("status", "in", '("ganado", "perdido")')
+      .not("value", "is", null)
+  ]);
+
+  return {
+    idleLeads: idleLeads || [],
+    viewedProposals: viewedProposals || [],
+    pendingContracts: pendingContracts || [],
+    forecast: pipelineData || []
+  };
+}

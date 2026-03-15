@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createAdminClient } from "@/utils/supabase/admin";
 import { recordWorkspaceActivity } from "@/lib/activity";
+import { onProposalAccepted } from "@/app/actions/crm-automations";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -54,12 +55,19 @@ export async function POST(req: Request) {
     if (updateError) throw updateError;
 
     // 4. Update lead status in pipeline if applicable
-    if (proposal.lead_id) {
-       await supabase
-         .from("contact_submissions")
-         .update({ pipeline_status: 'cerrado' })
-         .eq("id", proposal.lead_id);
-    }
+     if (proposal.lead_id) {
+        await supabase
+          .from("contact_submissions")
+          .update({ pipeline_status: 'cerrado' })
+          .eq("id", proposal.lead_id);
+     }
+
+     // Trigger Workflow Automation: Generate Contract
+     try {
+       await onProposalAccepted(proposal.id);
+     } catch (e) {
+       console.error("Workflow Automation Error (Proposal -> Contract):", e);
+     }
 
     await recordWorkspaceActivity(supabase, {
       workspaceId: proposal.workspace_id,

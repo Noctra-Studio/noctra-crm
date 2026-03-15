@@ -76,46 +76,97 @@ export default async function ForgeClientsPage({
     });
   }
 
+  // Fetch activity for clients
+  const { data: activityEvents } = await supabase
+    .from("workspace_activity_events")
+    .select("entity_id, created_at, entity_type")
+    .in("entity_type", ["project", "contract", "client"])
+    .order("created_at", { ascending: false });
+
   // Merge and deduplicate by email
   const mergedClients = new Map();
 
-  // 1. Project-based clients (Active/Completed)
+  // 1. Helper to find latest activity
+  const getLatestActivity = (clientEmail: string, projectIds: string[], contractIds: string[]) => {
+    const relevantEvents = (activityEvents || []).filter(e => 
+      (e.entity_type === 'project' && projectIds.includes(e.entity_id || '')) ||
+      (e.entity_type === 'contract' && contractIds.includes(e.entity_id || ''))
+    );
+    return relevantEvents[0]?.created_at || null;
+  };
+
+  // Process Projects
   (projectClients || []).forEach((p) => {
     const email = p.client_email || `p-${p.id}`;
-    mergedClients.set(email, {
+    const existing = mergedClients.get(email) || {
       id: p.id,
       name: p.client_name ?? p.name,
       email: p.client_email,
       company: p.client_company,
       serviceType: (p as any).contracts?.service_type ?? null,
       status: p.status,
-      phase: (p as any).phase, // Need to make sure project table has phase or map it
       source: "project",
-      projectId: p.id,
+      projectIds: [],
+      contractIds: [],
+      totalRevenue: 0,
+      activeProjects: 0,
       createdAt: p.created_at,
-    });
+    };
+
+    existing.projectIds.push(p.id);
+    if (p.contract_id) existing.contractIds.push(p.contract_id);
+    if (['discovery', 'build'].includes(p.status)) {
+      existing.activeProjects++;
+    }
+    
+    mergedClients.set(email, existing);
   });
 
-  // 2. Contract-only clients (Signed but no project yet)
+  // Process Contracts for Revenue and Missing Clients
   (contractClients || []).forEach((c) => {
     const email = c.client_email || `c-${c.id}`;
-    if (!mergedClients.has(email)) {
-      mergedClients.set(email, {
+    let existing = mergedClients.get(email);
+
+    if (!existing) {
+      existing = {
         id: c.id,
         name: c.client_name,
         email: c.client_email,
         company: c.client_company,
         serviceType: c.service_type,
         status: "pending_project",
-        phase: null,
         source: "contract",
-        projectId: null,
+        projectIds: [],
+        contractIds: [],
+        totalRevenue: 0,
+        activeProjects: 0,
         createdAt: c.created_at,
-      });
+      };
+      mergedClients.set(email, existing);
     }
+
+    if (!existing.contractIds.includes(c.id)) {
+      existing.contractIds.push(c.id);
+    }
+    existing.totalRevenue += Number(c.total_price || 0);
   });
 
-  const finalClients = Array.from(mergedClients.values());
+  const finalClients = Array.from(mergedClients.values()).map(client => {
+    const lastActivity = getLatestActivity(client.email, client.projectIds, client.contractIds) || client.createdAt;
+    
+    // Calculate Health
+    let health: 'healthy' | 'attention' | 'risk' = 'healthy';
+    const daysSinceActivity = (Date.now() - new Date(lastActivity).getTime()) / (1000 * 60 * 60 * 24);
+    
+    if (daysSinceActivity > 10) health = 'risk';
+    else if (daysSinceActivity > 5 || client.status === 'pending_project') health = 'attention';
+
+    return {
+      ...client,
+      lastActivity,
+      health
+    };
+  });
 
   return (
     <div className="h-screen flex flex-col overflow-hidden">

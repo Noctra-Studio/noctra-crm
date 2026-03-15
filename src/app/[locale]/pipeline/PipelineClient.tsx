@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -26,6 +26,8 @@ import { FollowUpBanner } from "@/components/forge/FollowUpBanner";
 import { FollowUpModal } from "@/components/forge/FollowUpModal";
 import { FollowUpSuggestion } from "@/app/actions/followup";
 import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
+import { PipelineSummary } from "@/components/forge/pipeline/PipelineSummary";
+import { PipelineAlerts } from "@/components/forge/pipeline/PipelineAlerts";
 
 type Lead = {
   id: string;
@@ -48,8 +50,6 @@ type Lead = {
   lead_score?: number;
   lead_score_breakdown?: any;
 };
-
-// Placeholder if STAGES is deleted, we will derive from config
 
 const FALLBACK_STAGE_COLORS: Record<string, string> = {
   nuevo: "bg-neutral-500/20 text-neutral-400 border-neutral-500/30",
@@ -97,6 +97,7 @@ export default function PipelineClient({
     id: s.toLowerCase().replace(/ /g, "_"),
     label: getStageLabel(s),
   }));
+
   const [leads, setLeads] = useState<Lead[]>(initialLeads);
   const [selectedLeadId, setSelectedLeadId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -118,6 +119,29 @@ export default function PipelineClient({
     (s) => s.type === "lead_no_contact_3d" || s.type === "contract_sent_3d",
   );
 
+  // Scroll state for horizontal board interactions
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [maxScroll, setMaxScroll] = useState(0);
+  const boardRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const target = e.currentTarget;
+    setScrollPosition(target.scrollLeft);
+    setMaxScroll(target.scrollWidth - target.clientWidth);
+  };
+
+  useEffect(() => {
+    if (boardRef.current) {
+      setMaxScroll(boardRef.current.scrollWidth - boardRef.current.clientWidth);
+    }
+  }, [leads, searchTerm]);
+
+  const scrollToStart = () => {
+    if (boardRef.current) {
+      boardRef.current.scrollTo({ left: 0, behavior: "smooth" });
+    }
+  };
+
   const supabase = createClient();
 
   useEffect(() => {
@@ -134,7 +158,6 @@ export default function PipelineClient({
     fetchAlerts();
   }, [supabase]);
 
-  // Filter leads based on search
   const filteredLeads = leads.filter(
     (l) =>
       l.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -153,7 +176,6 @@ export default function PipelineClient({
       stageLeads = filteredLeads.filter((l) => l.pipeline_status === stageId);
     }
 
-    // Sort NUEVO column by lead_score descending
     if (stageId === "nuevo") {
       return stageLeads.sort(
         (a, b) => (b.lead_score || 0) - (a.lead_score || 0),
@@ -179,12 +201,6 @@ export default function PipelineClient({
     if (!lead) return;
 
     let newStatus = destination.droppableId;
-
-    // Special case for the split Resolution column
-    // Since we only have 5 columns, and 'cerrado'/'perdido' share the 5th
-    // We'll need a way to distinguish.
-    // Actually, I'll make the 5th column provide two drop areas or just handle it.
-    // The user said "CERRADO (green) | PERDIDO (red) — split at bottom"
 
     if (newStatus === "resolution_cerrado") {
       await updateLeadStatus(lead.id, "cerrado");
@@ -303,41 +319,31 @@ export default function PipelineClient({
         </div>
       </header>
 
-      {/* Follow-up Banners */}
-      {pipelineSuggestions.length > 0 && (
-        <div className="px-6 pt-4">
-          {pipelineSuggestions.map((s) => (
-            <FollowUpBanner
-              key={s.id}
-              suggestion={s}
-              onOpenModal={setSelectedFollowUp}
-              onDismiss={dismiss}
-              onActionComplete={refresh}
-            />
-          ))}
-        </div>
-      )}
+      {/* Pipeline Summary Component */}
+      <PipelineSummary
+        totalValue={filteredLeads.reduce((sum, l) => sum + (l.estimated_value || 0), 0)}
+        activeDeals={filteredLeads.filter((l) => l.pipeline_status !== "perdido").length}
+        expectedRevenue={filteredLeads
+          .filter(
+            (l) =>
+              l.pipeline_status === "cerrado" ||
+              l.pipeline_status === "en_negociacion",
+          )
+          .reduce((sum, l) => sum + (l.estimated_value || 0), 0)}
+      />
 
-      {/* Alert Banner */}
-      {alerts.length > 0 && (
-        <div className="bg-[#1a1200] border-b border-amber-900/30 p-4 flex items-center justify-between animate-in fade-in duration-500">
-          <div className="flex items-center gap-4">
-            <AlertCircle className="w-4 h-4 text-amber-500" />
-            <p className="text-[10px] font-mono uppercase tracking-widest text-amber-200">
-              {alerts.length} leads sin actividad en los últimos 3 días (o
-              acciones vencidas)
-            </p>
-          </div>
-          <button
-            onClick={() => {
-              const firstAlertId = alerts[0].id;
-              setSelectedLeadId(firstAlertId);
-            }}
-            className="text-[10px] font-mono uppercase tracking-widest text-amber-500 hover:text-amber-400 underline underline-offset-4">
-            Atender primer lead →
-          </button>
-        </div>
-      )}
+      {/* Unified Follow-up Alert Component */}
+      <PipelineAlerts
+        alerts={alerts}
+        suggestions={pipelineSuggestions}
+        onViewDetails={() => {
+          if (alerts.length > 0) {
+            setSelectedLeadId(alerts[0].id);
+          } else if (pipelineSuggestions.length > 0) {
+            setSelectedFollowUp(pipelineSuggestions[0]);
+          }
+        }}
+      />
 
       {/* Kanban Board */}
       {leads.length === 0 ? (
@@ -380,113 +386,156 @@ export default function PipelineClient({
           />
         </div>
       ) : (
-        <div className="overflow-x-auto p-6 bg-[#050505] forge-scroll">
-          <DragDropContext onDragEnd={onDragEnd}>
-            <div className="flex gap-4 h-full min-w-max pb-4">
-              {STAGES.map((stage: any) => (
-                <div
-                  key={stage.id}
-                  className="w-[280px] flex flex-col shrink-0">
-                  {/* Column Header */}
-                  <div className="flex items-center justify-between mb-4 group px-2">
-                    <h3 className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-300 flex items-center gap-2">
-                      <span
-                        className={`w-1.5 h-1.5 rounded-full ${getStageColor(stage.id).split(" ")[0]}`}
-                      />
-                      {stage.label}
-                    </h3>
-                    <span className="text-[9px] font-mono text-neutral-700 bg-white/[0.02] px-1.5 py-0.5">
-                      {getLeadsByStage(stage.id).length}
-                    </span>
-                  </div>
+        <div className="relative group/board">
+          {/* Scroll to Start Floating Button */}
+          {scrollPosition > 50 && (
+            <button
+              onClick={scrollToStart}
+              className="absolute left-6 top-1/2 -translate-y-1/2 z-20 bg-black/80 hover:bg-black border border-neutral-800 text-neutral-400 hover:text-white rounded-full p-2.5 shadow-xl transition-all animate-in fade-in zoom-in duration-300"
+              title="Scroll to start"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+          )}
 
-                  {/* Column Content */}
-                  <div className="flex-1 bg-[#0d0d0d] border border-[#1f1f1f] flex flex-col min-h-0">
-                    {/* Special Handling for the 5th column split */}
-                    {stage.id === "cerrado" ? (
-                      <div className="flex-1 flex flex-col min-h-0">
-                        {/* Won Drop Zone */}
-                        <Droppable droppableId="resolution_cerrado">
-                          {(provided, snapshot) => (
-                            <div
-                              {...provided.droppableProps}
-                              ref={provided.innerRef}
-                              className={`flex-1 min-h-[200px] p-3 space-y-3 transition-all forge-scroll ${snapshot.isDraggingOver ? "bg-emerald-500/8 ring-1 ring-inset ring-emerald-500/30" : ""}`}>
-                              <div className="text-[8px] font-mono text-neutral-800 uppercase tracking-widest text-center mb-2 border-b border-neutral-900 pb-2">
-                                WON / CERRADO
-                              </div>
-                              {getLeadsByStage("cerrado")
-                                .filter((l) => l.pipeline_status === "cerrado")
-                                .map((lead, index) => (
-                                  <LeadCard
-                                    key={lead.id}
-                                    lead={lead}
-                                    index={index}
-                                    isPending={pendingLeadId === lead.id}
-                                    onClick={() => setSelectedLeadId(lead.id)}
-                                  />
-                                ))}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Droppable>
+          {/* Left/Right Edge Fades */}
+          <div
+            className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#050505] to-transparent z-10 transition-opacity duration-300"
+            style={{ opacity: scrollPosition > 10 ? 1 : 0 }}
+          />
+          <div
+            className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#050505] to-transparent z-10 transition-opacity duration-300"
+            style={{ opacity: maxScroll > 0 && scrollPosition < maxScroll - 10 ? 1 : 0 }}
+          />
 
-                        {/* Lost Drop Zone */}
-                        <Droppable droppableId="resolution_perdido">
-                          {(provided, snapshot) => (
-                            <div
-                              {...provided.droppableProps}
-                              ref={provided.innerRef}
-                              className={`h-[40%] min-h-[150px] border-t border-neutral-900 p-3 space-y-3 transition-all forge-scroll ${snapshot.isDraggingOver ? "bg-red-500/8 ring-1 ring-inset ring-red-500/30" : ""}`}>
-                              <div className="text-[8px] font-mono text-neutral-800 uppercase tracking-widest text-center mb-2 border-b border-neutral-900 pb-2">
-                                LOST / PERDIDO
-                              </div>
-                              {getLeadsByStage("cerrado")
-                                .filter((l) => l.pipeline_status === "perdido")
-                                .map((lead, index) => (
-                                  <LeadCard
-                                    key={lead.id}
-                                    lead={lead}
-                                    index={index}
-                                    isPending={pendingLeadId === lead.id}
-                                    onClick={() => setSelectedLeadId(lead.id)}
-                                  />
-                                ))}
-                              {provided.placeholder}
-                            </div>
+          <div
+            ref={boardRef}
+            onScroll={handleScroll}
+            className="overflow-x-auto overflow-y-visible px-6 py-6 bg-[#050505] custom-scrollbar"
+          >
+            <DragDropContext onDragEnd={onDragEnd}>
+              <div className="flex items-start gap-4 min-w-max pb-8">
+                {STAGES.map((stage: any) => (
+                  <div
+                    key={stage.id}
+                    className="w-[280px] flex flex-col shrink-0"
+                  >
+                    {/* Column Header */}
+                    <div className="flex flex-col mb-4 group px-2 border-b border-neutral-900 pb-2">
+                      <h3 className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-300 flex items-center gap-2">
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${getStageColor(stage.id).split(" ")[0]}`}
+                        />
+                        {stage.label}
+                      </h3>
+                      <div className="text-[10px] text-neutral-500 font-mono mt-1 flex items-center gap-2">
+                        <span>{getLeadsByStage(stage.id).length} deals</span>
+                        <span>·</span>
+                        <span className="text-emerald-500/80">
+                          {new Intl.NumberFormat("es-MX", {
+                            style: "currency",
+                            currency: "MXN",
+                            maximumFractionDigits: 0,
+                          }).format(
+                            getLeadsByStage(stage.id).reduce(
+                              (sum, l) => sum + (l.estimated_value || 0),
+                              0,
+                            ),
                           )}
-                        </Droppable>
+                        </span>
                       </div>
-                    ) : (
-                      <Droppable droppableId={stage.id}>
-                        {(provided, snapshot) => (
-                          <div
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                            className={`flex-1 min-h-[400px] p-3 space-y-3 transition-all forge-scroll ${
-                              snapshot.isDraggingOver
-                                ? "bg-white/[0.03] ring-1 ring-inset ring-white/10"
-                                : ""
-                            }`}>
-                            {getLeadsByStage(stage.id).map((lead, index) => (
-                              <LeadCard
-                                key={lead.id}
-                                lead={lead}
-                                index={index}
-                                isPending={pendingLeadId === lead.id}
-                                onClick={() => setSelectedLeadId(lead.id)}
-                              />
-                            ))}
-                            {provided.placeholder}
-                          </div>
-                        )}
-                      </Droppable>
-                    )}
+                    </div>
+
+                    {/* Column Content */}
+                    <div className="bg-[#0d0d0d] border border-[#1f1f1f] flex flex-col rounded-sm">
+                      {stage.id === "cerrado" ? (
+                        <div className="flex flex-col">
+                          {/* Won Drop Zone */}
+                          <Droppable droppableId="resolution_cerrado">
+                            {(provided, snapshot) => (
+                              <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                className={`p-3 space-y-3 transition-colors ${snapshot.isDraggingOver ? "bg-emerald-500/8 ring-1 ring-inset ring-emerald-500/30" : ""}`}
+                              >
+                                <div className="text-[8px] font-mono text-neutral-800 uppercase tracking-widest text-center mb-2 border-b border-neutral-900 pb-2">
+                                  WON / CERRADO
+                                </div>
+                                {getLeadsByStage("cerrado")
+                                  .filter((l) => l.pipeline_status === "cerrado")
+                                  .map((lead, index) => (
+                                    <LeadCard
+                                      key={lead.id}
+                                      lead={lead}
+                                      index={index}
+                                      isPending={pendingLeadId === lead.id}
+                                      onClick={() => setSelectedLeadId(lead.id)}
+                                    />
+                                  ))}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
+
+                          {/* Lost Drop Zone */}
+                          <Droppable droppableId="resolution_perdido">
+                            {(provided, snapshot) => (
+                              <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                className={`border-t border-neutral-900 p-3 space-y-3 transition-colors ${snapshot.isDraggingOver ? "bg-red-500/8 ring-1 ring-inset ring-red-500/30" : ""}`}
+                              >
+                                <div className="text-[8px] font-mono text-neutral-800 uppercase tracking-widest text-center mb-2 border-b border-neutral-900 pb-2">
+                                  LOST / PERDIDO
+                                </div>
+                                {getLeadsByStage("cerrado")
+                                  .filter((l) => l.pipeline_status === "perdido")
+                                  .map((lead, index) => (
+                                    <LeadCard
+                                      key={lead.id}
+                                      lead={lead}
+                                      index={index}
+                                      isPending={pendingLeadId === lead.id}
+                                      onClick={() => setSelectedLeadId(lead.id)}
+                                    />
+                                  ))}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
+                        </div>
+                      ) : (
+                        <Droppable droppableId={stage.id}>
+                          {(provided, snapshot) => (
+                            <div
+                              {...provided.droppableProps}
+                              ref={provided.innerRef}
+                              className={`min-h-[150px] p-3 space-y-3 transition-colors ${
+                                snapshot.isDraggingOver
+                                  ? "bg-white/[0.03] ring-1 ring-inset ring-white/10"
+                                  : ""
+                              }`}
+                            >
+                              {getLeadsByStage(stage.id).map((lead, index) => (
+                                <LeadCard
+                                  key={lead.id}
+                                  lead={lead}
+                                  index={index}
+                                  isPending={pendingLeadId === lead.id}
+                                  onClick={() => setSelectedLeadId(lead.id)}
+                                />
+                              ))}
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </DragDropContext>
+                ))}
+              </div>
+            </DragDropContext>
+          </div>
         </div>
       )}
 
@@ -513,12 +562,14 @@ export default function PipelineClient({
                 onClick={() =>
                   updateLeadStatus(lostPromptId, "perdido", lostReason)
                 }
-                className="flex-1 bg-red-500 text-black text-[10px] font-black uppercase tracking-widest py-3 hover:bg-red-400 transition-all">
+                className="flex-1 bg-red-500 text-black text-[10px] font-black uppercase tracking-widest py-3 hover:bg-red-400 transition-all"
+              >
                 Confirmar
               </button>
               <button
                 onClick={() => setLostPromptId(null)}
-                className="flex-1 bg-white/[0.05] text-white text-[10px] font-black uppercase tracking-widest py-3 hover:bg-white/[0.1] transition-all">
+                className="flex-1 bg-white/[0.05] text-white text-[10px] font-black uppercase tracking-widest py-3 hover:bg-white/[0.1] transition-all"
+              >
                 Omitir
               </button>
             </div>
@@ -558,10 +609,17 @@ function LeadCard({
   isPending: boolean;
   onClick: () => void;
 }) {
+  const daysSinceCreated =
+    parseInt(formatDistanceToNow(new Date(lead.created_at)).split(" ")[0]) || 0;
+
   const isOverdue = (date: string) => {
     if (!date) return false;
     return new Date(date) < new Date();
   };
+
+  const isStale = !lead.closed_at && daysSinceCreated >= 10;
+  const isUrgent = !lead.closed_at && daysSinceCreated >= 14;
+  const isWarning = !lead.closed_at && daysSinceCreated >= 7 && daysSinceCreated < 14;
 
   return (
     <Draggable draggableId={lead.id} index={index} isDragDisabled={isPending}>
@@ -575,29 +633,30 @@ function LeadCard({
             snapshot.isDragging
               ? "z-[60] -rotate-[1.5deg] scale-[1.02] border-emerald-500/30 shadow-[0_24px_70px_rgba(0,0,0,0.45)] ring-1 ring-emerald-500/20"
               : "shadow-[0_0_0_rgba(0,0,0,0)]"
-          } ${isPending ? "opacity-70" : ""}`}>
+          } ${isPending ? "opacity-70" : ""}`}
+        >
           {snapshot.isDragging && (
             <div className="pointer-events-none absolute inset-x-4 -bottom-2 h-4 rounded-full bg-black/40 blur-md" />
           )}
-          {/* Activity Dot */}
-          {!lead.closed_at &&
-            formatDistanceToNow(new Date(lead.created_at)).includes("days") &&
-            parseInt(
-              formatDistanceToNow(new Date(lead.created_at)).split(" ")[0],
-            ) >= 3 && (
-              <div
-                className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"
-                title="Sin actividad reciente"
-              />
-            )}
 
-          <div className="space-y-1">
-            <h4 className="text-[13px] font-semibold text-neutral-100 group-hover:text-white transition-colors">
+          {/* Urgency Indicator (Left border strip) */}
+          {isUrgent && <div className="absolute top-0 bottom-0 left-0 w-1 bg-red-500/80 rounded-l-md" />}
+          {isWarning && <div className="absolute top-0 bottom-0 left-0 w-1 bg-amber-500/80 rounded-l-md" />}
+
+          {/* Activity Dot */}
+          {!lead.closed_at && daysSinceCreated >= 3 && (
+            <div
+              className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse hidden"
+              title="Sin actividad reciente"
+            />
+          )}
+
+          <div className="space-y-1 pr-6">
+            <h4 className="text-[13px] font-semibold text-neutral-100 group-hover:text-white transition-colors line-clamp-1">
               {lead.name}
             </h4>
-            <div className="flex items-center gap-2">
-              <span
-                className={`text-[8px] font-mono font-black uppercase tracking-widest px-1.5 py-0.5 border text-neutral-400 bg-neutral-400/10 border-neutral-400/20`}>
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              <span className="text-[8px] font-mono font-black uppercase tracking-widest px-1.5 py-0.5 border text-neutral-400 bg-neutral-400/10 border-neutral-400/20">
                 {getStageLabel(lead.service_interest)}
               </span>
               <span className="text-[8px] font-mono text-neutral-700">
@@ -605,8 +664,8 @@ function LeadCard({
               </span>
             </div>
             {lead.lead_score !== undefined && (
-              <div className="pt-1">
-                <LeadScoreBadge score={lead.lead_score} />
+              <div className="pt-1 flex items-center gap-2">
+                <LeadScoreBadge score={lead.lead_score} breakdown={lead.lead_score_breakdown} />
               </div>
             )}
           </div>
@@ -616,14 +675,12 @@ function LeadCard({
               <div className="flex items-center gap-1 text-emerald-500">
                 <DollarSign className="w-3 h-3" />
                 <span className="text-[11px] font-bold">
-                  {
-                    new Intl.NumberFormat("es-MX", {
-                      style: "currency",
-                      currency: "MXN",
-                    })
-                      .format(lead.estimated_value)
-                      .split(",")[0]
-                  }
+                  {new Intl.NumberFormat("es-MX", {
+                    style: "currency",
+                    currency: "MXN",
+                  })
+                    .format(lead.estimated_value)
+                    .split(",")[0]}
                 </span>
               </div>
             ) : (
@@ -644,28 +701,73 @@ function LeadCard({
 
           {(lead.next_action || lead.next_action_date) && (
             <div
-              className={`mt-2 p-2 border border-white/[0.03] space-y-1 ${isOverdue(lead.next_action_date) ? "bg-red-500/5" : "bg-white/[0.01]"}`}>
+              className={`mt-2 p-2 border border-white/[0.03] space-y-1 ${isOverdue(lead.next_action_date) ? "bg-red-500/10 border-red-500/20" : "bg-neutral-900/50"}`}
+            >
               <div className="flex items-center justify-between">
-                <span className="text-[8px] font-mono text-neutral-400 uppercase tracking-widest">
+                <span className={`text-[8px] font-mono uppercase tracking-widest ${isOverdue(lead.next_action_date) ? "text-red-400 font-bold" : "text-neutral-400"}`}>
                   Next Action
                 </span>
                 {lead.next_action_date && (
                   <span
-                    className={`text-[8px] font-mono font-bold ${isOverdue(lead.next_action_date) ? "text-red-500" : "text-amber-500/80"}`}>
-                    {new Date(lead.next_action_date).toLocaleDateString(
-                      "es-MX",
-                      { month: "short", day: "numeric" },
-                    )}
+                    className={`text-[8px] font-mono font-bold ${isOverdue(lead.next_action_date) ? "text-red-500 animate-pulse" : "text-amber-500/80"}`}
+                  >
+                    {new Date(lead.next_action_date).toLocaleDateString("es-MX", {
+                      month: "short",
+                      day: "numeric",
+                    })}
                   </span>
                 )}
               </div>
               <p
-                className={`text-[10px] leading-tight flex items-center gap-2 ${isOverdue(lead.next_action_date) ? "text-red-400" : "text-amber-500"}`}>
-                <ChevronRight className="w-2.5 h-2.5" />
-                {lead.next_action || "Pending definition"}
+                className={`text-[11px] font-medium leading-tight flex items-center gap-2 ${isOverdue(lead.next_action_date) ? "text-red-300" : "text-amber-500"}`}
+              >
+                <ChevronRight className="w-3 h-3 shrink-0" />
+                <span className="line-clamp-2">{lead.next_action || "Pending definition"}</span>
               </p>
             </div>
           )}
+
+          {isStale && (
+            <div className="mt-1 flex items-center gap-1.5 text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-1 rounded-sm w-fit">
+              <AlertCircle className="w-3 h-3" />
+              <span className="text-[9px] font-mono font-bold uppercase tracking-widest">
+                Needs attention
+              </span>
+            </div>
+          )}
+
+          {/* Owner Avatar */}
+          <div
+            className="absolute top-3 right-3 w-6 h-6 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden"
+            title="Assigned to you"
+          >
+            <span className="text-[9px] font-mono text-neutral-400">ME</span>
+          </div>
+
+          {/* Quick Actions Hover Palette */}
+          <div
+            className="absolute top-2 right-10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 bg-[#1a1a1a] p-1 border border-neutral-800 rounded-md z-10 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="p-1.5 hover:bg-neutral-800 text-neutral-400 hover:text-white rounded transition-colors"
+              title="Send email"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </button>
+            <button
+              className="p-1.5 hover:bg-neutral-800 text-neutral-400 hover:text-white rounded transition-colors"
+              title="Schedule"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            </button>
+            <button
+              className="p-1.5 hover:bg-neutral-800 text-neutral-400 hover:text-white rounded transition-colors"
+              title="Add note"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
         </div>
       )}
     </Draggable>

@@ -84,9 +84,39 @@ export default function ForgeLayoutClient({
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      // Command Palette (Cmd + K)
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setCommandBarOpen(true);
+        return;
+      }
+
+      // Ignore shortcuts if in an input or textarea
+      const isInput = ["INPUT", "TEXTAREA"].includes((e.target as HTMLElement).tagName);
+      if (isInput) return;
+
+      // Global Shortcuts
+      switch (e.key.toLowerCase()) {
+        case "j":
+          e.preventDefault();
+          window.dispatchEvent(new CustomEvent("forge-navigate", { detail: { direction: "down" } }));
+          break;
+        case "k":
+          e.preventDefault();
+          window.dispatchEvent(new CustomEvent("forge-navigate", { detail: { direction: "up" } }));
+          break;
+        case "enter":
+          // Open selected item
+          window.dispatchEvent(new CustomEvent("forge-select-active"));
+          break;
+        case "c":
+          // Create Client/Lead (context dependent)
+          openQuickAction("new-lead");
+          break;
+        case "p":
+          // Create Proposal
+          openQuickAction("new-proposal");
+          break;
       }
     };
     window.addEventListener("keydown", handler);

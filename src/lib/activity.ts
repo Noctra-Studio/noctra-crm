@@ -25,6 +25,7 @@ export type ActivityEventType =
   | "project.created"
   | "project.updated"
   | "project.status_changed"
+  | "project.deliverables_added"
   | "client.added"
   | "migration.completed"
   | "document.added"

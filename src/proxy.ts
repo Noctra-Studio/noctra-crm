@@ -12,7 +12,7 @@ const intlMiddleware = createMiddleware(routing);
 
 const MAIN_DOMAINS = ["noctra.studio", "www.noctra.studio", "localhost:3000"];
 
-export default async function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const host = request.headers.get("host") || "";
   const { pathname } = request.nextUrl;
   const locale = extractLocaleFromPath(pathname);

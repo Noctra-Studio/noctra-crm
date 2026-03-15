@@ -21,6 +21,7 @@ const Cursor = dynamic(() =>
 
 import { SmoothScroll } from "@/components/SmoothScroll";
 import Script from "next/script";
+import { Toaster } from "sonner";
 
 // Satoshi - Brand primary font
 const satoshi = localFont({
@@ -140,6 +141,7 @@ export default async function LocaleLayout({
               {children}
             </ForgeLayoutClient>
             <ScrollToTop />
+            <Toaster position="top-center" richColors theme="dark" closeButton />
           </ThemeProvider>
         </IntroProvider>
       </NextIntlClientProvider>

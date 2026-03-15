@@ -5,6 +5,7 @@ import BudgetTracker from "../cards/BudgetTracker";
 import VelocityTracker from "../cards/VelocityTracker";
 import ActiveWorker from "../cards/ActiveWorker";
 import ApprovalCard from "../ApprovalCard";
+import { CommandCenter } from "../CommandCenter";
 
 import { DashboardData } from "@/types/dashboard";
 
@@ -32,6 +33,8 @@ export default function OverviewView({ data }: OverviewViewProps) {
           <VelocityTracker services={data.services} />
           <ActiveWorker worker={data.activeWorker} />
         </div>
+
+        <CommandCenter />
 
         <div className="flex-1 min-h-0">
           <div className="relative h-full">

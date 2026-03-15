@@ -17,6 +17,7 @@ import {
   FileText,
 } from "lucide-react";
 import { SignatureForm } from "./SignatureSection";
+import { ProposalTracker } from "@/components/forge/proposals/ProposalTracker";
 
 export const dynamic = "force-dynamic";
 
@@ -107,6 +108,7 @@ export default async function ClientProposalPage({
 
   return (
     <div className="min-h-screen bg-[#fafafa] text-neutral-900 selection:bg-emerald-100 pb-32">
+      <ProposalTracker proposalId={proposal.id} />
       {/* Top Navigation / Status */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100 print:hidden">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -181,7 +183,7 @@ export default async function ClientProposalPage({
           style={{ backgroundColor: `${primaryColor}15` }}></div>
 
         {/* SECTION 1: PORTADA */}
-        <section className="mb-24">
+        <section className="mb-24" data-section="portada">
           <div className="flex justify-between items-start mb-20">
             <div className="text-xl font-black tracking-tighter uppercase italic">
               {workspace?.logo_url ? (
@@ -234,7 +236,7 @@ export default async function ClientProposalPage({
         </section>
 
         {/* SECTION 2: RESUMEN EJECUTIVO */}
-        <section className="mb-24 space-y-16">
+        <section className="mb-24 space-y-16" data-section="resumen_ejecutivo">
           <div className="space-y-6">
             <h3 className="text-[10px] font-mono uppercase tracking-[0.3em] text-neutral-400 font-bold border-l-2 border-neutral-100 pl-4">
               EL DESAFÍO
@@ -258,7 +260,7 @@ export default async function ClientProposalPage({
         </section>
 
         {/* SECTION 3: ALCANCE DEL PROYECTO */}
-        <section className="mb-24">
+        <section className="mb-24" data-section="alcance">
           <h3 className="text-[10px] font-mono uppercase tracking-[0.3em] text-neutral-400 font-bold mb-10 text-center">
             QUÉ ENTREGAMOS
           </h3>
@@ -288,7 +290,7 @@ export default async function ClientProposalPage({
         </section>
 
         {/* SECTION 4: PROCESO Y TIMELINE */}
-        <section className="mb-24">
+        <section className="mb-24" data-section="timeline">
           <h3 className="text-[10px] font-mono uppercase tracking-[0.3em] text-neutral-400 font-bold mb-16 text-center">
             NUESTRO PROCESO
           </h3>
@@ -347,7 +349,7 @@ export default async function ClientProposalPage({
         </section>
 
         {/* SECTION 5: INVERSIÓN */}
-        <section className="mb-24 py-16 border-y-2 border-neutral-900">
+        <section className="mb-24 py-16 border-y-2 border-neutral-900" data-section="inversion">
           <div className="max-w-[500px] mx-auto space-y-6">
             <div className="flex justify-between items-center text-sm">
               <span className="text-neutral-300 uppercase tracking-widest text-[10px] font-mono">

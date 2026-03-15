@@ -23,6 +23,7 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 import { ProposalItemsList } from "@/components/forge/proposals/ProposalItemsList";
 import { format } from "date-fns";
+import { ProposalIntelligence } from "@/components/forge/proposals/ProposalIntelligence";
 import { updateProposalAction } from "@/app/actions/proposals";
 import { generateSigningLink } from "@/app/actions/sign-actions";
 import { AuditTrailBadge } from "@/components/sign/AuditTrailBadge";
@@ -186,6 +187,8 @@ export default function ProposalBuilderClient({
       <div className="flex-1 flex min-h-[calc(100vh-64px)]">
         {/* Left Panel: Editing Forms (60% or scrollable) */}
         <div className="w-full lg:w-[45%] border-r border-white/5 overflow-y-auto bg-[#050505] p-5 md:p-8 space-y-12 forge-scroll h-[calc(100vh-64px)]">
+          <ProposalIntelligence proposalId={proposal.id} />
+          
           <section className="space-y-6">
             <div className="flex items-center justify-between">
               <h3 className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-300">

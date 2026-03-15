@@ -4,19 +4,18 @@ import { useEffect, useState } from "react";
 import {
   BarChart3,
   BookOpen,
+  Briefcase,
   CreditCard,
   FileSignature,
+  FileText,
   Home,
   Kanban,
-  LayoutDashboard,
   LifeBuoy,
   Megaphone,
-  Send,
-  Settings,
   Shuffle,
-  StickyNote,
   UserCheck,
   Users,
+  Settings,
 } from "lucide-react";
 import { useFollowUps } from "@/hooks/useFollowUps";
 import { createClient } from "@/utils/supabase/client";
@@ -31,7 +30,10 @@ export interface ForgeNavItem {
 }
 
 export interface ForgeNavGroup {
+  /** Machine key used as React key */
   group: string;
+  /** Human-readable section header shown in sidebar (omit for ungrouped items) */
+  label?: string;
   items: ForgeNavItem[];
 }
 
@@ -39,49 +41,69 @@ type ForgeTranslator = (key: string) => string;
 
 export function getForgePrimaryNav(t: ForgeTranslator): ForgeNavGroup[] {
   return [
+    // ── Home ────────────────────────────────────────────────────────────────
     {
-      group: "Main",
+      group: "home",
+      items: [{ label: t("inicio"), href: "/", icon: Home }],
+    },
+
+    // ── RELATIONSHIPS ────────────────────────────────────────────────────────
+    {
+      group: "relationships",
+      label: "Relationships",
       items: [
-        { label: t("inicio"), href: "/", icon: Home },
-        { label: t("projects"), href: "/projects", icon: LayoutDashboard },
+        { label: t("clientes"), href: "/clients", icon: UserCheck },
         {
-          label: t("pipeline"),
-          href: "/pipeline",
-          icon: Kanban,
+          label: t("leads"),
+          href: "/leads",
+          icon: Users,
           badgeKey: "pipelineAlerts",
         },
       ],
     },
+
+    // ── SALES ────────────────────────────────────────────────────────────────
     {
-      group: "CRM",
+      group: "sales",
+      label: "Sales",
       items: [
+        { label: t("pipeline"), href: "/pipeline", icon: Kanban },
         {
           label: t("propuestas"),
           href: "/proposals",
-          icon: StickyNote,
+          icon: FileText,
           badgeKey: "proposalSuggestions",
         },
-        { label: t("contratos"), href: "/contracts", icon: Send },
-        { label: t("documentos"), href: "/documents", icon: FileSignature },
-        { label: t("clientes"), href: "/clients", icon: UserCheck },
-        { label: t("leads"), href: "/leads", icon: Users },
+        { label: t("contratos"), href: "/contracts", icon: FileSignature },
       ],
     },
+
+    // ── DOCUMENTS ────────────────────────────────────────────────────────────
     {
-      group: "Tools",
+      group: "documents",
+      label: "Documents",
       items: [
+        { label: t("documentos"), href: "/documents", icon: BookOpen },
+      ],
+    },
+
+    // ── OPERATIONS ───────────────────────────────────────────────────────────
+    {
+      group: "operations",
+      label: "Operations",
+      items: [
+        { label: t("projects"), href: "/projects", icon: Briefcase },
         { label: t("migration"), href: "/migration", icon: Shuffle },
-        { label: t("metricas"), href: "/metrics", icon: BarChart3 },
       ],
     },
+
+    // ── INTELLIGENCE ─────────────────────────────────────────────────────────
     {
-      group: t("configuracion"),
+      group: "intelligence",
+      label: "Intelligence",
       items: [
-        {
-          label: t("marketing"),
-          href: "/settings/marketing",
-          icon: Megaphone,
-        },
+        { label: t("metricas"), href: "/metrics", icon: BarChart3 },
+        { label: t("marketing"), href: "/settings/marketing", icon: Megaphone },
       ],
     },
   ];

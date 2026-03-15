@@ -3,6 +3,7 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { getRequiredWorkspace } from "@/lib/workspace";
 import { ForgeEmptyState } from "@/components/forge/ForgeEmptyState";
+import { DocumentsClient } from "./DocumentsClient";
 
 export const dynamic = "force-dynamic";
 
@@ -21,9 +22,9 @@ export default async function DocumentsPage({
     { count: proposalsCount },
     { count: contractsCount },
     { count: deliverablesCount },
-    { data: recentProposals },
-    { data: recentContracts },
-    { data: recentDeliverables },
+    { data: rawProposals },
+    { data: rawContracts },
+    { data: rawDeliverables },
   ] = await Promise.all([
     supabase
       .from("proposals")
@@ -39,22 +40,22 @@ export default async function DocumentsPage({
       .eq("project.workspace_id", ctx.workspaceId),
     supabase
       .from("proposals")
-      .select("id, title, proposal_number, created_at")
+      .select("id, title, proposal_number, status, client_name, updated_at, created_at")
       .eq("workspace_id", ctx.workspaceId)
-      .order("created_at", { ascending: false })
-      .limit(4),
+      .order("updated_at", { ascending: false })
+      .limit(8),
     supabase
       .from("contracts")
-      .select("id, client_name, contract_number, created_at")
+      .select("id, client_name, contract_number, status, updated_at, created_at")
       .eq("workspace_id", ctx.workspaceId)
-      .order("created_at", { ascending: false })
-      .limit(4),
+      .order("updated_at", { ascending: false })
+      .limit(8),
     supabase
       .from("project_deliverables")
       .select("id, title, created_at, project:projects!inner(id, name)")
       .eq("project.workspace_id", ctx.workspaceId)
       .order("created_at", { ascending: false })
-      .limit(4),
+      .limit(8),
   ]);
 
   const hasDocuments =
@@ -62,8 +63,72 @@ export default async function DocumentsPage({
     (contractsCount || 0) > 0 ||
     (deliverablesCount || 0) > 0;
 
+  // Map to unified DocItem shape
+  const proposals = (rawProposals || []).map((p: any) => ({
+    id: p.id,
+    type: "proposal" as const,
+    title: p.title || "Propuesta sin título",
+    client: p.client_name || "Sin cliente",
+    folio: p.proposal_number || "",
+    status: p.status || "draft",
+    updatedAt: p.updated_at || p.created_at,
+    href: localizedHref(`/proposals/${p.id}/edit`),
+  }));
+
+  const contracts = (rawContracts || []).map((c: any) => ({
+    id: c.id,
+    type: "contract" as const,
+    title: `Contrato – ${c.client_name || "Sin cliente"}`,
+    client: c.client_name || "Sin cliente",
+    folio: c.contract_number || "",
+    status: c.status || "draft",
+    updatedAt: c.updated_at || c.created_at,
+    href: localizedHref(`/contracts/${c.id}/edit`),
+  }));
+
+  const deliverables = (rawDeliverables || []).map((d: any) => ({
+    id: d.id,
+    type: "deliverable" as const,
+    title: d.title || "Entregable sin título",
+    client: (d.project as any)?.name || "Proyecto",
+    folio: "",
+    status: "delivered",
+    updatedAt: d.created_at,
+    href: (d.project as any)?.id
+      ? localizedHref(`/projects?projectId=${(d.project as any).id}`)
+      : localizedHref("/projects"),
+  }));
+
+  // Build a lightweight activity feed from the same data
+  const activity = [
+    ...proposals.slice(0, 3).map((p) => ({
+      id: `p-${p.id}`,
+      label: p.status === "sent" ? "Propuesta enviada" : "Propuesta actualizada",
+      docTitle: p.title,
+      createdAt: p.updatedAt,
+      type: "proposal" as const,
+    })),
+    ...contracts.slice(0, 3).map((c) => ({
+      id: `c-${c.id}`,
+      label: c.status === "signed" ? "Contrato firmado" : "Contrato actualizado",
+      docTitle: c.title,
+      createdAt: c.updatedAt,
+      type: "contract" as const,
+    })),
+    ...deliverables.slice(0, 2).map((d) => ({
+      id: `d-${d.id}`,
+      label: "Entregable compartido",
+      docTitle: d.title,
+      createdAt: d.updatedAt,
+      type: "deliverable" as const,
+    })),
+  ]
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 6);
+
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-8 md:px-8">
+      {/* ── Page header ── */}
       <div className="flex flex-col gap-5 rounded-[2rem] border border-white/8 bg-[#0C0C0C] p-6 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/35">
@@ -71,10 +136,8 @@ export default async function DocumentsPage({
           </p>
           <h1 className="mt-3 text-3xl font-bold text-white">Documentos</h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55">
-            Este módulo funciona como centro documental del workspace:
-            concentra propuestas, contratos y entregables compartidos para dar
-            seguimiento claro a lo que ya se generó, se envió o quedó en
-            revisión con clientes.
+            Centro documental del workspace: propuestas, contratos y entregables
+            en un solo lugar.
           </p>
         </div>
 
@@ -96,6 +159,7 @@ export default async function DocumentsPage({
         </div>
       </div>
 
+      {/* ── Metric cards (interactive links) ── */}
       <div className="grid gap-4 md:grid-cols-3">
         <MetricCard
           icon={FileText}
@@ -120,6 +184,7 @@ export default async function DocumentsPage({
         />
       </div>
 
+      {/* ── Document hub ── */}
       {!hasDocuments ? (
         <ForgeEmptyState
           icon="folder"
@@ -139,52 +204,13 @@ export default async function DocumentsPage({
           }}
         />
       ) : (
-        <div className="grid gap-6 lg:grid-cols-3">
-          <DocumentsListCard
-            title="Propuestas recientes"
-            helper="Documentos comerciales en edición o seguimiento"
-            emptyLabel="Todavía no has creado propuestas."
-            emptyAction={{
-              label: "Crear propuesta",
-              href: localizedHref("/proposals?new=proposal"),
-            }}
-            items={(recentProposals || []).map((proposal: any) => ({
-              id: proposal.id,
-              title: proposal.title || "Propuesta sin título",
-              meta: proposal.proposal_number || "Sin folio",
-              href: localizedHref(`/proposals/${proposal.id}/edit`),
-            }))}
-          />
-          <DocumentsListCard
-            title="Contratos recientes"
-            helper="Acuerdos legales listos para gestionar"
-            emptyLabel="Todavía no hay contratos en este workspace."
-            emptyAction={{
-              label: "Crear contrato",
-              href: localizedHref("/contracts?new=contract"),
-            }}
-            items={(recentContracts || []).map((contract: any) => ({
-              id: contract.id,
-              title: contract.client_name || "Contrato sin cliente",
-              meta: contract.contract_number || "Sin folio",
-              href: localizedHref(`/contracts/${contract.id}/edit`),
-            }))}
-          />
-          <DocumentsListCard
-            title="Entregables recientes"
-            helper="Recursos operativos compartidos para revisión o seguimiento"
-            emptyLabel="No se han compartido entregables todavía."
-            emptyAction={{ label: "Ir a proyectos", href: localizedHref("/projects") }}
-            items={(recentDeliverables || []).map((deliverable: any) => ({
-              id: deliverable.id,
-              title: deliverable.title || "Entregable sin título",
-              meta: deliverable.project?.name || "Proyecto",
-              href: deliverable.project?.id
-                ? localizedHref(`/projects?projectId=${deliverable.project.id}`)
-                : localizedHref("/projects"),
-            }))}
-          />
-        </div>
+        <DocumentsClient
+          proposals={proposals}
+          contracts={contracts}
+          deliverables={deliverables}
+          activity={activity}
+          locale={locale}
+        />
       )}
     </div>
   );
@@ -206,81 +232,22 @@ function MetricCard({
   return (
     <Link
       href={href}
-      className="rounded-[1.75rem] border border-white/8 bg-white/[0.02] p-5 transition-colors hover:border-white/15 hover:bg-white/[0.03]"
+      className="group rounded-[1.75rem] border border-white/8 bg-white/[0.02] p-5 transition-all hover:border-white/15 hover:bg-white/[0.04]"
     >
       <div className="flex items-center justify-between">
         <span className="text-[10px] font-mono uppercase tracking-[0.26em] text-white/35">
           {label}
         </span>
-        <Icon className="h-4 w-4 text-white/30" />
+        <Icon className="h-4 w-4 text-white/30 transition-colors group-hover:text-white/50" />
       </div>
       <div className="mt-4 text-4xl font-black tracking-tight text-white">
         {value}
       </div>
       <p className="mt-2 text-sm text-white/50">{helper}</p>
+      <div className="mt-3 flex items-center gap-1 text-[10px] font-mono text-white/25 transition-colors group-hover:text-white/50">
+        <ArrowRight className="h-3 w-3" />
+        <span>Ver {label.toLowerCase()}</span>
+      </div>
     </Link>
-  );
-}
-
-function DocumentsListCard({
-  title,
-  helper,
-  emptyLabel,
-  emptyAction,
-  items,
-}: {
-  title: string;
-  helper: string;
-  emptyLabel: string;
-  emptyAction?: { label: string; href: string };
-  items: Array<{ id: string; title: string; meta: string; href: string }>;
-}) {
-  return (
-    <section className="rounded-[1.75rem] border border-white/8 bg-white/[0.02]">
-      <div className="border-b border-white/5 px-5 py-4">
-        <h2 className="text-sm font-semibold text-white">{title}</h2>
-        <p className="mt-1 text-xs text-white/45">{helper}</p>
-      </div>
-      <div className="p-3">
-        {items.length === 0 ? (
-          <ForgeEmptyState
-            icon="folder"
-            size="compact"
-            eyebrow={title}
-            title={emptyLabel}
-            description="Usa la acción recomendada para generar el primer documento relacionado con esta categoría."
-            primaryAction={
-              emptyAction
-                ? {
-                    label: emptyAction.label,
-                    href: emptyAction.href,
-                    icon: "arrow-right",
-                  }
-                : undefined
-            }
-          />
-        ) : (
-          <div className="space-y-2">
-            {items.map((item) => (
-              <Link
-                key={item.id}
-                href={item.href}
-                className="flex items-center justify-between gap-3 rounded-2xl border border-transparent bg-white/[0.02] px-4 py-3 transition-colors hover:border-white/10 hover:bg-white/[0.04]"
-              >
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-medium text-white">
-                    {item.title}
-                  </p>
-                  <p className="mt-1 truncate text-[11px] text-white/35">
-                    {item.meta}
-                  </p>
-                </div>
-                <ArrowRight className="h-4 w-4 shrink-0 text-white/25" />
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
   );
 }

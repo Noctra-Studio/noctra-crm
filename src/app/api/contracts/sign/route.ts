@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { createAdminClient } from "@/utils/supabase/admin";
 import { recordWorkspaceActivity } from "@/lib/activity";
 import { createProjectRecord } from "@/lib/projects";
+import { onProjectCreated } from "@/app/actions/crm-automations";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -85,6 +86,13 @@ export async function POST(req: Request) {
           client_email: contract.client_email,
           client_company: contract.client_company,
         });
+
+        // Trigger Workflow Automation: Add Default Deliverables
+        try {
+          await onProjectCreated(newProject.id, contract.workspace_id);
+        } catch (e) {
+          console.error("Workflow Automation Error (Project -> Deliverables):", e);
+        }
 
         await recordWorkspaceActivity(supabase, {
           workspaceId: contract.workspace_id,

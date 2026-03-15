@@ -19,7 +19,7 @@ export default async function ProposalsPage({
     .select(
       `
       *,
-      lead:contact_submissions(id, name, email)
+      lead:contact_submissions(id, name, email, lead_score, lead_score_breakdown)
     `,
     )
     .eq("workspace_id", ctx.workspaceId)
