@@ -549,7 +549,7 @@ export default function ForgeProjectsClient({
                 <div className="flex min-w-0 items-center gap-4">
                   <input
                     type="text"
-                    value={selectedProject.name}
+                    value={selectedProject.name || ""}
                     onChange={(e) =>
                       updateLocal(selectedProject.id, "name", e.target.value)
                     }
@@ -704,7 +704,7 @@ export default function ForgeProjectsClient({
                       </label>
                       <input
                         type="text"
-                        value={selectedProject.slug}
+                        value={selectedProject.slug || ""}
                         onChange={(e) =>
                           updateLocal(
                             selectedProject.id,
@@ -721,7 +721,7 @@ export default function ForgeProjectsClient({
                       </label>
                       <input
                         type="text"
-                        value={selectedProject.industry}
+                        value={selectedProject.industry || ""}
                         onChange={(e) =>
                           updateLocal(
                             selectedProject.id,
@@ -738,7 +738,7 @@ export default function ForgeProjectsClient({
                       </label>
                       <input
                         type="text"
-                        value={selectedProject.tagline}
+                        value={selectedProject.tagline || ""}
                         onChange={(e) =>
                           updateLocal(
                             selectedProject.id,

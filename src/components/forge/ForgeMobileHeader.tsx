@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { ForgeMobileNav } from "./ForgeMobileNav";
 import { ChatWidget } from "@/components/ui/ChatWidget";
+import { EnvironmentBadge } from "@/components/forge/EnvironmentBadge";
 
 export function ForgeMobileHeader() {
   const [navOpen, setNavOpen] = useState(false);
@@ -26,6 +27,7 @@ export function ForgeMobileHeader() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-1.5 -mr-2">
+          <EnvironmentBadge />
           <ChatWidget variant="headerAction" />
 
           <SheetTrigger asChild>

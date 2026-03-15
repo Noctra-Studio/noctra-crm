@@ -31,7 +31,8 @@
       "Bash(xargs:*)",
       "Bash(cat:*)",
       "Bash(grep:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(npx tsx:*)"
     ],
     "deny": [],
     "ask": []

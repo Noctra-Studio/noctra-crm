@@ -16,6 +16,8 @@ import { Plus } from "lucide-react";
 import { OnboardingWizard } from "@/components/forge/OnboardingWizard";
 import { ChatWidget } from "@/components/ui/ChatWidget";
 import { canAccessCentralBrainRole } from "@/lib/ai/brain-access";
+import { EnvironmentBanner } from "@/components/forge/EnvironmentBanner";
+import { EnvironmentWatermark } from "@/components/forge/EnvironmentWatermark";
 import { NewLeadModal } from "./leads/NewLeadModal";
 import { NewProposalModal } from "./proposals/NewProposalModal";
 import { NewContractModal } from "./contracts/NewContractModal";
@@ -146,6 +148,7 @@ export default function ForgeLayoutClient({
             </aside>
 
             <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden forge-scroll flex flex-col">
+              <EnvironmentBanner />
               <ForgeTopBar onOpenQuickActions={() => setCommandBarOpen(true)} />
               <ForgeContentWrapper>{children}</ForgeContentWrapper>
             </main>
@@ -153,6 +156,7 @@ export default function ForgeLayoutClient({
 
           {/* MOBILE LAYOUT & FAB */}
           <div className="md:hidden flex min-w-0 flex-col h-dvh overflow-hidden bg-[#050505] text-white relative">
+            <EnvironmentBanner />
             <ForgeMobileHeader />
             <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden pb-[calc(env(safe-area-inset-bottom)+7rem)] forge-scroll flex flex-col relative">
               <ForgeContentWrapper>{children}</ForgeContentWrapper>
@@ -204,6 +208,9 @@ export default function ForgeLayoutClient({
 
           {/* AI Chat Widget */}
           {hasSession && canAccessCentralBrainRole(workspaceRole) && <ChatWidget />}
+
+          {/* Environment indicators (non-production only) */}
+          <EnvironmentWatermark />
         </>
       )}
     </>

@@ -24,13 +24,13 @@ export default async function ForgeClientsPage({
         id,
         name,
         status,
-        service_type,
         created_at,
         client_name,
         client_email,
         client_company,
         lead_id,
-        contract_id
+        contract_id,
+        contracts:contract_id ( service_type )
       `,
       )
       .eq("workspace_id", ctx.workspaceId)
@@ -87,7 +87,7 @@ export default async function ForgeClientsPage({
       name: p.client_name ?? p.name,
       email: p.client_email,
       company: p.client_company,
-      serviceType: p.service_type,
+      serviceType: (p as any).contracts?.service_type ?? null,
       status: p.status,
       phase: (p as any).phase, // Need to make sure project table has phase or map it
       source: "project",

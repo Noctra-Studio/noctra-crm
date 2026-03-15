@@ -11,6 +11,7 @@ import { AvatarDropdown } from "@/components/forge/modals/AvatarDropdown";
 import { PerfilModal } from "@/components/forge/modals/PerfilModal";
 import { SuscripcionModal } from "@/components/forge/modals/SuscripcionModal";
 import { ConfiguracionesModal } from "@/components/forge/modals/ConfiguracionesModal";
+import { EnvironmentBadge } from "@/components/forge/EnvironmentBadge";
 import { createClient } from "@/utils/supabase/client";
 
 export function ForgeTopBar({
@@ -73,6 +74,7 @@ export function ForgeTopBar({
 
         {/* Right Col: Notifications & Avatar */}
         <div className="flex items-center gap-4 justify-end">
+          <EnvironmentBadge />
           <div className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2">
             <LanguageSwitcher
               className="gap-1.5 text-[11px] font-mono font-bold uppercase tracking-[0.24em]"
