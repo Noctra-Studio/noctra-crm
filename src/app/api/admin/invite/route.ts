@@ -60,6 +60,7 @@ export async function POST(request: Request) {
     client_id: userId,
     name: project_name,
     status: "discovery",
+    published_to_site: false,
   });
 
   if (projectError) {

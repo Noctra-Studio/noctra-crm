@@ -39,6 +39,7 @@ export async function createProjectAction(data: {
   start_date?: string;
   launch_date?: string;
   service_type?: ProjectServiceType;
+  published_to_site?: boolean;
   client_name?: string;
   client_email?: string;
   client_company?: string;
@@ -75,6 +76,7 @@ export async function createProjectAction(data: {
       start_date: data.start_date,
       launch_date: data.launch_date,
       service_type: data.service_type,
+      published_to_site: data.published_to_site,
       client_name: data.client_name,
       client_email: data.client_email,
       client_company: data.client_company,

@@ -341,6 +341,7 @@ export default function ForgeProjectsClient({
           tagline: project.tagline,
           industry: project.industry,
           visible: project.visible,
+          published_to_site: project.published_to_site,
           start_date: project.start_date,
           launch_date: project.launch_date,
           deadline: project.deadline,
@@ -541,11 +542,9 @@ export default function ForgeProjectsClient({
                     className={`px-2 py-0.5 rounded-none border text-[10px] font-mono uppercase tracking-widest ${getStatusColor(selectedProject.status)}/10 border-${getStatusColor(selectedProject.status)}/20 text-${getStatusColor(selectedProject.status).replace("bg-", "")}`}>
                     {selectedProject.status}
                   </div>
-                  {!selectedProject.visible && (
-                    <div className="px-2 py-0.5 border border-neutral-800 text-neutral-300 text-[10px] font-mono uppercase tracking-widest">
-                      Hidden
-                    </div>
-                  )}
+                  <div className="px-2 py-0.5 border border-neutral-800 text-neutral-300 text-[10px] font-mono uppercase tracking-widest">
+                    {selectedProject.published_to_site ? "Publicado" : "Solo CRM"}
+                  </div>
                 </div>
                 <div className="flex min-w-0 items-center gap-4">
                   <input
@@ -773,17 +772,17 @@ export default function ForgeProjectsClient({
                         onClick={() =>
                           updateLocal(
                             selectedProject.id,
-                            "visible",
-                            !selectedProject.visible,
+                            "published_to_site",
+                            !selectedProject.published_to_site,
                           )
                         }
-                        className={`w-12 h-6 rounded-full relative transition-colors shrink-0 ${selectedProject.visible ? "bg-emerald-500" : "bg-neutral-800"}`}>
+                        className={`w-12 h-6 rounded-full relative transition-colors shrink-0 ${selectedProject.published_to_site ? "bg-emerald-500" : "bg-neutral-800"}`}>
                         <div
-                          className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-all duration-300 ${selectedProject.visible ? "left-7" : "left-1"}`}
+                          className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-all duration-300 ${selectedProject.published_to_site ? "left-7" : "left-1"}`}
                         />
                       </button>
                       <span className="text-xs font-mono uppercase tracking-widest text-neutral-400">
-                        Visible on Public Work Page
+                        Publicado en página pública
                       </span>
                     </div>
                   </div>

@@ -987,6 +987,7 @@ interface ProjectRow {
   report_token: string;
   sort_order: number;
   visible: boolean;
+  published_to_site: boolean;
   has_ai_form: boolean;
   case_study_enabled: boolean;
   metrics: any[];
@@ -1061,6 +1062,8 @@ function generateProjects(
       report_token: uuid(),
       sort_order: (i + 1) * 10,
       visible: true,
+      published_to_site:
+        uniqueSlug.includes("dyma") || uniqueSlug.includes("woodax"),
       has_ai_form: false,
       case_study_enabled: status === "completed" && i < 3,
       metrics: status === "completed" && i < 3

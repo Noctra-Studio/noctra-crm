@@ -33,6 +33,7 @@ export type Project = {
   form_description: string | null;
   sort_order: number;
   visible: boolean;
+  published_to_site: boolean;
   start_date: string | null;
   deadline: string | null;
   internal_notes: string | null;
@@ -68,6 +69,7 @@ export type CreateProjectInput = {
   service_type?: ProjectServiceType;
   sort_order?: number;
   visible?: boolean;
+  published_to_site?: boolean;
   client_name?: string | null;
   client_email?: string | null;
   client_company?: string | null;
@@ -107,6 +109,7 @@ export async function createProjectRecord(
     launch_date: input.launch_date || null,
     sort_order: sortOrder,
     visible: input.visible ?? true,
+    published_to_site: input.published_to_site ?? false,
     has_ai_form: false,
     case_study_enabled: false,
     metrics: [],
@@ -146,7 +149,7 @@ export async function getProjects(): Promise<Project[]> {
   const { data, error } = await supabase
     .from("projects")
     .select("*")
-    .eq("visible", true)
+    .eq("published_to_site", true)
     .order("sort_order", { ascending: true });
 
   if (error) throw new Error(error.message);
@@ -159,6 +162,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
     .from("projects")
     .select("*")
     .eq("slug", slug)
+    .eq("published_to_site", true)
     .single();
 
   if (error) return null;

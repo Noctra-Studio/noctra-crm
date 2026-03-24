@@ -17,6 +17,7 @@ type NewProjectFormState = {
   service_type: ProjectServiceType;
   start_date: string;
   launch_date: string;
+  published_to_site: boolean;
 };
 
 const INITIAL_FORM: NewProjectFormState = {
@@ -26,6 +27,7 @@ const INITIAL_FORM: NewProjectFormState = {
   service_type: PROJECT_SERVICE_TYPE_VALUES[0],
   start_date: "",
   launch_date: "",
+  published_to_site: false,
 };
 
 const SERVICE_LABELS: Record<ProjectServiceType, string> = {
@@ -94,6 +96,7 @@ export function NewProjectModal({
       service_type: form.service_type,
       start_date: form.start_date || undefined,
       launch_date: form.launch_date || undefined,
+      published_to_site: form.published_to_site,
     });
 
     if (!result.success) {
@@ -226,6 +229,26 @@ export function NewProjectModal({
             </label>
           </div>
 
+          <label className="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-4">
+            <input
+              type="checkbox"
+              checked={form.published_to_site}
+              onChange={(event) =>
+                updateField("published_to_site", event.target.checked)
+              }
+              className="mt-1 h-4 w-4 rounded border-white/15 bg-transparent text-emerald-500 focus:ring-emerald-500/40"
+            />
+            <div className="space-y-1">
+              <p className="text-[10px] font-mono uppercase tracking-[0.24em] text-white/60">
+                Publicar en página
+              </p>
+              <p className="text-sm text-white/70">
+                Si está activo, el proyecto podrá mostrarse en la página pública
+                de trabajo. Si no, se queda solo dentro del CRM.
+              </p>
+            </div>
+          </label>
+
           {errorMessage && (
             <div className="rounded-2xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-sm text-red-200">
               {errorMessage}
@@ -236,7 +259,8 @@ export function NewProjectModal({
         <div className="flex flex-col gap-3 border-t border-white/5 p-6 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-2 text-xs text-white/45">
             <Sparkles className="h-4 w-4 text-emerald-400" />
-            Se crea en Supabase con tareas iniciales y actividad del workspace.
+            Se crea en Supabase con tareas iniciales, actividad del workspace y
+            sin publicarse en la web a menos que lo actives.
           </div>
 
           <div className="flex gap-3">
