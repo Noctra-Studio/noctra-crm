@@ -1,4 +1,5 @@
 import "server-only";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 const PUBLIC_PROJECTS_TAG = "public-projects";
 
@@ -28,16 +29,22 @@ function getProjectPaths(slug?: string | null) {
   return paths;
 }
 
+function revalidateLocally(slug?: string | null): PublicSiteRevalidateResult {
+  for (const path of getProjectPaths(slug)) {
+    revalidatePath(path);
+  }
+
+  revalidateTag(PUBLIC_PROJECTS_TAG, "max");
+  return { ok: true };
+}
+
 export async function revalidatePublicProjectContent(
   slug?: string | null,
 ): Promise<PublicSiteRevalidateResult> {
   const secret = getPublicSiteRevalidateSecret();
 
   if (!secret) {
-    return {
-      ok: false,
-      error: "Missing PUBLIC_SITE_REVALIDATE_SECRET",
-    };
+    return revalidateLocally(slug);
   }
 
   const endpoint = new URL("/api/revalidate", getPublicSiteBaseUrl());

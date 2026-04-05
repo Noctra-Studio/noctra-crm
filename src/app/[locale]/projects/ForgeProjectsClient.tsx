@@ -93,6 +93,8 @@ export default function ForgeProjectsClient({
   const [isCreating, setIsCreating] = useState(false);
   const [unsavedIds, setUnsavedIds] = useState<Set<string>>(new Set());
   const [savingGlobal, setSavingGlobal] = useState(false);
+  const [isRevalidatingPublicSite, setIsRevalidatingPublicSite] =
+    useState(false);
   const [toast, setToast] = useState<{
     message: string;
     type: "success" | "error";
@@ -414,6 +416,23 @@ export default function ForgeProjectsClient({
     }
   };
 
+  const handleRefreshPublicSite = async (project: Project) => {
+    setIsRevalidatingPublicSite(true);
+
+    try {
+      const result = await revalidatePublicProjectContentAction(project.slug);
+      if (!result.success) {
+        throw new Error(result.error || "Failed to refresh public site cache");
+      }
+
+      showToast("Public site cache refreshed");
+    } catch (err: any) {
+      showToast(err.message, "error");
+    } finally {
+      setIsRevalidatingPublicSite(false);
+    }
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "discovery":
@@ -556,6 +575,19 @@ export default function ForgeProjectsClient({
                     className="text-4xl md:text-5xl font-bold bg-transparent border-none p-0 focus:outline-none focus:ring-0 w-full placeholder-neutral-800"
                     placeholder="Project Name"
                   />
+                  {selectedProject.published_to_site && (
+                    <button
+                      onClick={() => handleRefreshPublicSite(selectedProject)}
+                      disabled={isRevalidatingPublicSite}
+                      className="hidden md:flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-neutral-800 text-neutral-400 text-[10px] font-mono uppercase tracking-widest hover:text-white hover:bg-neutral-800 transition-colors shrink-0 disabled:opacity-50">
+                      {isRevalidatingPublicSite ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <LinkIcon className="w-3.5 h-3.5" />
+                      )}
+                      Refresh /work
+                    </button>
+                  )}
                   <button
                     onClick={() => setIsReportModalOpen(true)}
                     className="hidden md:flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-neutral-800 text-neutral-400 text-[10px] font-mono uppercase tracking-widest hover:text-white hover:bg-neutral-800 transition-colors shrink-0">
